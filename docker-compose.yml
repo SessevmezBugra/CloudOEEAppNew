@@ -1,0 +1,344 @@
+version: '3.7'
+services:
+  frontend-app:
+    image: bsessevmez/frontend-app:0.0.1-SNAPSHOT
+    container_name: frontend-app
+    build:
+      context: frontend-app
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    restart: always
+    depends_on:
+      - gateway-service
+    networks:
+      - oee-compose-network
+
+  # rabbitmq:
+  #   image: rabbitmq:3.8.3-management
+  #   ports:
+  #     - "5672:5672"
+  #     - "15672:15672"
+  #   restart: always
+  #   networks:
+  #     - oee-compose-network
+
+  eureka-server:
+    environment: 
+      CONFIG_URI: $CONFIG_URI
+      FAIL_FAST: $FAIL_FAST
+      EUREKA_URI: $EUREKA_URI
+    image: bsessevmez/eureka-server:0.0.1-SNAPSHOT
+    build:
+      context: eureka-server
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+    restart: always
+    depends_on:
+      - config-service
+    networks:
+      - oee-compose-network
+
+  storage:
+    image: openzipkin/zipkin-mysql
+    container_name: mysql
+    # Uncomment to expose the storage port for testing
+    # ports:
+    #   - 3306:3306
+    networks:
+      - oee-compose-network
+
+  zipkin-server:
+    environment:
+      STORAGE_TYPE: $STORAGE_TYPE
+      MYSQL_HOST: mysql
+      # RABBIT_URI: $RABBIT_URI
+    image: openzipkin/zipkin
+    container_name: zipkin-server
+    ports:
+      - "9411:9411"
+    restart: always
+    depends_on:
+      - storage
+    networks:
+      - oee-compose-network
+
+  dependencies:
+    image: openzipkin/zipkin-dependencies
+    container_name: dependencies
+    entrypoint: crond -f
+    environment:
+      - STORAGE_TYPE=mysql
+      - MYSQL_HOST=mysql
+      # Add the baked-in username and password for the zipkin-mysql image
+      - MYSQL_USER=zipkin
+      - MYSQL_PASS=zipkin
+      # Uncomment to see dependency processing logs
+      # - ZIPKIN_LOG_LEVEL=DEBUG
+      # Uncomment to adjust memory used by the dependencies job
+      # - JAVA_OPTS=-verbose:gc -Xms1G -Xmx1G
+    depends_on:
+      - storage
+    networks:
+      - oee-compose-network
+
+  gateway-service:
+    environment:
+      # RABBIT_URI: $RABBIT_URI
+      CONFIG_URI:  $CONFIG_URI
+      FAIL_FAST: $FAIL_FAST
+      EUREKA_URI: $EUREKA_URI
+      ZIPKIN_URI: $ZIPKIN_URI
+    image: bsessevmez/gateway-service:0.0.1-SNAPSHOT
+    build:
+      context: gateway-service
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    restart: always
+    depends_on:
+      - eureka-server
+      # - rabbitmq
+      - zipkin-server
+      - config-service
+    networks:
+      - oee-compose-network
+
+  auth-service:
+    environment:
+      # RABBIT_URI: $RABBIT_URI
+      RDS_HOSTNAME: $RDS_AUTH_HOSTNAME
+      RDS_PORT: $RDS_PORT
+      RDS_DB_NAME: $RDS_DB_NAME
+      RDS_USERNAME: $RDS_USERNAME
+      RDS_PASSWORD: $RDS_PASSWORD
+      CONFIG_URI:  $CONFIG_URI
+      FAIL_FAST: $FAIL_FAST
+      EUREKA_URI: $EUREKA_URI
+      ZIPKIN_URI: $ZIPKIN_URI
+    image: bsessevmez/auth-service:0.0.1-SNAPSHOT
+    build:
+      context: auth-service
+      dockerfile: Dockerfile
+    # ports:
+    #   - "5000:5000"
+    restart: always
+    depends_on:
+      - eureka-server
+      # - rabbitmq
+      - zipkin-server
+      - auth-database
+      - config-service
+    networks:
+      - oee-compose-network
+
+  auth-database:
+    environment:
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+      MYSQL_DATABASE: $MYSQL_DATABASE
+    image: mysql:8.0
+    ports:
+      - "3307:3306"
+    restart: always
+    volumes:
+      - mysql-database-data-volume:/var/lib/auth-database
+    networks:
+      - oee-compose-network
+      
+  config-service:
+    environment:
+      # RABBIT_URI: $RABBIT_URI
+      EUREKA_URI: $EUREKA_URI
+      ZIPKIN_URI: $ZIPKIN_URI
+    image: bsessevmez/config-service:0.0.1-SNAPSHOT
+    build:
+      context: config-service
+      dockerfile: Dockerfile
+    ports:
+      - "8888:8888"
+    restart: always
+    depends_on:
+      # - rabbitmq
+      - zipkin-server
+    networks:
+      - oee-compose-network
+
+  confirmation-service:
+    environment:
+      # RABBIT_URI: $RABBIT_URI
+      RDS_HOSTNAME: $RDS_CONFIRMATION_HOSTNAME
+      RDS_PORT: $RDS_PORT
+      RDS_DB_NAME: $RDS_DB_NAME
+      RDS_USERNAME: $RDS_USERNAME
+      RDS_PASSWORD: $RDS_PASSWORD
+      CONFIG_URI:  $CONFIG_URI
+      FAIL_FAST: $FAIL_FAST
+      EUREKA_URI: $EUREKA_URI
+      ZIPKIN_URI: $ZIPKIN_URI
+    image: bsessevmez/confirmation-service:0.0.1-SNAPSHOT
+    build:
+      context: confirmation-service
+      dockerfile: Dockerfile
+    ports:
+      - "8050:8050"
+    restart: always
+    depends_on:
+      - eureka-server
+      # - rabbitmq
+      - zipkin-server
+      - config-service
+    networks:
+      - oee-compose-network
+
+  confirmation-database:
+    environment:
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+      MYSQL_DATABASE: $MYSQL_DATABASE
+    image: mysql:8.0
+    ports:
+      - "3308:3306"
+    restart: always
+    volumes:
+      - mysql-database-data-volume:/var/lib/confirmation-database
+    networks:
+      - oee-compose-network
+
+  maindata-service:
+    environment:
+      # RABBIT_URI: $RABBIT_URI
+      RDS_HOSTNAME: $RDS_MAINDATA_HOSTNAME
+      RDS_PORT: $RDS_PORT
+      RDS_DB_NAME: $RDS_DB_NAME
+      RDS_USERNAME: $RDS_USERNAME
+      RDS_PASSWORD: $RDS_PASSWORD
+      CONFIG_URI: $CONFIG_URI
+      FAIL_FAST: $FAIL_FAST
+      EUREKA_URI: $EUREKA_URI
+      ZIPKIN_URI: $ZIPKIN_URI
+    image: bsessevmez/maindata-service:0.0.1-SNAPSHOT
+    build:
+      context: maindata-service
+      dockerfile: Dockerfile
+    # ports:
+    #   - "8090:8090"
+    restart: always
+    depends_on:
+      - eureka-server
+      # - rabbitmq
+      - zipkin-server
+      - maindata-database
+      - config-service
+    networks:
+      - oee-compose-network
+
+  maindata-database:
+    image: mysql:8.0
+    ports:
+      - "3309:3306"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+      MYSQL_DATABASE: $MYSQL_DATABASE
+    volumes:
+      - mysql-database-data-volume:/var/lib/maindata-database
+    networks:
+      - oee-compose-network
+      
+  order-service:
+    image: bsessevmez/order-service:0.0.1-SNAPSHOT
+    build:
+      context: order-service
+      dockerfile: Dockerfile    
+    environment:
+      # RABBIT_URI: $RABBIT_URI
+      RDS_HOSTNAME: $RDS_ORDER_HOSTNAME
+      RDS_PORT: $RDS_PORT
+      RDS_DB_NAME: $RDS_DB_NAME
+      RDS_USERNAME: $RDS_USERNAME
+      RDS_PASSWORD: $RDS_PASSWORD
+      CONFIG_URI: $CONFIG_URI
+      FAIL_FAST: $FAIL_FAST
+      EUREKA_URI: $EUREKA_URI
+      ZIPKIN_URI: $ZIPKIN_URI
+    ports:
+      - "8060:8060"
+    restart: always
+    depends_on:
+      - eureka-server
+      # - rabbitmq
+      - zipkin-server
+      - config-service
+    networks:
+      - oee-compose-network
+
+  order-database:
+    image: mysql:8.0
+    ports:
+      - "3310:3306"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+      MYSQL_DATABASE: $MYSQL_DATABASE
+    volumes:
+      - mysql-database-data-volume:/var/lib/order-database
+    networks:
+      - oee-compose-network
+
+  stock-service:
+    image: bsessevmez/stock-service:0.0.1-SNAPSHOT
+    build:
+      context: stock-service
+      dockerfile: Dockerfile    
+    environment:
+      # RABBIT_URI: $RABBIT_URI
+      RDS_HOSTNAME: $RDS_STOCK_HOSTNAME
+      RDS_PORT: $RDS_PORT
+      RDS_DB_NAME: $RDS_DB_NAME
+      RDS_USERNAME: $RDS_USERNAME
+      RDS_PASSWORD: $RDS_PASSWORD
+      CONFIG_URI:  $CONFIG_URI
+      FAIL_FAST: $FAIL_FAST
+      EUREKA_URI: $EUREKA_URI
+      ZIPKIN_URI: $ZIPKIN_URI
+    ports:
+      - "8070:8070"
+    restart: always
+    depends_on:
+      - eureka-server
+      # - rabbitmq
+      - zipkin-server
+      - config-service
+    networks:
+      - oee-compose-network
+
+  stock-database:
+    image: mysql:8.0
+    ports:
+      - "3311:3306"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+      MYSQL_DATABASE: $MYSQL_DATABASE
+    volumes:
+      - mysql-database-data-volume:/var/lib/stock-database
+    networks:
+      - oee-compose-network
+
+# Volumes
+volumes:
+  mysql-database-data-volume:
+
+# Networks to be created to facilitate communication between containers
+networks:
+  oee-compose-network:

@@ -1,0 +1,68 @@
+<mvc:View controllerName="workerapp.components.home.controller.Login" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	xmlns:f="sap.f" xmlns:core="sap.ui.core" xmlns:card="sap.f.cards" xmlns:l="sap.ui.layout" xmlns:form="sap.ui.layout.form"
+	displayBlock="true">
+				<Page id="page" showHeader="false" backgroundDesign="Transparent">
+					<content>
+						<FlexBox height="100%" alignItems="Center" justifyContent="Center">
+							<items>
+								<f:Card class="sapUiMediumMargin" width="80%">
+									<f:header>
+										<card:Header title="{i18n>LOGIN_TITLE}" subtitle="{i18n>LOGIN_SUBTITLE}" iconSrc="sap-icon://building"/>
+									</f:header>
+									<f:content>
+										<VBox class="sapUiSmallMargin" justifyContent="SpaceBetween">
+											<form:Form id="FormChange354" editable="true">
+												<form:title>
+													<core:Title text="{i18n>LOGIN_WELCOME}"/>
+												</form:title>
+												<form:layout>
+													<form:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4"
+														emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"/>
+												</form:layout>
+												<form:formContainers>
+													<form:FormContainer>
+														<form:formElements>
+															<form:FormElement label="{i18n>LOGIN_USERNAME}">
+																<form:fields>
+																	<Input id="loginUsername" type="Email"
+                                                                        placeholder="{i18n>LOGIN_PLEASE_ENTRY_EMAIL}"
+                                                                        valueStateText="{i18n>LOGIN_PLEASE_ENTRY_VALID_EMAIL}"
+                                                                        value="{
+                                                                            path : 'loginModel>/userInfo/username',
+                                                                            type : '.customEMailType'
+                                                                        }"/>
+																</form:fields>
+															</form:FormElement>
+															<form:FormElement label="{i18n>LOGIN_PASSWORD}">
+																<form:fields>
+																	<Input id="loginPassword" type="Password"
+                                                                        placeholder="{i18n>LOGIN_PLEASE_ENTRY_PASSWORD}"
+                                                                        valueStateText="{i18n>LOGIN_PLEASE_ENTRY_VALID_PASSWORD}"
+                                                                        value="{
+                                                                            path : 'loginModel>/userInfo/password',
+                                                                            type : '.customPasswordType'
+                                                                        }"/>
+																</form:fields>
+															</form:FormElement>
+                                                            <form:FormElement label="">
+																<form:fields>
+																	<Button text="{i18n>LOGIN_BTN}" press="login"/>
+																</form:fields>
+															</form:FormElement>
+                                                            <form:FormElement label="">
+																<form:fields>
+																	<Link text="{i18n>LOGIN_NOT_EXIST_ACCOUNT}" press="goToRegisterView" />
+																</form:fields>
+															</form:FormElement>
+														</form:formElements>
+													</form:FormContainer>
+												</form:formContainers>
+											</form:Form>
+										</VBox>
+									</f:content>
+								</f:Card>
+							</items>
+						</FlexBox>
+					</content>
+				</Page>
+</mvc:View>

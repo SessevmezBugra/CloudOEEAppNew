@@ -1,0 +1,151 @@
+<mvc:View controllerName="workerapp.components.home.components.maindata.controller.MaterialDetail" 
+	xmlns="sap.m" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:semantic="sap.f.semantic" 
+	xmlns:f="sap.ui.layout.form" 
+	xmlns:l="sap.ui.layout" 
+	xmlns:core="sap.ui.core">
+	<Page title="{= ${materialModel>/action} === 'create' ? ${i18n>MATERIAL_CREATEMATERIAL} : ${materialModel>/material/materialName} }" showHeader="true" backgroundDesign="Transparent" class="sapUiResponsivePadding--header" floatingFooter="true">
+		<content>
+		
+			<FlexBox alignItems="Start" justifyContent="SpaceBetween" visible="{= ${materialModel>/action} !== 'create'}" backgroundDesign="Transparent">
+				<Panel backgroundDesign="Transparent">
+					<!-- <ObjectAttribute title="{i18n>MATERIAL_MATERIALNUMBER}" text="{materialModel>/material/materialNumber}"/> -->
+
+				</Panel>
+				<Panel backgroundDesign="Transparent">
+					<ObjectNumber id="objectHeader" unit="PC" textAlign="End" state="Success" number="50">
+					</ObjectNumber>
+					<ProgressIndicator width="300px" percentValue="{materialModel>/material/materialQuantity}" displayValue="{materialModel>/material/materialQuantity}" showValue="true" state="Success" />
+				</Panel>
+
+			</FlexBox>
+			<l:BlockLayout background="Dashboard">
+				<l:BlockLayoutRow>
+					<l:BlockLayoutCell>
+						
+						<f:Form editable="true">
+							<f:title>
+								<core:Title text="{i18n>MATERIAL_MATERIALINFO}" />
+							</f:title>
+							<f:layout>
+								<f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="3" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false" />
+							</f:layout>
+							<f:formContainers>
+								<f:FormContainer>
+									<f:formElements>
+										<f:FormElement label="{i18n>MATERIAL_MATERIALNAME}">
+											<f:fields>
+												<Input value="{materialModel>/material/materialName}" enabled="true" editable="{= ${materialModel>/action} === 'create' || ${materialModel>/action} === 'edit'}"/>
+												<Select id="country" selectedKey="{materialModel>/material/unit}" editable="{= ${materialModel>/action} === 'create' || ${materialModel>/action} === 'edit'}">
+													<items>
+														<core:Item text="England" key="England"/>
+														<core:Item text="Germany" key="Germany"/>
+														<core:Item text="USA" key="USA"/>
+													</items>
+													<layoutData>
+														<l:GridData span="XL1 L2 M1 S1" />
+													</layoutData>
+												</Select>
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement label="{i18n>MATERIAL_MATERIALNUMBER}">
+											<f:fields>
+												<Input value="{materialModel>/material/materialNumber}" editable="{= ${materialModel>/action} === 'create' || ${materialModel>/action} === 'edit'}"/>
+											</f:fields>
+										</f:FormElement>
+									</f:formElements>
+								</f:FormContainer>
+							</f:formContainers>
+						</f:Form>
+					</l:BlockLayoutCell>
+				</l:BlockLayoutRow>
+			</l:BlockLayout>
+		</content>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button type="Accept" text="{i18n>MATERIAL_BTN_SAVE}" press="saveMaterial" visible="{= ${materialModel>/action} === 'create' || ${materialModel>/action} === 'edit'}"/>
+				<Button type="Reject" text="{i18n>MATERIAL_BTN_CANCEL}" press="cancelChanges" visible="{= ${materialModel>/action} === 'edit'}"/>
+				<Button text="{i18n>MATERIAL_BTN_EDIT}" press="editMaterial" visible="{= ${materialModel>/action} === 'read'}" />
+			</OverflowToolbar>
+		</footer>
+	</Page>
+	<!-- <semantic:SemanticPage headerExpanded="{= ${materialModel>/action} !== 'create'}" headerPinnable="false" toggleHeaderOnTitleClick="false" showFooter="true">
+		<semantic:titleHeading>
+			<Title text="{= ${materialModel>/action} === 'create' ? ${i18n>MATERIAL_CREATEMATERIAL} : ${materialModel>/material/materialName} }" visible="{= ${materialModel>/action} === 'create'}"/>
+
+		</semantic:titleHeading>
+		<semantic:headerContent>
+			<FlexBox alignItems="Start" justifyContent="SpaceBetween" visible="{= ${materialModel>/action} !== 'create'}">
+				<Panel backgroundDesign="Transparent">
+					<ObjectAttribute title="{i18n>MATERIAL_MATERIALNUMBER}" text="{materialModel>/material/materialNumber}"/>
+
+				</Panel>
+				<Panel backgroundDesign="Transparent">
+					<ObjectNumber id="objectHeader" unit="PC" textAlign="End" state="Success" number="50">
+					</ObjectNumber>
+
+					<ProgressIndicator width="300px" percentValue="{materialModel>/material/materialQuantity}" displayValue="{materialModel>/material/materialQuantity}" showValue="true" state="Success" />
+				</Panel>
+
+			</FlexBox>
+		</semantic:headerContent>
+		<semantic:content>
+			<l:BlockLayout background="Dashboard">
+				<l:BlockLayoutRow>
+					<l:BlockLayoutCell>
+						
+						<f:Form editable="false">
+							<f:title>
+								<core:Title text="{i18n>MATERIAL_MATERIALINFO}" />
+							</f:title>
+							<f:layout>
+								<f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false" />
+							</f:layout>
+							<f:formContainers>
+								<f:FormContainer>
+									<f:formElements>
+										<f:FormElement label="{i18n>MATERIAL_MATERIALNAME}">
+											<f:fields>
+												<Input value="{materialModel>/material/materialName}" enabled="true" editable="{= ${materialModel>/action} === 'create' || ${materialModel>/action} === 'edit'}"/>
+												<Select id="country" selectedKey="{materialModel>/material/unit}" editable="{= ${materialModel>/action} === 'create' || ${materialModel>/action} === 'edit'}">
+													<items>
+														<core:Item text="England" key="England"/>
+														<core:Item text="Germany" key="Germany"/>
+														<core:Item text="USA" key="USA"/>
+													</items>
+													<layoutData>
+														<l:GridData span="XL1 L2 M2 S4" />
+													</layoutData>
+												</Select>
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement label="{i18n>MATERIAL_MATERIALNUMBER}">
+											<f:fields>
+												<Input value="{materialModel>/material/materialNumber}" editable="{= ${materialModel>/action} === 'create' || ${materialModel>/action} === 'edit'}"/>
+											</f:fields>
+										</f:FormElement>
+									</f:formElements>
+								</f:FormContainer>
+							</f:formContainers>
+						</f:Form>
+					</l:BlockLayoutCell>
+				</l:BlockLayoutRow>
+			</l:BlockLayout>
+		</semantic:content>
+
+		<semantic:positiveAction>
+			<semantic:PositiveAction text="{i18n>MATERIAL_BTN_SAVE}" press="saveMaterial" visible="{= ${materialModel>/action} === 'create' || ${materialModel>/action} === 'edit'}"/>
+		</semantic:positiveAction>
+
+		<semantic:footerCustomActions>
+			<Button text="{i18n>MATERIAL_BTN_EDIT}" press="editMaterial" visible="{= ${materialModel>/action} === 'read'}" />
+		</semantic:footerCustomActions>
+
+		<semantic:negativeAction>
+			<semantic:NegativeAction text="{i18n>MATERIAL_BTN_CANCEL}" press="cancelChanges" visible="{= ${materialModel>/action} === 'edit'}"/>
+		</semantic:negativeAction>
+
+	</semantic:SemanticPage> -->
+</mvc:View>

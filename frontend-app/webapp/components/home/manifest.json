@@ -1,0 +1,102 @@
+{
+	"_version": "1.17.0",
+	"sap.app": {
+		"id": "workerapp.components.home",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"dataSources": {}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		}
+	},
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "workerapp.components.home.view.App",
+			"type": "XML",
+			"async": true,
+			"id": "app"
+		},
+		"dependencies": {
+			"minUI5Version": "1.72",
+			"libs": {
+				"sap.m": {}
+			}
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "workerapp.components.home.i18n.i18n"
+				}
+			}
+		},
+		"resources": {
+			"css": [
+				{
+					"uri": "css/style.css"
+				}
+			]
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"path": "workerapp.components.home.view",
+				"controlId": "app",
+				"controlAggregation": "pages",
+				"transition": "slide",
+				"bypassed": {
+					"target": "notFound"
+				},
+				"async": true
+			},
+			"routes": [
+				{
+					"name": "register",
+					"pattern": "register",
+					"target": "register"
+				},
+				{
+					"name": "login",
+					"pattern": "",
+					"target": "login"
+				},
+				{
+					"name": "home",
+					"pattern": "home",
+					"target": "home"
+				}
+			],
+			"targets": {
+				"register": {
+					"type": "View",
+					"name": "Register",
+					"id": "register",
+					"title": "Register"
+				},
+				"login": {
+					"type": "View",
+					"name": "Login",
+					"id": "login",
+					"title": "Login"
+				},
+				"home": {
+					"type": "View",
+					"name": "Home",
+					"id": "home",
+					"title": "Home"
+				}
+			}
+		}
+	}
+}

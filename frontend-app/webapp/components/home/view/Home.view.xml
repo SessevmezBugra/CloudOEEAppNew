@@ -1,0 +1,193 @@
+<mvc:View controllerName="workerapp.components.home.controller.Home" 
+    xmlns:mvc="sap.ui.core.mvc" 
+    xmlns:core="sap.ui.core" 
+    xmlns="sap.m" 
+    xmlns:tnt="sap.tnt" 
+    xmlns:l="sap.ui.layout" displayBlock="true">
+    <Page id="page" showHeader="false" backgroundDesign="Transparent" floatingFooter="true">
+        <content>
+            <Panel class="sapUiNoContentPadding">
+                <l:BlockLayout background="Default">
+                    <l:BlockLayoutRow>
+                        <l:BlockLayoutCell class="sapUiNoContentPadding" backgroundColorSet="ColorSet11" backgroundColorShade="ShadeA">
+                            <Image src="./images/factory.jpeg" width="100%" height="100%"/>
+                        </l:BlockLayoutCell>
+                    </l:BlockLayoutRow>
+                </l:BlockLayout>
+            </Panel>
+            <Panel class="sapUiNoContentPadding">
+
+                <Title class="sapUiTinyMarginTop" text="{i18n>HOME_TITLE_CARRY_CLOUD}" level="H1" titleStyle="H1" width="100%" textAlign="Center"/>
+
+                <l:BlockLayout background="Default">
+                    <l:BlockLayoutRow >
+                        <l:BlockLayoutCell class="sapUiNoContentPadding sapUiTinyMarginTop" titleAlignment="Center" backgroundColorSet="ColorSet11" backgroundColorShade="ShadeA">
+                            <FlexBox >
+                                <items>
+                                    <SlideTile class="sapUiTinyMarginBegin sapUiTinyMarginTop" transitionTime="550" displayTime="5000">
+                                        <GenericTile backgroundImage="./images/staffManagement.png" frameType="TwoByOne" press="onPress">
+                                            <TileContent footer="{i18n>HOME_TILE_NEWS_1_FOOTER}">
+                                                <NewsContent contentText="{i18n>HOME_TILE_NEWS_1_CONTENT}" subheader="{i18n>HOME_TILE_NEWS_1_SUBHEADER}" />
+                                            </TileContent>
+                                        </GenericTile>
+                                        <GenericTile backgroundImage="./images/orderManagement.png" frameType="TwoByOne">
+                                            <TileContent footer="{i18n>HOME_TILE_NEWS_2_FOOTER}">
+                                                <NewsContent contentText="{i18n>HOME_TILE_NEWS_2_CONTENT}" subheader="{i18n>HOME_TILE_NEWS_2_SUBHEADER}" />
+                                            </TileContent>
+                                        </GenericTile>
+                                    </SlideTile>
+
+                                    <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop" backgroundImage="./images/mainData.png" frameType="TwoByOne" press="onPress">
+                                        <TileContent footer="{i18n>HOME_TILE_NEWS_3_FOOTER}">
+                                            <NewsContent contentText="{i18n>HOME_TILE_NEWS_3_CONTENT}" subheader="{i18n>HOME_TILE_NEWS_3_SUBHEADER}" />
+                                        </TileContent>
+                                    </GenericTile>
+
+                                    <SlideTile class="sapUiTinyMarginBegin sapUiTinyMarginTop" transitionTime="250" displayTime="2500">
+                                        <GenericTile backgroundImage="./images/staffManagement.png" frameType="TwoByOne" press="onPress">
+                                            <TileContent footer="{i18n>HOME_TILE_NEWS_4_FOOTER}">
+                                                <NewsContent contentText="{i18n>HOME_TILE_NEWS_4_CONTENT}" subheader="{i18n>HOME_TILE_NEWS_4_SUBHEADER}" />
+                                            </TileContent>
+                                        </GenericTile>
+                                        <GenericTile backgroundImage="./images/orderManagement.png" frameType="TwoByOne">
+                                            <TileContent footer="{i18n>HOME_TILE_NEWS_5_FOOTER}">
+                                                <NewsContent contentText="{i18n>HOME_TILE_NEWS_5_CONTENT}" subheader="{i18n>HOME_TILE_NEWS_5_SUBHEADER}" />
+                                            </TileContent>
+                                        </GenericTile>
+                                    </SlideTile>
+
+                                    <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>HOME_TILE_NEWS_6_HEADER}" frameType="TwoByOne" press="onPress">
+                                        <TileContent footer="{i18n>HOME_TILE_NEWS_6_FOOTER}">
+                                            <FeedContent contentText="{i18n>HOME_TILE_NEWS_6_CONTENT}" subheader="{i18n>HOME_TILE_NEWS_6_SUBHEADER}" value="352" />
+                                        </TileContent>
+                                    </GenericTile>
+                                </items>
+                            </FlexBox>
+                        </l:BlockLayoutCell>
+                    </l:BlockLayoutRow>
+                    <l:BlockLayoutRow class="sapUiTinyMarginTop">
+                        <l:BlockLayoutCell class="sapUiNoContentPadding" backgroundColorSet="ColorSet11" backgroundColorShade="ShadeD">
+                            <Image src="./images/mainData.png" width="100%" height="100%"/>
+                        </l:BlockLayoutCell>
+                        <l:BlockLayoutCell backgroundColorSet="ColorSet11" backgroundColorShade="ShadeC">
+                            <l:VerticalLayout class="sapUiContentPadding">
+                                <Link class="sapUiDocTitleLink sapMTitle sapMTitleStyleH2 sapUiSelectable wrap sapMTitleMaxWidth sapUiSmallMarginBottom" text="{i18n>HOME_LINK_TEXT_MAINDATA}"/>
+                                <Text text="{i18n>HOME_TEXT_MAINDATA}" />
+                            </l:VerticalLayout>
+                        </l:BlockLayoutCell>
+                    </l:BlockLayoutRow>
+                </l:BlockLayout>
+            </Panel>
+            <Panel class="sapUiNoContentPadding">
+
+                <Title class="sapUiTinyMarginTop" text="{i18n>HOME_TITLE_TRACE_FACTORY}" level="H1" titleStyle="H1" width="100%" textAlign="Center"/>
+
+                <l:BlockLayout background="Default">
+                    <l:BlockLayoutRow >
+                        <l:BlockLayoutCell class="sapUiNoContentPadding" backgroundColorSet="ColorSet11" backgroundColorShade="ShadeB">
+                            <Image src="./images/stockManagement.jpg" width="100%" height="100%"/>
+                        </l:BlockLayoutCell>
+                        <l:BlockLayoutCell backgroundColorSet="ColorSet11" backgroundColorShade="ShadeA">
+                            <l:VerticalLayout class="sapUiContentPadding">
+                                <Link class="sapUiDocTitleLink sapMTitle sapMTitleStyleH2 sapUiSelectable wrap sapMTitleMaxWidth sapUiSmallMarginBottom" text="{i18n>HOME_LINK_TEXT_STOCKMANAGEMENT}"/>
+                                <Text text="{i18n>HOME_TEXT_STOCKMANAGEMENT}" />
+                            </l:VerticalLayout>
+                        </l:BlockLayoutCell>
+                    </l:BlockLayoutRow>
+                    <l:BlockLayoutRow>
+                        <l:BlockLayoutCell backgroundColorSet="ColorSet11" backgroundColorShade="ShadeC">
+                            <l:VerticalLayout class="sapUiContentPadding">
+                                <Link class="sapUiDocTitleLink sapMTitle sapMTitleStyleH2 sapUiSelectable wrap sapMTitleMaxWidth sapUiSmallMarginBottom" text="{i18n>HOME_LINK_TEXT_ORDERMANAGEMENT}"/>
+                                <Text text="{i18n>HOME_TEXT_ORDERMANAGEMENT}"/>
+                            </l:VerticalLayout>
+                        </l:BlockLayoutCell>
+                        <l:BlockLayoutCell class="sapUiNoContentPadding" backgroundColorSet="ColorSet11" backgroundColorShade="ShadeD">
+                            <Image src="./images/orderManagement.png" width="100%" height="100%"/>
+                        </l:BlockLayoutCell>
+                    </l:BlockLayoutRow>
+                </l:BlockLayout>
+            </Panel>
+
+            <Panel class="sapUiNoContentPadding">
+
+                <Title class="sapUiTinyMarginTop" text="{i18n>HOME_TITLE_TEXT_STAFFMANAGEMENT}" level="H1" titleStyle="H1" width="100%" textAlign="Center"/>
+
+                <l:BlockLayout background="Default">
+                    <l:BlockLayoutRow >
+                        <l:BlockLayoutCell class="sapUiNoContentPadding" backgroundColorSet="ColorSet11" backgroundColorShade="ShadeC">
+                            <Image src="./images/staffManagement.png" width="100%" height="100%"/>
+                        </l:BlockLayoutCell>
+                    </l:BlockLayoutRow>
+                    <l:BlockLayoutRow >
+                        <l:BlockLayoutCell backgroundColorSet="ColorSet11" backgroundColorShade="ShadeA">
+                            <l:VerticalLayout class="sapUiContentPadding">
+                                <Link class="sapUiDocTitleLink sapMTitle sapMTitleStyleH2 sapUiSelectable wrap sapMTitleMaxWidth sapUiSmallMarginBottom" text="{i18n>HOME_LINK_TEXT_STAFFMANAGEMENT_CREATE}"/>
+                                <Text text="{i18n>HOME_TEXT_STAFFMANAGEMENT_CREATE}" />
+                            </l:VerticalLayout>
+                        </l:BlockLayoutCell>
+                        <l:BlockLayoutCell backgroundColorSet="ColorSet11" backgroundColorShade="ShadeC">
+                            <l:VerticalLayout class="sapUiContentPadding">
+                                <Link class="sapUiDocTitleLink sapMTitle sapMTitleStyleH2 sapUiSelectable wrap sapMTitleMaxWidth sapUiSmallMarginBottom" text="{i18n>HOME_LINK_TEXT_STAFFMANAGEMENT_ORDERMANAGEMENT}"/>
+                                <Text text="{i18n>HOME_TEXT_STAFFMANAGEMENT_ORDERMANAGEMENT}" />
+                            </l:VerticalLayout>
+                        </l:BlockLayoutCell>
+                        <l:BlockLayoutCell backgroundColorSet="ColorSet11" backgroundColorShade="ShadeB">
+                            <l:VerticalLayout class="sapUiContentPadding">
+                                <Link class="sapUiDocTitleLink sapMTitle sapMTitleStyleH2 sapUiSelectable wrap sapMTitleMaxWidth sapUiSmallMarginBottom" text="{i18n>HOME_LINK_TEXT_STAFFMANAGEMENT_PRODUCTION}"/>
+                                <Text text="{i18n>HOME_TEXT_STAFFMANAGEMENT_PRODUCTION}" />
+                            </l:VerticalLayout>
+                        </l:BlockLayoutCell>
+                        <l:BlockLayoutCell backgroundColorSet="ColorSet11" backgroundColorShade="ShadeD">
+                            <l:VerticalLayout class="sapUiContentPadding">
+                                <Link class="sapUiDocTitleLink sapMTitle sapMTitleStyleH2 sapUiSelectable wrap sapMTitleMaxWidth sapUiSmallMarginBottom" text="{i18n>HOME_LINK_TEXT_STAFFMANAGEMENT_CONSUMPTION}"/>
+                                <Text text="{i18n>HOME_TEXT_STAFFMANAGEMENT_CONSUMPTION}" />
+                            </l:VerticalLayout>
+                        </l:BlockLayoutCell>
+                    </l:BlockLayoutRow>
+                </l:BlockLayout>
+            </Panel>
+            <Panel class="sapUiNoContentPadding">
+
+                <Title class="sapUiTinyMarginTop" text="{i18n>HOME_TITLE_TEXT_COMMUNITY}" level="H1" titleStyle="H1" width="100%" textAlign="Center"/>
+
+                <l:BlockLayout class="sapUiContentPadding" background="Default">
+                    <l:BlockLayoutRow>
+                        <l:BlockLayoutCell backgroundColorSet="ColorSet11" backgroundColorShade="ShadeA">
+                            <l:HorizontalLayout >
+                                <core:Icon src="sap-icon://collaborate" size="2.5rem" color="Default"></core:Icon>
+                                <Link class="sapUiDocTitleLink sapMTitle sapMTitleStyleH2 sapUiSelectable sapMTitleNoWrap sapMTitleMaxWidth sapUiSmallMargin sapUiNoMarginBottom sapUiNoMarginEnd" text="{i18n>HOME_LINK_TEXT_HUMAN_RESOURCES}"/>
+                            </l:HorizontalLayout>
+                        </l:BlockLayoutCell>
+                        <l:BlockLayoutCell backgroundColorSet="ColorSet11" backgroundColorShade="ShadeC">
+                            <l:HorizontalLayout>
+                                <Image src="./images/logo_youtube.png" width="2.5rem" class="sapMImg sapUiTinyMarginTop"/>
+                                <Link class="sapUiDocTitleLink sapMTitle sapMTitleStyleH2 sapUiSelectable sapMTitleNoWrap sapMTitleMaxWidth sapUiSmallMargin sapUiNoMarginBottom sapUiNoMarginEnd" text="{i18n>HOME_LINK_TEXT_YOUTUBE}"/>
+                            </l:HorizontalLayout>
+                        </l:BlockLayoutCell>
+                        <l:BlockLayoutCell backgroundColorSet="ColorSet11" backgroundColorShade="ShadeB">
+                            <l:HorizontalLayout >
+                                <Image src="./images/logo_twitter.png" width="2.5rem" class="sapMImg sapUiTinyMarginTop"/>
+                                <Link class="sapUiDocTitleLink sapMTitle sapMTitleStyleH2 sapUiSelectable sapMTitleNoWrap sapMTitleMaxWidth sapUiSmallMargin sapUiNoMarginBottom sapUiNoMarginEnd" text="{i18n>HOME_LINK_TEXT_TWITTER}"/>
+                            </l:HorizontalLayout>
+                        </l:BlockLayoutCell>
+                        <l:BlockLayoutCell backgroundColorSet="ColorSet11" backgroundColorShade="ShadeD">
+                            <l:HorizontalLayout>
+                                <Image src="./images/linkedin.png" width="2.5rem" class="sapMImg sapUiTinyMarginTop"/>
+                                <Link class="sapUiDocTitleLink sapMTitle sapMTitleStyleH2 sapUiSelectable sapMTitleNoWrap sapMTitleMaxWidth sapUiSmallMargin sapUiNoMarginBottom sapUiNoMarginEnd" text="{i18n>HOME_LINK_TEXT_LINKEDIN}"/>
+                            </l:HorizontalLayout>
+                        </l:BlockLayoutCell>
+                    </l:BlockLayoutRow>
+                </l:BlockLayout>
+            </Panel>
+
+            <l:BlockLayout>
+                <l:BlockLayoutRow>
+                    <l:BlockLayoutCell class="customFooterCell">
+                            
+                    </l:BlockLayoutCell>
+                </l:BlockLayoutRow>
+            </l:BlockLayout>
+            
+        </content>
+    </Page>
+</mvc:View>

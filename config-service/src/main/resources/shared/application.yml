@@ -1,0 +1,47 @@
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka/}
+  server:
+        peer-node-read-timeout-ms: 300000
+#        enable-self-preservation: false
+        
+        
+spring:
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: guest
+    password: guest
+  zipkin:
+    baseUrl: ${ZIPKIN_URI:http://localhost:9411/}
+  sleuth:
+    sampler:
+      probability: 1.0
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+  feign:
+    client:
+      config:
+        default:
+          connectTimeout: 50000
+          readTimeout: 50000
+ 
+  
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

@@ -1,0 +1,5 @@
+<mvc:View controllerName="workerapp.components.home.components.maindata.controller.App" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns="sap.m" displayBlock="true">
+	<App id="app" backgroundImage="./images/factory.jpeg"/>
+</mvc:View>

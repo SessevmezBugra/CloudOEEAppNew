@@ -1,0 +1,9 @@
+specVersion: '1.0'
+metadata:
+  name: Cloud OEE Project
+type: application
+resources:
+  configuration:
+    paths:
+      webapp: ./webapp
+    propertiesFileSourceEncoding: "UTF-8"

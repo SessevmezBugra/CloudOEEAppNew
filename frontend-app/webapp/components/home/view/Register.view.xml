@@ -1,0 +1,165 @@
+<mvc:View controllerName="workerapp.components.home.controller.Register" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	xmlns:f="sap.f" xmlns:core="sap.ui.core" xmlns:card="sap.f.cards" xmlns:l="sap.ui.layout" xmlns:form="sap.ui.layout.form"
+	displayBlock="true">
+				<Page id="page" showHeader="false" backgroundDesign="Transparent">
+					<content>
+						<FlexBox height="100%" alignItems="Center" justifyContent="Center" wrap="Wrap">
+							<items>
+								<f:Card class="sapUiMediumMargin" width="80%">
+									<f:header>
+										<card:Header title="{i18n>REGISTER_OWNER_TITLE}" subtitle="{i18n>REGISTER_OWNER_SUBTITLE}" iconSrc="sap-icon://building"/>
+									</f:header>
+									<f:content>
+										<VBox class="sapUiSmallMargin" justifyContent="SpaceBetween">
+											<form:Form editable="true">
+												<form:title>
+													<core:Title text="{i18n>REGISTER_OWNER_WELCOME}"/>
+												</form:title>
+												<form:layout>
+													<form:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4"
+														emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"/>
+												</form:layout>
+												<form:formContainers>
+													<form:FormContainer>
+														<form:formElements>
+															<form:FormElement label="{i18n>REGISTER_OWNER_USERNAME}">
+																<form:fields>
+																	<Input id="ownerUsername" type="Email"
+                                                                        placeholder="{i18n>REGISTER_OWNER_PLEASE_ENTRY_EMAIL}"
+                                                                        valueStateText="{i18n>REGISTER_OWNER_PLEASE_ENTRY_VALID_EMAIL}"
+                                                                        value="{
+                                                                            path : 'registerModel>/ownerInfo/username',
+                                                                            type : '.customEMailType'
+                                                                        }"/>
+																</form:fields>
+															</form:FormElement>
+															<form:FormElement label="{i18n>REGISTER_OWNER_PASSWORD}">
+																<form:fields>
+																	<Input id="ownerPassword" type="Password"
+                                                                        placeholder="{i18n>REGISTER_OWNER_PLEASE_ENTRY_PASSWORD}"
+                                                                        valueStateText="{i18n>REGISTER_OWNER_PLEASE_ENTRY_VALID_PASSWORD}"
+                                                                        value="{
+                                                                            path : 'registerModel>/ownerInfo/password',
+                                                                            type : '.customPasswordType'
+                                                                        }"/>
+																</form:fields>
+															</form:FormElement>
+                                                            <form:FormElement label="{i18n>REGISTER_OWNER_PASSWORD_RETRY}">
+																<form:fields>
+																	<Input id="ownerPasswordRetry" type="Password"
+                                                                        placeholder="{i18n>REGISTER_OWNER_PLEASE_ENTRY_PASSWORD_RETRY}"
+                                                                        valueStateText="{i18n>REGISTER_OWNER_PLEASE_ENTRY_VALID_PASSWORD_RETRY}"
+																		change="customPasswordRetryTypeOnChangeForOwner"
+                                                                        value="{registerModel>/ownerInfo/passwordRetry}">
+																		<customData>
+																			<core:CustomData key="inputId" value="ownerPasswordRetry"/>
+																		</customData>
+																	</Input>
+																</form:fields>
+															</form:FormElement>
+                                                            <form:FormElement label="{i18n>REGISTER_OWNER_COMPANY_NAME}">
+																<form:fields>
+																	<Input  id="ownerCompanyName"
+                                                                        placeholder="{i18n>REGISTER_OWNER_PLEASE_ENTRY_COMPANY_NAME}"
+                                                                        valueStateText="{i18n>REGISTER_OWNER_PLEASE_ENTRY_VALID_COMPANY_NAME}"
+                                                                        value="{
+                                                                            path : 'registerModel>/ownerInfo/companyName',
+                                                                            type : '.customCompanyNameType'
+                                                                        }" />
+																</form:fields>
+															</form:FormElement>
+                                                            <form:FormElement label="">
+																<form:fields>
+																	<Button text="{i18n>REGISTER_OWNER_CREATE_ACCOUNT}" press="registerOwner"/>
+																</form:fields>
+															</form:FormElement>
+                                                            <form:FormElement label="">
+																<form:fields>
+																	<Link text="{i18n>REGISTER_OWNER_ALREADY_EXIST_ACCOUNT}" press="goToLoginView" />
+																</form:fields>
+															</form:FormElement>
+														</form:formElements>
+													</form:FormContainer>
+												</form:formContainers>
+											</form:Form>
+                                            
+										</VBox>
+									</f:content>
+								</f:Card>
+                                <f:Card class="sapUiMediumMargin" width="80%">
+									<f:header>
+										<card:Header title="{i18n>REGISTER_WORKER_TITLE}" subtitle="{i18n>REGISTER_WORKER_SUBTITLE}" iconSrc="sap-icon://business-card"/>
+									</f:header>
+									<f:content>
+										<VBox class="sapUiSmallMargin" justifyContent="SpaceBetween">
+											<form:Form  editable="true">
+												<form:title>
+													<core:Title text="{i18n>REGISTER_WORKER_WELCOME}"/>
+												</form:title>
+												<form:layout>
+													<form:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4"
+														emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"/>
+												</form:layout>
+												<form:formContainers>
+													<form:FormContainer>
+														<form:formElements>
+															<form:FormElement label="{i18n>REGISTER_WORKER_USERNAME}">
+																<form:fields>
+																	<Input id="workerUsername" type="Email"
+                                                                        placeholder="{i18n>REGISTER_WORKER_PLEASE_ENTRY_EMAIL}"
+                                                                        valueStateText="{i18n>REGISTER_WORKER_PLEASE_ENTRY_VALID_EMAIL}"
+                                                                        value="{
+                                                                            path : 'registerModel>/workerInfo/username',
+                                                                            type : '.customEMailType'
+                                                                        }"/>
+																</form:fields>
+															</form:FormElement>
+															<form:FormElement label="{i18n>REGISTER_WORKER_PASSWORD}">
+																<form:fields>
+																	<Input id="workerPassword" type="Password"
+                                                                        placeholder="{i18n>REGISTER_WORKER_PLEASE_ENTRY_PASSWORD}"
+                                                                        valueStateText="{i18n>REGISTER_WORKER_PLEASE_ENTRY_VALID_PASSWORD}"
+                                                                        value="{
+                                                                            path : 'registerModel>/workerInfo/password',
+                                                                            type : '.customPasswordType'
+                                                                        }"/>
+																</form:fields>
+															</form:FormElement>
+                                                            <form:FormElement label="{i18n>REGISTER_WORKER_PASSWORD_RETRY}">
+																<form:fields>
+																	<Input id="workerPasswordRetry" type="Password"
+                                                                        placeholder="{i18n>REGISTER_WORKER_PLEASE_ENTRY_PASSWORD_RETRY}"
+                                                                        valueStateText="{i18n>REGISTER_WORKER_PLEASE_ENTRY_VALID_PASSWORD_RETRY}"
+																		change="customPasswordRetryTypeOnChangeForWorker"
+                                                                        value="{
+                                                                            path : 'registerModel>/workerInfo/passwordRetry'
+                                                                        }">
+																		<customData>
+																			<core:CustomData key="inputId" value="workerPasswordRetry"/>
+																		</customData>
+																	</Input>
+																</form:fields>
+															</form:FormElement>
+                                                            <form:FormElement label="">
+																<form:fields>
+																	<Button text="{i18n>REGISTER_WORKER_CREATE_ACCOUNT}" press="registerWorker"/>
+																</form:fields>
+															</form:FormElement>
+                                                            <form:FormElement label="">
+																<form:fields>
+																	<Link text="{i18n>REGISTER_WORKER_ALREADY_EXIST_ACCOUNT}" press="goToLoginView" />
+																</form:fields>
+															</form:FormElement>
+														</form:formElements>
+													</form:FormContainer>
+												</form:formContainers>
+											</form:Form>
+                                            
+										</VBox>
+									</f:content>
+								</f:Card>
+							</items>
+						</FlexBox>
+					</content>
+				</Page>
+</mvc:View>

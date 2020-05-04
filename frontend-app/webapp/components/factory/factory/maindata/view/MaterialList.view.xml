@@ -1,0 +1,114 @@
+<mvc:View controllerName="workerapp.components.home.components.maindata.controller.MaterialList" 
+	xmlns="sap.m" 
+	xmlns:core="sap.ui.core" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:semantic="sap.f.semantic">
+
+	<Page showHeader="true" title="{i18n>MATERIAL_TITLE}" class="sapUiResponsivePadding--header" floatingFooter="true" backgroundDesign="Transparent">
+		<IconTabBar id="iconTabBar" select=".onQuickFilter" expandable="false" headerBackgroundDesign="Transparent" backgroundDesign="Transparent">
+			<items>
+				<IconTabFilter key="all" showAll="true" count="{materialModel>/countAll}" text="{i18n>MATERIAL_ALLMATERIAL}"/>
+				<IconTabSeparator/>
+				<IconTabFilter key="inStock" icon="sap-icon://message-success" iconColor="Positive" count="{materialModel>/inStock}" text="{i18n>MATERIAL_INSTOCK}"/>
+				<IconTabFilter key="shortage" icon="sap-icon://message-warning" iconColor="Critical" count="{materialModel>/shortage}" text="{i18n>MATERIAL_SHORTAGE}"/>
+				<IconTabFilter key="outOfStock" icon="sap-icon://message-error" iconColor="Negative" count="{materialModel>/outOfStock}" text="{i18n>MATERIAL_OUTOFSTOCK}"/>
+			</items>
+			<content>
+				<Table growing="true" growingScrollToLoad="true" noDataText="{i18n>MATERIAL_TABLE_NOTEXT}" width="auto" mode="MultiSelect" items="{materialModel>/materials}">
+					<headerToolbar>
+						<Toolbar>
+							<ToolbarSpacer/>
+							<SearchField id="searchField" tooltip="{i18n>MATERIAL_SEARCHFIELD_TOOLTIP}" search=".onSearch" width="auto">
+							</SearchField>
+						</Toolbar>
+					</headerToolbar>
+
+					<columns>
+						<Column id="nameColumn">
+							<Text id="nameColumnTitle" text="{i18n>MATERIAL_MATERIALNUMBER}"/>
+						</Column>
+						<Column id="supplierNameColumn" demandPopin="false" minScreenWidth="Tablet">
+							<Text text="{i18n>MATERIAL_MATERIALNAME}"/>
+						</Column>
+						<Column id="unitPriceColumn" hAlign="End" demandPopin="true" minScreenWidth="Tablet">
+							<Text text="{i18n>MATERIAL_QUANTITY}"/>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem type="Navigation" press=".onPress">
+							<cells>
+								<ObjectIdentifier title="{materialModel>MATNR}"/>
+								<Text text = "{materialModel>MATDESC}"/>
+								<ObjectNumber unit="{materialModel>UOM}" number="{materialModel>QUANTITY}"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</content>
+		</IconTabBar>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button type="Accept" text="{i18n>MATERIAL_CREATE}" press=".createMaterial"/>
+				<Button type="Reject" text="{i18n>MATERIAL_REMOVE}" press=".removeMaterial"/>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+	<!-- <semantic:SemanticPage id="page" headerPinnable="false" toggleHeaderOnTitleClick="false" showFooter="true">
+
+		<semantic:titleHeading>
+			<Title text="{i18n>MATERIAL_TITLE}"/>
+		</semantic:titleHeading>
+
+		<semantic:content>
+			<IconTabBar id="iconTabBar" select=".onQuickFilter" expandable="false" headerBackgroundDesign="Transparent">
+				<items>
+					<IconTabFilter key="all" showAll="true" count="{materialModel>/countAll}" text="{i18n>MATERIAL_ALLMATERIAL}"/>
+					<IconTabSeparator/>
+					<IconTabFilter key="inStock" icon="sap-icon://message-success" iconColor="Positive" count="{materialModel>/inStock}" text="{i18n>MATERIAL_INSTOCK}"/>
+					<IconTabFilter key="shortage" icon="sap-icon://message-warning" iconColor="Critical" count="{materialModel>/shortage}" text="{i18n>MATERIAL_SHORTAGE}"/>
+					<IconTabFilter key="outOfStock" icon="sap-icon://message-error" iconColor="Negative" count="{materialModel>/outOfStock}" text="{i18n>MATERIAL_OUTOFSTOCK}"/>
+				</items>
+				<content>
+					<Table id="table" growing="true" growingScrollToLoad="true" noDataText="{i18n>MATERIAL_TABLE_NOTEXT}" width="auto" mode="MultiSelect" items="{materialModel>/materials}">
+						<headerToolbar>
+							<Toolbar>
+								<Title id="tableHeader" text="{i18n>MATERIAL_TITLE} {materialModel>/selectedCount}"/>
+								<ToolbarSpacer/>
+								<SearchField id="searchField" tooltip="{i18n>MATERIAL_SEARCHFIELD_TOOLTIP}" search=".onSearch" width="auto">
+								</SearchField>
+							</Toolbar>
+						</headerToolbar>
+
+						<columns>
+							<Column id="nameColumn">
+								<Text id="nameColumnTitle" text="{i18n>MATERIAL_MATERIALNUMBER}"/>
+							</Column>
+							<Column id="supplierNameColumn" demandPopin="false" minScreenWidth="Tablet">
+								<Text text="{i18n>MATERIAL_MATERIALNAME}"/>
+							</Column>
+							<Column id="unitPriceColumn" hAlign="End" demandPopin="true" minScreenWidth="Tablet">
+								<Text text="{i18n>MATERIAL_QUANTITY}"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem type="Navigation" press=".onPress">
+								<cells>
+									<ObjectIdentifier title="{materialModel>MATNR}"/>
+									<Text text = "{materialModel>MATDESC}"/>
+									<ObjectNumber unit="{materialModel>UOM}" number="{materialModel>QUANTITY}"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</content>
+			</IconTabBar>
+		</semantic:content>
+		<semantic:positiveAction>
+			<semantic:PositiveAction text="{i18n>MATERIAL_CREATE}" press=".createMaterial"/>
+		</semantic:positiveAction>
+		<semantic:negativeAction>
+			<semantic:NegativeAction text="{i18n>MATERIAL_REMOVE}" press=".removeMaterial"/>
+		</semantic:negativeAction>
+	</semantic:SemanticPage> -->
+</mvc:View>

@@ -1,0 +1,283 @@
+version: '3.7'
+services:
+  cloud-oee-frontend:
+    build: cloud-oee-frontend
+    ports:
+      - "80:80"
+    restart: always
+    depends_on:
+      - gateway-service
+    networks:
+      - oee-compose-network
+
+  rabbitmq:
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    restart: always
+    networks:
+      - oee-compose-network
+
+  eureka-server:
+    build: eureka-server
+    environment: 
+      CONFIG_HOST:  config-service
+      FAIL_FAST: 'true'
+      EUREKA_HOSTNAME: eureka-server
+    ports:
+      - "8761:8761"
+    restart: always
+    depends_on:
+      - config-service
+    networks:
+      - oee-compose-network
+
+  zipkin-server:
+    environment:
+      STORAGE_TYPE: mem
+      RABBIT_URI: amqp://guest:guest@rabbitmq:5672
+    ports:
+      - "9411:9411"
+    restart: always
+    depends_on:
+      - rabbitmq
+    networks:
+      - oee-compose-network
+
+  gateway-service:
+    build: gateway-service
+    environment:
+      RABBIT_URI: amqp://guest:guest@rabbitmq:5672
+      CONFIG_HOST:  config-service
+      FAIL_FAST: 'true'
+      EUREKA_HOSTNAME: eureka-server
+      ZIPKIN_HOST: zipkin-server
+    ports:
+      - "4000:4000"
+    restart: always
+    depends_on:
+      - eureka-server
+      - rabbitmq
+      - zipkin-server
+      - config-service
+    networks:
+      - oee-compose-network
+
+  auth-service:
+    build: auth-service
+    environment:
+      RABBIT_URI: amqp://guest:guest@rabbitmq:5672
+      RDS_HOSTNAME: auth-database
+      RDS_PORT: 3306
+      RDS_DB_NAME: cloudoeedb
+      RDS_USERNAME: dummy-user
+      RDS_PASSWORD: dummy
+      CONFIG_HOST:  config-service
+      FAIL_FAST: 'true'
+      EUREKA_HOSTNAME: eureka-server
+      ZIPKIN_HOST: zipkin-server
+    ports:
+      - "5000:5000"
+    restart: always
+    depends_on:
+      - eureka-server
+      - rabbitmq
+      - zipkin-server
+      - auth-database
+      - config-service
+    networks:
+      - oee-compose-network
+
+  auth-database:
+    build: 
+    ports:
+      - "3307:3306"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: dummy-user
+      MYSQL_PASSWORD: dummy
+      MYSQL_DATABASE: cloudoeedb
+    volumes:
+      - mysql-database-data-volume:/var/lib/auth-database
+    networks:
+      - oee-compose-network
+      
+  config-service:
+    build: config-service 
+    environment:
+      RABBIT_URI: amqp://guest:guest@rabbitmq:5672
+      EUREKA_HOSTNAME: eureka-server
+      ZIPKIN_HOST: zipkin-server
+    ports:
+      - "8888:8888"
+    restart: always
+    depends_on:
+      - rabbitmq
+      - zipkin-server
+    networks:
+      - oee-compose-network
+
+  confirmation-service:
+    build: confirmation-service
+    environment:
+      RABBIT_URI: amqp://guest:guest@rabbitmq:5672
+      RDS_HOSTNAME: confirmation-database
+      RDS_PORT: 3306
+      RDS_DB_NAME: cloudoeedb
+      RDS_USERNAME: dummy-user
+      RDS_PASSWORD: dummy
+      CONFIG_HOST:  config-service
+      FAIL_FAST: 'true'
+      EUREKA_HOSTNAME: eureka-server
+      ZIPKIN_HOST: zipkin-server
+    ports:
+      - "8050:8050"
+    restart: always
+    depends_on:
+      - eureka-server
+      - rabbitmq
+      - zipkin-server
+      - config-service
+    networks:
+      - oee-compose-network
+
+  confirmation-database:
+    ports:
+      - "3308:3306"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: dummy-user
+      MYSQL_PASSWORD: dummy
+      MYSQL_DATABASE: cloudoeedb
+    volumes:
+      - mysql-database-data-volume:/var/lib/confirmation-database
+    networks:
+      - oee-compose-network
+
+  maindata-service:
+    build: maindata-service 
+    environment:
+      RABBIT_URI: amqp://guest:guest@rabbitmq:5672
+      RDS_HOSTNAME: maindata-database
+      RDS_PORT: 3306
+      RDS_DB_NAME: cloudoeedb
+      RDS_USERNAME: dummy-user
+      RDS_PASSWORD: dummy
+      CONFIG_HOST:  config-service
+      FAIL_FAST: 'true'
+      EUREKA_HOSTNAME: eureka-server
+      ZIPKIN_HOST: zipkin-server
+    ports:
+      - "8090:8090"
+    restart: always
+    depends_on:
+      - eureka-server
+      - rabbitmq
+      - zipkin-server
+      - maindata-database
+      - config-service
+    networks:
+      - oee-compose-network
+
+  maindata-database:
+    image: mysql:5.7
+    ports:
+      - "3309:3306"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: dummy-user
+      MYSQL_PASSWORD: dummy
+      MYSQL_DATABASE: cloudoeedb
+    volumes:
+      - mysql-database-data-volume:/var/lib/maindata-database
+    networks:
+      - oee-compose-network
+      
+  order-service:
+    build: order-service
+    environment:
+      RABBIT_URI: amqp://guest:guest@rabbitmq:5672
+      RDS_HOSTNAME: order-database
+      RDS_PORT: 3306
+      RDS_DB_NAME: cloudoeedb
+      RDS_USERNAME: dummy-user
+      RDS_PASSWORD: dummy
+      CONFIG_HOST:  config-service
+      FAIL_FAST: 'true'
+      EUREKA_HOSTNAME: eureka-server
+      ZIPKIN_HOST: zipkin-server
+    ports:
+      - "8060:8060"
+    restart: always
+    depends_on:
+      - eureka-server
+      - rabbitmq
+      - zipkin-server
+      - config-service
+    networks:
+      - oee-compose-network
+
+  order-database:
+    build: 
+    ports:
+      - "3310:3306"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: dummy-user
+      MYSQL_PASSWORD: dummy
+      MYSQL_DATABASE: cloudoeedb
+    volumes:
+      - mysql-database-data-volume:/var/lib/order-database
+    networks:
+      - oee-compose-network
+
+  stock-service:
+    build: stock-service
+    environment:
+      RABBIT_URI: amqp://guest:guest@rabbitmq:5672
+      RDS_HOSTNAME: stock-database
+      RDS_PORT: 3306
+      RDS_DB_NAME: cloudoeedb
+      RDS_USERNAME: dummy-user
+      RDS_PASSWORD: dummy
+      CONFIG_HOST:  config-service
+      FAIL_FAST: 'true'
+      EUREKA_HOSTNAME: eureka-server
+      ZIPKIN_HOST: zipkin-server
+    ports:
+      - "8070:8070"
+    restart: always
+    depends_on:
+      - eureka-server
+      - rabbitmq
+      - zipkin-server
+      - config-service
+    networks:
+      - oee-compose-network
+
+  stock-database:
+    build:
+    ports:
+      - "3311:3306"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: dummy-user
+      MYSQL_PASSWORD: dummy
+      MYSQL_DATABASE: cloudoeedb
+    volumes:
+      - mysql-database-data-volume:/var/lib/stock-database
+    networks:
+      - oee-compose-network
+
+# Volumes
+volumes:
+  mysql-database-data-volume:
+
+# Networks to be created to facilitate communication between containers
+networks:
+  oee-compose-network:
