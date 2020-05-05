@@ -1,5 +1,0 @@
-<mvc:View controllerName="workerapp.components.home.components.staffmanagement.controller.App" 
-	xmlns:mvc="sap.ui.core.mvc" 
-	xmlns="sap.m" displayBlock="true">
-	<App id="app" />
-</mvc:View>

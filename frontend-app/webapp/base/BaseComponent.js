@@ -61,12 +61,7 @@ sap.ui.define([
 				UserService.validateToken().then(function(response) {
 					resolve(true);
 				}.bind(this)).catch(function(error) {
-					this.getModel("localUserModel").setData({
-						userInfo: {
-							username: null
-						},
-						jwt: null
-					});
+					this.getModel("localUserModel").setData(null);
 					resolve(false);
 				}.bind(this));
 			}.bind(this));

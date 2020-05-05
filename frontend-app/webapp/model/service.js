@@ -33,7 +33,7 @@ sap.ui.define([
                 params["data"] = JSON.stringify(content);
             }
             var localUserModel = new LocalStorageModel("localUserModel");
-            if(localUserModel.getData().jwt){
+            if(localUserModel.getData()){
                 params.headers.Authorization = localUserModel.getData().jwt;
             }
             jQuery.ajax(params);

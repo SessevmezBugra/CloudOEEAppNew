@@ -4,7 +4,7 @@ sap.ui.define([
 ], function(BaseComponent, Component) {
 	"use strict";
 
-	return BaseComponent.extend("workerapp.components.home.Component", {
+	return BaseComponent.extend("workerapp.components.factory.components.ordermanagement.Component", {
 		metadata: {
 			manifest: "json"
 		},
@@ -12,11 +12,11 @@ sap.ui.define([
 		init: async function() {
 			BaseComponent.prototype.init.apply(this, arguments);
 
-			var oParentComponent = Component.getOwnerComponentFor(this);
+			var oParentComponent = Component.getOwnerComponentFor(Component.getOwnerComponentFor(this));
 			await this.getRouter().attachBeforeRouteMatched(async function (oEvent){
 				await this.validateToken().then(function(isValid) {
 					if(!isValid){
-						// oParentComponent.getRouter().navTo("home");
+						oParentComponent.getRouter().navTo("home", {}, true /*no history*/);
 					}
 				}.bind(this));
 				this.hideBusyIndicator();

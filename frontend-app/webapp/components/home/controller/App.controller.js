@@ -12,6 +12,10 @@ sap.ui.define([
 
 		onSelectTab: function() {
 			this.getRouter().navTo("home");
+		},
+
+		goToLoginPage: function() {
+			this.getRouter().navTo("login");
 		}
 
 	});

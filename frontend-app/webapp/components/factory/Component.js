@@ -16,7 +16,7 @@ sap.ui.define([
 			await this.getRouter().attachBeforeRouteMatched(async function (oEvent){
 				await this.validateToken().then(function(isValid) {
 					if(!isValid){
-						oParentComponent.getRouter().navTo("login");
+						oParentComponent.getRouter().navTo("home", {}, true /*no history*/);
 					}
 				}.bind(this));
 				this.hideBusyIndicator();
