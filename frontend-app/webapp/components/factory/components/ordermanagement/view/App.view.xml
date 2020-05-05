@@ -1,0 +1,5 @@
+<mvc:View controllerName="workerapp.components.factory.components.ordermanagement.controller.App" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns="sap.m" displayBlock="true">
+	<App id="app" />
+</mvc:View>

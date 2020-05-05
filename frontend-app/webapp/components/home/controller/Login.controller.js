@@ -53,7 +53,7 @@ sap.ui.define([
 			validateValue: function (oValue) {
 				// The following Regex is NOT a completely correct one and only used for demonstration purposes.
 				// RFC 5322 cannot even checked by a Regex and the Regex for RFC 822 is very long and complex.
-				var rexPass = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})';
+				var rexPass = "^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})";
 				if (!oValue.match(rexPass)) {
 					throw new ValidateException("Lutfen gecerli bir sifre giriniz");
 				}
@@ -123,7 +123,7 @@ sap.ui.define([
                     });
                     this.getParentComponent(this.getOwnerComponent()).setModel(localUserModel, "localUserModel");
 					this.hideBusyIndicator();
-					this.getParentComponent(this.getOwnerComponent()).navTo("factory", {}, true /*no history*/);
+					this.getParentComponent(this.getOwnerComponent()).getRouter().navTo("factory", {}, true /*no history*/);
 				}.bind(this)).catch(function(error) {
 					this.hideBusyIndicator();
 					MessageBox.alert(this.getResourceBundle().getText("LOGIN_MESSAGE_BOX_PLEASE_CONTROL_YOUR_INFO"), {

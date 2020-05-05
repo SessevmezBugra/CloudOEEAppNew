@@ -1,0 +1,90 @@
+<mvc:View
+	controllerName="workerapp.components.factory.components.stockmanagement.controller.Home"
+	xmlns="sap.m"
+	xmlns:l="sap.ui.layout"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc">
+	<Page showHeader="true" title="Stok Yonetimi" class="sapUiResponsivePadding--header">
+		
+		<l:BlockLayout
+			id="BlockLayout"
+			background="Default">
+			<l:BlockLayoutRow>
+				<l:BlockLayoutCell class="sapUiNoContentPadding">
+					<Image
+						src="./images/stockManagement.jpg"
+						width="100%"
+						height="100%"/>
+				</l:BlockLayoutCell>
+			</l:BlockLayoutRow>
+			<l:BlockLayoutRow>
+				<l:BlockLayoutCell class="sapUiNoContentPadding">
+					<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Country-Specific Profit Margin" subheader="Expenses" press="onPress">
+						<TileContent unit="EUR" footer="Current Quarter">
+							<NumericContent scale="M" value="1.96" valueColor="Error" indicator="Up" withMargin="false" />
+						</TileContent>
+					</GenericTile>
+
+					<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="US Profit Margin" press="onPress">
+						<TileContent unit="Unit">
+							<NumericContent scale="%" value="12" valueColor="Critical" indicator="Up" withMargin="false" />
+						</TileContent>
+					</GenericTile>
+
+					<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Sales Fulfillment Application Title" subheader="Subtitle" press="onPress">
+						<TileContent unit="EUR" footer="Current Quarter">
+							<ImageContent src="sap-icon://home-share" />
+						</TileContent>
+					</GenericTile>
+
+					<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Manage Activity Master Data Type" subheader="Subtitle" press="onPress">
+						<TileContent>
+							<ImageContent src="./images/orderManagement.png" />
+						</TileContent>
+					</GenericTile>
+
+					<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Manage Activity Master Data Type With a Long Title Without an Icon" subheader="Subtitle Launch Tile" mode="HeaderMode" press="onPress">
+						<TileContent unit="EUR" footer="Current Quarter" />
+					</GenericTile>
+
+					<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Jessica D. Prince Senior Consultant" subheader="Department" press="onPress">
+						<TileContent>
+							<ImageContent src="./images/orderManagement.png" />
+						</TileContent>
+					</GenericTile>
+
+					<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop" backgroundImage="./images/orderManagement.png" frameType="OneByOne" press="onPress">
+						<TileContent footer="Report Available" frameType="OneByOne">
+							<NewsContent contentText="Realtime Business Service Analytics" subheader="SAP Analytics Cloud" />
+						</TileContent>
+					</GenericTile>
+
+					<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop" backgroundImage="./images/orderManagement.png" frameType="TwoByOne" press="onPress">
+						<TileContent footer="August 21, 2016">
+							<NewsContent contentText="Wind Map: Monitoring Real-Time and Forecasted Wind Conditions across the Globe" subheader="Today, SAP News" />
+						</TileContent>
+					</GenericTile>
+
+					<SlideTile class="sapUiTinyMarginBegin sapUiTinyMarginTop" transitionTime="250" displayTime="2500">
+						<GenericTile backgroundImage="./images/orderManagement.png" frameType="TwoByOne" press="onPress">
+							<TileContent footer="August 21, 2016">
+								<NewsContent contentText="Wind Map: Monitoring Real-Time and Forecasted Wind Conditions across the Globe" subheader="Today, SAP News" />
+							</TileContent>
+						</GenericTile>
+						<GenericTile backgroundImage="./images/orderManagement.png" frameType="TwoByOne" state="Failed">
+							<TileContent footer="August 21, 2016">
+								<NewsContent contentText="SAP Unveils Powerful New Player Comparision Tool Exclusively on NFL.com" subheader="Today, SAP News" />
+							</TileContent>
+						</GenericTile>
+					</SlideTile>
+
+					<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Feed Tile that shows updates of the last feeds given to a specific topic:" frameType="TwoByOne" press="onPress">
+						<TileContent footer="New Notifications">
+							<FeedContent contentText="@@notify Great outcome of the Presentation today. New functionality well received." subheader="About 1 minute ago in Computer Market" value="352" />
+						</TileContent>
+					</GenericTile>
+				</l:BlockLayoutCell>
+			</l:BlockLayoutRow>
+		</l:BlockLayout>
+	</Page>
+</mvc:View>

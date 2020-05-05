@@ -28,7 +28,7 @@
 				<OverflowToolbarLayoutData priority="NeverOverflow" minWidth="16px" />
 			</layoutData>
 		</ToolbarSpacer>
-		<Button text="Oturum Ac" type="Transparent" press=".onHomePress" design="Transparent">
+		<Button text="Oturum Ac" type="Transparent" press=".goToLoginPage" design="Transparent">
 			<layoutData>
 				<OverflowToolbarLayoutData priority="NeverOverflow" />
 			</layoutData>

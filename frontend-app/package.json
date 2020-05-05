@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "ui5 serve",
+    "start": "ui5 serve --open /index.html",
     "build": "rimraf dist && ui5 build --a"
   },
   "author": "",
