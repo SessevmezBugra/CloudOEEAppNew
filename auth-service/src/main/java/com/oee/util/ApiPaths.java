@@ -23,4 +23,8 @@ public final class ApiPaths {
 		public static final String CTRL = BASE_PATH + "/authority";
 	}
 	
+	public static final class ResponsibleAreaCtrl{
+		public static final String CTRL = BASE_PATH + "/responsiblearea";
+	}
+	
 }

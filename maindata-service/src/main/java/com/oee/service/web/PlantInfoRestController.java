@@ -25,9 +25,6 @@ public class PlantInfoRestController {
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<PlantInfo> createPlantInfo(@RequestBody PlantInfo plantInfo){
-//		plantInfo.setMaterials(null);
-//		plantInfo.getClient().setPlants(null);
-//		System.err.println(plantInfo.getClient().getClientId());
 		return ResponseEntity.ok(plantInfoService.create(plantInfo));
 	}
 	

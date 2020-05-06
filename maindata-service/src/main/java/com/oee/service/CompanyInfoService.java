@@ -12,6 +12,4 @@ public interface CompanyInfoService {
 	
 	CompanyInfo getById(Integer companyId);
 	
-	CompanyInfo getByUsername(String username);
-	
 }
