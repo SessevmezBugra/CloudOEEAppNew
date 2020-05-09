@@ -36,9 +36,4 @@ public class CompanyInfoServiceImpl implements CompanyInfoService{
 		return companyInfoRepository.findById(companyId).get();
 	}
 
-	@Override
-	public CompanyInfo getByUsername(String username) {
-		return companyInfoRepository.getByUsername(username);
-	}
-	
 }

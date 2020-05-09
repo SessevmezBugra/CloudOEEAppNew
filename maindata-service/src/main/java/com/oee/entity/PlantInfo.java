@@ -14,12 +14,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="PLANT_INFO")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class PlantInfo {
 	
 	@Id
@@ -33,6 +32,10 @@ public class PlantInfo {
 	@JsonManagedReference
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="plant")
 	private List<MaterialInfo> materials;
+	
+	@JsonManagedReference
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="plant")
+	private List<WarehouseInfo> warehouses;
 	
 	@JsonBackReference
 	@ManyToOne(optional=true)
@@ -73,6 +76,14 @@ public class PlantInfo {
 
 	public void setPlantId(Integer plantId) {
 		this.plantId = plantId;
+	}
+
+	public List<WarehouseInfo> getWarehouses() {
+		return warehouses;
+	}
+
+	public void setWarehouses(List<WarehouseInfo> warehouses) {
+		this.warehouses = warehouses;
 	}
 	
 	

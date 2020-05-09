@@ -42,6 +42,10 @@ public class User {
 	@JsonManagedReference
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="user")
 	private List<UserCareerInfo> userCareerInfos;
+	
+	@JsonManagedReference
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="user")
+	private List<ResponsibleArea> responsibleAreas;
 
 	public String getUsername() {
 		return username;
@@ -73,6 +77,12 @@ public class User {
 		}
 		this.authorities.add(authority);
 	}
+	public void addResponsibleArea(ResponsibleArea responsibleArea) {
+		if(this.responsibleAreas == null) {
+			this.responsibleAreas = new ArrayList<ResponsibleArea>();
+		}
+		this.responsibleAreas.add(responsibleArea);
+	}
 
 	public UserInfo getUserInfo() {
 		return userInfo;
@@ -88,6 +98,14 @@ public class User {
 
 	public void setUserCareerInfos(List<UserCareerInfo> userCareerInfos) {
 		this.userCareerInfos = userCareerInfos;
+	}
+
+	public List<ResponsibleArea> getResponsibleAreas() {
+		return responsibleAreas;
+	}
+
+	public void setResponsibleAreas(List<ResponsibleArea> responsibleAreas) {
+		this.responsibleAreas = responsibleAreas;
 	}
 
 }

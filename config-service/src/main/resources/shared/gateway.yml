@@ -7,6 +7,9 @@ eureka:
 #  ReadTimeout: 20000
 #  ConnectTimeout: 20000
 
+zuul:
+  sensitiveHeaders: Cookie,Set-Cookie
+  
 #zuul:
 #  ignoredServices: '*'
 #  ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin

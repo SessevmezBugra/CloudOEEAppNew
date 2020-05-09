@@ -53,8 +53,4 @@ public class CompanyInfoRestController {
 		return ResponseEntity.ok(companyInfoService.getById(companyId));
 	}
 	
-	@RequestMapping(value="/user/{username}", method=RequestMethod.GET)
-	public ResponseEntity<CompanyInfo> getCompanyInfoByUsername(@PathVariable(value="username", required=true) String username){
-		return ResponseEntity.ok(companyInfoService.getByUsername(username));
-	}
 }

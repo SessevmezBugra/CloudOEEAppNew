@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.oee.dto.CompanyInfoDto;
+import com.oee.entity.ResponsibleArea;
 import com.oee.entity.User;
 import com.oee.service.MainDataServiceProxy;
+import com.oee.service.ResponsibleAreaService;
 import com.oee.service.UserService;
 import com.oee.util.ApiPaths;
 
@@ -22,6 +24,9 @@ public class UserRestController {
 	
 	@Autowired
 	private Environment environment;
+	
+	@Autowired
+	private ResponsibleAreaService responsibleAreaService;
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -38,9 +43,13 @@ public class UserRestController {
 		logger.info("{}", environment.getProperty("local.server.port"));
 		userService.registerOwner(user);
 		CompanyInfoDto companyInfoDto = new CompanyInfoDto();
-		companyInfoDto.setUsername(user.getUsername());
 		companyInfoDto.setCompanyName(user.getUsername());
-		mainDataServiceProxy.createCompanyInfo(companyInfoDto);
+		companyInfoDto = mainDataServiceProxy.createCompanyInfo(companyInfoDto).getBody();
+		ResponsibleArea responsibleArea = new ResponsibleArea();
+		responsibleArea.setAreaType("COMPANY");
+		responsibleArea.setAreaId(companyInfoDto.getCompanyId().longValue());
+		responsibleArea.setUser(user);
+		responsibleAreaService.create(responsibleArea);
 		return ResponseEntity.ok(Boolean.TRUE);
 	}
 	

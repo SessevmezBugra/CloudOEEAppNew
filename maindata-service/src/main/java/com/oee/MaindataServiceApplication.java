@@ -17,5 +17,6 @@ public class MaindataServiceApplication {
 	public Sampler defaultSampler(){
 		return Sampler.ALWAYS_SAMPLE;
 	}
+	
 
 }
