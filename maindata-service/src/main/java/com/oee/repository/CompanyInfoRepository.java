@@ -6,6 +6,4 @@ import com.oee.entity.CompanyInfo;
 
 public interface CompanyInfoRepository extends JpaRepository<CompanyInfo, Integer>{
 	
-	CompanyInfo getByUsername(String username);
-	
 }

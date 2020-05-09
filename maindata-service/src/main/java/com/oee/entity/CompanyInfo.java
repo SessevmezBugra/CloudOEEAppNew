@@ -26,9 +26,6 @@ public class CompanyInfo {
 	@Column(name="COMPANY_NAME")
 	private String companyName;
 	
-	@Column(name="USERNAME")
-	private String username;
-	
 	@JsonManagedReference
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="company")
 	private List<ClientInfo> clients;
@@ -43,14 +40,6 @@ public class CompanyInfo {
 
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
 	}
 
 
