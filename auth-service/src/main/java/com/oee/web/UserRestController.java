@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.oee.dto.CompanyInfoDto;
+import com.oee.dto.RegisterDto;
 import com.oee.entity.ResponsibleArea;
 import com.oee.entity.User;
 import com.oee.service.MainDataServiceProxy;
@@ -39,15 +40,18 @@ public class UserRestController {
 	}
 	
 	@RequestMapping(value="/registerowner", method = RequestMethod.POST)
-	public ResponseEntity<Boolean> registerOwner(@RequestBody User user){
+	public ResponseEntity<Boolean> registerOwner(@RequestBody RegisterDto registerDto){
 		logger.info("{}", environment.getProperty("local.server.port"));
+		User user = new User();
+		user.setPassword(registerDto.getUsername());
+		user.setPassword(registerDto.getPassword());
 		userService.registerOwner(user);
 		CompanyInfoDto companyInfoDto = new CompanyInfoDto();
-		companyInfoDto.setCompanyName(user.getUsername());
+		companyInfoDto.setCompanyName(registerDto.getCompanyName());
 		companyInfoDto = mainDataServiceProxy.createCompanyInfo(companyInfoDto).getBody();
 		ResponsibleArea responsibleArea = new ResponsibleArea();
 		responsibleArea.setAreaType("COMPANY");
-		responsibleArea.setAreaId(companyInfoDto.getCompanyId().longValue());
+		responsibleArea.setAreaId(companyInfoDto.getCompanyId());
 		responsibleArea.setUser(user);
 		responsibleAreaService.create(responsibleArea);
 		return ResponseEntity.ok(Boolean.TRUE);

@@ -21,7 +21,7 @@ public class CompanyInfo {
 	@Id
 	@Column(name="COMPANY_ID")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer companyId;
+	private Long companyId;
 	
 	@Column(name="COMPANY_NAME")
 	private String companyName;
@@ -43,12 +43,12 @@ public class CompanyInfo {
 	}
 
 
-	public Integer getCompanyId() {
+	public Long getCompanyId() {
 		return companyId;
 	}
 
 
-	public void setCompanyId(Integer companyId) {
+	public void setCompanyId(Long companyId) {
 		this.companyId = companyId;
 	}
 

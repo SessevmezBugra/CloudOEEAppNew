@@ -86,7 +86,7 @@
 										</VBox>
 									</f:content>
 								</f:Card>
-                                <f:Card class="sapUiMediumMargin" width="80%">
+                                <f:Card class="sapUiMediumMargin" width="80%" visible="false">
 									<f:header>
 										<card:Header title="{i18n>REGISTER_WORKER_TITLE}" subtitle="{i18n>REGISTER_WORKER_SUBTITLE}" iconSrc="sap-icon://business-card"/>
 									</f:header>

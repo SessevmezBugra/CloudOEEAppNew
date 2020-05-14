@@ -2,7 +2,7 @@ package com.oee.dto;
 
 public class CompanyInfoDto {
 
-	private Integer companyId;
+	private Long companyId;
 
 	private String companyName;
 
@@ -20,11 +20,11 @@ public class CompanyInfoDto {
 		this.companyName = companyName;
 	}
 
-	public Integer getCompanyId() {
+	public Long getCompanyId() {
 		return companyId;
 	}
 
-	public void setCompanyId(Integer companyId) {
+	public void setCompanyId(Long companyId) {
 		this.companyId = companyId;
 	}
 
