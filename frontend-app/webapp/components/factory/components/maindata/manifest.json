@@ -83,6 +83,10 @@
 					"pattern": "materialdetail/{action}/{id}",
 					"name": "materialDetail",
 					"target": "materialDetail"
+				},{
+					"pattern": "company",
+					"name": "company",
+					"target": "company"
 				}
 			],
 			"targets": {
@@ -97,6 +101,11 @@
 					"id": "materialDetail",
 					"name": "MaterialDetail",
 					"title": "MaterialDetail"
+				},"company": {
+					"type": "View",
+					"id": "company",
+					"name": "Company",
+					"title": "Company"
 				},
 				"home": {
 					"type": "View",

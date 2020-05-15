@@ -6,7 +6,7 @@ public class JwtConfig {
 
 	// Spring doesn't inject/autowire to "static" fields. 
 	// Link: https://stackoverflow.com/a/6897406
-	@Value("${security.jwt.uri:/auth}")
+	@Value("${security.jwt.uri:/rest/auth}")
     private String Uri;
 
     @Value("${security.jwt.header:Authorization}")
