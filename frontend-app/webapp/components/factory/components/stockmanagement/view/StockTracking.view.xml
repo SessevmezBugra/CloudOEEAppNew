@@ -3,8 +3,122 @@
 	xmlns="sap.m"
 	xmlns:l="sap.ui.layout"
 	xmlns:core="sap.ui.core"
+	xmlns:f="sap.ui.layout.form"
 	xmlns:mvc="sap.ui.core.mvc">
-	<Page showHeader="false">
-		
+	<Page showHeader="false"  title="{i18n>STOCK_INFORMATION}" >
+		<content>
+			<Panel xmlns="sap.m" width="auto" expandable="true" expanded="true" id="panel0">
+				<headerToolbar>
+					<Toolbar id="toolbar1">
+						<Title text="{i18n>WAREHOUSE}"></Title>
+						<ToolbarSpacer></ToolbarSpacer>
+						<Label text="{i18n>CHOOSEWAREHOUSE} : "></Label>
+						<ComboBox xmlns="sap.m" id="box1">
+							<items>
+								<core:Item xmlns:core="sap.ui.core" key="item-1-key" text="Item 1 Text"/>
+								<core:Item xmlns:core="sap.ui.core" key="item-2-key" text="Item 2 Text"/>
+							</items>
+						</ComboBox>
+					</Toolbar>
+				</headerToolbar>
+				<content>
+					<ObjectHeader title="Warehous Name" backgroundDesign="Solid"
+						number="İstanbul, Turkey"
+						numberUnit="05:15 PM, Thursday"
+						icon="sap-icon://addresses"
+						iconDensityAware="false">
+						<attributes>
+							<ObjectAttribute title="{i18n>ADDRESS}" text="BLR.01, B2.023"/>
+							<ObjectAttribute title="{i18n>OFFICEPHONE}" text="+91-90100-98100"/>
+							<ObjectAttribute title="{i18n>EMAIL}" text="example@bybas.com" active="true"/>
+						</attributes>
+						<statuses>
+							<ObjectStatus title="{i18n>STATUS}"  icon="sap-icon://employee-approvals" text="Available" state="Success"/>
+						</statuses>
+					</ObjectHeader>
+				</content>
+			</Panel>
+			<IconTabBar selectedKey="__xmlview0--filter1" id="bar0">
+				<items>
+					<IconTabFilter text="{i18n>PRODUCT}" icon="sap-icon://product" iconColor="Neutral" id="filter3">
+						<content>
+							<Table noDataText="Drop column list items here and columns in the area above" items="{/Entity1_Set}" id="table1">
+								<items>
+									<ColumnListItem type="Active" id="item4">
+										<cells>
+											<Text text="Row 1 Cell 1" id="text3"/>
+											<Text text="Row 1 Cell 2" id="text4"/>
+											<Text text="Row 1 Cell 3" id="text5"/></cells>
+									</ColumnListItem>
+								</items>
+								<columns>
+									<Column id="column3">
+										<header>
+											<Label text="{i18n>PRODUCTNUMBER}" id="label3"/>
+										</header>
+									</Column>
+									<Column id="column4">
+										<header>
+											<Label text="{i18n>PRODUCTNAME}" id="label4"/>
+										</header>
+									</Column>
+									<Column id="column5">
+										<header>
+											<Label text="{i18n>STOCKSTATUS}" id="label5"/>
+										</header>
+									</Column>
+								</columns>
+							</Table>
+						</content>
+					</IconTabFilter>
+					<IconTabFilter text="{i18n>PRODUCTADD}" icon="sap-icon://add-product" iconColor="Positive" id="filter1">
+						<f:SimpleForm id="simple1" title="Product Add" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4"
+							columnsM="6" columnsL="5" columnsXL="5" emptySpanL="3" emptySpanXL="3" emptySpanM="2">
+							<f:content>
+								<Label text="{i18n>PRODUCTNUMBER}"></Label>
+								<Input width="100%"/>
+								<Label text="{i18n>PRODUCTNAME}"></Label>
+								<Input width="100%"/>
+								<Label text="{i18n>STOCKAMOUNT}"></Label>
+								<Input width="100%"/>
+								<Label text="{i18n>STOCKQUALITY}"></Label>
+								<ComboBox xmlns="sap.m" id="box0">
+									<items>
+										<core:Item xmlns:core="sap.ui.core" key="item-1-key" text="Item 1 Text" id="item0_1589367031038"/>
+										<core:Item xmlns:core="sap.ui.core" key="item-2-key" text="Item 2 Text" id="item1_1589367031039"/>
+									</items>
+								</ComboBox>
+								<Label text="Metarial Number"></Label>
+								<Input width="100%">
+									<layoutData>
+										<l:GridData span="XL2 L2 M6"></l:GridData>
+									</layoutData>
+								</Input>
+								<Button xmlns="sap.m" text="Ekle" id="button0" type="Accept">
+									<layoutData>
+										<l:GridData span="XL2 L2 M6"></l:GridData>
+									</layoutData>
+								</Button>
+								<Button xmlns="sap.m" text="Temizle" id="button1" type="Reject"></Button>
+							</f:content>
+						</f:SimpleForm>
+					</IconTabFilter>
+					<IconTabFilter text="{i18n>PRODUCTLOG}" icon="sap-icon://shipping-status" iconColor="Critical" id="filter2">
+						<content>
+							<List xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" noDataText="No data" id="list0">
+								<items>
+									<StandardListItem title="List Item 1" id="item0"/>
+									<StandardListItem title="List Item 2" id="item1"/>
+									<StandardListItem title="List Item 3" id="item2"/>
+									<StandardListItem title="List Item 1" id="item3"/>
+									<StandardListItem title="List Item 2" id="item6"/>
+									<StandardListItem title="List Item 3" id="item5"/>
+								</items>
+							</List>
+						</content>
+					</IconTabFilter>
+				</items>
+			</IconTabBar>
+		</content>
 	</Page>
 </mvc:View>
