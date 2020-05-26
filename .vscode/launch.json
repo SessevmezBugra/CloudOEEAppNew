@@ -22,6 +22,19 @@
         },
         {
             "type": "java",
+<<<<<<< HEAD
+=======
+            "name": "Spring Boot-AuthServiceApplication<auth-service>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.oee.AuthServiceApplication",
+            "projectName": "auth-service",
+            "args": ""
+        },
+        {
+            "type": "java",
+>>>>>>> 98047527ebac6714121cae185b2375a945da1c0a
             "name": "Spring Boot-GatewayApplication<gateway-service>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
@@ -48,16 +61,6 @@
             "console": "internalConsole",
             "mainClass": "com.oee.ConfirmationServiceApplication",
             "projectName": "confirmation-service",
-            "args": ""
-        },
-        {
-            "type": "java",
-            "name": "Spring Boot-AuthServiceApplication<auth-service>",
-            "request": "launch",
-            "cwd": "${workspaceFolder}",
-            "console": "internalConsole",
-            "mainClass": "com.oee.AuthServiceApplication",
-            "projectName": "auth-service",
             "args": ""
         },
         {
