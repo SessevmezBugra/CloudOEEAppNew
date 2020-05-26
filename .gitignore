@@ -15,6 +15,23 @@ target/
 **/*.classpath
 **/*.settings
 /.metadata/
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
+
+# Eclipse
+**/*.project
+**/*.classpath
+**/*.settings
+/.metadata/
 
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
