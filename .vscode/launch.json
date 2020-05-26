@@ -1,0 +1,84 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-ConfigApplication<config-service>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.oee.ConfigApplication",
+            "projectName": "config-service",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-EurekaApplication<eureka-server>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.oee.EurekaApplication",
+            "projectName": "eureka-server",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-GatewayApplication<gateway-service>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.oee.GatewayApplication",
+            "projectName": "gateway-service",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-MaindataServiceApplication<maindata-service>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.oee.MaindataServiceApplication",
+            "projectName": "maindata-service",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-ConfirmationServiceApplication<confirmation-service>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.oee.ConfirmationServiceApplication",
+            "projectName": "confirmation-service",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-AuthServiceApplication<auth-service>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.oee.AuthServiceApplication",
+            "projectName": "auth-service",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-OrderServiceApplication<order-service>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.oee.OrderServiceApplication",
+            "projectName": "order-service",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-StockServiceApplication<stock-service>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.oee.StockServiceApplication",
+            "projectName": "stock-service",
+            "args": ""
+        }
+    ]
+}
