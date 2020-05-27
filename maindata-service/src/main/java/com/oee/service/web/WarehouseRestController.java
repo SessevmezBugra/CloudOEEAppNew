@@ -41,8 +41,8 @@ public class WarehouseRestController {
 		return ResponseEntity.ok(warehouseService.getById(warehouseId));
 	}
 	
-	@RequestMapping(value="/{plantId}", method=RequestMethod.GET)
-	public ResponseEntity<List<WarehouseInfo>> getWarehouseInfoByPlantId(@PathVariable(value="warehouseId", required=true) Long plantId){
+	@RequestMapping(value="/plant/{plantId}", method=RequestMethod.GET)
+	public ResponseEntity<List<WarehouseInfo>> getWarehouseInfoByPlantId(@PathVariable(value="plantId", required=true) Long plantId){
 		return ResponseEntity.ok(warehouseService.findByPlantId(plantId));
 	}
 }
