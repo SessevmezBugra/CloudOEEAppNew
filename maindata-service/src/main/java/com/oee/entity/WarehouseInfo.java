@@ -22,9 +22,6 @@ public class WarehouseInfo {
 	
 	@Column(name="CLIENT_NAME")
 	private String warehouseName;
-
-	@Column(name="CLIENT_NAME")
-	private String clientName;
 	
 	@JsonBackReference
 	@ManyToOne(optional=true)
@@ -33,14 +30,6 @@ public class WarehouseInfo {
 	
 	public WarehouseInfo() {
 		
-	}
-
-	public String getClientName() {
-		return clientName;
-	}
-
-	public void setClientName(String clientName) {
-		this.clientName = clientName;
 	}
 
 	public PlantInfo getPlant() {
