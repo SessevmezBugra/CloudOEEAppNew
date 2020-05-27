@@ -27,18 +27,18 @@ public class PlantInfoServiceImpl implements PlantInfoService{
 	}
 
 	@Override
-	public Boolean delete(Integer plantId) {
+	public Boolean delete(Long plantId) {
 		plantInfoRepository.deleteById(plantId);
 		return Boolean.TRUE;
 	}
 
 	@Override
-	public PlantInfo getById(Integer plantId) {
-		return plantInfoRepository.getOne(plantId);
+	public PlantInfo getById(Long plantId) {
+		return plantInfoRepository.findById(plantId).get();
 	}
 
 	@Override
-	public List<PlantInfo> getByClientId(Integer clientId) {
+	public List<PlantInfo> getByClientId(Long clientId) {
 		return plantInfoRepository.findByClientClientId(clientId);
 	}
 

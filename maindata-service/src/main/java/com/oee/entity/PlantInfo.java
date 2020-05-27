@@ -24,7 +24,7 @@ public class PlantInfo {
 	@Id
 	@Column(name="PLANT_ID")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer plantId;
+	private Long plantId;
 	
 	@Column(name="PLANT_NAME")
 	private String plantName;
@@ -70,20 +70,20 @@ public class PlantInfo {
 		this.materials = materials;
 	}
 
-	public Integer getPlantId() {
-		return plantId;
-	}
-
-	public void setPlantId(Integer plantId) {
-		this.plantId = plantId;
-	}
-
 	public List<WarehouseInfo> getWarehouses() {
 		return warehouses;
 	}
 
 	public void setWarehouses(List<WarehouseInfo> warehouses) {
 		this.warehouses = warehouses;
+	}
+
+	public Long getPlantId() {
+		return plantId;
+	}
+
+	public void setPlantId(Long plantId) {
+		this.plantId = plantId;
 	}
 	
 	

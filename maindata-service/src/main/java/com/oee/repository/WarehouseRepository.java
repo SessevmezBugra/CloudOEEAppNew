@@ -5,11 +5,10 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.oee.entity.ClientInfo;
+import com.oee.entity.WarehouseInfo;
 
 @Repository
-public interface ClientInfoRepository extends JpaRepository<ClientInfo, Long>{
-	
-	List<ClientInfo> findByCompanyCompanyId(Long companyId);
-	
+public interface WarehouseRepository extends JpaRepository<WarehouseInfo, Long>{
+
+	List<WarehouseInfo> findByPlantPlantId(Long plantId);
 }

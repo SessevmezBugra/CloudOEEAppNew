@@ -34,17 +34,17 @@ public class PlantInfoRestController {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
-	public ResponseEntity<Boolean> deletePlantInfo(@PathVariable(value="id", required=true) Integer plantId){
+	public ResponseEntity<Boolean> deletePlantInfo(@PathVariable(value="id", required=true) Long plantId){
 		return ResponseEntity.ok(plantInfoService.delete(plantId));
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<PlantInfo> getPlantInfoById(@PathVariable(value="id", required=true) Integer plantId){
+	public ResponseEntity<PlantInfo> getPlantInfoById(@PathVariable(value="id", required=true) Long plantId){
 		return ResponseEntity.ok(plantInfoService.getById(plantId));
 	}
 	
 	@RequestMapping(value="/client/{id}", method=RequestMethod.GET)
-	public ResponseEntity<List<PlantInfo>> getPlantInfoByClientId(@PathVariable(value="id", required=true) Integer clientId){
+	public ResponseEntity<List<PlantInfo>> getPlantInfoByClientId(@PathVariable(value="id", required=true) Long clientId){
 		return ResponseEntity.ok(plantInfoService.getByClientId(clientId));
 	}
 	

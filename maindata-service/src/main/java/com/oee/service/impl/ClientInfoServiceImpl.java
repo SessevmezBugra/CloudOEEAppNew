@@ -28,18 +28,18 @@ public class ClientInfoServiceImpl implements ClientInfoService{
 	}
 
 	@Override
-	public Boolean delete(Integer clientId) {
+	public Boolean delete(Long clientId) {
 		clientInfoRepository.deleteById(clientId);
 		return Boolean.TRUE;
 	}
 
 	@Override
-	public ClientInfo getById(Integer clientId) {
+	public ClientInfo getById(Long clientId) {
 		return clientInfoRepository.findById(clientId).get();
 	}
 
 	@Override
-	public List<ClientInfo> getByCompanyId(Integer companyId) {
+	public List<ClientInfo> getByCompanyId(Long companyId) {
 		return clientInfoRepository.findByCompanyCompanyId(companyId);
 	}
 

@@ -18,8 +18,11 @@ public class WarehouseInfo {
 	@Id
 	@Column(name="WAREHOUSE_ID")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer warehouseId;
+	private Long warehouseId;
 	
+	@Column(name="CLIENT_NAME")
+	private String warehouseName;
+
 	@Column(name="CLIENT_NAME")
 	private String clientName;
 	
@@ -30,14 +33,6 @@ public class WarehouseInfo {
 	
 	public WarehouseInfo() {
 		
-	}
-
-	public Integer getWarehouseId() {
-		return warehouseId;
-	}
-
-	public void setWarehouseId(Integer warehouseId) {
-		this.warehouseId = warehouseId;
 	}
 
 	public String getClientName() {
@@ -54,6 +49,22 @@ public class WarehouseInfo {
 
 	public void setPlant(PlantInfo plant) {
 		this.plant = plant;
+	}
+
+	public String getWarehouseName() {
+		return warehouseName;
+	}
+
+	public void setWarehouseName(String warehouseName) {
+		this.warehouseName = warehouseName;
+	}
+
+	public Long getWarehouseId() {
+		return warehouseId;
+	}
+
+	public void setWarehouseId(Long warehouseId) {
+		this.warehouseId = warehouseId;
 	}
 	
 	
