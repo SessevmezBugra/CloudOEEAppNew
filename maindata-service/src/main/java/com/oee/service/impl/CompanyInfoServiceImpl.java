@@ -26,13 +26,13 @@ public class CompanyInfoServiceImpl implements CompanyInfoService{
 	}
 
 	@Override
-	public Boolean delete(Integer companyId) {
+	public Boolean delete(Long companyId) {
 		companyInfoRepository.deleteById(companyId);
 		return Boolean.TRUE;
 	}
 
 	@Override
-	public CompanyInfo getById(Integer companyId) {
+	public CompanyInfo getById(Long companyId) {
 		return companyInfoRepository.findById(companyId).get();
 	}
 

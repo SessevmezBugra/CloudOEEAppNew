@@ -8,8 +8,8 @@ public interface CompanyInfoService {
 	
 	CompanyInfo update(CompanyInfo companyInfo);
 	
-	Boolean delete(Integer companyId);
+	Boolean delete(Long companyId);
 	
-	CompanyInfo getById(Integer companyId);
+	CompanyInfo getById(Long companyId);
 	
 }

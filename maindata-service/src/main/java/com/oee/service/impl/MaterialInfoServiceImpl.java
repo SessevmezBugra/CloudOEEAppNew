@@ -39,7 +39,7 @@ public class MaterialInfoServiceImpl implements MaterialInfoService{
 	}
 
 	@Override
-	public List<MaterialInfo> getByPlantId(Integer plantId) {
+	public List<MaterialInfo> getByPlantId(Long plantId) {
 		return materialInfoRepository.findByPlantPlantId(plantId);
 	}
 

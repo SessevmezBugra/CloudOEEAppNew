@@ -10,9 +10,9 @@ public interface ClientInfoService {
 	
 	ClientInfo update(ClientInfo clientInfo);
 	
-	Boolean delete(Integer clientId);
+	Boolean delete(Long clientId);
 	
-	ClientInfo getById(Integer clientId);
+	ClientInfo getById(Long clientId);
 	
-	List<ClientInfo> getByCompanyId(Integer companyId);
+	List<ClientInfo> getByCompanyId(Long companyId);
 }

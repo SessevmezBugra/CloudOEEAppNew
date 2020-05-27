@@ -43,13 +43,13 @@ public class CompanyInfoRestController {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
-	public ResponseEntity<Boolean> deleteCompanyInfo(@PathVariable(value="id", required=true) Integer companyId){
+	public ResponseEntity<Boolean> deleteCompanyInfo(@PathVariable(value="id", required=true) Long companyId){
 		return ResponseEntity.ok(companyInfoService.delete(companyId));
 	}
 	
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<CompanyInfo> getCompanyInfoById(@PathVariable(value="id", required=true) Integer companyId){
+	public ResponseEntity<CompanyInfo> getCompanyInfoById(@PathVariable(value="id", required=true) Long companyId){
 		return ResponseEntity.ok(companyInfoService.getById(companyId));
 	}
 	

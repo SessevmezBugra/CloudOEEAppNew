@@ -19,6 +19,10 @@ public final class ApiPaths {
 		public static final String CTRL = BASE_PATH + "/materialinfo";
 	}
 	
+	public static final class WarehouseInfoCtrl{
+		public static final String CTRL = BASE_PATH + "/warehouseinfo";
+	}
+	
 	public static final class UOMCtrl{
 		public static final String CTRL = BASE_PATH + "/uom";
 	}

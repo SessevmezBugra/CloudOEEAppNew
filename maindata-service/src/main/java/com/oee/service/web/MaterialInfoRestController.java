@@ -44,7 +44,7 @@ public class MaterialInfoRestController {
 	}
 	
 	@RequestMapping(value="/plant/{id}", method=RequestMethod.GET)
-	public ResponseEntity<List<MaterialInfo>> getMaterialInfoByPlantId(@PathVariable(value="id", required=true) Integer plantId){
+	public ResponseEntity<List<MaterialInfo>> getMaterialInfoByPlantId(@PathVariable(value="id", required=true) Long plantId){
 		return ResponseEntity.ok(materialInfoService.getByPlantId(plantId));
 	}
 }
