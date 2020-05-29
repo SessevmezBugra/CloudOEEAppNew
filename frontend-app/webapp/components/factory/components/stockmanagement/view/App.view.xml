@@ -1,5 +1,5 @@
 <mvc:View controllerName="workerapp.components.factory.components.staffmanagement.controller.App" 
 	xmlns:mvc="sap.ui.core.mvc" 
 	xmlns="sap.m" displayBlock="true">
-	<App id="app" />
+	<App id="app" backgroundImage="./images/factory.jpeg"/>
 </mvc:View>

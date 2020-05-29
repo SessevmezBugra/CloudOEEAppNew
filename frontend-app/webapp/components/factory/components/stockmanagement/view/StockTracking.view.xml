@@ -5,7 +5,7 @@
 	xmlns:core="sap.ui.core"
 	xmlns:f="sap.ui.layout.form"
 	xmlns:mvc="sap.ui.core.mvc">
-	<Page showHeader="false"  title="{i18n>STOCK_INFORMATION}" >
+	<Page showHeader="false"  title="{i18n>STOCK_INFORMATION}"  backgroundDesign="Transparent">
 		<content>
 			<Panel xmlns="sap.m" width="auto" expandable="true" expanded="true" id="panel0">
 				<headerToolbar>
@@ -72,34 +72,37 @@
 						</content>
 					</IconTabFilter>
 					<IconTabFilter text="{i18n>PRODUCTADD}" icon="sap-icon://add-product" iconColor="Positive" id="filter1">
-						<f:SimpleForm id="simple1" title="Product Add" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4"
+						<f:SimpleForm id="simple1" title="{i18n>PRODUCTADD}" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4"
 							columnsM="6" columnsL="5" columnsXL="5" emptySpanL="3" emptySpanXL="3" emptySpanM="2">
 							<f:content>
-								<Label text="{i18n>PRODUCTNUMBER}"></Label>
-								<Input width="100%"/>
 								<Label text="{i18n>PRODUCTNAME}"></Label>
-								<Input width="100%"/>
+								<ComboBox xmlns="sap.m" id="box0_1590137226501">
+									<items>
+										<core:Item xmlns:core="sap.ui.core" key="item-1-key" text="Item 1 Text" id="item12"/>
+										<core:Item xmlns:core="sap.ui.core" key="item-2-key" text="Item 2 Text" id="item13"/>
+									</items>
+								</ComboBox>
 								<Label text="{i18n>STOCKAMOUNT}"></Label>
-								<Input width="100%"/>
+								<Input width="100%" />
 								<Label text="{i18n>STOCKQUALITY}"></Label>
-								<ComboBox xmlns="sap.m" id="box0">
+								<ComboBox xmlns="sap.m" id="box0" editable="false">
 									<items>
 										<core:Item xmlns:core="sap.ui.core" key="item-1-key" text="Item 1 Text" id="item0_1589367031038"/>
 										<core:Item xmlns:core="sap.ui.core" key="item-2-key" text="Item 2 Text" id="item1_1589367031039"/>
 									</items>
 								</ComboBox>
 								<Label text="Metarial Number"></Label>
-								<Input width="100%">
+								<Input width="100%" editable="false">
 									<layoutData>
 										<l:GridData span="XL2 L2 M6"></l:GridData>
 									</layoutData>
 								</Input>
-								<Button xmlns="sap.m" text="Ekle" id="button0" type="Accept">
+								<Button xmlns="sap.m" text="Stok Ekle" id="button0" type="Accept" press="saveStock">
 									<layoutData>
 										<l:GridData span="XL2 L2 M6"></l:GridData>
 									</layoutData>
 								</Button>
-								<Button xmlns="sap.m" text="Temizle" id="button1" type="Reject"></Button>
+								<Button xmlns="sap.m" text="Stok Çıkart" id="button1" type="Reject"></Button>
 							</f:content>
 						</f:SimpleForm>
 					</IconTabFilter>
