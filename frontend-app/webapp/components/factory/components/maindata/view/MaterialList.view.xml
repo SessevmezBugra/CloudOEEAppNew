@@ -14,7 +14,7 @@
 				<IconTabFilter key="outOfStock" icon="sap-icon://message-error" iconColor="Negative" count="{materialModel>/outOfStock}" text="{i18n>MATERIAL_OUTOFSTOCK}"/>
 			</items>
 			<content>
-				<Table growing="true" growingScrollToLoad="true" noDataText="{i18n>MATERIAL_TABLE_NOTEXT}" width="auto" mode="MultiSelect" items="{materialModel>/materials}">
+				<Table backgroundDesign="Transparent" growing="true" growingScrollToLoad="true" noDataText="{i18n>MATERIAL_TABLE_NOTEXT}" width="auto" mode="MultiSelect" items="{materialModel>/materials}">
 					<headerToolbar>
 						<Toolbar>
 							<ToolbarSpacer/>

@@ -16,7 +16,17 @@ sap.ui.define([
         },
         getStockInfoById: function(id){
             return Service.doAjax("http://localhost:4000/rest/stock/stockinfo/" + id, null, "GET", true);
-        }
+        },
+        getStockInfoByWarehouseId: function(id){
+            return Service.doAjax("http://localhost:4000/rest/stock/warehouse/" + id, null, "GET", true);
+        },
 
+        //Maindata Servisleri
+        getWarehousesByPlantId: function(id) {
+            return Service.doAjax("http://localhost:4000/rest/maindata/warehouseinfo/plant/" + id, null, "GET", true);
+        },
+        getMaterialsByPlantId: function(id) {
+            return Service.doAjax("http://localhost:4000/rest/maindata/materialinfo/plant/" + id, null, "GET", true);
+        }
     }
 });
