@@ -1,5 +1,7 @@
 package com.oee.web;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,6 +42,11 @@ public class StockInfoRestController {
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<StockInfo> getStockInfoById(@PathVariable(value="id", required=true) Long stockId){
 		return ResponseEntity.ok(stockInfoService.getById(stockId));
+	}
+	 
+	@RequestMapping(value="/warehouse/{warehouseId}", method=RequestMethod.GET)
+	public ResponseEntity<List<StockInfo>> getStockInfoByWarehouseId(@PathVariable(value="warehouseId", required=true) Long warehouseId){
+		return ResponseEntity.ok(stockInfoService.getByWarehouseId(warehouseId));
 	}
 	
 }
