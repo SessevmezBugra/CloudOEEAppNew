@@ -18,7 +18,7 @@ sap.ui.define([
             return Service.doAjax("http://localhost:4000/rest/stock/stockinfo/" + id, null, "GET", true);
         },
         getStockInfoByWarehouseId: function(id){
-            return Service.doAjax("http://localhost:4000/rest/stock/warehouse/" + id, null, "GET", true);
+            return Service.doAjax("http://localhost:4000/rest/stock/stockinfo/warehouse/" + id, null, "GET", true);
         },
 
         //Maindata Servisleri
@@ -27,6 +27,15 @@ sap.ui.define([
         },
         getMaterialsByPlantId: function(id) {
             return Service.doAjax("http://localhost:4000/rest/maindata/materialinfo/plant/" + id, null, "GET", true);
+        },
+        getPlantByClientId: function(id) {
+            return Service.doAjax("http://localhost:4000/rest/maindata/plantinfo/client/" + id, null, "GET", true);
+        },
+        getClientInfoByCompanyId: function(id) {
+            return Service.doAjax("http://localhost:4000/rest/maindata/clientinfo/company/" + id, null, "GET", true);
+        },
+        getCompanyInfoById: function(id) {
+            return Service.doAjax("http://localhost:4000/rest/maindata/companyinfo/" + id, null, "GET", true);
         }
     }
 });

@@ -20,7 +20,7 @@ public class WarehouseInfo {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long warehouseId;
 	
-	@Column(name="CLIENT_NAME")
+	@Column(name="WAREHOUSE_NAME")
 	private String warehouseName;
 	
 	@JsonBackReference
