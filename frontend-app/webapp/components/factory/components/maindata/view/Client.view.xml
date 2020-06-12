@@ -1,9 +1,9 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.uxap" xmlns:layout="sap.ui.layout" xmlns:m="sap.m"
-	controllerName="workerapp.components.factory.components.maindata.controller.Company" height="100%">
+	controllerName="workerapp.components.factory.components.maindata.controller.Client" height="100%">
 	
 	<ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" backgroundDesignAnchorBar="Transparent" showAnchorBar="true">
 		<headerTitle>
-			<ObjectPageHeader id="headerForTest" objectTitle="{/companyInfo/text}" objectImageShape="Circle" objectSubtitle="Manager, HCM"
+			<ObjectPageHeader id="headerForTest" objectTitle="{/clientInfo/text}" objectImageShape="Circle" objectSubtitle="Manager, HCM"
 				isObjectTitleAlwaysVisible="false" isObjectSubtitleAlwaysVisible="false" isActionAreaAlwaysVisible="false" showPlaceholder="true">
 				<!--	<navigationBar>
 					<m:Bar>
@@ -38,7 +38,7 @@
 			<ObjectPageSection title="Payroll" backgroundDesign="Transparent">
 				<subSections>
 					<ObjectPageSubSection title="CLIENT LIST">
-						<m:Tree mode="SingleSelectMaster" id="idTree" items="{/companyInfo/children/}" width="auto" selectionChange="onSelectedItem">
+						<m:Tree mode="SingleSelectMaster" id="idTree" items="{/clientInfo/children/}" width="auto" selectionChange="onSelectedItem">
 							<m:StandardTreeItem title="{text}"/>
 						</m:Tree>
 					</ObjectPageSubSection>

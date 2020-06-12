@@ -87,6 +87,14 @@
 					"pattern": "company",
 					"name": "company",
 					"target": "company"
+				},{
+					"pattern": "client/{id}",
+					"name": "client",
+					"target": "client"
+				},{
+					"pattern": "plant/{id}",
+					"name": "plant",
+					"target": "plant"
 				}
 			],
 			"targets": {
@@ -106,6 +114,16 @@
 					"id": "company",
 					"name": "Company",
 					"title": "Company"
+				},"client": {
+					"type": "View",
+					"id": "client",
+					"name": "Client",
+					"title": "Client"
+				},"plant": {
+					"type": "View",
+					"id": "plant",
+					"name": "Plant",
+					"title": "Plant"
 				},
 				"home": {
 					"type": "View",

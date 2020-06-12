@@ -11,15 +11,17 @@ zuul:
   sensitiveHeaders: Cookie,Set-Cookie
   ignoredServices: '*'
   ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
-#  host:
-#    connect-timeout-millis: 20000
-#    socket-timeout-millis: 20000
+  
+  #host:
+   #  connect-timeout-millis: 20000
+    # socket-timeout-millis: 20000
 
 #  
 #  host:
 #    connect-timeout-millis: 20000
 #    socket-timeout-millis: 20000
 #    
+  
   routes:
       auth-service:
           service-id: auth-service
