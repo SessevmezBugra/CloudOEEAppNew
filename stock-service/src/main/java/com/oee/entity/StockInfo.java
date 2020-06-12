@@ -29,7 +29,7 @@ public class StockInfo {
 	private Double quantity;
 	
 	@Column(name="WAREHOUSE_ID")
-	private Integer warehouseId;
+	private Long warehouseId;
 
 	@JsonManagedReference
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="stock")
@@ -61,14 +61,6 @@ public class StockInfo {
 
 	public void setQuantity(Double quantity) {
 		this.quantity = quantity;
-	}
-
-	public Integer getWarehouseId() {
-		return warehouseId;
-	}
-
-	public void setWarehouseId(Integer warehouseId) {
-		this.warehouseId = warehouseId;
 	}
 
 	public List<StockMovement> getStockMovements() {

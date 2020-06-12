@@ -1,5 +1,7 @@
 package com.oee.service.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.oee.entity.StockInfo;
@@ -34,6 +36,11 @@ public class StockInfoServiceImpl implements StockInfoService{
 	@Override
 	public StockInfo getById(Long id) {
 		return stockRepository.findById(id).get();
+	}
+
+	@Override
+	public List<StockInfo> getByWarehouseId(Long warehouseId) {
+		return stockRepository.findByWarehouseId(warehouseId);
 	}
 
 }
