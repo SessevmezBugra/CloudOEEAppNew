@@ -27,7 +27,6 @@ public class UserDetailsServiceImpl implements UserDetailsService  {
 		System.err.println(username);
 		com.oee.entity.User user = userService.findByUsername(username);
 		System.err.println("loadUserByUsername");
-		
 		if(user != null) {
 			System.err.println("user");
 			List<String> auths = user.getAuthorities().stream().map(auth -> "ROLE_" + auth.getRole()).collect(Collectors.toList());

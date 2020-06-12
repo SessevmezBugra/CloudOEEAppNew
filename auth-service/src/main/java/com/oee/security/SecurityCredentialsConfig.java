@@ -10,11 +10,13 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -47,6 +49,7 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
 				// user passing user's credentials
 				// The filter needs this auth manager to authenticate the user.
 				.addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig))
+				.addFilterAfter(new JwtTokenAuthenticationFilter(jwtConfig), UsernamePasswordAuthenticationFilter.class)
 				.authorizeRequests()
 				// allow all POST requests
 				.antMatchers(HttpMethod.POST, jwtConfig.getUri(), "/rest/auth/**", "/actuator/**")
@@ -54,6 +57,16 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
 				// any other requests must be authenticated
 				.anyRequest().authenticated();
 	}
+	
+	@Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/v2/api-docs",
+                                   "/configuration/ui",
+                                   "/swagger-resources/**",
+                                   "/configuration/security",
+                                   "/swagger-ui.html",
+                                   "/webjars/**");
+    }
 
 	// Spring has UserDetailsService interface, which can be overriden to provide
 	// our implementation for fetching user from database (or any other source).
