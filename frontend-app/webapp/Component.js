@@ -12,15 +12,6 @@ sap.ui.define([
 		init: async function () {
 			BaseComponent.prototype.init.apply(this, arguments);
 
-			var keycloak = new Keycloak({
-				url: 'http://localhost:8080/auth',
-				realm: 'test-realm',
-				clientId: 'AngularApp'
-			});
-
-			keycloak.init({
-				onLoad: 'login-required'
-			});
 
 			await this.validateToken().then(function (isValid) {
 				if (isValid) {

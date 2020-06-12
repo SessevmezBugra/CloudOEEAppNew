@@ -6,13 +6,31 @@
 	xmlns:mvc="sap.ui.core.mvc">
 	<Page showHeader="false" title="{i18n>STOCK_INFORMATION}" backgroundDesign="Transparent">
 		<content>
-			<Panel xmlns="sap.m" width="auto" expandable="true" expanded="true" id="panel0">
+			<Panel xmlns="sap.m" width="auto" expandable="true" expanded="true" id="panel0" >
 				<headerToolbar>
 					<Toolbar id="toolbar1">
 						<Title text="{i18n>WAREHOUSE}"></Title>
 						<ToolbarSpacer></ToolbarSpacer>
+						<Label text="{i18n>CHOOSECOMPANY} : "></Label>
+						<ComboBox items="{stockModel>/companys}" change="onSelectedCompany" width="10%" placeHoldee="Şirket seçiniz...">
+							<items>
+								<core:Item key="{stockModel>companyId}" text="{stockModel>companyName}"/>
+							</items>
+						</ComboBox>
+						<Label text="{i18n>CHOOSECLIENT} : "></Label>
+						<ComboBox items="{stockModel>/clients}" change="onSelectedClient" width="10%" placeHoldee="Bölge seçiniz...">
+							<items>
+								<core:Item key="{stockModel>clientId}" text="{stockModel>clientName}"/>
+							</items>
+						</ComboBox>
+						<Label text="{i18n>CHOOSEPLANT} : "></Label>
+						<ComboBox items="{stockModel>/plants}" change="onSelectedPlant" width="10%" placeHoldee="Fabrika seçiniz...">
+							<items>
+								<core:Item key="{stockModel>plantId}" text="{stockModel>plantName}"/>
+							</items>
+						</ComboBox>
 						<Label text="{i18n>CHOOSEWAREHOUSE} : "></Label>
-						<ComboBox items="{stockModel>/warehouses}" change="onSelectedWarehouse">
+						<ComboBox items="{stockModel>/warehouses}" change="onSelectedWarehouse" width="10%" placeHoldee="Depo seçiniz...">
 							<items>
 								<core:Item key="{stockModel>warehouseId}" text="{stockModel>warehouseName}"/>
 							</items>
@@ -32,15 +50,21 @@
 					</ObjectHeader>
 				</content>
 			</Panel>
-			<IconTabBar select="onSelectedTab">
+			<IconTabBar select="onSelectedTab" backgroundDesign="Transparent" headerBackgroundDesign="Transparent">
 				<items>
 					<IconTabFilter text="{i18n>PRODUCT}" icon="sap-icon://product" iconColor="Neutral" id="filter3">
 						<content>
-							<Table noDataText="Drop column list items here and columns in the area above" items="{stockModel>/stocks}">
+							<Table noDataText="{i18n>STOCK_NODATA}" items="{stockModel>/stocks}" backgroundDesign="Transparent">
 								<items>
 									<ColumnListItem type="Active" id="item4">
 										<cells>
-											<Text text="{stockModel>}" id="text3"/>
+											<Text text="{stockModel>materialId}" id="text3"/>
+											<Text text="{stockModel>materialDesc}" id="text4"/>
+											<ObjectStatus	class="sapUiSmallMarginBottom"
+												text="Product Shipped"
+												icon="sap-icon://status-positive"
+												state="Success" visible="true"/>
+											<Text text="{stockModel>quantity}" id="text5"/>
 										</cells>
 									</ColumnListItem>
 								</items>
@@ -55,9 +79,14 @@
 											<Label text="{i18n>PRODUCTNAME}" id="label4"/>
 										</header>
 									</Column>
+									<Column id="column8" visible="true">
+										<header>
+											<Label text="{i18n>STOCKSTATUS}" id="label8" />
+										</header>
+									</Column>
 									<Column id="column5">
 										<header>
-											<Label text="{i18n>STOCKSTATUS}" id="label5"/>
+											<Label text="{i18n>STOCKAMOUNT}" id="label5"/>
 										</header>
 									</Column>
 								</columns>
@@ -74,7 +103,12 @@
 									</items>
 								</ComboBox>
 								<Label text="{i18n>STOCKAMOUNT}"></Label>
-								<Input width="100%" value="{stockModel>/materialQuantity}" />
+								<Input width="100%" value="{stockModel>/materialQuantity}"/>
+								<Input width="100%" editable="false" value="Mevcut Stock : {stockModel>/stocks/quantity}">
+									<layoutData>
+										<l:GridData span="XL2 L2 M2"/>
+									</layoutData>
+								</Input>
 								<Label text="{i18n>STOCKQUALITY}" visible="false"></Label>
 								<ComboBox xmlns="sap.m" id="box0" visible="false">
 									<items>
