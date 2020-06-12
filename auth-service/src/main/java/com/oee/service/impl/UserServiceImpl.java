@@ -41,6 +41,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public User registerOwner(User user) {
+		System.err.println(user.getUsername());
 		if(this.findByUsername(user.getUsername()) != null) throw new IllegalArgumentException("Bu kullanici mevcuttur.");
 		Authority authority = new Authority();
 		authority.setRole("COMPANY_OWNER");

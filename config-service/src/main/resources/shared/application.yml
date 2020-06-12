@@ -1,3 +1,10 @@
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    org.springframework.security.oauth2: INFO
+
 hystrix:
   command:
     default:
@@ -18,13 +25,25 @@ eureka:
         
         
 spring:
-  rabbitmq:
-    host: rabbitmq
-    port: 5672
-    username: guest
-    password: guest
+  datasource:
+    url: jdbc:mysql://${RDS_HOSTNAME:3.tcp.eu.ngrok.io}:${RDS_PORT:21947}/${RDS_DB_NAME:cloudoeedb}?serverTimezone=UTC
+    username: ${RDS_USERNAME:root}
+    password: ${RDS_PASSWORD:123456}
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.MySQL8Dialect
+#  rabbitmq:
+#    addresses: amqp://1.tcp.eu.ngrok.io:26460
+#    host: 1.tcp.eu.ngrok.io
+#    port: 26460
+#    username: guest
+#    password: guest
   zipkin:
-    baseUrl: ${ZIPKIN_URI:http://localhost:9411/}
+#    sender:
+#      type: rabbit
+    baseUrl: ${ZIPKIN_URI:http://zipkin.bulutfabrikasi.eu.ngrok.io/}
   sleuth:
     sampler:
       probability: 1.0
@@ -39,7 +58,14 @@ spring:
           connectTimeout: 50000
           readTimeout: 50000
  
-  
+keycloak:
+  auth-server-url: http://keycloak.bulutfabrikasi.eu.ngrok.io/auth
+  realm: cloudoeeapp
+  bearer-only: true
+  public-client: true
+  principal-attribute: preferred_username
+  ssl-required: external
+    
 management:
   endpoints:
     web:

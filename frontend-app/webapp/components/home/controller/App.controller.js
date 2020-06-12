@@ -15,7 +15,7 @@ sap.ui.define([
 		},
 
 		goToLoginPage: function() {
-			this.getRouter().navTo("login");
+			this.UserService.login();
 		}
 
 	});
