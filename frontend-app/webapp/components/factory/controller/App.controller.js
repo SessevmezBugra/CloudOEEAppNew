@@ -76,9 +76,10 @@ sap.ui.define([
 		},
 
 		logout: function() {
-			this.getParentComponent(this.getOwnerComponent()).getModel("localUserModel").setData(null)
-			var rootComponent = this.getParentComponent(this.getOwnerComponent());
-			rootComponent.getRouter().navTo("home");
+			// this.getParentComponent(this.getOwnerComponent()).getModel("localUserModel").setData(null)
+			// var rootComponent = this.getParentComponent(this.getOwnerComponent());
+			// rootComponent.getRouter().navTo("home");
+			this.UserService.logout();
 		},
 
 		onItemSelect: function (oEvent) {

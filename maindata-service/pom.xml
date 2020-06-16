@@ -2,24 +2,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
 	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.2.5.RELEASE</version>
-		<relativePath /> <!-- lookup parent from repository -->
-	</parent>
-	<groupId>com.sessevmez</groupId>
+
 	<artifactId>maindata-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+
+	<parent>
+		<artifactId>bulutfabrikasi</artifactId>
+		<groupId>com.oee</groupId>
+		<version>0.0.1</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
 	<packaging>jar</packaging>
 	<name>maindata-service</name>
 	<description>maindata-service</description>
-
-	<properties>
-		<java.version>1.8</java.version>
-		<spring-cloud.version>Hoxton.SR4</spring-cloud.version>
-	</properties>
 
 	<dependencies>
 		<dependency>
@@ -30,6 +27,15 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-webflux</artifactId> 
+			</dependency> -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-oauth2-client</artifactId> 
+			</dependency> <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-oauth2-resource-server</artifactId> 
+			</dependency> -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
@@ -52,13 +58,25 @@
 			<artifactId>spring-cloud-starter-zipkin</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.keycloak</groupId>
+			<artifactId>keycloak-spring-boot-starter</artifactId>
+		</dependency>
+		<!-- <dependency>
+			<groupId>org.keycloak</groupId>
+			<artifactId>keycloak-admin-client</artifactId>
+			<version>${keycloak.version}</version>
+		</dependency> -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>com.github.ben-manes.caffeine</groupId>
 			<artifactId>caffeine</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.amqp</groupId>
-			<artifactId>spring-rabbit</artifactId>
-		</dependency>
+		<!-- <dependency> <groupId>org.springframework.amqp</groupId> <artifactId>spring-rabbit</artifactId> 
+			</dependency> -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -103,17 +121,6 @@
 		</dependency>
 	</dependencies>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>${spring-cloud.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 
 	<build>
 		<finalName>stock-service</finalName>
@@ -123,50 +130,17 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 
-	<!-- 		<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>unpack</id>
-						<phase>package</phase>
-						<goals>
-							<goal>unpack</goal>
-						</goals>
-						<configuration>
-							<artifactItems>
-								<artifactItem>
-									<groupId>${project.groupId}</groupId>
-									<artifactId>${project.artifactId}</artifactId>
-									<version>${project.version}</version>
-								</artifactItem>
-							</artifactItems>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
--->
-<!-- 
-			 <plugin>
-				<groupId>com.spotify</groupId>
-				<artifactId>dockerfile-maven-plugin</artifactId>
-				<version>1.4.10</version>
-				<executions>
-					<execution>
-						<id>default</id>
-						<goals>
-							<goal>build</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<repository>bsessevmez/${project.name}</repository>
-					<tag>${project.version}</tag>
-					<buildArgs>
-						<JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
-					</buildArgs>
-				</configuration>
-			</plugin> -->
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-dependency-plugin</artifactId> 
+				<executions> <execution> <id>unpack</id> <phase>package</phase> <goals> <goal>unpack</goal> 
+				</goals> <configuration> <artifactItems> <artifactItem> <groupId>${project.groupId}</groupId> 
+				<artifactId>${project.artifactId}</artifactId> <version>${project.version}</version> 
+				</artifactItem> </artifactItems> </configuration> </execution> </executions> 
+				</plugin> -->
+			<!-- <plugin> <groupId>com.spotify</groupId> <artifactId>dockerfile-maven-plugin</artifactId> 
+				<version>1.4.10</version> <executions> <execution> <id>default</id> <goals> 
+				<goal>build</goal> </goals> </execution> </executions> <configuration> <repository>bsessevmez/${project.name}</repository> 
+				<tag>${project.version}</tag> <buildArgs> <JAR_FILE>${project.build.finalName}.jar</JAR_FILE> 
+				</buildArgs> </configuration> </plugin> -->
 		</plugins>
 	</build>
 

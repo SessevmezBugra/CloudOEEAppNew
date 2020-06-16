@@ -26,6 +26,17 @@ public class StockInfoRestController {
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<StockInfo> createStockInfo(@RequestBody StockInfo stockInfo){
+		
+//        KeycloakSecurityContext session = principal.getKeycloakSecurityContext();
+//        AccessToken accessToken = session.getToken();
+//        username = accessToken.getPreferredUsername();
+//        emailID = accessToken.getEmail();
+//        lastname = accessToken.getFamilyName();
+//        firstname = accessToken.getGivenName();
+//        realmName = accessToken.getIssuer();            
+//        Access realmAccess = accessToken.getRealmAccess();
+//        roles = realmAccess.getRoles();
+//		System.err.println(accessToken.toString());
 		return ResponseEntity.ok(stockInfoService.create(stockInfo));
 	}
 	

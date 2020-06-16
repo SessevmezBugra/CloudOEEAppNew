@@ -1,16 +1,11 @@
-spring:
-  datasource:
-    # url: jdbc:mysql://127.0.0.1:3306/cloudoeedb
-    url: jdbc:mysql://${RDS_HOSTNAME:localhost}:${RDS_PORT:3306}/${RDS_DB_NAME:cloudoeedb}?serverTimezone=UTC
-    username: ${RDS_USERNAME:root}
-    password: ${RDS_PASSWORD:123456Aa}
-    driver-class-name: com.mysql.jdbc.Driver
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: update
-      dialect: org.hibernate.dialect.MySQL8Dialect
-
+keycloak:
+  resource: auth-service
+  credentials: 
+    secret: 4d19c603-89f7-4de3-abc4-ece1ba86818f
+    
+keycloak-admin-user: admin
+keycloak-admin-password: admin
+#  use-resource-role-mappings: true
 
 server:
   port: 5000
