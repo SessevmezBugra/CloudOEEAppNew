@@ -73,7 +73,7 @@ public class CompanyInfoRestController {
 //        emailID = accessToken.getEmail();
 //        lastname = accessToken.getFamilyName();
 //        firstname = accessToken.getGivenName();
-//        realmName = accessToken.getIssuer();            
+//        realmName = accessToken.getIssuer();
 //        Access realmAccess = accessToken.getRealmAccess();
 //        roles = realmAccess.getRoles();
 //		logger.info("{}", environment.getProperty("local.server.port"));

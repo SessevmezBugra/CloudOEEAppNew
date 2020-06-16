@@ -1,7 +1,10 @@
 keycloak:
   resource: auth-service
   credentials: 
-    secret: 6c0aec5c-c516-4437-891c-1cb2603b0a31
+    secret: 4d19c603-89f7-4de3-abc4-ece1ba86818f
+    
+keycloak-admin-user: admin
+keycloak-admin-password: admin
 #  use-resource-role-mappings: true
 
 server:

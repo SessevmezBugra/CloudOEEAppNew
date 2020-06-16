@@ -11,8 +11,9 @@ import feign.RequestInterceptor;
 
 public class ClientConfiguration {
 	
-	@Bean
+	
 	@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+	@Bean
 	public RequestInterceptor requestInterceptor() {
 		return requestTemplate -> {
 			KeycloakSecurityContext context = getKeycloakSecurityContext();

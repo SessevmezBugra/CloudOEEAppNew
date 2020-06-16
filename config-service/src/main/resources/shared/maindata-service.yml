@@ -1,7 +1,7 @@
 keycloak:
   resource: maindata-service
   credentials: 
-    secret: 6c0aec5c-c516-4437-891c-1cb2603b0a31
+    secret: 9cb2426a-4f3f-4c7b-bd5c-3f776efef3bb
 #  use-resource-role-mappings: true
 
 server:

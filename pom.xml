@@ -55,6 +55,7 @@
     <properties>
         <java.version>1.8</java.version>
         <spring.cloud.version>Hoxton.SR5</spring.cloud.version>
+        <keycloak.version>10.0.2</keycloak.version>
     </properties>
 
     <modules>
@@ -80,7 +81,7 @@
             <dependency>
 				<groupId>org.keycloak.bom</groupId>
 				<artifactId>keycloak-adapter-bom</artifactId>
-				<version>10.0.2</version>
+				<version>${keycloak.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>

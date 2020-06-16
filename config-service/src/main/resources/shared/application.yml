@@ -59,7 +59,7 @@ spring:
           readTimeout: 50000
  
 keycloak:
-  auth-server-url: http://keycloak.bulutfabrikasi.eu.ngrok.io/auth
+  auth-server-url: ${KEYCLOAK_URI:http://keycloak.bulutfabrikasi.eu.ngrok.io/auth}
   realm: cloudoeeapp
   bearer-only: true
   public-client: true
