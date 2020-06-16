@@ -1,13 +1,8 @@
-spring:
-  datasource:
-    url: jdbc:mysql://${RDS_HOSTNAME:localhost}:${RDS_PORT:3306}/${RDS_DB_NAME:cloudoeedb}?serverTimezone=UTC
-    username: ${RDS_USERNAME:root}
-    password: ${RDS_PASSWORD:123456Aa}
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: update
-      dialect: org.hibernate.dialect.MySQL8Dialect
-      
+keycloak:
+  resource: stock-service
+  credentials: 
+    secret: 6c0aec5c-c516-4437-891c-1cb2603b0a31
+#  use-resource-role-mappings: true
+
 server:
   port: 8070

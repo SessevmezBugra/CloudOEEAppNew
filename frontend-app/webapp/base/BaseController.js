@@ -3,11 +3,15 @@ sap.ui.define([
 	"sap/ui/core/UIComponent",
 	"sap/ui/core/routing/History",
 	'sap/ui/core/BusyIndicator',
-	"sap/ui/core/Component"
-], function(Controller, UIComponent, History, BusyIndicator, Component) {
+	"sap/ui/core/Component",
+	"workerapp/services/userservice"
+], function(Controller, UIComponent, History, BusyIndicator, Component, UserService) {
 	"use strict";
 
 	return Controller.extend("workerapp.base.BaseController", {
+
+		UserService : UserService,
+		
 		/**
 		 * Convenience method for accessing the router.
 		 * @public

@@ -43,7 +43,7 @@ public class UserRestController {
 	public ResponseEntity<Boolean> registerOwner(@RequestBody RegisterDto registerDto){
 		logger.info("{}", environment.getProperty("local.server.port"));
 		User user = new User();
-		user.setPassword(registerDto.getUsername());
+		user.setUsername(registerDto.getUsername());
 		user.setPassword(registerDto.getPassword());
 		userService.registerOwner(user);
 		CompanyInfoDto companyInfoDto = new CompanyInfoDto();
