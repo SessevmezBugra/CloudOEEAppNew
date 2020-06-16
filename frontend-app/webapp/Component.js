@@ -12,14 +12,8 @@ sap.ui.define([
 		init: async function () {
 			BaseComponent.prototype.init.apply(this, arguments);
 
-<<<<<<< HEAD
-
-			await this.validateToken().then(function (isValid) {
-				if (isValid) {
-=======
 			await this.UserService.initCheckSSO().then(function (isValid) {
 				if (isValid && !this.UserService.getKeycloak().isTokenExpired()) {
->>>>>>> keycloak_branch
 					// var target = this.getRouter().getHashChanger().hash;
 					// if(target == "register" || target == ""){
 					this.getRouter().getHashChanger().replaceHash("factory");
@@ -30,21 +24,6 @@ sap.ui.define([
 				this.hideBusyIndicator();
 			}.bind(this));
 
-<<<<<<< HEAD
-			this.getRouter().attachBeforeRouteMatched(async function (oEvent) {
-				await this.validateToken().then(function (isValid) {
-					var target = this.getRouter().getHashChanger().hash;
-					if (isValid) {
-						// if(target == "register" || target == ""){
-						// 	this.getRouter().getHashChanger().replaceHash("factory");
-						// }
-					} else if (target != "register" && target != "") {
-						this.getRouter().getHashChanger().replaceHash("");
-					}
-				}.bind(this));
-				this.hideBusyIndicator();
-			}.bind(this), this);
-=======
 			await this.getRouter().attachBeforeRouteMatched(function (oEvent) {
 				var target = this.getRouter().getHashChanger().hash;
 				if (this.UserService.getKeycloak().authenticated && !this.UserService.getKeycloak().isTokenExpired() && target != "factory") {
@@ -98,7 +77,6 @@ sap.ui.define([
 			// 	this.hideBusyIndicator();
 			// }.bind(this), this);
 
->>>>>>> keycloak_branch
 
 			this.getRouter().initialize();
 		},
