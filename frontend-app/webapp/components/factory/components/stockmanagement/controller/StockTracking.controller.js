@@ -18,10 +18,10 @@ sap.ui.define([
 		onInit: function () {
 			var stockModel = new JSONModel();
 			this.setModel(stockModel,"stockModel");
-			this.getWarehouses();
+			/*this.getWarehouses();
 			this.getMaterials();
 			this.getStockInfo();
-			this.getPlants();
+			this.getPlants();*/
 			this.getClients();
 			this.getCompanys();
 		},
