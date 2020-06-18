@@ -70,6 +70,14 @@ public class StockInfo {
 	public void setStockMovements(List<StockMovement> stockMovements) {
 		this.stockMovements = stockMovements;
 	}
+
+	public Long getWarehouseId() {
+		return warehouseId;
+	}
+
+	public void setWarehouseId(Long warehouseId) {
+		this.warehouseId = warehouseId;
+	}
 	
 	
 }

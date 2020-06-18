@@ -43,4 +43,46 @@ public class StockInfoServiceImpl implements StockInfoService{
 		return stockRepository.findByWarehouseId(warehouseId);
 	}
 
+	@Override
+	public StockInfo addStock(StockInfo stockInfo) {
+		if(stockInfo.getMaterialId() == null || stockInfo.getWarehouseId() == null) {
+			throw new RuntimeException("MaterialId veya WarehouseId bos olamaz!");
+		}
+		System.err.println(stockInfo.getMaterialId()+ " " + stockInfo.getWarehouseId());
+		//O malzeme o depoda var mi yok mu kontrolu yapilir. Varsa uzerine belirtilen miktar eklenir. Yoksa stok olusturulur.
+		StockInfo foundStockInfo = stockRepository.findByMaterialIdAndWarehouseId(stockInfo.getMaterialId(), stockInfo.getWarehouseId());
+		if (foundStockInfo != null) {
+			System.err.println("test1");
+			foundStockInfo.setQuantity(foundStockInfo.getQuantity() + stockInfo.getQuantity());
+			System.err.println(foundStockInfo.getQuantity());
+			stockRepository.save(foundStockInfo);
+			return foundStockInfo;
+		}else {
+			System.err.println("test32");
+			stockRepository.save(stockInfo);
+			return stockInfo;
+		}
+	}
+
+	@Override
+	public StockInfo extractStock(StockInfo stockInfo) {
+		// TODO Auto-generated method stub
+		if(stockInfo.getMaterialId() == null || stockInfo.getWarehouseId() == null) {
+			throw new RuntimeException("MaterialId veya WarehouseId bos olamaz!");
+		}
+		//O malzeme o depoda var mi yok mu kontrolu yapilir. Varsa uzerine belirtilen miktar eklenir. Yoksa stok olusturulur.
+		StockInfo foundStockInfo = stockRepository.findByMaterialIdAndWarehouseId(stockInfo.getMaterialId(), stockInfo.getWarehouseId());
+		if (foundStockInfo != null) {
+			
+			if (foundStockInfo.getQuantity() < stockInfo.getQuantity()) {
+				throw new RuntimeException("Depoda bu miktarda malzeme bulunmamaktadir.");
+			}
+			foundStockInfo.setQuantity(foundStockInfo.getQuantity() - stockInfo.getQuantity());
+			stockRepository.save(foundStockInfo);
+			return foundStockInfo;
+		}else {
+			throw new RuntimeException("Depoda bu malzeme bulunmamaktadir.");
+		}
+	}
+
 }

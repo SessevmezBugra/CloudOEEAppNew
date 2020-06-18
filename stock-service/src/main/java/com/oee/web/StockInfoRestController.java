@@ -45,6 +45,17 @@ public class StockInfoRestController {
 		return ResponseEntity.ok(stockInfoService.update(stockInfo));
 	}
 	
+	@RequestMapping(value="/add",method=RequestMethod.PUT)
+	public ResponseEntity<StockInfo> addStockInfo(@RequestBody StockInfo stockInfo){
+		return ResponseEntity.ok(stockInfoService.addStock(stockInfo));
+	}
+	
+	@RequestMapping(value="/extract",method=RequestMethod.PUT)
+	public ResponseEntity<StockInfo> extractStockInfo(@RequestBody StockInfo stockInfo){
+		return ResponseEntity.ok(stockInfoService.extractStock(stockInfo));
+	}
+	
+	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<Boolean> deleteStockInfo(@PathVariable(value="id", required=true) Long stockId){
 		return ResponseEntity.ok(stockInfoService.delete(stockId));
@@ -59,5 +70,6 @@ public class StockInfoRestController {
 	public ResponseEntity<List<StockInfo>> getStockInfoByWarehouseId(@PathVariable(value="warehouseId", required=true) Long warehouseId){
 		return ResponseEntity.ok(stockInfoService.getByWarehouseId(warehouseId));
 	}
+	
 	
 }

@@ -16,4 +16,8 @@ public interface StockInfoService {
 
 	List<StockInfo> getByWarehouseId(Long warehouseId);
 	
+	StockInfo addStock(StockInfo stockInfo);
+	
+	StockInfo extractStock(StockInfo stockInfo);
+	
 }
