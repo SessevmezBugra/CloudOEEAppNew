@@ -38,7 +38,6 @@ public class KeycloakAdminClientUtils {
 
 	public static KeycloakAdminClientConfig loadConfig(Environment environment) {
 		KeycloakAdminClientConfig.KeycloakAdminClientConfigBuilder builder = KeycloakAdminClientConfig.builder();
-		System.err.println("user: "+ environment.getProperty("keycloak-admin-user") +"password: "+ environment.getProperty("keycloak-admin-password"));
 		try {
 			builder.serverUrl(environment.getProperty("keycloak.auth-server-url"))
 					.realm(environment.getProperty("keycloak.realm"))
