@@ -1,6 +1,7 @@
 sap.ui.define([
-	"workerapp/base/BaseComponent"
-], function (BaseComponent) {
+	"workerapp/base/BaseComponent",
+	"workerapp/model/LocalStorageModel"
+], function (BaseComponent, LocalStorageModel) {
 	"use strict";
 
 	return BaseComponent.extend("workerapp.Component", {
@@ -14,15 +15,34 @@ sap.ui.define([
 
 			await this.UserService.initCheckSSO().then(function (isValid) {
 				if (isValid && !this.UserService.getKeycloak().isTokenExpired()) {
-					// var target = this.getRouter().getHashChanger().hash;
-					// if(target == "register" || target == ""){
+
+					var localUserModel = new LocalStorageModel("localUserModel");
+					localUserModel.setData(this.UserService.getKeycloak());
+					this.setModel(localUserModel, "localUserModel");
+
 					this.getRouter().getHashChanger().replaceHash("factory");
-					// }
+
 				} else {
 					this.getRouter().getHashChanger().replaceHash("");
 				}
 				this.hideBusyIndicator();
 			}.bind(this));
+
+			setInterval(function () {
+				console.log("interval")
+				this.UserService.getKeycloak().updateToken(240).then(function(refreshed) {
+					if (refreshed) {
+						var localUserModel = new LocalStorageModel("localUserModel");
+						localUserModel.setData(this.UserService.getKeycloak());
+						this.setModel(localUserModel, "localUserModel");
+						console.log("Refresh token success");
+					} else {
+						console.log("Refresh token fail 1");
+					}
+				}.bind(this)).catch(function() {
+					console.log("Refresh token fail 2");
+				});
+			}.bind(this), 180000);
 
 			await this.getRouter().attachBeforeRouteMatched(function (oEvent) {
 				var target = this.getRouter().getHashChanger().hash;
