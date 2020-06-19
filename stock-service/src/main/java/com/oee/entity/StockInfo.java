@@ -34,7 +34,7 @@ public class StockInfo {
 	@JsonManagedReference
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="stock")
 	private List<StockMovement> stockMovements;
-	
+
 	public StockInfo() {
 		// TODO Auto-generated constructor stub
 	}
@@ -78,6 +78,6 @@ public class StockInfo {
 	public void setWarehouseId(Long warehouseId) {
 		this.warehouseId = warehouseId;
 	}
-	
-	
+
+
 }
