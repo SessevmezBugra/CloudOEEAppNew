@@ -4,8 +4,10 @@ sap.ui.define([
 	'sap/ui/Device',
 	'workerapp/model/formatter',
 	'workerapp/components/factory/components/stockmanagement/services/stockservice',
-	"sap/m/MessageBox"
-], function (BaseController, JSONModel, Device, formatter, stockservice,MessageBox) {
+	"sap/m/MessageBox",
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator"
+], function (BaseController, JSONModel, Device, formatter, stockservice,MessageBox,FilterOperator,Filter) {
 	"use strict";
 	var selectedWarehouseId,
 		selectedPlantId,
@@ -130,8 +132,12 @@ sap.ui.define([
 		onSelectedWarehouse: function(oEvent) {
 			var selectedWarehouse = oEvent.getSource();
 			selectedWarehouseId = selectedWarehouse.getSelectedKey();
+			var selectedWarehouseInfo = this.getModel("stockModel").getProperty(oEvent.getSource().getSelectedItem().oBindingContexts.stockModel.sPath);
+			this.getModel("stockModel").getData().selectedWarehouse = selectedWarehouseInfo;
+			this.getModel("stockModel").refresh();
 			this.getStockInfo();
 		},
+
 		onSelectedPlant: function(oEvent) {
 			var selectedPlant = oEvent.getSource();
 			selectedPlantId = selectedPlant.getSelectedKey();
@@ -168,6 +174,26 @@ sap.ui.define([
 				});
 				console.log(error);
 			}.bind(this));
+		},
+
+		onFilterProducts: function (oEvent) {
+			// add filter for search
+			var aFilters = [];
+			var sQuery = $.trim(oEvent.getSource().getValue());
+			if (sQuery) {
+				var oFilter = new Filter({
+					filters : [
+						new Filter("materialId", FilterOperator.Contains, sQuery),
+						new Filter("materialDesc", FilterOperator.Contains, sQuery)
+					],
+					and : false});
+				aFilters.push(oFilter);
+			}
+
+			// update list binding
+			var oList = this.byId("stock_table");
+			var oBinding = oList.getBinding("items");
+			oBinding.filter(aFilters, "Application");
 		}
 	});
 });
