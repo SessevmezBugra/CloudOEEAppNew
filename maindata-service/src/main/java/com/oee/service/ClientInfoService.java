@@ -15,4 +15,7 @@ public interface ClientInfoService {
 	ClientInfo getById(Long clientId);
 	
 	List<ClientInfo> getByCompanyId(Long companyId);
+
+	List<ClientInfo> getClientsByLoggedUser();
+
 }

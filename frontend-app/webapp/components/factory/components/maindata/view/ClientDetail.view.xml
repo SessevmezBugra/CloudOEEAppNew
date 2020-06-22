@@ -1,0 +1,49 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.uxap" xmlns:layout="sap.ui.layout" xmlns:m="sap.m"
+	controllerName="workerapp.components.factory.components.maindata.controller.Client" height="100%">
+	
+	<ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" backgroundDesignAnchorBar="Transparent" showAnchorBar="true">
+		<headerTitle>
+			<ObjectPageHeader id="headerForTest" objectTitle="{/clientInfo/text}" objectImageShape="Circle" objectSubtitle="Manager, HCM"
+				isObjectTitleAlwaysVisible="false" isObjectSubtitleAlwaysVisible="false" isActionAreaAlwaysVisible="false" showPlaceholder="true">
+				<!--	<navigationBar>
+					<m:Bar>
+						<m:contentLeft>
+							
+						</m:contentLeft>
+						<m:contentMiddle>
+							<m:Text text="Company Profile"/>
+						</m:contentMiddle>
+					</m:Bar>
+				</navigationBar> -->
+			</ObjectPageHeader>
+		</headerTitle>
+		<headerContent>
+			<layout:VerticalLayout>
+				<m:ObjectStatus title="Address" text="BLR.01, B2.023"/>
+				<m:ObjectStatus title="Office phone" text="+91-90100-98100"/>
+				<m:ObjectStatus title="Email" text="rowan@pic.com"/>
+			</layout:VerticalLayout>
+			<layout:HorizontalLayout>
+				<m:Image width="21px" height="21px" src="./test-resources/sap/uxap/images/linkedInIcon.png"/>
+				<m:Image width="20px" height="20px" src="./test-resources/sap/uxap/images/facebookIcon.png"/>
+				<m:Image width="21px" height="21px" src="./test-resources/sap/uxap/images/twitterIcon.png"/>
+			</layout:HorizontalLayout>
+			<m:ObjectStatus state="Success" icon="sap-icon://employee-approvals" text="Available"/>
+			<layout:VerticalLayout>
+				<m:Label text="Bangalore, India"/>
+				<m:Label text="3:00 PM, Friday"/>
+			</layout:VerticalLayout>
+		</headerContent>
+		<sections >
+			<ObjectPageSection title="Payroll" backgroundDesign="Transparent">
+				<subSections>
+					<ObjectPageSubSection title="CLIENT LIST">
+						<m:Tree mode="SingleSelectMaster" id="idTree" items="{/clientInfo/children/}" width="auto" selectionChange="onSelectedItem">
+							<m:StandardTreeItem title="{text}"/>
+						</m:Tree>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+		</sections>
+	</ObjectPageLayout>
+</mvc:View>

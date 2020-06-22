@@ -1,0 +1,29 @@
+<core:FragmentDefinition xmlns="sap.m" 
+    xmlns:l="sap.ui.layout" 
+    xmlns:f="sap.ui.layout.form" 
+    xmlns:core="sap.ui.core">
+    <Dialog title="Bir bolge olusturun">
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <f:SimpleForm editable="true" layout="ResponsiveGridLayout" title="Bolge" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+                    <f:content>
+                        <Label text="Sirket" />
+                        <Select selectedKey="{clientModel>/selectedCompany}" items="{clientModel>/companies}">
+                            <core:Item text="{clientModel>companyName}" key="{clientModel>companyId}"/>
+                        </Select>
+                        <Label text="Bolge Ismi" />
+                        <Input value="{clientModel>/clientNameToCreated}"/>
+                    </f:content>
+                </f:SimpleForm>
+            </VBox>
+        </content>
+        <beginButton>
+            <Button text="Olustur" press=".createClient">
+            </Button>
+        </beginButton>
+        <endButton>
+            <Button text="Iptal" press=".closeClientDialog">
+            </Button>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

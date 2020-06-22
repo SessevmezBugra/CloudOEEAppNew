@@ -10,6 +10,6 @@ import com.oee.entity.ResponsibleArea;
 @Repository
 public interface ResponsibleAreaRepository extends JpaRepository<ResponsibleArea, Long>{
 	
-	List<ResponsibleArea> findByUserUsername(String username);
+	List<ResponsibleArea> findByUserId(String userId);
 	
 }

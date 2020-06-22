@@ -88,14 +88,23 @@
 					"name": "company",
 					"target": "company"
 				},{
-					"pattern": "client/{id}",
+					"pattern": "client",
 					"name": "client",
 					"target": "client"
 				},{
-					"pattern": "plant/{id}",
+					"pattern": "plant",
 					"name": "plant",
 					"target": "plant"
+				},{
+					"pattern": "warehouse",
+					"name": "warehouse",
+					"target": "warehouse"
+				},{
+					"pattern": "material",
+					"name": "material",
+					"target": "material"
 				}
+
 			],
 			"targets": {
 				"materialList": {
@@ -124,6 +133,16 @@
 					"id": "plant",
 					"name": "Plant",
 					"title": "Plant"
+				},"warehouse": {
+					"type": "View",
+					"id": "warehouse",
+					"name": "Warehouse",
+					"title": "Warehouse"
+				},"material": {
+					"type": "View",
+					"id": "material",
+					"name": "Material",
+					"title": "Material"
 				},
 				"home": {
 					"type": "View",

@@ -1,0 +1,26 @@
+<mvc:View controllerName="workerapp.components.factory.components.maindata.controller.Material" 
+	xmlns="sap.m" 
+	xmlns:core="sap.ui.core" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:l="sap.ui.layout">
+
+	<Page showHeader="true" title="{i18n>MATERIAL_TITLE}" class="sapUiResponsivePadding--header" floatingFooter="true" backgroundDesign="Transparent">
+		<content>
+			<l:BlockLayout background="Dashboard">
+				<l:BlockLayoutRow>
+					<l:BlockLayoutCell>
+						<Tree mode="SingleSelectMaster" id="idTree" items="{materialModel>/materials/children/}" width="auto" selectionChange="onSelectedItem">
+							<StandardTreeItem title="{materialModel>text}"/>
+						</Tree>
+					</l:BlockLayoutCell>
+				</l:BlockLayoutRow>
+			</l:BlockLayout>
+		</content>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button type="Accept" text="{i18n>MATERIAL_BTN_CREATE}" press=".openMaterialDialog"/>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</mvc:View>

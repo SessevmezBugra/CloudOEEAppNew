@@ -11,4 +11,6 @@ import com.oee.entity.WarehouseInfo;
 public interface WarehouseRepository extends JpaRepository<WarehouseInfo, Long>{
 
 	List<WarehouseInfo> findByPlantPlantId(Long plantId);
+
+	List<WarehouseInfo> findByPlantClientCompanyCompanyIdIn(Iterable<Long> ids);
 }

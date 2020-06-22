@@ -41,4 +41,6 @@ public class CurrentUser {
     public void setRoles(List<String> roles) {
         this.roles = roles;
     }
+
+    public boolean hasRole(String role) { return this.roles.contains(role); }
 }

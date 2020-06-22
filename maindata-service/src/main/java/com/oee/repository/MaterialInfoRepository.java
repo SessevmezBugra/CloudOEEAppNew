@@ -11,4 +11,6 @@ import com.oee.entity.MaterialInfo;
 public interface MaterialInfoRepository extends JpaRepository<MaterialInfo, Long>{
 	
 	List<MaterialInfo> findByPlantPlantId(Long plantId);
+
+	List<MaterialInfo> findByPlantClientCompanyCompanyIdIn(Iterable<Long> ids);
 }

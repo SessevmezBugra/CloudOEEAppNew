@@ -40,9 +40,15 @@
 				<tnt:NavigationList>
 					<tnt:NavigationListItem text="Hizli Menu" key="fastMenu" icon="sap-icon://home"/>
 					<tnt:NavigationListItem text="Ana Veriler" key="mainData" icon="sap-icon://database">
-						<tnt:NavigationListItem  text="Şirket Bilgileri" key="company">
+						<tnt:NavigationListItem  text="Şirketler" key="company">
 						</tnt:NavigationListItem>
-						<tnt:NavigationListItem  text="Malzemeler" key="materialList">
+						<tnt:NavigationListItem  text="Bolgeler" key="client">
+						</tnt:NavigationListItem>
+						<tnt:NavigationListItem  text="Fabrikalar" key="plant">
+						</tnt:NavigationListItem>
+						<tnt:NavigationListItem  text="Depolar" key="warehouse">
+						</tnt:NavigationListItem>
+						<tnt:NavigationListItem  text="Malzemeler" key="material">
 						</tnt:NavigationListItem>
 					</tnt:NavigationListItem>
 					<tnt:NavigationListItem text="Stok Yonetimi" key="stockManagement" icon="sap-icon://inventory">

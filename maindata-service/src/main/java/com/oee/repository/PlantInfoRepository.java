@@ -9,5 +9,9 @@ import com.oee.entity.PlantInfo;
 
 @Repository
 public interface PlantInfoRepository extends JpaRepository<PlantInfo, Long>{
+
 	List<PlantInfo> findByClientClientId(Long clientId);
+
+	List<PlantInfo> findByClientCompanyCompanyIdIn(Iterable<Long> ids);
+
 }

@@ -13,6 +13,7 @@ import org.keycloak.admin.client.KeycloakBuilder;
 import org.keycloak.admin.client.resource.RoleResource;
 import org.keycloak.admin.client.resource.RolesResource;
 import org.keycloak.representations.idm.RoleRepresentation;
+import org.keycloak.representations.idm.UserRepresentation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
@@ -82,6 +83,41 @@ public class KeycloakAdminClientUtils {
 				.build();
 	}
 
+	public static Keycloak getKeycloakClient(KeycloakAdminClientConfig config) {
+
+		return KeycloakBuilder.builder() //
+				.serverUrl(config.getServerUrl()) //
+				.realm(config.getRealm()) //
+				.grantType(OAuth2Constants.CLIENT_CREDENTIALS)
+				.clientId(config.getClientId()) //
+				.clientSecret(config.getClientSecret())
+				.resteasyClient(
+						new ResteasyClientBuilder()
+								.connectionPoolSize(10).build()
+				)
+				.build();
+	}
+
+	public static Keycloak getKeycloakClientPasswordCredential(KeycloakAdminClientConfig config) {
+
+		return KeycloakBuilder.builder() //
+				.serverUrl(config.getServerUrl()) //
+				.realm(config.getRealm()) //
+				.grantType(OAuth2Constants.PASSWORD)
+				.clientId(config.getClientId()) //
+				.clientSecret(config.getClientSecret())
+				.username(config.getAdmin())
+				.password(config.getPassword())
+				.resteasyClient(
+						new ResteasyClientBuilder()
+								.connectionPoolSize(10).build()
+				)
+				.build();
+	}
+
+	public static void addUserToGroup(Keycloak keycloak, KeycloakAdminClientConfig keycloakAdminClientConfig, String groupName, String userId) {
+		keycloak.realm(keycloakAdminClientConfig.getRealm()).users().get(userId).joinGroup(groupName);
+	}
 	/**
 	 * Adds a role to a composite role. A composite role is just a role that
 	 * contains sub roles.
@@ -150,7 +186,8 @@ public class KeycloakAdminClientUtils {
 		final String clientUuid = keycloak.realm(keycloakAdminClientConfig.getRealm()).clients()
 				.findByClientId(keycloakAdminClientConfig.getClientId()).get(0).getId();
 
-		final RolesResource rolesResource = keycloak.realm(keycloakAdminClientConfig.getRealm()).clients()
+		final RolesResource rolesResource = keycloak.realm(keycloakAdminClientConfig.getRealm()).
+				clients()
 				.get(clientUuid).roles();
 
 		final RoleResource compositeRoleResource = rolesResource.get(compositeRole);
@@ -185,4 +222,6 @@ public class KeycloakAdminClientUtils {
 
 		return updatedListRoleRepresentation;
 	}
+
+
 }

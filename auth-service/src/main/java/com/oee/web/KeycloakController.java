@@ -1,19 +1,28 @@
 package com.oee.web;
 import java.util.Collection;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.oee.config.CurrentUserProvider;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import com.oee.service.impl.KeycloakAdminClientService;
 
 @RestController
-@RequestMapping(path = "/keycloak")
+@RequestMapping(path = "/auth/keycloak")
 public class KeycloakController {
 
-    @Autowired
-    private KeycloakAdminClientService keycloakAdminClientService;
+    private final KeycloakAdminClientService keycloakAdminClientService;
+    private final CurrentUserProvider currentUserProvider;
+
+    public KeycloakController(KeycloakAdminClientService keycloakAdminClientService, CurrentUserProvider currentUserProvider) {
+        this.keycloakAdminClientService = keycloakAdminClientService;
+        this.currentUserProvider = currentUserProvider;
+    }
+
+    @RequestMapping(path = "/company-owner", method= RequestMethod.POST)
+    public ResponseEntity<Boolean> addCompanyOwnerRole() {
+        return ResponseEntity.ok(keycloakAdminClientService.addUserToGroup(currentUserProvider.getCurrentUser().getUserId(),"COMPANY_OWNER"));
+    }
 
     @GetMapping(path = "/hello")
     public String hello() {

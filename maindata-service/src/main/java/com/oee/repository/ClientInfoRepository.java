@@ -11,5 +11,6 @@ import com.oee.entity.ClientInfo;
 public interface ClientInfoRepository extends JpaRepository<ClientInfo, Long>{
 	
 	List<ClientInfo> findByCompanyCompanyId(Long companyId);
-	
+
+	List<ClientInfo> findByCompanyCompanyIdIn(Iterable<Long> ids);
 }

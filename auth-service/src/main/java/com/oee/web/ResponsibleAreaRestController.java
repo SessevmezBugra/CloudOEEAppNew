@@ -17,10 +17,13 @@ import com.oee.util.ApiPaths;
 @RestController
 @RequestMapping(ApiPaths.ResponsibleAreaCtrl.CTRL)
 public class ResponsibleAreaRestController {
-	
-	@Autowired
-	private ResponsibleAreaService responsibleAreaService;
-	
+
+	private final ResponsibleAreaService responsibleAreaService;
+
+	public ResponsibleAreaRestController(ResponsibleAreaService responsibleAreaService) {
+		this.responsibleAreaService = responsibleAreaService;
+	}
+
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<ResponsibleArea> createResponsibleArea(@RequestBody ResponsibleArea responsibleArea){
 		return ResponseEntity.ok(responsibleAreaService.create(responsibleArea));
@@ -36,13 +39,13 @@ public class ResponsibleAreaRestController {
 		return ResponseEntity.ok(responsibleAreaService.delete(id));
 	}
 	
-	@RequestMapping(value="userid/{id}", method=RequestMethod.GET)
+	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<ResponsibleArea> getResponsibleArea(@PathVariable(value="id", required=true) Long id){
-		return ResponseEntity.ok(responsibleAreaService.getById(id));
+		return ResponseEntity.ok(responsibleAreaService.findById(id));
 	}
 	
-	@RequestMapping(value="/username/{username}", method=RequestMethod.GET)
-	public ResponseEntity<List<ResponsibleArea>> getResponsibleArea(@PathVariable(value="username", required=true) String username){
-		return ResponseEntity.ok(responsibleAreaService.getByUsername(username));
+	@RequestMapping(method=RequestMethod.GET)
+	public ResponseEntity<List<ResponsibleArea>> getResponsibleArea(){
+		return ResponseEntity.ok(responsibleAreaService.findByUserId());
 	}
 }
