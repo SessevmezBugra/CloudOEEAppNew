@@ -12,13 +12,16 @@ import com.oee.service.StockMovementService;
 public class StockMovementServiceImpl implements StockMovementService{
 	
 	private final StockMovementRepository stockMovementRepository;
+	private final CurrentUserProvider currentUserProvider;
 	
-	public StockMovementServiceImpl(StockMovementRepository stockMovementRepository) {
+	public StockMovementServiceImpl(StockMovementRepository stockMovementRepository, CurrentUserProvider currentUserProvider) {
 		this.stockMovementRepository = stockMovementRepository;
+		this.currentUserProvider = currentUserProvider;
 	}
 
 	@Override
 	public StockMovement create(StockMovement stockMovement) {
+		stockMovement.setUsername(currentUserProvider.getCurrentUser().getUsername());
 		return stockMovementRepository.save(stockMovement);
 	}
 

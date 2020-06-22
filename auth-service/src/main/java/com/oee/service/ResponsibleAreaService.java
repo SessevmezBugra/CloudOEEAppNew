@@ -12,7 +12,7 @@ public interface ResponsibleAreaService {
 	
 	Boolean delete(Long id);
 	
-	ResponsibleArea getById(Long id);
+	ResponsibleArea findById(Long id);
 	
-	List<ResponsibleArea> getByUsername(String username);
+	List<ResponsibleArea> findByUserId();
 }

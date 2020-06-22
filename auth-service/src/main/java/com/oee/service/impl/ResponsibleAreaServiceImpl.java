@@ -2,6 +2,7 @@ package com.oee.service.impl;
 
 import java.util.List;
 
+import com.oee.config.CurrentUserProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +13,14 @@ import com.oee.service.ResponsibleAreaService;
 @Service
 public class ResponsibleAreaServiceImpl implements ResponsibleAreaService{
 
-	@Autowired
-	private ResponsibleAreaRepository responsibleAreaRepository;
-	
+	private final ResponsibleAreaRepository responsibleAreaRepository;
+	private final CurrentUserProvider currentUserProvider;
+
+	public ResponsibleAreaServiceImpl(ResponsibleAreaRepository responsibleAreaRepository, CurrentUserProvider currentUserProvider) {
+		this.responsibleAreaRepository = responsibleAreaRepository;
+		this.currentUserProvider = currentUserProvider;
+	}
+
 	@Override
 	public ResponsibleArea create(ResponsibleArea responsibleArea) {
 		return responsibleAreaRepository.save(responsibleArea);
@@ -32,13 +38,13 @@ public class ResponsibleAreaServiceImpl implements ResponsibleAreaService{
 	}
 
 	@Override
-	public ResponsibleArea getById(Long id) {
+	public ResponsibleArea findById(Long id) {
 		return responsibleAreaRepository.findById(id).get();
 	}
 
 	@Override
-	public List<ResponsibleArea> getByUsername(String username) {
-		return responsibleAreaRepository.findByUserUsername(username);
+	public List<ResponsibleArea> findByUserId() {
+		return responsibleAreaRepository.findByUserId(currentUserProvider.getCurrentUser().getUserId());
 	}
 
 }

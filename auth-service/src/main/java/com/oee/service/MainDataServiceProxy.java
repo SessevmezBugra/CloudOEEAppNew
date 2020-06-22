@@ -12,6 +12,6 @@ import com.oee.dto.CompanyInfoDto;
 @FeignClient(name = "maindata-service")
 public interface MainDataServiceProxy {
 
-	@RequestMapping(value = "/rest/maindata/companyinfo", method=RequestMethod.POST)
+	@RequestMapping(value = "/maindata/companyinfo", method=RequestMethod.POST)
 	public ResponseEntity<CompanyInfoDto> createCompanyInfo(@RequestBody CompanyInfoDto companyInfoDto);
 }

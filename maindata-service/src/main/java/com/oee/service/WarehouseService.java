@@ -13,6 +13,8 @@ public interface WarehouseService {
 	Boolean deleteById(Long warehouseId);
 	
 	WarehouseInfo getById(Long warehouseId);
-	
+
+	List<WarehouseInfo> getWarehouseByLoggedUser();
+
 	List<WarehouseInfo> findByPlantId(Long plantId);
 }

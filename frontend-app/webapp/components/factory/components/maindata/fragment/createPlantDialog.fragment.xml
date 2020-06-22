@@ -1,0 +1,29 @@
+<core:FragmentDefinition xmlns="sap.m" 
+    xmlns:l="sap.ui.layout" 
+    xmlns:f="sap.ui.layout.form" 
+    xmlns:core="sap.ui.core">
+    <Dialog title="Bir fabrika olusturun">
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <f:SimpleForm editable="true" layout="ResponsiveGridLayout" title="Fabrika" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+                    <f:content>
+                        <Label text="Bolge" />
+                        <Select selectedKey="{plantModel>/selectedClient}" items="{plantModel>/clients}">
+                            <core:Item text="{plantModel>clientName}" key="{plantModel>clientId}"/>
+                        </Select>
+                        <Label text="Fabrika Ismi" />
+                        <Input value="{plantModel>/plantNameToCreated}"/>
+                    </f:content>
+                </f:SimpleForm>
+            </VBox>
+        </content>
+        <beginButton>
+            <Button text="Olustur" press=".createPlant">
+            </Button>
+        </beginButton>
+        <endButton>
+            <Button text="Iptal" press=".closePlantDialog">
+            </Button>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>
