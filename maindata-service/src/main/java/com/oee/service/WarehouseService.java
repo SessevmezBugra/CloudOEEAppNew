@@ -2,6 +2,7 @@ package com.oee.service;
 
 import java.util.List;
 
+import com.oee.dto.WarehouseDto;
 import com.oee.entity.WarehouseInfo;
 
 public interface WarehouseService {
@@ -14,7 +15,7 @@ public interface WarehouseService {
 	
 	WarehouseInfo getById(Long warehouseId);
 
-	List<WarehouseInfo> getWarehouseByLoggedUser();
+	List<WarehouseDto> getWarehouseByLoggedUser();
 
 	List<WarehouseInfo> findByPlantId(Long plantId);
 }

@@ -2,6 +2,7 @@ package com.oee.web;
 
 import java.util.List;
 
+import com.oee.dto.WarehouseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,7 +38,7 @@ public class WarehouseRestController {
 	}
 
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<WarehouseInfo>> getWarehouseByLoggedUser(){
+	public ResponseEntity<List<WarehouseDto>> getWarehouseByLoggedUser(){
 		return ResponseEntity.ok(warehouseService.getWarehouseByLoggedUser());
 	}
 	
