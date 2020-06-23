@@ -57,7 +57,7 @@
 							<Toolbar>
 								<Title text="Search" />
 								<ToolbarSpacer />
-								<SearchField width="50%" search="onFilterProducts" />
+								<SearchField width="50%" liveChange=".onFilterProducts"/>
 							</Toolbar>
 							<Table noDataText="{i18n>STOCK_NODATA}" id="stock_table" items="{stockModel>/stocks}" backgroundDesign="Transparent">
 								<items>
@@ -102,7 +102,7 @@
 						<f:SimpleForm id="simple1" title="{i18n>PRODUCTADD}" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" columnsM="6" columnsL="5" columnsXL="5" emptySpanL="3" emptySpanXL="3" emptySpanM="2">
 							<f:content>
 								<Label text="{i18n>PRODUCTNAME}"></Label>
-								<ComboBox items="{stockModel>/materials}" selectedKey="{stockModel>/selectedMaterialId}">
+								<ComboBox items="{stockModel>/materials}" change="onSelectedMaterial" > 
 									<items>
 										<core:Item key="{stockModel>materialId}" text="{stockModel>materialDesc}"/>
 									</items>
@@ -124,7 +124,7 @@
 								<Label text="Metarial Number" visible="false"></Label>
 								<Input width="100%" visible="false">
 									<layoutData>
-										<l:GridData span="XL2 L2 M6"></l:GridData>
+										<l:GridData span="XL1 L1 M5"></l:GridData>
 									</layoutData>
 								</Input>
 								<Button xmlns="sap.m" text="Stok Ekle" id="button0" type="Accept" press="saveStock">
@@ -132,24 +132,49 @@
 										<l:GridData span="XL2 L2 M6"></l:GridData>
 									</layoutData>
 								</Button>
-								<Button xmlns="sap.m" text="Stok Çıkart" id="button1" type="Reject"></Button>
+								<Button xmlns="sap.m" text="Stok Çıkart" id="button1" type="Reject" press="extractStock"></Button>
 							</f:content>
 						</f:SimpleForm>
 					</IconTabFilter>
 					<IconTabFilter text="{i18n>PRODUCTLOG}" icon="sap-icon://shipping-status" iconColor="Critical" id="filter2">
 						<content>
-							<List xmlns:html="http://www.w3.org/1999/xhtml" 
-								xmlns:mvc="sap.ui.core.mvc" 
-								xmlns="sap.m" noDataText="No data" id="list0">
+							<Table noDataText="{i18n>STOCK_NODATA}"  items="{stockModel>/stocks}" backgroundDesign="Transparent">
 								<items>
-									<StandardListItem title="List Item 1" id="item0"/>
-									<StandardListItem title="List Item 2" id="item1"/>
-									<StandardListItem title="List Item 3" id="item2"/>
-									<StandardListItem title="List Item 1" id="item3"/>
-									<StandardListItem title="List Item 2" id="item6"/>
-									<StandardListItem title="List Item 3" id="item5"/>
+									<ColumnListItem type="Active" >
+										<cells>
+											<Text text="{stockModel>materialId}"/>
+											<Text text="{stockModel>materialDesc}" />
+											<ObjectStatus	class="sapUiSmallMarginBottom"
+												text="Product Shipped"
+												icon="sap-icon://status-positive"
+												state="Success" visible="true"/>
+											<Text text="{stockModel>quantity}" />
+										</cells>
+									</ColumnListItem>
 								</items>
-							</List>
+								<columns>
+									<Column>
+										<header>
+											<Label text="{i18n>PRODUCTNUMBER}"/>
+										</header>
+									</Column>
+									<Column>
+										<header>
+											<Label text="{i18n>PRODUCTNAME}"/>
+										</header>
+									</Column>
+									<Column >
+										<header>
+											<Label text="{i18n>STOCKTRANSACTIONS}" />
+										</header>
+									</Column>
+									<Column>
+										<header>
+											<Label text="{i18n>MAKINGPROCESS}"/>
+										</header>
+									</Column>
+								</columns>
+							</Table>
 						</content>
 					</IconTabFilter>
 				</items>

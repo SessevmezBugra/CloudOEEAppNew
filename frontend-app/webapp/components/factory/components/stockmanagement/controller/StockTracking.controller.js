@@ -3,15 +3,17 @@ sap.ui.define([
 	'sap/ui/model/json/JSONModel',
 	'sap/ui/Device',
 	'workerapp/model/formatter',
-	'workerapp/components/factory/components/stockmanagement/services/stockservice',
+	'workerapp/services/stockservice',
+	"workerapp/services/maindataservice",
 	"sap/m/MessageBox",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator"
-], function (BaseController, JSONModel, Device, formatter, stockservice,MessageBox,FilterOperator,Filter) {
+], function (BaseController, JSONModel, Device, formatter, stockservice, MaindataService, MessageBox, Filter, FilterOperator) {
 	"use strict";
 	var selectedWarehouseId,
 		selectedPlantId,
 		selectedClientId,
+		selectedMaterialId,
 		selectedCompanyId;
 
 	return BaseController.extend("workerapp.components.factory.components.stockmanagement.controller.StockTracking", {
@@ -23,8 +25,14 @@ sap.ui.define([
 			/*this.getWarehouses();
 			this.getMaterials();
 			this.getStockInfo();
-			this.getPlants();*/
-			this.getClients();
+			this.getPlants();
+			this.getClients();*/
+			
+			this.getRouter().getRoute("stockTracking").attachPatternMatched(this._onMaterialMatched, this);
+		},
+		
+		_onMaterialMatched: function (oEvent) {
+			this.showBusyIndicator(); //hide companyler gelince calisacak.
 			this.getCompanys();
 		},
 
@@ -32,7 +40,7 @@ sap.ui.define([
 			this.getWarehouses();
 			this.getMaterials();
 			this.getStockInfo();
-
+			
 		},
 
 		getMaterialsDesc: function() {
@@ -52,6 +60,7 @@ sap.ui.define([
 			stockservice.getStockInfoByWarehouseId(selectedWarehouseId).then(function(response) {
 				this.getModel("stockModel").setProperty("/stocks", response.data);
 				this.getMaterialsDesc();
+				this.hideBusyIndicator();
 			}.bind(this)).catch(function(error) {
 				this.hideBusyIndicator();
 				MessageBox.alert("hata", {
@@ -64,8 +73,9 @@ sap.ui.define([
 		
 		
 		getWarehouses: function() {
-			stockservice.getWarehousesByPlantId(selectedPlantId).then(function(response) {
+			MaindataService.getWarehousesByPlantId(selectedPlantId).then(function(response) {
 				this.getModel("stockModel").setProperty("/warehouses", response.data);
+				this.hideBusyIndicator();
 			}.bind(this)).catch(function(error) {
 				this.hideBusyIndicator();
 				MessageBox.alert("hata", {
@@ -77,8 +87,9 @@ sap.ui.define([
 		},
 
 		getMaterials: function() {
-			stockservice.getMaterialsByPlantId(selectedPlantId).then(function(response) {
-				this.getModel("stockModel").setProperty("/materials", response.data);	
+			MaindataService.getMaterialsByPlantId(selectedPlantId).then(function(response) {
+				this.getModel("stockModel").setProperty("/materials", response.data);
+				this.hideBusyIndicator();	
 			}.bind(this)).catch(function(error) {
 				this.hideBusyIndicator();
 				MessageBox.alert("hata", {
@@ -91,8 +102,9 @@ sap.ui.define([
 
 		
 		getPlants: function() {
-			stockservice.getPlantByClientId(selectedClientId).then(function(response) {
+			MaindataService.getPlantByClientId(selectedClientId).then(function(response) {
 				this.getModel("stockModel").setProperty("/plants", response.data);
+				this.hideBusyIndicator();
 			}.bind(this)).catch(function(error) {
 				this.hideBusyIndicator();
 				MessageBox.alert("hata", {
@@ -104,8 +116,9 @@ sap.ui.define([
 		},
 
 		getClients: function() {
-			stockservice.getClientInfoByCompanyId(1).then(function(response) {
+			MaindataService.getClientInfoByCompanyId(selectedCompanyId).then(function(response) {
 				this.getModel("stockModel").setProperty("/clients", response.data);
+				this.hideBusyIndicator();
 			}.bind(this)).catch(function(error) {
 				this.hideBusyIndicator();
 				MessageBox.alert("hata", {
@@ -117,8 +130,9 @@ sap.ui.define([
 		},
 
 		getCompanys: function() {
-			stockservice.getCompanyInfoById(1).then(function(response) {
+			MaindataService.getCompanies().then(function(response) {
 				this.getModel("stockModel").setProperty("/companys", response.data);
+				this.hideBusyIndicator();
 			}.bind(this)).catch(function(error) {
 				this.hideBusyIndicator();
 				MessageBox.alert("hata", {
@@ -136,6 +150,7 @@ sap.ui.define([
 			this.getModel("stockModel").getData().selectedWarehouse = selectedWarehouseInfo;
 			this.getModel("stockModel").refresh();
 			this.getStockInfo();
+			this.showBusyIndicator();
 		},
 
 		onSelectedPlant: function(oEvent) {
@@ -143,28 +158,34 @@ sap.ui.define([
 			selectedPlantId = selectedPlant.getSelectedKey();
 			this.getWarehouses();
 			this.getMaterials();
+			this.showBusyIndicator();
 		},
 		onSelectedClient: function(oEvent) {
 			var selectedClient = oEvent.getSource();
 			selectedClientId = selectedClient.getSelectedKey();
 			this.getPlants();
+			this.showBusyIndicator();
 		},
 		onSelectedCompany: function(oEvent) {
 			var selectedCompany = oEvent.getSource();
 			selectedCompanyId = selectedCompany.getSelectedKey();
-			//this.getClients();
+			this.getClients();
+		},
+
+		onSelectedMaterial: function(oEvent) {
+			var selectedMaterial = oEvent.getSource();
+			selectedMaterialId = selectedMaterial.getSelectedKey();
 		},
 
 		saveStock: function () {
-			var selectedMaterialId = this.getModel("stockModel").getData().selectedMaterialId,
-				materialQuantity = this.getModel("stockModel").getData().materialQuantity;
+			var materialQuantity = this.getModel("stockModel").getData().materialQuantity; //selectedMaterialId = this.getModel("stockModel").getData().selectedMaterialId,
 
 			var stockinfo = {
 				"materialId": selectedMaterialId,
 				"quantity": materialQuantity,
 				"warehouseId": selectedWarehouseId
 			  };
-			stockservice.createStockInfo(stockinfo).then(function(response) {
+			stockservice.addStock(stockinfo).then(function(response) {
 				console.log(response);
 			}.bind(this)).catch(function(error) {
 				this.hideBusyIndicator();
@@ -176,24 +197,75 @@ sap.ui.define([
 			}.bind(this));
 		},
 
+		extractStock: function () {
+			var materialQuantity = this.getModel("stockModel").getData().materialQuantity;
+
+			var stockinfo = {
+				"materialId": selectedMaterialId,
+				"quantity": materialQuantity,
+				"warehouseId": selectedWarehouseId
+			  };
+			stockservice.exctractStock(stockinfo).then(function(response) {
+				console.log(response);
+			}.bind(this)).catch(function(error) {
+				this.hideBusyIndicator();
+				MessageBox.alert("hata", {
+					icon: MessageBox.Icon.WARNING,
+					title: "hata",
+				});
+				console.log(error);
+			}.bind(this));
+		},
+
+		/* getStockMov: function() {
+			stockservice.getStockInfoByWarehouseId(selectedWarehouseId).then(function(response) {
+				this.getModel("stockModel").setProperty("/stocks", response.data);
+				this.getMaterialsDesc();
+				this.hideBusyIndicator();
+			}.bind(this)).catch(function(error) {
+				this.hideBusyIndicator();
+				MessageBox.alert("hata", {
+					icon: MessageBox.Icon.WARNING,
+					title: "hata",
+				});
+				console.log(error);
+			}.bind(this));
+		},*/
+
 		onFilterProducts: function (oEvent) {
 			// add filter for search
 			var aFilters = [];
 			var sQuery = $.trim(oEvent.getSource().getValue());
 			if (sQuery) {
-				var oFilter = new Filter({
-					filters : [
-						new Filter("materialId", FilterOperator.Contains, sQuery),
-						new Filter("materialDesc", FilterOperator.Contains, sQuery)
-					],
-					and : false});
+				var oFilter = new Filter("materialDesc", FilterOperator.Contains, sQuery);
 				aFilters.push(oFilter);
 			}
 
 			// update list binding
 			var oList = this.byId("stock_table");
 			var oBinding = oList.getBinding("items");
-			oBinding.filter(aFilters, "Application");
+			oBinding.filter(aFilters);
 		}
+		/* tableFilter : function(oEvent){
+			var oTable = this.getView().byId("reqListTable");
+			var sValue = oEvent.getParameter("value");
+			if (sValue.trim() !== "") {
+				var oFilter1 = new Filter("belgeTarihi", sap.ui.model.FilterOperator.Contains, sValue);
+				var oFilter2 = new Filter("bolge", sap.ui.model.FilterOperator.Contains, sValue);
+				var oFilter3 = new Filter("mudur", sap.ui.model.FilterOperator.Contains, sValue);
+				var oFilter4 = new Filter("requester", sap.ui.model.FilterOperator.Contains, sValue);
+				var filters = [oFilter1,oFilter2,oFilter3,oFilter4];
+				var finalFilter = new sap.ui.model.Filter( {
+									filters : filters,
+									and : false
+								});
+								
+				oTable.getBinding("items").filter(finalFilter,
+										sap.ui.model.FilterType.Application);
+			}else{
+				oTable.getBinding("items").filter([],
+										sap.ui.model.FilterType.Application);
+			}
+		},*/
 	});
 });

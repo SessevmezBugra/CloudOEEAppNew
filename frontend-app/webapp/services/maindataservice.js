@@ -26,6 +26,9 @@ sap.ui.define([
         getClientInfo: function(id){
             return Service.doAjax("http://localhost:4000/main-data/client/"+id,null,"GET",true);
         },
+        getClientInfoByCompanyId: function(id) {
+            return Service.doAjax("http://localhost:4000/main-data/client/company/" + id, null, "GET", true);
+        },
 
         //PLANT
         
@@ -38,13 +41,20 @@ sap.ui.define([
         createPlant: function(plant){
             return Service.doAjax("http://localhost:4000/main-data/plant",plant,"POST",true);
         },
+        getPlantByClientId: function(id) {
+            return Service.doAjax("http://localhost:4000/main-data/plant/client/" + id, null, "GET", true);
+        },
 
         //WAREHOUSE
+        //giriş yapan kullanıcının sorumlu olduğu depoları döner
         getWarehouses: function(){
             return Service.doAjax("http://localhost:4000/main-data/warehouse",null,"GET",true);
         },
         createWarehouse: function(warehouse){
             return Service.doAjax("http://localhost:4000/main-data/warehouse",warehouse,"POST",true);
+        },
+        getWarehousesByPlantId: function(id) {
+            return Service.doAjax("http://localhost:4000/main-data/warehouse/plant/" + id, null, "GET", true);
         },
 
         //MATERIAL
@@ -53,6 +63,9 @@ sap.ui.define([
         },
         createMaterial: function(material){
             return Service.doAjax("http://localhost:4000/main-data/material",material,"POST",true);
+        },
+        getMaterialsByPlantId: function(id) {
+            return Service.doAjax("http://localhost:4000/main-data/material/plant/" + id, null, "GET", true);
         },
 
     }
