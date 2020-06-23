@@ -11,7 +11,7 @@
 					<Toolbar id="toolbar1">
 						<Title text="{i18n>WAREHOUSE}"></Title>
 						<ToolbarSpacer></ToolbarSpacer>
-						<Label text="{i18n>CHOOSECOMPANY} : "></Label>
+						<!-- <Label text="{i18n>CHOOSECOMPANY} : "></Label>
 						<ComboBox items="{stockModel>/companys}" change="onSelectedCompany" width="10%" placeHoldee="Şirket seçiniz...">
 							<items>
 								<core:Item key="{stockModel>companyId}" text="{stockModel>companyName}"/>
@@ -28,9 +28,9 @@
 							<items>
 								<core:Item key="{stockModel>plantId}" text="{stockModel>plantName}"/>
 							</items>
-						</ComboBox>
+						</ComboBox> -->
 						<Label text="{i18n>CHOOSEWAREHOUSE} : "></Label>
-						<ComboBox items="{stockModel>/warehouses}" change="onSelectedWarehouse" width="10%" placeHoldee="Depo seçiniz...">
+						<ComboBox items="{stockModel>/warehouses}" change="onSelectedWarehouse" width="30%" >
 							<items>
 								<core:Item key="{stockModel>warehouseId}" text="{stockModel>warehouseName}"/>
 							</items>

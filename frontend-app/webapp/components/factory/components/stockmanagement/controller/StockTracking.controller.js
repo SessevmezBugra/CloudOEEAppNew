@@ -12,6 +12,7 @@ sap.ui.define([
 	"use strict";
 	var selectedWarehouseId,
 		selectedPlantId,
+		PlantData,
 		selectedClientId,
 		selectedMaterialId,
 		selectedCompanyId;
@@ -33,7 +34,7 @@ sap.ui.define([
 		
 		_onMaterialMatched: function (oEvent) {
 			this.showBusyIndicator(); //hide companyler gelince calisacak.
-			this.getCompanys();
+			this.getWarehouses();
 		},
 
 		onSelectedTab: function(oEvent) {
@@ -73,7 +74,7 @@ sap.ui.define([
 		
 		
 		getWarehouses: function() {
-			MaindataService.getWarehousesByPlantId(selectedPlantId).then(function(response) {
+			MaindataService.getWarehouses().then(function(response) {
 				this.getModel("stockModel").setProperty("/warehouses", response.data);
 				this.hideBusyIndicator();
 			}.bind(this)).catch(function(error) {
@@ -101,7 +102,7 @@ sap.ui.define([
 		},
 
 		
-		getPlants: function() {
+		/*getPlants: function() {
 			MaindataService.getPlantByClientId(selectedClientId).then(function(response) {
 				this.getModel("stockModel").setProperty("/plants", response.data);
 				this.hideBusyIndicator();
@@ -141,19 +142,23 @@ sap.ui.define([
 				});
 				console.log(error);
 			}.bind(this));
-		},
+		},*/
 
 		onSelectedWarehouse: function(oEvent) {
 			var selectedWarehouse = oEvent.getSource();
 			selectedWarehouseId = selectedWarehouse.getSelectedKey();
 			var selectedWarehouseInfo = this.getModel("stockModel").getProperty(oEvent.getSource().getSelectedItem().oBindingContexts.stockModel.sPath);
 			this.getModel("stockModel").getData().selectedWarehouse = selectedWarehouseInfo;
+			if(selectedWarehouseInfo.warehouseId == selectedWarehouseId) {
+				selectedPlantId = selectedWarehouseInfo.plantId;
+			}
 			this.getModel("stockModel").refresh();
+			this.getMaterials();
 			this.getStockInfo();
 			this.showBusyIndicator();
 		},
 
-		onSelectedPlant: function(oEvent) {
+		/*onSelectedPlant: function(oEvent) {
 			var selectedPlant = oEvent.getSource();
 			selectedPlantId = selectedPlant.getSelectedKey();
 			this.getWarehouses();
@@ -170,7 +175,7 @@ sap.ui.define([
 			var selectedCompany = oEvent.getSource();
 			selectedCompanyId = selectedCompany.getSelectedKey();
 			this.getClients();
-		},
+		},*/
 
 		onSelectedMaterial: function(oEvent) {
 			var selectedMaterial = oEvent.getSource();
