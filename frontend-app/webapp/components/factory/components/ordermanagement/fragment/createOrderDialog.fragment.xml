@@ -1,0 +1,49 @@
+<core:FragmentDefinition xmlns="sap.m" 
+    xmlns:l="sap.ui.layout" 
+    xmlns:f="sap.ui.layout.form" 
+    xmlns:core="sap.ui.core">
+    <Dialog title="Bir siparis olusturun">
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <f:SimpleForm editable="true" layout="ResponsiveGridLayout" title="Siparis" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+                    <f:content>
+                        <Label text="Uretilecek Malzeme" />
+                        <Select selectedKey="{orderModel>/selectedPlant}" items="{orderModel>/plants}">
+                            <core:Item text="{orderModel>plantName}" key="{orderModel>plantId}"/>
+                        </Select>
+                        <Label text="Uretilecek Malzeme Aciklamasi" />
+                        <Input value="{orderModel>/materialDescToProduced}"/>
+                        <Label text="Uretilecek Malzeme Miktari" />
+                        <Input value="{orderModel>/materialQuantityToProduced}"/>
+                        <Label text="Planlanan Baslangic Tarihi" />
+                        <DateTimePicker id="DTP1" value="{path:'orderModel>/plannedStartDate', type:'sap.ui.model.type.DateTime', formatOptions: { style: 'medium', strictParsing: true}}" class="sapUiSmallMarginBottom"/>
+                        <Label text="Planlanan Bitis Tarihi" />
+                        <DateTimePicker id="DTP2" value="{path:'orderModel>/plannedEndDate', type:'sap.ui.model.type.DateTime', formatOptions: { style: 'medium', strictParsing: true}}" class="sapUiSmallMarginBottom"/>
+                        <Label text="Tuketilecek Stoklar" />
+                        <MultiComboBox selectedKeys="{orderModel>/selectedStockIds}" items="{
+                                path: 'orderModel>/stocks',
+                                sorter: {
+                                    path: 'warehouseName',
+                                    descending: false,
+                                    group: true
+                                },
+                                groupHeaderFactory: '.getGroupHeader'
+                            }">
+                            <core:Item key="{stockId}" text="{materialDesc}" />
+                        </MultiComboBox>
+                        <Label text="Musteri Adi" />
+                        <Input value="{orderModel>/customerName}"/>
+                    </f:content>
+                </f:SimpleForm>
+            </VBox>
+        </content>
+        <beginButton>
+            <Button text="Olustur" press=".createOrder">
+            </Button>
+        </beginButton>
+        <endButton>
+            <Button text="Iptal" press=".closeOrderDialog">
+            </Button>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

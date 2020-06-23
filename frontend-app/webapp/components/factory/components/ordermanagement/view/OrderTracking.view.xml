@@ -5,6 +5,20 @@
 	xmlns:core="sap.ui.core"
 	xmlns:mvc="sap.ui.core.mvc">
 	<Page showHeader="false">
-		
+		<content>
+			<l:BlockLayout background="Dashboard">
+				<l:BlockLayoutRow>
+					<l:BlockLayoutCell>
+						
+					</l:BlockLayoutCell>
+				</l:BlockLayoutRow>
+			</l:BlockLayout>
+		</content>
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button type="Accept" text="{i18n>ORDER_BTN_CREATE}" press=".openCreateOrderDialog"/>
+			</OverflowToolbar>
+		</footer>
 	</Page>
 </mvc:View>

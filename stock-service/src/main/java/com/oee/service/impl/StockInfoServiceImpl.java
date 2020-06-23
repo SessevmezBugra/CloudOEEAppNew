@@ -104,4 +104,9 @@ public class StockInfoServiceImpl implements StockInfoService {
 
     }
 
+    @Override
+    public StockInfo getByWarehouseIdAndMaterialId(Long warehouseId, Long materialId) {
+        return stockRepository.findByMaterialIdAndWarehouseId(materialId, warehouseId);
+    }
+
 }
