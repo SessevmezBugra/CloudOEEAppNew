@@ -15,4 +15,8 @@ public interface MainDataServiceClient {
     @RequestMapping(value = "/main-data/plant/{plantId}", method= RequestMethod.GET)
     public ResponseEntity<PlantDto> getPlantById(@PathVariable(value="plantId", required=true) Long plantId);
 
+    @RequestMapping(value = "/main-data/plant/warehouse/{warehouseId}", method= RequestMethod.GET)
+    public ResponseEntity<PlantDto> getPlantByWarehouseId(@PathVariable(value="warehouseId", required=true) Long warehouseId);
+
+
 }

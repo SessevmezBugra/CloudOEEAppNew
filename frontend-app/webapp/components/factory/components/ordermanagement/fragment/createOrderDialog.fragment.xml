@@ -22,10 +22,15 @@
                         <Label text="Planlanan Bitis Tarihi" />
                         <DateTimePicker id="DTP2" value="{path:'orderModel>/plannedEndDate', type:'sap.ui.model.type.DateTime', formatOptions: { style: 'medium', strictParsing: true}}" class="sapUiSmallMarginBottom"/>
                         <Label text="Tuketilecek Stoklar" />
-                        <MultiComboBox id="stockComboBox" items="{orderModel>/stocks}">
-                            <core:ListItem key="{orderModel>stockId}" text="{orderModel>materialDesc}" additionalText="{orderModel>materialDesc}"/>
-                           
-                        </MultiComboBox>
+                        <MultiInput
+                            id="stockMultiInput"
+                            suggestionItems="{
+                                path: 'orderModel>/stocks',
+                                sorter: { path: 'orderModel>warehouseName' }
+                            }"
+                            valueHelpRequest="handleValueHelp">
+                            <core:Item key="{orderModel>stockId}" text="{orderModel>materialDesc}" />
+                        </MultiInput>
                         <Label text="Musteri Adi" />
                         <Input value="{orderModel>/customerName}"/>
                     </f:content>

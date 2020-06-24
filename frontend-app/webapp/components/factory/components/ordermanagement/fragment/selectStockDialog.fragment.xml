@@ -1,0 +1,46 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<TableSelectDialog
+		noDataText="Stok bulunamadi"
+		title="Stok Sec"
+		search=".handleSearch"
+		confirm=".handleValueHelpClose"
+		cancel=".handleValueHelpClose"
+		showClearButton="true"
+		items="{
+			path : 'orderModel>/stocks',
+			sorter : {
+				path : 'orderModel>warehouseName',
+				descending : false
+			}
+		}">
+		<ColumnListItem selected="{selected}">
+			<cells>
+				<ObjectIdentifier title="{orderModel>materialDesc}" text="{orderModel>materialNumber}" />
+				<Text text="{orderModel>warehouseName}" />
+				<ObjectNumber number="{orderModel>quantity}"/>
+			</cells>
+		</ColumnListItem>
+		<columns>
+			<Column width="12em">
+				<header>
+					<Text text="Malzeme" />
+				</header>
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true">
+				<header>
+					<Text text="Depo" />
+				</header>
+			</Column>
+			<Column
+				minScreenWidth="Desktop"
+				demandPopin="true"
+				hAlign="End">
+				<header>
+					<Text text="Miktar" />
+				</header>
+			</Column>
+		</columns>
+	</TableSelectDialog>
+</core:FragmentDefinition>

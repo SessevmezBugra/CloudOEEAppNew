@@ -2,6 +2,7 @@ package com.oee.web;
 
 import java.util.List;
 
+import com.oee.dto.StockMovDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -49,7 +50,7 @@ public class StockMovementRestController {
 	}
 
 	@RequestMapping(value="/warehouse/{id}", method=RequestMethod.GET)
-	public ResponseEntity<List<StockMovement>> getByWarehouseId(@PathVariable(value="id", required=true) Long id){
+	public ResponseEntity<List<StockMovDto>> getByWarehouseId(@PathVariable(value="id", required=true) Long id){
 		return ResponseEntity.ok(stockMovementService.getByWarehouseId(id));
 	}
 	

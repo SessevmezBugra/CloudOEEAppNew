@@ -52,5 +52,9 @@ public class PlantInfoRestController {
 	public ResponseEntity<List<PlantInfo>> getPlantInfoByClientId(@PathVariable(value="id", required=true) Long clientId){
 		return ResponseEntity.ok(plantInfoService.getByClientId(clientId));
 	}
-	
+
+	@RequestMapping(value="/warehouse/{id}", method=RequestMethod.GET)
+	public ResponseEntity<PlantInfo> getPlantInfoByWarehouseId(@PathVariable(value="id", required=true) Long warehouseId){
+		return ResponseEntity.ok(plantInfoService.getByWarehouseId(warehouseId));
+	}
 }

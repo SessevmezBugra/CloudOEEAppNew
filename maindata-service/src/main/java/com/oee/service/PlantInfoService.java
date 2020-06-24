@@ -17,5 +17,6 @@ public interface PlantInfoService {
 	List<PlantInfo> getByClientId(Long clientId);
 
 	List<PlantInfo> getPlantByLoggedUser();
-	
+
+    PlantInfo getByWarehouseId(Long warehouseId);
 }

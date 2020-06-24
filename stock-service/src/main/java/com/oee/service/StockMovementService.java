@@ -2,6 +2,7 @@ package com.oee.service;
 
 import java.util.List;
 
+import com.oee.dto.StockMovDto;
 import com.oee.entity.StockMovement;
 
 public interface StockMovementService {
@@ -16,5 +17,5 @@ public interface StockMovementService {
 	
 	List<StockMovement> getByStockId(Long stockId);
 
-    List<StockMovement> getByWarehouseId(Long id);
+    List<StockMovDto> getByWarehouseId(Long id);
 }

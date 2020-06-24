@@ -68,5 +68,10 @@ public class PlantInfoServiceImpl implements PlantInfoService{
 		throw new RuntimeException("Herhangi bir bolge bulunamadi.");
 	}
 
+	@Override
+	public PlantInfo getByWarehouseId(Long warehouseId) {
+		return plantInfoRepository.findByWarehousesWarehouseId(warehouseId);
+	}
+
 
 }
