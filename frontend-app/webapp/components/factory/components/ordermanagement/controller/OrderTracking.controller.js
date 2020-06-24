@@ -4,14 +4,17 @@ sap.ui.define([
 	'sap/ui/Device',
 	'workerapp/model/formatter',
 	'sap/ui/core/SeparatorItem',
-	"workerapp/services/maindataservice"
-], function (BaseController, JSONModel, Device, formatter, SeparatorItem, MaindataService) {
+	"workerapp/services/maindataservice",
+	"workerapp/services/stockservice"
+], function (BaseController, JSONModel, Device, formatter, SeparatorItem, MaindataService, StockService) {
 	"use strict";
 	return BaseController.extend("workerapp.components.factory.components.ordermanagement.controller.OrderTracking", {
 		formatter: formatter,
 
 		onInit: function () {
+
 			var orderModel = new JSONModel({
+				materialNumberToProduced:"",
 				materialDescToProduced: "",
 				materialQuantityToProduced: 0,
 				plannedStartDate: new Date(),
@@ -30,14 +33,17 @@ sap.ui.define([
 			this.showBusyIndicator();//show companyler gelince calisacak.
             this.getPlants(function (isOk) {
                 if (!this._oDialog) {
-                    this._oDialog = sap.ui.xmlfragment("workerapp.components.factory.components.ordermanagement.fragment.createOrderDialog", this);
+                    this._oDialog = sap.ui.xmlfragment("createOrderDialog","workerapp.components.factory.components.ordermanagement.fragment.createOrderDialog", this);
                     this.getView().addDependent(this._oDialog);
                 }
-                this._oDialog.open();
+				this._oDialog.open();
+				// this._oDialog.byId("DTP2").setMinDate(new Date());
+				var date = new Date();
+				sap.ui.core.Fragment.byId("createOrderDialog", "DTP2").setMinDate(new Date(date.getFullYear(), date.getMonth(), date.getDate()));
             }.bind(this));
 		},
 
-		closeMaterialDialog: function () {
+		closeOrderDialog: function () {
             this._oDialog.close();
         },
 
@@ -58,7 +64,29 @@ sap.ui.define([
                 callback(false);
                 this.hideBusyIndicator();
             }.bind(this));
-        },
+		},
+		
+		createOrder: function () {
+			var orderData = this.getModel("orderModel").getData();
+
+		},
+
+		onSelectedPlant: function () {
+			this.showBusyIndicator(); //Stoklar geldiginde hide calisacak.
+			this.getStocks();
+		},
+
+		getStocks: function () {
+			var selectedPlant = this.getModel("orderModel").getData().selectedPlant;
+			StockService.getStocksByPlantId(selectedPlant).then(function (response) {
+				var responseData = response.data;
+				this.getModel("orderModel").getData().stocks = responseData;
+                this.getModel("orderModel").refresh();
+                this.hideBusyIndicator();
+            }.bind(this)).catch(function () {
+                this.hideBusyIndicator();
+            }.bind(this));
+		}
 
 	});
 });

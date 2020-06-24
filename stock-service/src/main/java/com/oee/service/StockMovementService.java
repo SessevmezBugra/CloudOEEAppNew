@@ -15,4 +15,6 @@ public interface StockMovementService {
 	StockMovement getById(Long stockMovId);
 	
 	List<StockMovement> getByStockId(Long stockId);
+
+    List<StockMovement> getByWarehouseId(Long id);
 }

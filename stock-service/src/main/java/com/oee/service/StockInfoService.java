@@ -2,6 +2,7 @@ package com.oee.service;
 
 import java.util.List;
 
+import com.oee.dto.StockDto;
 import com.oee.entity.StockInfo;
 
 public interface StockInfoService {
@@ -21,4 +22,6 @@ public interface StockInfoService {
 	StockInfo extractStock(StockInfo stockInfo);
 
     StockInfo getByWarehouseIdAndMaterialId(Long warehouseId, Long materialId);
+
+    List<StockDto> getByPlantId(Long plantId);
 }

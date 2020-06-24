@@ -1,9 +1,16 @@
 package com.oee.service.impl;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import com.oee.client.MainDataServiceClient;
+import com.oee.dto.PlantDto;
+import com.oee.dto.StockDto;
+import com.oee.dto.WarehouseDto;
 import com.oee.entity.StockMovement;
 import com.oee.service.StockMovementService;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.oee.entity.StockInfo;
@@ -15,10 +22,14 @@ public class StockInfoServiceImpl implements StockInfoService {
 
     private final StockRepository stockRepository;
     private final StockMovementService stockMovementService;
+    private final MainDataServiceClient mainDataServiceClient;
+    private final ModelMapper modelMapper;
 
-    public StockInfoServiceImpl(StockRepository stockRepository, StockMovementService stockMovementService) {
+    public StockInfoServiceImpl(StockRepository stockRepository, StockMovementService stockMovementService, MainDataServiceClient mainDataServiceClient, ModelMapper modelMapper) {
         this.stockRepository = stockRepository;
         this.stockMovementService = stockMovementService;
+        this.mainDataServiceClient = mainDataServiceClient;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -107,6 +118,27 @@ public class StockInfoServiceImpl implements StockInfoService {
     @Override
     public StockInfo getByWarehouseIdAndMaterialId(Long warehouseId, Long materialId) {
         return stockRepository.findByMaterialIdAndWarehouseId(materialId, warehouseId);
+    }
+
+    @Override
+    public List<StockDto> getByPlantId(Long plantId) {
+        PlantDto plantDto = mainDataServiceClient.getPlantById(plantId).getBody();
+        List<Long> warehouseIds = plantDto.getWarehouses().stream().map(WarehouseDto::getWarehouseId).collect(Collectors.toList());
+        List<StockDto> stockDtos = Arrays.asList(modelMapper.map(stockRepository.findByWarehouseIdIn(warehouseIds), StockDto[].class));
+        for (int i = 0; i < stockDtos.size(); i++) {
+            for (int k = 0; k < plantDto.getMaterials().size(); k++) {
+                if(stockDtos.get(i).getMaterialId() == plantDto.getMaterials().get(k).getMaterialId()) {
+                    stockDtos.get(i).setMaterialDesc(plantDto.getMaterials().get(k).getMaterialDesc());
+                    stockDtos.get(i).setMaterialNumber(plantDto.getMaterials().get(k).getMaterialNumber());
+                }
+            }
+            for (int l = 0; l < plantDto.getWarehouses().size(); l++) {
+                if(stockDtos.get(i).getWarehouseId() == plantDto.getWarehouses().get(l).getWarehouseId()) {
+                    stockDtos.get(i).setWarehouseName(plantDto.getWarehouses().get(l).getWarehouseName());
+                }
+            }
+        }
+        return stockDtos;
     }
 
 }

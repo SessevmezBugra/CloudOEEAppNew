@@ -46,4 +46,9 @@ public class StockMovementServiceImpl implements StockMovementService{
 		return stockMovementRepository.findByStockStockId(stockId);
 	}
 
+	@Override
+	public List<StockMovement> getByWarehouseId(Long id) {
+		return stockMovementRepository.findByStockWarehouseId(id);
+	}
+
 }

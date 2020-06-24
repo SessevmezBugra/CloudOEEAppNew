@@ -2,15 +2,17 @@
     xmlns:l="sap.ui.layout" 
     xmlns:f="sap.ui.layout.form" 
     xmlns:core="sap.ui.core">
-    <Dialog title="Bir siparis olusturun">
+    <Dialog title="Bir siparis olusturun" contentWidth="450px" contentHeight="700px" resizable="true">
         <content>
             <VBox class="sapUiSmallMargin">
                 <f:SimpleForm editable="true" layout="ResponsiveGridLayout" title="Siparis" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
                     <f:content>
-                        <Label text="Uretilecek Malzeme" />
-                        <Select selectedKey="{orderModel>/selectedPlant}" items="{orderModel>/plants}">
+                        <Label text="Fabrika" />
+                        <Select forceSelection="false" selectedKey="{orderModel>/selectedPlant}" items="{orderModel>/plants}" change="onSelectedPlant">
                             <core:Item text="{orderModel>plantName}" key="{orderModel>plantId}"/>
                         </Select>
+                        <Label text="Uretilecek Malzeme Numarasi" />
+                        <Input value="{orderModel>/materialNumberToProduced}"/>
                         <Label text="Uretilecek Malzeme Aciklamasi" />
                         <Input value="{orderModel>/materialDescToProduced}"/>
                         <Label text="Uretilecek Malzeme Miktari" />
@@ -20,16 +22,9 @@
                         <Label text="Planlanan Bitis Tarihi" />
                         <DateTimePicker id="DTP2" value="{path:'orderModel>/plannedEndDate', type:'sap.ui.model.type.DateTime', formatOptions: { style: 'medium', strictParsing: true}}" class="sapUiSmallMarginBottom"/>
                         <Label text="Tuketilecek Stoklar" />
-                        <MultiComboBox selectedKeys="{orderModel>/selectedStockIds}" items="{
-                                path: 'orderModel>/stocks',
-                                sorter: {
-                                    path: 'warehouseName',
-                                    descending: false,
-                                    group: true
-                                },
-                                groupHeaderFactory: '.getGroupHeader'
-                            }">
-                            <core:Item key="{stockId}" text="{materialDesc}" />
+                        <MultiComboBox id="stockComboBox" items="{orderModel>/stocks}">
+                            <core:ListItem key="{orderModel>stockId}" text="{orderModel>materialDesc}" additionalText="{orderModel>materialDesc}"/>
+                           
                         </MultiComboBox>
                         <Label text="Musteri Adi" />
                         <Input value="{orderModel>/customerName}"/>
