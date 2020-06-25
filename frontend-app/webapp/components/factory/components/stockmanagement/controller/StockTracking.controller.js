@@ -7,7 +7,7 @@ sap.ui.define([
 	"workerapp/services/maindataservice",
 	"sap/m/MessageBox",
 	"sap/ui/model/Filter",
-	"sap/ui/model/FilterOperator"
+	"sap/ui/model/FilterOperator",
 ], function (BaseController, JSONModel, Device, formatter, stockservice, MaindataService, MessageBox, Filter, FilterOperator) {
 	"use strict";
 	var selectedWarehouseId,
@@ -41,7 +41,7 @@ sap.ui.define([
 			this.getWarehouses();
 			this.getMaterials();
 			this.getStockInfo();
-			
+			this.getStockMovement();
 		},
 
 		getMaterialsDesc: function() {
@@ -155,6 +155,7 @@ sap.ui.define([
 			this.getModel("stockModel").refresh();
 			this.getMaterials();
 			this.getStockInfo();
+			this.getStockMovement();
 			this.showBusyIndicator();
 		},
 
@@ -250,7 +251,38 @@ sap.ui.define([
 			var oList = this.byId("stock_table");
 			var oBinding = oList.getBinding("items");
 			oBinding.filter(aFilters);
+		},
+
+		getStockMovement: function() {
+			stockservice.getStockMovByWarehouseId(selectedWarehouseId).then(function(response) {
+				this.getModel("stockModel").setProperty("/stockmovement", response.data);
+				this.getMaterialsDesc();
+				this.hideBusyIndicator();
+			}.bind(this)).catch(function(error) {
+				this.hideBusyIndicator();
+				MessageBox.alert("hata", {
+					icon: MessageBox.Icon.WARNING,
+					title: "hata",
+				});
+				console.log(error);
+			}.bind(this));
+		},
+
+		onFilterMov: function (oEvent) {
+			// add filter for search
+			var aFilters = [];
+			var sQuery = $.trim(oEvent.getSource().getValue());
+			if (sQuery) {
+				var oFilter = new Filter("materialDesc", FilterOperator.Contains, sQuery);
+				aFilters.push(oFilter);
+			}
+
+			// update list binding
+			var oList = this.byId("stock_table2");
+			var oBinding = oList.getBinding("items");
+			oBinding.filter(aFilters);
 		}
+
 		/* tableFilter : function(oEvent){
 			var oTable = this.getView().byId("reqListTable");
 			var sValue = oEvent.getParameter("value");

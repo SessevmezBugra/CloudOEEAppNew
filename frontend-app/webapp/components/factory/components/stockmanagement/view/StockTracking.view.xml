@@ -30,7 +30,7 @@
 							</items>
 						</ComboBox> -->
 						<Label text="{i18n>CHOOSEWAREHOUSE} : "></Label>
-						<ComboBox items="{stockModel>/warehouses}" change="onSelectedWarehouse" width="30%" >
+						<ComboBox items="{stockModel>/warehouses}" change="onSelectedWarehouse" width="20%" >
 							<items>
 								<core:Item key="{stockModel>warehouseId}" text="{stockModel>warehouseName}"/>
 							</items>
@@ -66,9 +66,10 @@
 											<Text text="{stockModel>materialId}" id="text3"/>
 											<Text text="{stockModel>materialDesc}" id="text4"/>
 											<ObjectStatus	class="sapUiSmallMarginBottom"
-												text="Product Shipped"
+												text="{= ${stockModel>quantity} > 0 ? 'Stok Var' : 'Stok Yok'}"
 												icon="sap-icon://status-positive"
-												state="Success" visible="true"/>
+												state="{= ${stockModel>quantity} > 0 ? 'Success' : 'Error'}" 
+												visible="true"/>
 											<Text text="{stockModel>quantity}" id="text5"/>
 										</cells>
 									</ColumnListItem>
@@ -138,17 +139,26 @@
 					</IconTabFilter>
 					<IconTabFilter text="{i18n>PRODUCTLOG}" icon="sap-icon://shipping-status" iconColor="Critical" id="filter2">
 						<content>
-							<Table noDataText="{i18n>STOCK_NODATA}"  items="{stockModel>/stocks}" backgroundDesign="Transparent">
+							<Toolbar>
+								<Title text="Search" />
+								<ToolbarSpacer />
+								<SearchField width="50%" liveChange=".onFilterMov"/>
+							</Toolbar>
+
+							<Table noDataText="{i18n>STOCK_NODATA}" id="stock_table2"  items="{stockModel>/stockmovement}" backgroundDesign="Transparent">
 								<items>
 									<ColumnListItem type="Active" >
 										<cells>
 											<Text text="{stockModel>materialId}"/>
 											<Text text="{stockModel>materialDesc}" />
 											<ObjectStatus	class="sapUiSmallMarginBottom"
-												text="Product Shipped"
+												text="{= ${stockModel>positive}  === true ? 'Stok Eklendi.' : 'Stok Çıkartıldı.' }"
 												icon="sap-icon://status-positive"
-												state="Success" visible="true"/>
+												state="{= ${stockModel>positive}  === true ? 'Success' : 'Error' }" 
+												visible="true" id="positive"/>
 											<Text text="{stockModel>quantity}" />
+											<Text text="{stockModel>username}" />
+
 										</cells>
 									</ColumnListItem>
 								</items>
@@ -166,6 +176,11 @@
 									<Column >
 										<header>
 											<Label text="{i18n>STOCKTRANSACTIONS}" />
+										</header>
+									</Column>
+									<Column>
+										<header>
+											<Label text="{i18n>CHANGEDAMOUNT}"/>
 										</header>
 									</Column>
 									<Column>
