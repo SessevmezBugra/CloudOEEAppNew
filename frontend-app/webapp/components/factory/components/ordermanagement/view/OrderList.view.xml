@@ -1,0 +1,78 @@
+<mvc:View displayBlock="true" controllerName="workerapp.components.factory.components.ordermanagement.controller.OrderList" height="100%" id="orderList" 
+	xmlns="sap.m" 
+	xmlns:f="sap.f" 
+	xmlns:mvc="sap.ui.core.mvc">
+	<f:DynamicPage id="dynamicPageId" showFooter="true" class="sapUiNoContentPadding" toggleHeaderOnTitleClick="false" backgroundDesign="Transparent">
+		<!-- DynamicPage Title -->
+		<f:title>
+			<f:DynamicPageTitle backgroundDesign="Transparent">
+				<f:heading>
+					<Title text="Siparisler"/>
+				</f:heading>
+			</f:DynamicPageTitle>
+		</f:title>
+
+		<!-- DynamicPage Content -->
+		<f:content>
+			<Panel width="" class="arcloudBackgroundColor">
+				<Table id="ordersTable" backgroundDesign="Transparent" width="auto">
+					<headerToolbar>
+						<OverflowToolbar>
+							<ToolbarSpacer/>
+							<SearchField search="onSearch" width="17.5rem"/>
+						</OverflowToolbar>
+					</headerToolbar>
+					<columns>
+						<Column>
+							<Text text="{i18n>PLANT_NAME}" />
+						</Column>
+						<Column minScreenWidth="Desktop" demandPopin="true">
+							<Text text="{i18n>ORDER_NUMBER}" />
+						</Column>
+
+						<Column minScreenWidth="Desktop" demandPopin="true">
+							<Text text="{i18n>CUSTOMER}" />
+						</Column>
+						<Column minScreenWidth="Desktop" demandPopin="true">
+							<Text text="{i18n>STATUS}" />
+						</Column>
+						<Column minScreenWidth="Desktop" demandPopin="true">
+							<Text text="{i18n>PLANNED_START_DATE}" />
+						</Column>
+						<Column minScreenWidth="Desktop" demandPopin="true">
+							<Text text="{i18n>PLANNED_END_DATE}" />
+						</Column>
+						<Column minScreenWidth="Desktop" demandPopin="true">
+							<Text text="{i18n>PRODUCED_MALZEME}" />
+						</Column>
+						<Column minScreenWidth="Desktop" demandPopin="true">
+							<Text text="" />
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem type="Navigation" press="onListItemPress">
+							<cells>
+								<ObjectIdentifier text="{orderModel>plantName}" />
+								<ObjectIdentifier text="{orderModel>orderNo}" />
+								<ObjectIdentifier text="{orderModel>customer}" />
+								<ObjectIdentifier text="{orderModel>status}" />
+								<ObjectIdentifier text="{orderModel>plannedStartDate}" />
+								<ObjectIdentifier text="{orderModel>plannedEndDate}" />
+								<ObjectIdentifier text="{orderModel>materialDesc}" />
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</Panel>
+		</f:content>
+
+		<!-- DynamicPage Footer -->
+		<f:footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<!-- <Button type="Accept" text="{i18n>ORDER_BTN_CREATE}" press=".openCreateOrderDialog"/> -->
+				<Button type="Accept" text="{i18n>ORDER_BTN_CREATE}" press="openCreateOrderDialog"/>
+			</OverflowToolbar>
+		</f:footer>
+	</f:DynamicPage>
+</mvc:View>

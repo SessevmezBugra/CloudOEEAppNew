@@ -4,7 +4,7 @@
 	xmlns:core="sap.ui.core" 
 	xmlns:f="sap.ui.layout.form" 
 	xmlns:mvc="sap.ui.core.mvc">
-	<Page showHeader="false" title="{i18n>STOCK_INFORMATION}" backgroundDesign="Transparent">
+	<Page showHeader="false" title="{i18n>STOCK_INFORMATION}" backgroundDesign="Transparent" >
 		<content>
 			<Panel xmlns="sap.m" width="auto" expandable="true" expanded="true" id="panel0" >
 				<headerToolbar>
@@ -38,7 +38,7 @@
 					</Toolbar>
 				</headerToolbar>
 				<content>
-					<ObjectHeader title="{stockModel>/selectedWarehouse/warehouseName}"  backgroundDesign="Solid" number="İstanbul, Turkey" numberUnit="05:15 PM, Thursday" icon="sap-icon://addresses" iconDensityAware="false">
+					<ObjectHeader title="{stockModel>/selectedWarehouse/warehouseName}"  backgroundDesign="Solid" number="İstanbul, Turkey" numberUnit="05:15 PM, Thursday" icon="sap-icon://addresses" iconDensityAware="false" >
 						<attributes>
 							<ObjectAttribute title="{i18n>ADDRESS}" text="BLR.01, B2.023"/>
 							<ObjectAttribute title="{i18n>OFFICEPHONE}" text="+91-90100-98100"/>
@@ -50,7 +50,7 @@
 					</ObjectHeader>
 				</content>
 			</Panel>
-			<IconTabBar select="onSelectedTab" backgroundDesign="Transparent" headerBackgroundDesign="Transparent">
+			<IconTabBar select="onSelectedTab" backgroundDesign="Transparent" headerBackgroundDesign="Transparent" class="arcloudBackgroundColor">
 				<items>
 					<IconTabFilter text="{i18n>PRODUCT}" icon="sap-icon://product" iconColor="Neutral" id="filter3">
 						<content>

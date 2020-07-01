@@ -56,7 +56,7 @@
 						</tnt:NavigationListItem>
 					</tnt:NavigationListItem>
 					<tnt:NavigationListItem text="Siparis Yonetimi" key="orderManagement" icon="sap-icon://my-sales-order">
-						<tnt:NavigationListItem text="Siparis Takibi" key="orderTracking">
+						<tnt:NavigationListItem text="Siparis Takibi" key="orderList">
 						</tnt:NavigationListItem>
 					</tnt:NavigationListItem>
 					<tnt:NavigationListItem text="Personel Yonetimi" key="staffManagement" icon="sap-icon://company-view">

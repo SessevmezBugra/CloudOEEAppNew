@@ -2,6 +2,7 @@ package com.oee.service;
 
 import java.util.List;
 
+import com.oee.dto.OrderDto;
 import com.oee.entity.OrderInfo;
 
 public interface OrderInfoService {
@@ -15,4 +16,6 @@ public interface OrderInfoService {
 	OrderInfo getById(Long orderId);
 	
 	List<OrderInfo> getByPlantId(Integer plantId);
+
+    List<OrderDto> getByLoggedUser();
 }

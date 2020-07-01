@@ -10,4 +10,5 @@ public interface OrderInfoRepository extends JpaRepository<OrderInfo, Long>{
 	
 	List<OrderInfo> findByPlantId(Integer plantId);
 
+    List<OrderInfo> findByPlantIdIn(Iterable<Long> ids);
 }

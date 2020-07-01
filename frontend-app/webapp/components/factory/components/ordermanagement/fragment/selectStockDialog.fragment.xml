@@ -4,9 +4,10 @@
 	<TableSelectDialog
 		noDataText="Stok bulunamadi"
 		title="Stok Sec"
+        multiSelect="true"
 		search=".handleSearch"
-		confirm=".handleValueHelpClose"
-		cancel=".handleValueHelpClose"
+		confirm="._handleValueHelpClose"
+		cancel="._handleValueHelpClose"
 		showClearButton="true"
 		items="{
 			path : 'orderModel>/stocks',
@@ -17,8 +18,9 @@
 		}">
 		<ColumnListItem selected="{selected}">
 			<cells>
-				<ObjectIdentifier title="{orderModel>materialDesc}" text="{orderModel>materialNumber}" />
-				<Text text="{orderModel>warehouseName}" />
+				<ObjectIdentifier title="{orderModel>materialDesc}" />
+				<Text text="{orderModel>materialNumber}" />
+                <Text text="{orderModel>warehouseName}" />
 				<ObjectNumber number="{orderModel>quantity}"/>
 			</cells>
 		</ColumnListItem>
@@ -28,6 +30,11 @@
 					<Text text="Malzeme" />
 				</header>
 			</Column>
+            <Column minScreenWidth="Tablet" demandPopin="true">
+				<header>
+					<Text text="Malzeme Numarasi" />
+				</header>
+			</Column>
 			<Column minScreenWidth="Tablet" demandPopin="true">
 				<header>
 					<Text text="Depo" />
@@ -35,8 +42,7 @@
 			</Column>
 			<Column
 				minScreenWidth="Desktop"
-				demandPopin="true"
-				hAlign="End">
+				demandPopin="true">
 				<header>
 					<Text text="Miktar" />
 				</header>

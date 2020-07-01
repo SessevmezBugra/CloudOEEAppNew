@@ -11,7 +11,7 @@ hystrix:
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 10000
+            timeoutInMilliseconds: 1000000
 
 eureka:
   instance:
@@ -44,6 +44,7 @@ spring:
 #    sender:
 #      type: rabbit
     baseUrl: ${ZIPKIN_URI:http://zipkin.bulutfabrikasi.eu.ngrok.io/}
+#    message-timeout: 10000
   sleuth:
     sampler:
       probability: 1.0

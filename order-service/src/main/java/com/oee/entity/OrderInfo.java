@@ -3,15 +3,7 @@ package com.oee.entity;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -25,10 +17,13 @@ public class OrderInfo {
 	private Long orderId;
 	
 	@Column(name="PLANT_ID")
-	private Integer plantId;
+	private Long plantId;
 	
 	@Column(name="ORDER_NO")
 	private String orderNo;
+
+	@Column(name="CUSTOMER")
+	private String customer;
 	
 	@Column(name="STATUS")
 	private String status;
@@ -45,7 +40,7 @@ public class OrderInfo {
 	@Column(name="ACTUAL_END_DATE")
 	private Date actualEndDate;
 	
-	@OneToOne(cascade = CascadeType.ALL, mappedBy="order")
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "order")
 	private OrderedMaterial orderedMaterial;
 	
 	@JsonManagedReference
@@ -62,14 +57,6 @@ public class OrderInfo {
 
 	public void setOrderId(Long orderId) {
 		this.orderId = orderId;
-	}
-
-	public Integer getPlantId() {
-		return plantId;
-	}
-
-	public void setPlantId(Integer plantId) {
-		this.plantId = plantId;
 	}
 
 	public String getStatus() {
@@ -135,6 +122,21 @@ public class OrderInfo {
 	public void setConsumptionMaterials(List<ConsumptionMaterial> consumptionMaterials) {
 		this.consumptionMaterials = consumptionMaterials;
 	}
-	
-	
+
+
+	public String getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(String customer) {
+		this.customer = customer;
+	}
+
+	public Long getPlantId() {
+		return plantId;
+	}
+
+	public void setPlantId(Long plantId) {
+		this.plantId = plantId;
+	}
 }

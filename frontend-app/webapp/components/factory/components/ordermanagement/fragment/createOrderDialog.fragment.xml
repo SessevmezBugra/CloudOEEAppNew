@@ -11,6 +11,8 @@
                         <Select forceSelection="false" selectedKey="{orderModel>/selectedPlant}" items="{orderModel>/plants}" change="onSelectedPlant">
                             <core:Item text="{orderModel>plantName}" key="{orderModel>plantId}"/>
                         </Select>
+                        <Label text="Siparis Numarasi" />
+                        <Input value="{orderModel>/orderNumber}"/>
                         <Label text="Uretilecek Malzeme Numarasi" />
                         <Input value="{orderModel>/materialNumberToProduced}"/>
                         <Label text="Uretilecek Malzeme Aciklamasi" />
@@ -22,14 +24,14 @@
                         <Label text="Planlanan Bitis Tarihi" />
                         <DateTimePicker id="DTP2" value="{path:'orderModel>/plannedEndDate', type:'sap.ui.model.type.DateTime', formatOptions: { style: 'medium', strictParsing: true}}" class="sapUiSmallMarginBottom"/>
                         <Label text="Tuketilecek Stoklar" />
-                        <MultiInput
-                            id="stockMultiInput"
-                            suggestionItems="{
+                        <MultiInput id="stockMultiInput" suggestionItems="{
                                 path: 'orderModel>/stocks',
-                                sorter: { path: 'orderModel>warehouseName' }
-                            }"
-                            valueHelpRequest="handleValueHelp">
-                            <core:Item key="{orderModel>stockId}" text="{orderModel>materialDesc}" />
+                                sorter: { path: 'warehouseName', group: true,
+						ascending:false }
+                            }" valueHelpRequest="handleValueHelp">
+                            <suggestionItems>
+                                <core:Item key="{orderModel>stockId}" text="{orderModel>materialDesc}" />
+                            </suggestionItems>
                         </MultiInput>
                         <Label text="Musteri Adi" />
                         <Input value="{orderModel>/customerName}"/>

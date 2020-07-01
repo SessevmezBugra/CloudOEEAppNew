@@ -2,6 +2,7 @@ package com.oee.web;
 
 import java.util.List;
 
+import com.oee.dto.OrderDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,6 +37,11 @@ public class OrderInfoRestController {
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<Boolean> deleteOrderInfo(@PathVariable(value="id", required=true) Long orderId){
 		return ResponseEntity.ok(orderInfoService.delete(orderId));
+	}
+
+	@RequestMapping(method=RequestMethod.GET)
+	public ResponseEntity<List<OrderDto>> getByLoggedUser(){
+		return ResponseEntity.ok(orderInfoService.getByLoggedUser());
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)

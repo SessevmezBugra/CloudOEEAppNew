@@ -70,28 +70,35 @@
 			},
 			"routes": [
 				{
-					"pattern": "",
-					"name": "home",
-					"target": "home"
+					"pattern": "orderList",
+					"name": "orderList",
+					"target": [
+						"orderList"
+					]
 				},
 				{
-					"pattern": "orderTracking",
-					"name": "orderTracking",
-					"target": "orderTracking"
+					"pattern": "orderDetail/{layout}",
+					"name": "orderDetail",
+					"target": [
+						"orderList",
+						"orderDetail"
+					]
 				}
 			],
 			"targets": {
+				"orderList": {
+					"viewName": "OrderList",
+					"controlAggregation": "beginColumnPages"
+				},
+				"orderDetail": {
+					"viewName": "OrderDetail",
+					"controlAggregation": "midColumnPages"
+				},
 				"home": {
 					"type": "View",
 					"id": "home",
 					"name": "Home",
 					"title": "Home"
-				},
-				"orderTracking": {
-					"type": "View",
-					"id": "orderTracking",
-					"name": "OrderTracking",
-					"title": "OrderTracking"
 				},
 				"notFound": {
 					"type": "View",
