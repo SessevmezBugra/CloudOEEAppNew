@@ -30,6 +30,9 @@ sap.ui.define([
         },
         getStocksByPlantId: function(id){
             return Service.doAjax("http://localhost:4000/stock/stockinfo/plant/" + id, null, "GET", true);
+        },
+        getStockMovByWarehouseId: function(id){
+            return Service.doAjax("http://localhost:4000/stock/stockmovement/warehouse/" + id, null, "GET", true);
         }
     }
 });
