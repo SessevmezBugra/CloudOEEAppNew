@@ -39,9 +39,20 @@ sap.ui.define([
 		},
 
 		onSelectedTab: function(oEvent) {
-			this.showBusyIndicator();
-			this.getStockInfo();
-			this.getStockMovement();
+			//this.showBusyIndicator();
+			//this.getStockInfo();
+			//this.getStockMovement();
+			if(this.getModel("stockModel").getProperty("/selectedWarehouseId")){
+				this.showBusyIndicator();
+				this.getStockInfo();
+				this.getStockMovement();
+			}
+			else {
+				MessageBox.alert(this.translateText("CHOOSEWAREHOUSEMESSAGE"), {
+					icon: MessageBox.Icon.INFORMATION,
+					title: this.translateText("ERROR"),
+				});
+			}
 		},
 
 		getMaterialsDesc: function() {
@@ -147,23 +158,31 @@ sap.ui.define([
 				"quantity": materialQuantity,
 				"warehouseId": warehouseId
 			  };
-			stockservice.addStock(stockinfo).then(function(response) {
+			if(!materialQuantity || !warehouseId || !materialId){
 				this.hideBusyIndicator();
-				console.log(response);
-				this.clearStock();
-				MessageBox.alert(this.translateText("MESSAGEADD"), {
-					icon: MessageBox.Icon.INFORMATION,
-					title: this.translateText("INFORMATION"),
-				});
-			}.bind(this)).catch(function(error) {
-				this.hideBusyIndicator();
-				MessageBox.alert(this.translateText("MESSAGEERRORADD"), {
+				MessageBox.alert(this.translateText("MESSAGEERROREMPTY"), {
 					icon: MessageBox.Icon.WARNING,
 					title: this.translateText("ERROR"),
 				});
-				console.log(error);
-			}.bind(this));
-			
+			}
+			else{
+				stockservice.addStock(stockinfo).then(function(response) {
+					this.hideBusyIndicator();
+					console.log(response);
+					this.clearStock();
+					MessageBox.alert(this.translateText("MESSAGEADD"), {
+						icon: MessageBox.Icon.INFORMATION,
+						title: this.translateText("INFORMATION"),
+					});
+				}.bind(this)).catch(function(error) {
+					this.hideBusyIndicator();
+					MessageBox.alert(this.translateText("MESSAGEERRORADD"), {
+						icon: MessageBox.Icon.WARNING,
+						title: this.translateText("ERROR"),
+					});
+					console.log(error);
+				}.bind(this));
+			}
 		},
 
 		clearStock: function(){
@@ -183,22 +202,31 @@ sap.ui.define([
 				"quantity": materialQuantity,
 				"warehouseId": warehouseId
 			  };
-			stockservice.exctractStock(stockinfo).then(function(response) {
+			if(!materialQuantity || !warehouseId || !materialId){
 				this.hideBusyIndicator();
-				console.log(response);
-				this.clearStock();
-				MessageBox.alert(this.translateText("MESSAGEEXTRACT"), {
-					icon: MessageBox.Icon.INFORMATION,
-					title: this.translateText("INFORMATION"),
-				});
-			}.bind(this)).catch(function(error) {
-				this.hideBusyIndicator();
-				MessageBox.alert(this.translateText("MESSAGEERROREXTRACT"), {
+				MessageBox.alert(this.translateText("MESSAGEERROREMPTY"), {
 					icon: MessageBox.Icon.WARNING,
 					title: this.translateText("ERROR"),
 				});
-				console.log(error);
-			}.bind(this));
+			}
+			else{
+				stockservice.exctractStock(stockinfo).then(function(response) {
+					this.hideBusyIndicator();
+					console.log(response);
+					this.clearStock();
+					MessageBox.alert(this.translateText("MESSAGEEXTRACT"), {
+						icon: MessageBox.Icon.INFORMATION,
+						title: this.translateText("INFORMATION"),
+					});
+				}.bind(this)).catch(function(error) {
+					this.hideBusyIndicator();
+					MessageBox.alert(this.translateText("MESSAGEERROREXTRACT"), {
+						icon: MessageBox.Icon.WARNING,
+						title: this.translateText("ERROR"),
+					});
+					console.log(error);
+				}.bind(this));
+			}
 		},
 
 		onFilterProducts: function (oEvent) {

@@ -1,0 +1,39 @@
+<core:FragmentDefinition xmlns="sap.m" 
+    xmlns:l="sap.ui.layout" 
+    xmlns:f="sap.ui.layout.form" 
+    xmlns:core="sap.ui.core">
+    <Dialog title="Personel Oluşturun" contentWidth="450px" contentHeight="700px" resizable="true">
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <f:SimpleForm editable="true" layout="ResponsiveGridLayout" title="Personel" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+                    <f:content>
+                        <Label text="Depo" />
+                        <Select forceSelection="false" selectedKey="{orderModel>/selectedPlant}" items="{orderModel>/plants}" change="onSelectedPlant">
+                            <core:Item text="{orderModel>plantName}" key="{orderModel>plantId}"/>
+                        </Select>
+                        <Label text="Personel İsmi" />
+                        <Input value="{orderModel>/orderNumber}"/>
+                        <Label text="Personel Soyismi" />
+                        <Input value="{orderModel>/materialNumberToProduced}"/>
+                        <Label text="Personel E-Mail" />
+                        <Input value="{orderModel>/materialDescToProduced}"/>
+                        <Label text="Personel Telefon" />
+                        <Input value="{orderModel>/materialQuantityToProduced}"/>
+                        <Label text="Personel Şifre" />
+                        <Input value="{orderModel>/materialQuantityToProduced}"/>
+                        <Label text="Personel Şifre Tekrar" />
+                        <Input value="{orderModel>/materialQuantityToProduced}"/>
+                    </f:content>
+                </f:SimpleForm>
+            </VBox>
+        </content>
+        <beginButton>
+            <Button text="Olustur" press=".createPerson">
+            </Button>
+        </beginButton>
+        <endButton>
+            <Button text="Iptal" press=".closePersonDialog">
+            </Button>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>
