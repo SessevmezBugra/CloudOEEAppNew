@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.oee.enums.Status;
 
 @Entity
 @Table(name="ORDER_INFO")
@@ -26,7 +27,8 @@ public class OrderInfo {
 	private String customer;
 	
 	@Column(name="STATUS")
-	private String status;
+	@Enumerated(EnumType.STRING)
+	private Status status;
 	
 	@Column(name="PLANNED_START_DATE")
 	private Date plannedStartDate;
@@ -39,14 +41,17 @@ public class OrderInfo {
 	
 	@Column(name="ACTUAL_END_DATE")
 	private Date actualEndDate;
-	
+
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "order")
 	private OrderedMaterial orderedMaterial;
 	
 	@JsonManagedReference
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="order")
-	private List<ConsumptionMaterial> consumptionMaterials;
-	
+	private List<ConsumptionStock> consumptionStocks;
+
+	@Column(name="CREATED_USER")
+	private String createdUser;
+
 	public OrderInfo() {
 		// TODO Auto-generated constructor stub
 	}
@@ -59,13 +64,6 @@ public class OrderInfo {
 		this.orderId = orderId;
 	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
 
 	public Date getPlannedStartDate() {
 		return plannedStartDate;
@@ -115,12 +113,12 @@ public class OrderInfo {
 		this.orderedMaterial = orderedMaterial;
 	}
 
-	public List<ConsumptionMaterial> getConsumptionMaterials() {
-		return consumptionMaterials;
+	public List<ConsumptionStock> getConsumptionStocks() {
+		return consumptionStocks;
 	}
 
-	public void setConsumptionMaterials(List<ConsumptionMaterial> consumptionMaterials) {
-		this.consumptionMaterials = consumptionMaterials;
+	public void setConsumptionStocks(List<ConsumptionStock> consumptionStocks) {
+		this.consumptionStocks = consumptionStocks;
 	}
 
 
@@ -138,5 +136,21 @@ public class OrderInfo {
 
 	public void setPlantId(Long plantId) {
 		this.plantId = plantId;
+	}
+
+	public String getCreatedUser() {
+		return createdUser;
+	}
+
+	public void setCreatedUser(String createdUser) {
+		this.createdUser = createdUser;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 }

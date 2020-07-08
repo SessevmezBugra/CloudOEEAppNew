@@ -26,5 +26,9 @@ public final class ApiPaths {
 	public static final class UOMCtrl{
 		public static final String CTRL = BASE_PATH + "/uom";
 	}
+
+	public static final class StatusCtrl{
+		public static final String CTRL = BASE_PATH + "/status";
+	}
 	
 }

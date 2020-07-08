@@ -8,6 +8,6 @@ import com.oee.entity.ConsumptionInfo;
 
 public interface ConsumptionInfoRepository extends JpaRepository<ConsumptionInfo, Long>{
 	
-	List<ConsumptionInfo> findByOrderId(Long orderId);
+	List<ConsumptionInfo> findByProdRunHdrRunId(Long orderId);
 
 }

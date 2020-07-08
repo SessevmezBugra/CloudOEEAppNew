@@ -50,7 +50,27 @@ public class OrderInfoRestController {
 	}
 	
 	@RequestMapping(value="/plant/{id}", method=RequestMethod.GET)
-	public ResponseEntity<List<OrderInfo>> getByPlantId(@PathVariable(value="id", required=true) Integer plantId){
+	public ResponseEntity<List<OrderInfo>> getByPlantId(@PathVariable(value="id", required=true) Long plantId){
 		return ResponseEntity.ok(orderInfoService.getByPlantId(plantId));
+	}
+
+	@RequestMapping(value="/start-order", method=RequestMethod.PUT)
+	public ResponseEntity<OrderInfo> startOrderById(@RequestBody OrderInfo orderInfo){
+		return ResponseEntity.ok(orderInfoService.startOrderById(orderInfo));
+	}
+
+	@RequestMapping(value="/hold-order", method=RequestMethod.PUT)
+	public ResponseEntity<OrderInfo> holdOrderById(@RequestBody OrderInfo orderInfo){
+		return ResponseEntity.ok(orderInfoService.holdOrder(orderInfo));
+	}
+
+	@RequestMapping(value="/complete-order", method=RequestMethod.PUT)
+	public ResponseEntity<OrderInfo> completeOrderById(@RequestBody OrderInfo orderInfo){
+		return ResponseEntity.ok(orderInfoService.completeOrder(orderInfo));
+	}
+
+	@RequestMapping(value="/resume-order", method=RequestMethod.PUT)
+	public ResponseEntity<OrderInfo> resumeOrderById(@RequestBody OrderInfo orderInfo){
+		return ResponseEntity.ok(orderInfoService.resumeOrder(orderInfo));
 	}
 }

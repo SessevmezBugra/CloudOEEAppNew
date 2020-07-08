@@ -1,80 +1,134 @@
-<mvc:View displayBlock="true" controllerName="workerapp.components.factory.components.ordermanagement.controller.OrderDetail" height="100%"
-		xmlns="sap.uxap"
-		xmlns:mvc="sap.ui.core.mvc"
-		xmlns:m="sap.m"
-		xmlns:f="sap.f"
-		xmlns:form="sap.ui.layout.form">
+<mvc:View displayBlock="true" controllerName="workerapp.components.factory.components.ordermanagement.controller.OrderDetail" height="100%" 
+	xmlns="sap.uxap" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:m="sap.m" 
+	xmlns:f="sap.f" 
+	xmlns:form="sap.ui.layout.form">
 
-	<ObjectPageLayout id="ObjectPageLayout"
-					 showTitleInHeaderContent="true"
-					alwaysShowContentHeader="false"
-					preserveHeaderStateOnScroll="false"
-					headerContentPinnable="true"
-					isChildPage="true"
-					upperCaseAnchorBar="false">
-				<headerTitle>
-					<ObjectPageDynamicHeaderTitle>
-						<expandedHeading>
-							<m:Title text="test" wrapping="true" class="sapUiSmallMarginEnd"/>
-						</expandedHeading>
-
-						<snappedHeading>
-							<m:FlexBox wrap="Wrap" fitContainer="true" alignItems="Center">
-								<m:FlexBox wrap="NoWrap" fitContainer="true" alignItems="Center" class="sapUiTinyMarginEnd">
-									
-									<m:Title text="test" wrapping="true" class="sapUiTinyMarginEnd"/>
-								</m:FlexBox>
-							</m:FlexBox>
-						</snappedHeading>
-
-						<navigationActions>
-							<m:OverflowToolbarButton type="Transparent" icon="sap-icon://decline" press="handleClose"  tooltip="Close column" />
-						</navigationActions>
-
-					</ObjectPageDynamicHeaderTitle>
-				</headerTitle>
-
-				<headerContent>
-					<m:FlexBox wrap="Wrap" fitContainer="true" alignItems="Stretch">
-						<m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
-							<m:Label text="Main Category"/>
-							<m:Text text="test"/>
-						</m:VBox>
-						<m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
-							<m:Label text="Subcategory"/>
-							<m:Text text="test"/>
-						</m:VBox>
-						<m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
-							<m:Label text="Price"/>
-							<m:ObjectNumber number="tets" emphasized="false"/>
-						</m:VBox>
+	<ObjectPageLayout id="ObjectPageLayout" backgroundDesignAnchorBar="Transparent" showTitleInHeaderContent="true" alwaysShowContentHeader="true" preserveHeaderStateOnScroll="false" headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false">
+		<headerTitle>
+			<ObjectPageDynamicHeaderTitle backgroundDesign="Transparent">
+				<expandedHeading>
+					<m:Title text="{i18n>ORDERDETAIL_TITLE}" wrapping="true" class="sapUiSmallMarginEnd"/>
+				</expandedHeading>
+				<snappedHeading>
+					<m:FlexBox fitContainer="true" alignItems="Center">
+						<m:Title text="{i18n>ORDERDETAIL_TITLE}" wrapping="true" class="sapUiSmallMarginEnd"/>
 					</m:FlexBox>
-				</headerContent>
+				</snappedHeading>
+
+				<navigationActions>
+					<m:OverflowToolbarButton type="Transparent" icon="sap-icon://decline" press="handleClose" tooltip="Close column" />
+				</navigationActions>
+
+			</ObjectPageDynamicHeaderTitle>
+		</headerTitle>
 
 		<sections>
-			<ObjectPageSection title="General Information">
+			<ObjectPageSection title="{i18n>ORDERDETAIL_PRODUCED_MATERIAL}">
+				<subSections>
+					<ObjectPageSubSection >
+						<blocks>
+							<m:Panel width="" class="arcloudBackgroundColor">
+								<m:Table id="producedMaterialTable" backgroundDesign="Solid" width="auto" items="{orderModel>/producedMaterials}" enableBusyIndicator="false" busy="{orderModel>/producedMaterialTableBusy}">
+
+									<m:columns>
+										<m:Column minScreenWidth="Tablet" demandPopin="true">
+											<m:Text text="{i18n>MATERIAL_DESC}" />
+										</m:Column>
+										<m:Column minScreenWidth="Tablet" demandPopin="true">
+											<m:Text text="{i18n>PLANNED_PROD_QUAN}" />
+										</m:Column>
+
+										<m:Column minScreenWidth="Tablet" demandPopin="true">
+											<m:Text text="{i18n>ACTUAL_PROD_QUAN}" />
+										</m:Column>
+									</m:columns>
+									<m:items>
+										<m:ColumnListItem >
+											<m:cells>
+												<m:ObjectIdentifier text="{orderModel>materialDesc}" />
+												<m:ObjectIdentifier text="{orderModel>plannedProdQuantity}" />
+												<m:ObjectIdentifier text="{orderModel>actualProdQuantity}" />
+											</m:cells>
+										</m:ColumnListItem>
+									</m:items>
+								</m:Table>
+							</m:Panel>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+			<ObjectPageSection title="{i18n>ORDERDETAIL_CONSUMPTION_MATERIAL}">
 				<subSections>
 					<ObjectPageSubSection>
 						<blocks>
-							<form:SimpleForm
-								maxContainerCols="2"
-								editable="false"
-								layout="ResponsiveGridLayout"
-								labelSpanL="12"
-								labelSpanM="12"
-								emptySpanL="0"
-								emptySpanM="0"
-								columnsL="1"
-								columnsM="1">
-								<form:content>
-									<m:Label text="Product ID"/>
-									<m:Text text="test"/>
-									<m:Label text="Description"/>
-									<m:Text text="test"/>
-									<m:Label text="Supplier"/>
-									<m:Text text="test"/>
-								</form:content>
-							</form:SimpleForm>
+							<m:Panel width="" class="arcloudBackgroundColor">
+								<m:Table id="consumptionMaterialTable" backgroundDesign="Solid" width="auto" items="{orderModel>/consumptionStocks}" enableBusyIndicator="false" busy="{orderModel>/consumptionMaterialTableBusy}">
+
+									<m:columns>
+										<m:Column minScreenWidth="Desktop" demandPopin="true">
+											<m:Text text="{i18n>MATERIAL_DESC}" />
+										</m:Column>
+										<m:Column minScreenWidth="Tablet" demandPopin="true">
+											<m:Text text="{i18n>ORDERDETAIL_WAREHOUSE}" />
+										</m:Column>
+										<m:Column minScreenWidth="Tablet" demandPopin="true">
+											<m:Text text="{i18n>ORDERDETAIL_STOCK_QUANTITY}" />
+										</m:Column>
+									</m:columns>
+									<m:items>
+										<m:ColumnListItem>
+											<m:cells>
+												<m:ObjectIdentifier text="{orderModel>materialDesc}" />
+												<m:ObjectIdentifier text="{orderModel>warehouseName}" />
+												<m:ObjectIdentifier text="{orderModel>quantity}" />
+											</m:cells>
+										</m:ColumnListItem>
+									</m:items>
+								</m:Table>
+							</m:Panel>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+			<ObjectPageSection title="{i18n>ORDERDETAIL_PROD_RUNS}">
+				<subSections>
+					<ObjectPageSubSection>
+						<blocks>
+							<m:Panel width="" class="arcloudBackgroundColor">
+								<m:Table id="prodRunsTable" backgroundDesign="Solid" width="auto" items="{orderModel>/prodRuns}"  enableBusyIndicator="false" busy="{orderModel>/prodRunsTableBusy}">
+
+									<m:columns>
+										<m:Column minScreenWidth="Desktop" demandPopin="true">
+											<m:Text text="{i18n>ORDERDETAIL_START_TIME}" />
+										</m:Column>
+										<m:Column minScreenWidth="Tablet" demandPopin="true">
+											<m:Text text="{i18n>ORDERDETAIL_END_TIME}" />
+										</m:Column>
+										<m:Column minScreenWidth="Tablet" demandPopin="true">
+											<m:Text text="{i18n>ORDERDETAIL_STATUS}" />
+										</m:Column>
+										<m:Column minScreenWidth="Tablet" demandPopin="true">
+											<m:Text text="{i18n>ORDERDETAIL_STARTED_USER}" />
+										</m:Column>
+										<m:Column minScreenWidth="Tablet" demandPopin="true">
+											<m:Text text="{i18n>ORDERDETAIL_ENDING_USER}" />
+										</m:Column>
+									</m:columns>
+									<m:items>
+										<m:ColumnListItem type="Navigation" press="onListItemPress">
+											<m:cells>
+												<m:ObjectIdentifier text="{orderModel>startTime}" />
+												<m:ObjectIdentifier text="{orderModel>endTime}" />
+												<m:ObjectIdentifier text="{orderModel>status}" />
+												<m:ObjectIdentifier text="{orderModel>startedUser}" />
+												<m:ObjectIdentifier text="{orderModel>endingUser}" />
+											</m:cells>
+										</m:ColumnListItem>
+									</m:items>
+								</m:Table>
+							</m:Panel>
 						</blocks>
 					</ObjectPageSubSection>
 				</subSections>

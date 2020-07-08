@@ -6,6 +6,8 @@ import com.oee.entity.OrderedMaterial;
 import com.oee.repository.OrderedMaterialRepository;
 import com.oee.service.OrderedMaterialService;
 
+import java.util.List;
+
 @Service
 public class OrderedMaterialServiceImpl implements OrderedMaterialService{
 

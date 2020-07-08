@@ -3,16 +3,10 @@ package com.oee.entity;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.oee.enums.Status;
 
 @Entity
 @Table(name="PROD_RUN_HDR")
@@ -31,10 +25,20 @@ public class ProdRunHdr {
 	
 	@Column(name="END_TIME")
 	private Date endTime;
+
+	@Column(name="STATUS")
+	@Enumerated(EnumType.STRING)
+	private Status status;
 	
-	@JsonManagedReference
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="prodRunHdr")
-	private List<ProdRunData> prodRunDatas;
+//	@JsonManagedReference
+//	@OneToMany(cascade=CascadeType.ALL, mappedBy="prodRunHdr")
+//	private List<ProdRunData> prodRunDatas;
+
+	@Column(name="STARTED_USER")
+	private String startedUser;
+
+	@Column(name="ENDING_USER")
+	private String endingUser;
 	
 	public ProdRunHdr() {
 		// TODO Auto-generated constructor stub
@@ -72,13 +76,36 @@ public class ProdRunHdr {
 		this.endTime = endTime;
 	}
 
-	public List<ProdRunData> getProdRunDatas() {
-		return prodRunDatas;
+//	public List<ProdRunData> getProdRunDatas() {
+//		return prodRunDatas;
+//	}
+//
+//	public void setProdRunDatas(List<ProdRunData> prodRunDatas) {
+//		this.prodRunDatas = prodRunDatas;
+//	}
+
+
+	public String getStartedUser() {
+		return startedUser;
 	}
 
-	public void setProdRunDatas(List<ProdRunData> prodRunDatas) {
-		this.prodRunDatas = prodRunDatas;
+	public void setStartedUser(String startedUser) {
+		this.startedUser = startedUser;
 	}
-	
-	
+
+	public String getEndingUser() {
+		return endingUser;
+	}
+
+	public void setEndingUser(String endingUser) {
+		this.endingUser = endingUser;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
 }

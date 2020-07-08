@@ -2,6 +2,8 @@ package com.oee.service;
 
 import com.oee.entity.OrderedMaterial;
 
+import java.util.List;
+
 public interface OrderedMaterialService {
 	
 	OrderedMaterial create(OrderedMaterial orderedMaterial);

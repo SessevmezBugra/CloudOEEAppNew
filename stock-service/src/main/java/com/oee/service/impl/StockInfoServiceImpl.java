@@ -54,6 +54,11 @@ public class StockInfoServiceImpl implements StockInfoService {
     }
 
     @Override
+    public List<StockInfo> getByIds(List<Long> ids) {
+        return stockRepository.findAllById(ids);
+    }
+
+    @Override
     public List<StockInfo> getByWarehouseId(Long warehouseId) {
         return stockRepository.findByWarehouseId(warehouseId);
     }

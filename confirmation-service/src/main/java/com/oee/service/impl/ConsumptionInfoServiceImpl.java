@@ -39,8 +39,8 @@ public class ConsumptionInfoServiceImpl implements ConsumptionInfoService{
 	}
 
 	@Override
-	public List<ConsumptionInfo> getByOrderId(Long orderId) {
-		return consumptionInfoRepository.findByOrderId(orderId);
+	public List<ConsumptionInfo> getByRunId(Long runId) {
+		return consumptionInfoRepository.findByProdRunHdrRunId(runId);
 	}
 
 }

@@ -2,18 +2,19 @@ package com.oee.service;
 
 import java.util.List;
 
-import com.oee.entity.ConsumptionMaterial;
+import com.oee.dto.ConsumptionStockDto;
+import com.oee.entity.ConsumptionStock;
 
 public interface ConsumptionMaterialService {
 	
-	ConsumptionMaterial create(ConsumptionMaterial consumptionMaterial);
+	ConsumptionStock create(ConsumptionStock consumptionStock);
 	
-	ConsumptionMaterial update(ConsumptionMaterial consumptionMaterial);
+	ConsumptionStock update(ConsumptionStock consumptionStock);
 	
 	Boolean delete(Long id);
 	
-	ConsumptionMaterial getById(Long id);
+	ConsumptionStock getById(Long id);
 	
-	List<ConsumptionMaterial> getByOrderId(Long id);
+	List<ConsumptionStockDto> getByOrderId(Long id);
 
 }

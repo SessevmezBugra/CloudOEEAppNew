@@ -35,8 +35,9 @@ public class ProdRunData {
 	
 	@Column(name="END_TIME")
 	private Date endTime;
-	
-	
+
+	@Column(name="USER")
+	private String user;
 	
 	public ProdRunData() {
 		// TODO Auto-generated constructor stub
@@ -81,6 +82,13 @@ public class ProdRunData {
 	public void setProdRunHdr(ProdRunHdr prodRunHdr) {
 		this.prodRunHdr = prodRunHdr;
 	}
-	
-	
+
+
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
 }

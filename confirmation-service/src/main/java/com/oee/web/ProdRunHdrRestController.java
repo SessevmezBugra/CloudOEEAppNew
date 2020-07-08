@@ -47,4 +47,19 @@ public class ProdRunHdrRestController {
 	public ResponseEntity<List<ProdRunHdr>> getProdRunHdrByOrderId(@PathVariable(value="id", required=true) Long orderId){
 		return ResponseEntity.ok(prodRunHdrService.getByOrderId(orderId));
 	}
+
+	@RequestMapping(value="/start", method=RequestMethod.POST)
+	public ResponseEntity<ProdRunHdr> start(@RequestBody ProdRunHdr prodRunHdr){
+		return ResponseEntity.ok(prodRunHdrService.start(prodRunHdr));
+	}
+
+	@RequestMapping(value="/hold", method=RequestMethod.PUT)
+	public ResponseEntity<ProdRunHdr> hold(@RequestBody ProdRunHdr prodRunHdr){
+		return ResponseEntity.ok(prodRunHdrService.hold(prodRunHdr));
+	}
+
+	@RequestMapping(value="/complete", method=RequestMethod.PUT)
+	public ResponseEntity<ProdRunHdr> complete(@RequestBody ProdRunHdr prodRunHdr){
+		return ResponseEntity.ok(prodRunHdrService.complete(prodRunHdr));
+	}
 }

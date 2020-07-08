@@ -1,13 +1,10 @@
 package com.oee.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="CONSUMPTION_INFO")
@@ -17,9 +14,11 @@ public class ConsumptionInfo {
 	@Column(name="CONSUMPTION_ID")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long consumptionId;
-	
-	@Column(name="ORDER_ID")
-	private Long orderId;
+
+	@JsonBackReference
+	@ManyToOne(optional=true)
+	@JoinColumn(name="RUN_ID")
+	private ProdRunHdr prodRunHdr;
 	
 	@Column(name="MATERIAL_ID")
 	private Long materialId;
@@ -29,6 +28,9 @@ public class ConsumptionInfo {
 	
 	@Column(name="QUANTITY")
 	private Double quantity;
+
+	@Column(name="USER")
+	private String user;
 	
 	public ConsumptionInfo() {
 		// TODO Auto-generated constructor stub
@@ -40,14 +42,6 @@ public class ConsumptionInfo {
 
 	public void setConsumptionId(Long consumptionId) {
 		this.consumptionId = consumptionId;
-	}
-
-	public Long getOrderId() {
-		return orderId;
-	}
-
-	public void setOrderId(Long orderId) {
-		this.orderId = orderId;
 	}
 
 	public Long getMaterialId() {
@@ -73,6 +67,21 @@ public class ConsumptionInfo {
 	public void setQuantity(Double quantity) {
 		this.quantity = quantity;
 	}
-	
-	
+
+
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
+
+	public ProdRunHdr getProdRunHdr() {
+		return prodRunHdr;
+	}
+
+	public void setProdRunHdr(ProdRunHdr prodRunHdr) {
+		this.prodRunHdr = prodRunHdr;
+	}
 }

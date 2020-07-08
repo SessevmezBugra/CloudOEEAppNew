@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="CONSUMPTION_MATERIAL")
-public class ConsumptionMaterial {
+public class ConsumptionStock {
 	
 	@Id
 	@Column(name="ID")
@@ -28,7 +28,7 @@ public class ConsumptionMaterial {
 	@Column(name="STOCK_ID")
 	private Long stockId;
 	
-	public ConsumptionMaterial() {
+	public ConsumptionStock() {
 		// TODO Auto-generated constructor stub
 	}
 

@@ -77,7 +77,7 @@
 					]
 				},
 				{
-					"pattern": "orderDetail/{layout}",
+					"pattern": "orderDetail/{orderId}/{layout}",
 					"name": "orderDetail",
 					"target": [
 						"orderList",

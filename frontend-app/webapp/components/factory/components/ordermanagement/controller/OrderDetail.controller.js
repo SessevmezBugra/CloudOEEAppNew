@@ -1,7 +1,9 @@
 sap.ui.define([
 	"sap/ui/model/json/JSONModel",
-    "workerapp/base/BaseController"
-], function (JSONModel, BaseController) {
+	"workerapp/base/BaseController",
+	"workerapp/services/orderservice",
+	"workerapp/services/confirmationservice",
+], function (JSONModel, BaseController, OrderService, ConfirmationService) {
 	"use strict";
 
 	return BaseController.extend("workerapp.components.factory.components.ordermanagement.controller.OrderDetail", {
@@ -9,26 +11,63 @@ sap.ui.define([
 			this.oRouter = this.getRouter();
 			this.oModel = this.getModel("orderModel");
 
-			// this.oRouter.getRoute("orderDetail").attachPatternMatched(this._onProductMatched, this);
-		},
-		handleFullScreen: function () {
-			var sNextLayout = this.oModel.getProperty("/actionButtonsInfo/midColumn/fullScreen");
-			this.oRouter.navTo("orderDetail", {layout: sNextLayout});
-		},
-		handleExitFullScreen: function () {
-			var sNextLayout = this.oModel.getProperty("/actionButtonsInfo/midColumn/exitFullScreen");
-			this.oRouter.navTo("detail", {layout: sNextLayout, product: this._product});
+			this.oRouter.getRoute("orderDetail").attachPatternMatched(this._onMatched, this);
 		},
 		handleClose: function () {
 			var sNextLayout = 'OneColumn';
 			this.oRouter.navTo("orderList", {layout: sNextLayout});
 		},
-		// _onProductMatched: function (oEvent) {
-		// 	this._product = oEvent.getParameter("arguments").product || this._product || "0";
-		// 	this.getView().bindElement({
-		// 		path: "/ProductCollection/" + this._product,
-		// 		model: "products"
-		// 	});
-		// }
+		_onMatched: function (oEvent) {
+			this.orderId = oEvent.getParameter("arguments").orderId;
+			this.getProducedMaterial();
+			this.getConsumptionMaterials();
+			this.getProdRuns();
+		},
+
+		getProducedMaterial: function() {
+			this.getModel("orderModel").getData().producedMaterialTableBusy = true;
+			OrderService.getProducedMaterialByOrderId(this.orderId).then(function (response) {
+				var responseData = [];
+				responseData.push(response.data);
+				this.getModel("orderModel").getData().producedMaterials = responseData;
+				this.getModel("orderModel").getData().producedMaterialTableBusy = false;
+				this.getModel("orderModel").refresh();
+                this.hideBusyIndicator();
+            }.bind(this)).catch(function () {
+				this.getModel("orderModel").getData().producedMaterialTableBusy = false;
+				this.getModel("orderModel").refresh();
+                this.hideBusyIndicator();
+            }.bind(this));
+		},
+
+		getConsumptionMaterials: function() {
+			this.getModel("orderModel").getData().consumptionMaterialTableBusy = true;
+			OrderService.getConsumptionMaterialByOrderId(this.orderId).then(function (response) {
+                var responseData = response.data;
+                this.getModel("orderModel").getData().consumptionMaterials = responseData;
+				this.getModel("orderModel").getData().consumptionMaterialTableBusy = false;
+				this.getModel("orderModel").refresh();
+                this.hideBusyIndicator();
+            }.bind(this)).catch(function () {
+				this.getModel("orderModel").getData().consumptionMaterialTableBusy = false;
+				this.getModel("orderModel").refresh();
+                this.hideBusyIndicator();
+            }.bind(this));
+		},
+
+		getProdRuns: function() {
+			this.getModel("orderModel").getData().prodRunsTableBusy = true;
+			ConfirmationService.getProdRunByOrderId(this.orderId).then(function (response) {
+                var responseData = response.data;
+				this.getModel("orderModel").getData().prodRuns = responseData;
+				this.getModel("orderModel").getData().prodRunsTableBusy = false;
+                this.getModel("orderModel").refresh();
+                this.hideBusyIndicator();
+            }.bind(this)).catch(function () {
+				this.getModel("orderModel").getData().prodRunsTableBusy = false;
+				this.getModel("orderModel").refresh();
+                this.hideBusyIndicator();
+            }.bind(this));
+		}
 	});
 }, true);

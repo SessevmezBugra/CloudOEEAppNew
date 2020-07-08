@@ -15,5 +15,11 @@ public interface ProdRunHdrService {
 	ProdRunHdr getById(Long runId);
 	
 	List<ProdRunHdr> getByOrderId(Long orderId);
+
+	ProdRunHdr start(ProdRunHdr prodRunHdr);
+
+	ProdRunHdr hold(ProdRunHdr prodRunHdr);
+
+	ProdRunHdr complete(ProdRunHdr prodRunHdr);
 	
 }

@@ -18,12 +18,24 @@ sap.ui.define([
 
 		onInit: function () {
             this.oRouter = this.getOwnerComponent().getRouter();
-            this.getRouter().getRoute("orderList").attachPatternMatched(this._onMaterialMatched, this);
+            this.getRouter().getRoute("orderList").attachPatternMatched(this._onMatched, this);
 		},
 
-		_onMaterialMatched: function (oEvent) {
-            // this.showBusyIndicator(); //hide companyler gelince calisacak.
-        },
+		_onMatched: function (oEvent) {
+			this.getOrders();
+		},
+		
+		getOrders: function () {
+			this.showBusyIndicator(); //hide orderlar gelince calisacak.
+			OrderService.getOrdersByLoggedUser().then(function (response) {
+                var responseData = response.data;
+                this.getModel("orderModel").getData().orders = responseData;
+                this.getModel("orderModel").refresh();
+                this.hideBusyIndicator();
+            }.bind(this)).catch(function () {
+                this.hideBusyIndicator();
+            }.bind(this));
+		},
 
 		openCreateOrderDialog: function () {
 			this.showBusyIndicator();//show fabrikalar gelince calisacak.
@@ -120,8 +132,8 @@ sap.ui.define([
 			}
 			OrderService.createOrder(order).then(function (response) {
 				this.closeOrderDialog();
-                // callback(true);
-                this.hideBusyIndicator();
+				this.hideBusyIndicator();
+				this.getOrders();
             }.bind(this)).catch(function () {
                 // callback(false);
                 this.hideBusyIndicator();
@@ -214,13 +226,12 @@ sap.ui.define([
 
 		onListItemPress: function (oEvent) {
 			var oNextUIState = this.getOwnerComponent().getHelper().getNextUIState(1);
-				// ,
-				// productPath = oEvent.getSource().getBindingContext("orderModel").getPath(),
-				// product = productPath.split("/").slice(-1).pop();
-
-			this.oRouter.navTo("orderDetail", {layout: oNextUIState.layout});
 
 			var oItem = oEvent.getSource();
+			var order = oItem.getBindingContext("orderModel").getObject();
+
+			this.oRouter.navTo("orderDetail", {orderId: order.orderId, layout: oNextUIState.layout});
+			
 			oItem.setNavigated(true);
 			var oParent = oItem.getParent();
 			// store index of the item clicked, which can be used later in the columnResize event

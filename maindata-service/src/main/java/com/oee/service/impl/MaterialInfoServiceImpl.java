@@ -69,4 +69,9 @@ public class MaterialInfoServiceImpl implements MaterialInfoService{
 		throw new RuntimeException("Herhangi bir bolge bulunamadi.");
 	}
 
+	@Override
+	public List<MaterialInfo> getMaterialsByIds(List<Long> ids) {
+		return materialInfoRepository.findAllById(ids);
+	}
+
 }

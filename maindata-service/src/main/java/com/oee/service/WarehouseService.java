@@ -18,4 +18,6 @@ public interface WarehouseService {
 	List<WarehouseDto> getWarehouseByLoggedUser();
 
 	List<WarehouseInfo> findByPlantId(Long plantId);
+
+    List<WarehouseInfo> getByIds(List<Long> warehouseIds);
 }

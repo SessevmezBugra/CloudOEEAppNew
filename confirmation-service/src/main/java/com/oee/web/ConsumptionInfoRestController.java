@@ -43,9 +43,9 @@ public class ConsumptionInfoRestController {
 		return ResponseEntity.ok(consumptionInfoService.getById(consumptionId));
 	}
 	
-	@RequestMapping(value="/order/{id}", method=RequestMethod.GET)
+	@RequestMapping(value="/run-id/{id}", method=RequestMethod.GET)
 	public ResponseEntity<List<ConsumptionInfo>> getConsumptionInfoByOrderId(@PathVariable(value="id", required=true) Long orderId){
-		return ResponseEntity.ok(consumptionInfoService.getByOrderId(orderId));
+		return ResponseEntity.ok(consumptionInfoService.getByRunId(orderId));
 	}
 	
 }

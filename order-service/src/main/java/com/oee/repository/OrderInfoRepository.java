@@ -8,7 +8,7 @@ import com.oee.entity.OrderInfo;
 
 public interface OrderInfoRepository extends JpaRepository<OrderInfo, Long>{
 	
-	List<OrderInfo> findByPlantId(Integer plantId);
+	List<OrderInfo> findByPlantId(Long plantId);
 
     List<OrderInfo> findByPlantIdIn(Iterable<Long> ids);
 }

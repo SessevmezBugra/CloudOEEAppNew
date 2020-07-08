@@ -15,7 +15,15 @@ public interface OrderInfoService {
 	
 	OrderInfo getById(Long orderId);
 	
-	List<OrderInfo> getByPlantId(Integer plantId);
+	List<OrderInfo> getByPlantId(Long plantId);
 
     List<OrderDto> getByLoggedUser();
+
+    OrderInfo startOrderById(OrderInfo orderInfo);
+
+	OrderInfo holdOrder(OrderInfo orderInfo);
+
+	OrderInfo resumeOrder(OrderInfo orderInfo);
+
+	OrderInfo completeOrder(OrderInfo orderInfo);
 }

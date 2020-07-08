@@ -11,6 +11,8 @@ import com.oee.entity.OrderedMaterial;
 import com.oee.service.OrderedMaterialService;
 import com.oee.util.ApiPaths;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(ApiPaths.OrderedMaterialCtrl.CTRL)
 public class OrderedMaterialRestController {

@@ -49,8 +49,8 @@ sap.ui.define([
 				oParams = jQuery.sap.getUriParameters(),
 				oSettings = {
 					defaultTwoColumnLayoutType: sap.f.LayoutType.TwoColumnsMidExpanded,
-					//defaultThreeColumnLayoutType: sap.f.LayoutType.ThreeColumnsMidExpanded,
-					maxColumnsCount: oParams.get("max") ? oParams.get("max") : 2
+					defaultThreeColumnLayoutType: sap.f.LayoutType.ThreeColumnsMidExpanded,
+					maxColumnsCount: oParams.get("max") ? oParams.get("max") : 3
 				};
 
 			return FlexibleColumnLayoutSemanticHelper.getInstanceFor(oFCL, oSettings);

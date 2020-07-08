@@ -44,6 +44,11 @@ public class MaterialInfoRestController {
 		return ResponseEntity.ok(materialInfoService.getMaterialByLoggedUser());
 	}
 
+	@RequestMapping(value="/ids", method=RequestMethod.GET)
+	public ResponseEntity<List<MaterialInfo>> getMaterialByIds(@RequestBody List<Long> ids){
+		return ResponseEntity.ok(materialInfoService.getMaterialsByIds(ids));
+	}
+
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<MaterialInfo> getMaterialInfoById(@PathVariable(value="id", required=true) Long materialId){
 		return ResponseEntity.ok(materialInfoService.getById(materialId));

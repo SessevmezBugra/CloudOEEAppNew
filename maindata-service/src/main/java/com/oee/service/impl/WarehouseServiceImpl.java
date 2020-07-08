@@ -75,4 +75,9 @@ public class WarehouseServiceImpl implements WarehouseService {
 		return repository.findByPlantPlantId(plantId);
 	}
 
+	@Override
+	public List<WarehouseInfo> getByIds(List<Long> warehouseIds) {
+		return repository.findAllById(warehouseIds);
+	}
+
 }

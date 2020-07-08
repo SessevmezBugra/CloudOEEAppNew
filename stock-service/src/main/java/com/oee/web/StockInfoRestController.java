@@ -66,6 +66,11 @@ public class StockInfoRestController {
 	public ResponseEntity<StockInfo> getStockInfoById(@PathVariable(value="id", required=true) Long stockId){
 		return ResponseEntity.ok(stockInfoService.getById(stockId));
 	}
+
+	@RequestMapping(value="/test/ids", method=RequestMethod.GET)
+	public ResponseEntity<List<StockInfo>> getStockInfoByIds(@RequestBody List<Long> stockIds){
+		return ResponseEntity.ok(stockInfoService.getByIds(stockIds));
+	}
 	 
 	@RequestMapping(value="/warehouse/{warehouseId}", method=RequestMethod.GET)
 	public ResponseEntity<List<StockInfo>> getStockInfoByWarehouseId(@PathVariable(value="warehouseId", required=true) Long warehouseId){
