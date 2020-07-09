@@ -91,7 +91,7 @@
 									</items>
 								</ComboBox>
 								<Label text="{i18n>STOCKAMOUNT}"></Label>
-								<Input width="100%" value="{stockModel>/materialQuantity}" />
+								<Input width="100%" value="{stockModel>/materialQuantity}" type="Number"/>
 								<Input width="100%" value="{i18n>CURRENTSTOCK} : {stockModel>/currentStock}" editable="false" id="stokquantity">
 									<layoutData>
 										<l:GridData span="XL2 L2 M2"/>
