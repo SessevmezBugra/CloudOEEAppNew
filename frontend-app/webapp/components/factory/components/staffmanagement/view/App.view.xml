@@ -1,5 +1,15 @@
-<mvc:View controllerName="workerapp.components.factory.components.staffmanagement.controller.App" 
-	xmlns:mvc="sap.ui.core.mvc" 
-	xmlns="sap.m" displayBlock="true">
-	<App id="app" />
+<mvc:View displayBlock="true" controllerName="workerapp.components.factory.components.staffmanagement.controller.App" height="100%"
+	  xmlns="sap.f"
+	  xmlns:m="sap.m"
+	  xmlns:mvc="sap.ui.core.mvc">
+	  <m:App backgroundImage="./images/personels.png">
+	<FlexibleColumnLayout
+	    columnResize="onColumnResize"
+		autoFocus="false"
+		id="app"
+		stateChange="onStateChanged"
+		restoreFocusOnBackNavigation="true"
+		layout="{staffModel>/layout}"
+		backgroundDesign="Transparent"/>
+		</m:App>
 </mvc:View>
