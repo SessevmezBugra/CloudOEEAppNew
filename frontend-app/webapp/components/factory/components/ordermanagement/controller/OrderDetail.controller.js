@@ -20,7 +20,7 @@ sap.ui.define([
 		_onMatched: function (oEvent) {
 			this.orderId = oEvent.getParameter("arguments").orderId;
 			this.getProducedMaterial();
-			this.getConsumptionMaterials();
+			this.getConsumptionStocks();
 			this.getProdRuns();
 		},
 
@@ -40,16 +40,16 @@ sap.ui.define([
             }.bind(this));
 		},
 
-		getConsumptionMaterials: function() {
-			this.getModel("orderModel").getData().consumptionMaterialTableBusy = true;
-			OrderService.getConsumptionMaterialByOrderId(this.orderId).then(function (response) {
+		getConsumptionStocks: function() {
+			this.getModel("orderModel").getData().consumptionStockTableBusy = true;
+			OrderService.getConsumptionStockByOrderId(this.orderId).then(function (response) {
                 var responseData = response.data;
-                this.getModel("orderModel").getData().consumptionMaterials = responseData;
-				this.getModel("orderModel").getData().consumptionMaterialTableBusy = false;
+                this.getModel("orderModel").getData().consumptionStocks = responseData;
+				this.getModel("orderModel").getData().consumptionStockTableBusy = false;
 				this.getModel("orderModel").refresh();
                 this.hideBusyIndicator();
             }.bind(this)).catch(function () {
-				this.getModel("orderModel").getData().consumptionMaterialTableBusy = false;
+				this.getModel("orderModel").getData().consumptionStockTableBusy = false;
 				this.getModel("orderModel").refresh();
                 this.hideBusyIndicator();
             }.bind(this));

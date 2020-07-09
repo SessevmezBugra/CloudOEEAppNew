@@ -117,7 +117,7 @@ public class OrderInfoServiceImpl implements OrderInfoService{
 		orderInfoRepository.save(orderInfo);
 		ProdRunHdrDto prodRunHdrDto = new ProdRunHdrDto();
 		prodRunHdrDto.setOrderId(orderInfo.getOrderId());
-		prodRunHdrDto.setEndTime(orderInfo.getActualEndDate());
+		prodRunHdrDto.setEndTime(orderInfoDto.getActualEndDate());
 		confirmationServiceClient.hold(prodRunHdrDto);
 		return orderInfo;
 	}
@@ -132,7 +132,7 @@ public class OrderInfoServiceImpl implements OrderInfoService{
 		orderInfoRepository.save(orderInfo);
 		ProdRunHdrDto prodRunHdrDto = new ProdRunHdrDto();
 		prodRunHdrDto.setOrderId(orderInfo.getOrderId());
-		prodRunHdrDto.setStartTime(orderInfo.getActualStartDate());
+		prodRunHdrDto.setStartTime(orderInfoDto.getActualStartDate());
 		confirmationServiceClient.start(prodRunHdrDto);
 		return orderInfo;
 	}
@@ -147,7 +147,7 @@ public class OrderInfoServiceImpl implements OrderInfoService{
 		orderInfoRepository.save(orderInfo);
 		ProdRunHdrDto prodRunHdrDto = new ProdRunHdrDto();
 		prodRunHdrDto.setOrderId(orderInfo.getOrderId());
-		prodRunHdrDto.setStartTime(orderInfo.getActualStartDate());
+		prodRunHdrDto.setEndTime(orderInfoDto.getActualEndDate());
 		confirmationServiceClient.complete(prodRunHdrDto);
 		return orderInfo;
 	}

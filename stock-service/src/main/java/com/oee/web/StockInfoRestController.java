@@ -67,7 +67,7 @@ public class StockInfoRestController {
 		return ResponseEntity.ok(stockInfoService.getById(stockId));
 	}
 
-	@RequestMapping(value="/test/ids", method=RequestMethod.GET)
+	@RequestMapping(value="/ids", method=RequestMethod.POST)
 	public ResponseEntity<List<StockInfo>> getStockInfoByIds(@RequestBody List<Long> stockIds){
 		return ResponseEntity.ok(stockInfoService.getByIds(stockIds));
 	}

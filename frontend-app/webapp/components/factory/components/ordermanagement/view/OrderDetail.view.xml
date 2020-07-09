@@ -59,12 +59,12 @@
 					</ObjectPageSubSection>
 				</subSections>
 			</ObjectPageSection>
-			<ObjectPageSection title="{i18n>ORDERDETAIL_CONSUMPTION_MATERIAL}">
+			<ObjectPageSection title="{i18n>ORDERDETAIL_CONSUMPTION_STOCKS}">
 				<subSections>
 					<ObjectPageSubSection>
 						<blocks>
 							<m:Panel width="" class="arcloudBackgroundColor">
-								<m:Table id="consumptionMaterialTable" backgroundDesign="Solid" width="auto" items="{orderModel>/consumptionStocks}" enableBusyIndicator="false" busy="{orderModel>/consumptionMaterialTableBusy}">
+								<m:Table id="consumptionMaterialTable" backgroundDesign="Solid" width="auto" items="{orderModel>/consumptionStocks}" enableBusyIndicator="false" busy="{orderModel>/consumptionStockTableBusy}">
 
 									<m:columns>
 										<m:Column minScreenWidth="Desktop" demandPopin="true">
@@ -100,7 +100,7 @@
 								<m:Table id="prodRunsTable" backgroundDesign="Solid" width="auto" items="{orderModel>/prodRuns}"  enableBusyIndicator="false" busy="{orderModel>/prodRunsTableBusy}">
 
 									<m:columns>
-										<m:Column minScreenWidth="Desktop" demandPopin="true">
+										<m:Column minScreenWidth="Tablet" demandPopin="true">
 											<m:Text text="{i18n>ORDERDETAIL_START_TIME}" />
 										</m:Column>
 										<m:Column minScreenWidth="Tablet" demandPopin="true">

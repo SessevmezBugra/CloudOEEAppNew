@@ -47,7 +47,7 @@ public class WarehouseRestController {
 		return ResponseEntity.ok(warehouseService.getById(warehouseId));
 	}
 
-	@RequestMapping(value="/ids", method=RequestMethod.GET)
+	@RequestMapping(value="/ids", method=RequestMethod.POST)
 	public ResponseEntity<List<WarehouseInfo>> getWarehousesInfoByIds(@RequestBody List<Long> warehouseIds){
 		return ResponseEntity.ok(warehouseService.getByIds(warehouseIds));
 	}

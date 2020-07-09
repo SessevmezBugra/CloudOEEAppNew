@@ -18,9 +18,24 @@ sap.ui.define([
             return Service.doAjax("http://localhost:4000/order/orderedmaterial/order/" + id, null, "GET", true); 
         },
 
-        getConsumptionMaterialByOrderId: function(id) {
+        getConsumptionStockByOrderId: function(id) {
             return Service.doAjax("http://localhost:4000/order/consumptionmaterial/order/" + id, null, "GET", true); 
-        }
+        },
 
+        startOrder: function(order) {
+            return Service.doAjax("http://localhost:4000/order/orderinfo/start-order", order, "PUT", true); 
+        },
+
+        holdOrder: function(order) {
+            return Service.doAjax("http://localhost:4000/order/orderinfo/hold-order", order, "PUT", true); 
+        },
+
+        resumeOrder: function(order) {
+            return Service.doAjax("http://localhost:4000/order/orderinfo/resume-order", order, "PUT", true); 
+        },
+
+        completeOrder: function(order) {
+            return Service.doAjax("http://localhost:4000/order/orderinfo/complete-order", order, "PUT", true); 
+        },
     }
 });
