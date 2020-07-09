@@ -1,3 +1,20 @@
+spring:
+  datasource:
+    hikari:
+      minimumIdle: 2
+      maximumPoolSize: 10
+      idleTimeout: 120000
+      connectionTimeout: 300000
+      leakDetectionThreshold: 300000
+    url: jdbc:mysql://${RDS_HOSTNAME:1.tcp.eu.ngrok.io}:${RDS_PORT:26460}/${RDS_DB_NAME:keycloak}?serverTimezone=UTC
+    username: ${RDS_USERNAME:keycloak}
+    password: ${RDS_PASSWORD:password}
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.MySQL8Dialect
+
 keycloak:
   resource: auth-service
   credentials: 

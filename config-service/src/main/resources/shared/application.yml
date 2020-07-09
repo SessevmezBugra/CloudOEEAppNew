@@ -25,15 +25,21 @@ eureka:
         
         
 spring:
-  datasource:
-    url: jdbc:mysql://${RDS_HOSTNAME:3.tcp.eu.ngrok.io}:${RDS_PORT:21947}/${RDS_DB_NAME:cloudoeedb}?serverTimezone=UTC
-    username: ${RDS_USERNAME:root}
-    password: ${RDS_PASSWORD:123456}
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: update
-      dialect: org.hibernate.dialect.MySQL8Dialect
+#  datasource:
+#    hikari:
+#      minimumIdle: 2
+#      maximumPoolSize: 10
+#      idleTimeout: 120000
+#      connectionTimeout: 300000
+#      leakDetectionThreshold: 300000
+#    url: jdbc:mysql://${RDS_HOSTNAME:3.tcp.eu.ngrok.io}:${RDS_PORT:21947}/${RDS_DB_NAME:cloudoeedb}?serverTimezone=UTC
+#    username: ${RDS_USERNAME:root}
+#    password: ${RDS_PASSWORD:123456}
+#  jpa:
+#    show-sql: true
+#    hibernate:
+#      ddl-auto: update
+#      dialect: org.hibernate.dialect.MySQL8Dialect
 #  rabbitmq:
 #    addresses: amqp://1.tcp.eu.ngrok.io:26460
 #    host: 1.tcp.eu.ngrok.io

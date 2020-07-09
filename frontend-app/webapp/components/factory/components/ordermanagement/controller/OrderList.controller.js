@@ -119,14 +119,14 @@ sap.ui.define([
 					materialNumber: orderData.materialNumberToProduced,
 					plannedProdQuantity: orderData.materialQuantityToProduced
 				},
-				consumptionMaterials: [
+				consumptionStocks: [
 					
 				]
 
 			};
 			var oMultiInput = sap.ui.core.Fragment.byId("createOrderDialog", "stockMultiInput");
 			for(var token of oMultiInput.getTokens()) {
-				order.consumptionMaterials.push({
+				order.consumptionStocks.push({
 					stockId: token.getKey()
 				});
 			}
@@ -247,14 +247,69 @@ sap.ui.define([
 
 			this.getView().byId("ordersTable").getBinding("items").filter(oTableSearchState, "Application");
 		},
+		
+		startOrder: function (oEvent) {
+			this.showBusyIndicator();
+			var order = oEvent.getSource().getParent().getParent().getBindingContext("orderModel").getObject();
+			var startDate = new Date();
+			var orderDto = {
+				orderId: order.orderId,
+				actualStartDate: startDate
+			}
+			OrderService.startOrder(orderDto).then(function (response) {
+				this.hideBusyIndicator();
+				this.getOrders();
+            }.bind(this)).catch(function () {
+                this.hideBusyIndicator();
+            }.bind(this));
+		},
 
-        toPage2: function () {
-            var oNextUIState = this.getOwnerComponent().getHelper().getNextUIState(1);
-            // ,
-            // productPath = oEvent.getSource().getBindingContext("orderModel").getPath(),
-            // product = productPath.split("/").slice(-1).pop();
+		holdOrder: function (oEvent) {
+			this.showBusyIndicator();
+			var order = oEvent.getSource().getParent().getParent().getBindingContext("orderModel").getObject();
+			var endDate = new Date();
+			var orderDto = {
+				orderId: order.orderId,
+				actualEndDate: endDate
+			}
+			OrderService.holdOrder(orderDto).then(function (response) {
+				this.hideBusyIndicator();
+				this.getOrders();
+            }.bind(this)).catch(function () {
+                this.hideBusyIndicator();
+            }.bind(this));
+		},
 
-             this.oRouter.navTo("orderDetail", {layout: oNextUIState.layout});
-        }
+		resumeOrder: function (oEvent) {
+			this.showBusyIndicator();
+			var order = oEvent.getSource().getParent().getParent().getBindingContext("orderModel").getObject();
+			var startDate = new Date();
+			var orderDto = {
+				orderId: order.orderId,
+				actualStartDate: startDate
+			}
+			OrderService.resumeOrder(orderDto).then(function (response) {
+				this.hideBusyIndicator();
+				this.getOrders();
+            }.bind(this)).catch(function () {
+                this.hideBusyIndicator();
+            }.bind(this));
+		},
+
+		completeOrder: function (oEvent) {
+			this.showBusyIndicator();
+			var order = oEvent.getSource().getParent().getParent().getBindingContext("orderModel").getObject();
+			var endDate = new Date();
+			var orderDto = {
+				orderId: order.orderId,
+				actualEndDate: endDate
+			}
+			OrderService.completeOrder(orderDto).then(function (response) {
+				this.hideBusyIndicator();
+				this.getOrders();
+            }.bind(this)).catch(function () {
+                this.hideBusyIndicator();
+            }.bind(this));
+		},
 	});
 });

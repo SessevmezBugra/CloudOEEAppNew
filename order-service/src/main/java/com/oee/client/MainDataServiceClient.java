@@ -29,10 +29,10 @@ public interface MainDataServiceClient {
     @RequestMapping(value = "/main-data/plant/warehouse/{warehouseId}", method= RequestMethod.GET)
     public ResponseEntity<PlantDto> getPlant(@PathVariable(value="warehouseId", required=true) Long warehouseId);
 
-    @RequestMapping(value = "/main-data/material/ids", method= RequestMethod.GET)
+    @RequestMapping(value = "/main-data/material/ids", method= RequestMethod.POST)
     public ResponseEntity<List<MaterialDto>> getMaterialsByIds(@RequestBody List<Long> ids);
 
-    @RequestMapping(value = "/main-data/warehouse/ids", method= RequestMethod.GET)
+    @RequestMapping(value = "/main-data/warehouse/ids", method= RequestMethod.POST)
     public ResponseEntity<List<WarehouseDto>> getWarehousesByIds(@RequestBody List<Long> ids);
 
 }
