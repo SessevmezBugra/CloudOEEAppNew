@@ -69,6 +69,9 @@ public class KeycloakAdminClientService {
     }
 
     public Boolean createUser(CurrentUser userDto){
+        if(userDto.getPassword() != userDto.getPasswordRetry()) {
+            throw new RuntimeException("Sifrelerin ayni oldugundan emin olun.");
+        }
         KeycloakAdminClientConfig keycloakAdminClientConfig = KeycloakAdminClientUtils.loadConfig(environment);
         Keycloak keycloak = KeycloakAdminClientUtils.getKeycloakClient(keycloakAdminClientConfig);
         RealmResource realmResource = keycloak.realm(keycloakAdminClientConfig.getRealm());
