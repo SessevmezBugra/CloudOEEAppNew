@@ -1,9 +1,11 @@
 <mvc:View displayBlock="true" controllerName="workerapp.components.factory.components.staffmanagement.controller.StaffDetail" height="100%"
 		xmlns="sap.uxap"
 		xmlns:mvc="sap.ui.core.mvc"
+		xmlns:core="sap.ui.core"
 		xmlns:m="sap.m"
 		xmlns:f="sap.f"
-		xmlns:form="sap.ui.layout.form">
+		xmlns:form="sap.ui.layout.form"
+		xmlns:l="sap.ui.layout" >
 
 	<ObjectPageLayout id="ObjectPageLayout"
 					backgroundDesignAnchorBar="Transparent"
@@ -14,7 +16,7 @@
 					isChildPage="true"
 					upperCaseAnchorBar="false">
 				<headerTitle>
-					<ObjectPageDynamicHeaderTitle>
+					<ObjectPageDynamicHeaderTitle backgroundDesign="Transparent">
 						<expandedHeading>
 							<m:Title text="{i18n>PERSONELDETAIL}" wrapping="true" class="sapUiSmallMarginEnd"/>
 						</expandedHeading>
@@ -36,25 +38,25 @@
 				<subSections>
 					<ObjectPageSubSection>
 						<blocks>
-							<form:SimpleForm
-								maxContainerCols="2"
-								editable="false"
-								layout="ResponsiveGridLayout"
-								labelSpanL="12"
-								labelSpanM="12"
-								emptySpanL="0"
-								emptySpanM="0"
-								columnsL="1"
-								columnsM="1">
-								<form:content>
-									<m:Label text="{i18n>NAME}" witdh="%50"/>
-									<m:Input value="{orderModel>/materialQuantityToProduced}" witdh="%50"/>
-									<m:Label text="{i18n>SURNAME}" witdh="%50"/>
-									<m:Text text="test"/>
-									<m:Label text="{i18n>MAIL}" witdh="%50"/>
-									<m:Text text="test"/>
-								</form:content>
-							</form:SimpleForm>
+							<m:ObjectHeader title="{/warehouseName}"  backgroundDesign="Transparent" icon="sap-icon://addresses" iconDensityAware="false" >
+								<m:attributes>
+									<m:ObjectAttribute title="{i18n>NAME} {i18n>SURNAME}" text="Bayram Baş"/>
+									<m:ObjectAttribute title="{i18n>ADDRESS}" text="BLR.01, B2.023"/>
+									<m:ObjectAttribute title="{i18n>PHONE}" text="+91-90100-98100"/>
+									<m:ObjectAttribute title="{i18n>MAIL}" text="example@bybas.com" active="true"/>
+								</m:attributes>
+								<m:statuses>
+									<m:ObjectStatus title="{i18n>STATUS}" icon="sap-icon://employee-approvals" text="Available" state="Success"/>
+									<m:ObjectStatus title="{i18n>AUTHORITY}" icon="sap-icon://leads" text="Operatör" state="Warning"/>
+								</m:statuses>
+							</m:ObjectHeader>
+							<m:footer>
+								<m:OverflowToolbar>
+									<m:ToolbarSpacer/>
+									<!-- <Button type="Accept" text="{i18n>ORDER_BTN_CREATE}" press=".openCreateOrderDialog"/> -->
+									<m:Button type="Accept" text="Personel Ekle" press="openCreatePersonDialog"/>
+								</m:OverflowToolbar>
+							</m:footer>
 						</blocks>
 					</ObjectPageSubSection>
 				</subSections>

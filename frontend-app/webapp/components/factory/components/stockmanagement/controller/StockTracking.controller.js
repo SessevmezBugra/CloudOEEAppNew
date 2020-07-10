@@ -158,7 +158,7 @@ sap.ui.define([
 				"quantity": materialQuantity,
 				"warehouseId": warehouseId
 			  };
-			if(!materialQuantity || !warehouseId || !materialId){
+			if(!materialQuantity || !warehouseId || !materialId || materialQuantity == " " || warehouseId == " " || materialId == " "){
 				this.hideBusyIndicator();
 				MessageBox.alert(this.translateText("MESSAGEERROREMPTY"), {
 					icon: MessageBox.Icon.WARNING,
@@ -202,7 +202,7 @@ sap.ui.define([
 				"quantity": materialQuantity,
 				"warehouseId": warehouseId
 			  };
-			if(!materialQuantity || !warehouseId || !materialId){
+			if(!materialQuantity || !warehouseId || !materialId || materialQuantity == " " || warehouseId == " " || materialId == " "){
 				this.hideBusyIndicator();
 				MessageBox.alert(this.translateText("MESSAGEERROREMPTY"), {
 					icon: MessageBox.Icon.WARNING,

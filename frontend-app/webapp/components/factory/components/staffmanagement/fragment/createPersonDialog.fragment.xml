@@ -7,7 +7,19 @@
             <VBox class="sapUiSmallMargin">
                 <f:SimpleForm editable="true" layout="ResponsiveGridLayout" title="Personel" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
                     <f:content>
-                        <Label text="Depo" />
+                        <Label text="Role Seç" />
+                        <Select forceSelection="false" selectedKey="{orderModel>/selectedPlant}" items="{orderModel>/plants}" change="onSelectedPlant">
+                            <core:Item text="{orderModel>plantName}" key="{orderModel>plantId}"/>
+                        </Select>
+                        <Label text="Şirket" />
+                        <Select forceSelection="false" selectedKey="{orderModel>/selectedPlant}" items="{orderModel>/plants}" change="onSelectedPlant">
+                            <core:Item text="{orderModel>plantName}" key="{orderModel>plantId}"/>
+                        </Select>
+                        <Label text="Bölge" />
+                        <Select forceSelection="false" selectedKey="{orderModel>/selectedPlant}" items="{orderModel>/plants}" change="onSelectedPlant">
+                            <core:Item text="{orderModel>plantName}" key="{orderModel>plantId}"/>
+                        </Select>
+                        <Label text="Fabrika" />
                         <Select forceSelection="false" selectedKey="{orderModel>/selectedPlant}" items="{orderModel>/plants}" change="onSelectedPlant">
                             <core:Item text="{orderModel>plantName}" key="{orderModel>plantId}"/>
                         </Select>
