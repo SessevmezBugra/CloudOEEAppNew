@@ -151,8 +151,8 @@ sap.ui.define([
 		saveStock: function () {
 			this.showBusyIndicator();
 			var materialQuantity = this.getModel("stockModel").getData().materialQuantity;
-			var warehouseId = this.getModel("stockModel").getProperty("/selectedWarehouseId");
-			var materialId = this.getModel("stockModel").getProperty("/selectedMaterialId");
+			var warehouseId = this.getModel("stockModel").getData().selectedWarehouseId;
+			var materialId = this.getModel("stockModel").getData().selectedMaterialId;
 			var stockinfo = {
 				"materialId": materialId,
 				"quantity": materialQuantity,
@@ -195,8 +195,8 @@ sap.ui.define([
 		extractStock: function () {
 			this.showBusyIndicator();
 			var materialQuantity = this.getModel("stockModel").getData().materialQuantity;
-			var warehouseId = this.getModel("stockModel").getProperty("/selectedWarehouseId");
-			var materialId = this.getModel("stockModel").getProperty("/selectedMaterialId");
+			var warehouseId = this.getModel("stockModel").getData().selectedWarehouseId;
+			var materialId = this.getModel("stockModel").getData().selectedMaterialId;
 			var stockinfo = {
 				"materialId": materialId,
 				"quantity": materialQuantity,

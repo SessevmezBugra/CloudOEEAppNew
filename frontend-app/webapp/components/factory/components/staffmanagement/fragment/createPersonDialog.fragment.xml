@@ -8,18 +8,13 @@
                 <f:SimpleForm editable="true" layout="ResponsiveGridLayout" title="Personel" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
                     <f:content>
                         <Label text="Role Seç" />
-                        <Select forceSelection="false" selectedKey="{orderModel>/selectedPlant}" items="{orderModel>/plants}" change="onSelectedPlant">
-                            <core:Item text="{orderModel>plantName}" key="{orderModel>plantId}"/>
+                        <Select forceSelection="false" change="onSelectedRole">
+                            <core:Item text="Şirket Yöneticisi" key="0"/>
+                            <core:Item text="Bölge Yöneticisi" key="1"/>
+                            <core:Item text="Fabrika Yöneticisi" key="2"/>
+                            <core:Item text="Operatör" key="3"/>
                         </Select>
-                        <Label text="Şirket" />
-                        <Select forceSelection="false" selectedKey="{orderModel>/selectedPlant}" items="{orderModel>/plants}" change="onSelectedPlant">
-                            <core:Item text="{orderModel>plantName}" key="{orderModel>plantId}"/>
-                        </Select>
-                        <Label text="Bölge" />
-                        <Select forceSelection="false" selectedKey="{orderModel>/selectedPlant}" items="{orderModel>/plants}" change="onSelectedPlant">
-                            <core:Item text="{orderModel>plantName}" key="{orderModel>plantId}"/>
-                        </Select>
-                        <Label text="Fabrika" />
+                        <Label text="Sorumluluk" />
                         <Select forceSelection="false" selectedKey="{orderModel>/selectedPlant}" items="{orderModel>/plants}" change="onSelectedPlant">
                             <core:Item text="{orderModel>plantName}" key="{orderModel>plantId}"/>
                         </Select>
