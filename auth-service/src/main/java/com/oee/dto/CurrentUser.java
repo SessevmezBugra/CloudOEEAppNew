@@ -14,5 +14,6 @@ public class CurrentUser {
     private String email;
     private String firstName;
     private String lastName;
+    private Long areaId;
     private List<String> roles;
 }

@@ -1,16 +1,9 @@
 package com.oee.entity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.oee.enums.AreaType;
 
 @Entity
 @Table(name="RESPONSIBLE_AREA")
@@ -24,11 +17,17 @@ public class ResponsibleArea {
 	@Column(name="AREA_ID")
 	private Long areaId;
 
-	@Column(name="USER_ID")
-	private String userId;
-	
+//	@Column(name="USER_ID")
+//	private String userId;
+
+	@Enumerated(EnumType.STRING)
 	@Column(name="AREA_TYPE")
-	private String areaType;
+	private AreaType areaType;
+
+	@JsonBackReference
+	@ManyToOne(optional=true)
+	@JoinColumn(name="USER_ID", referencedColumnName = "ID")
+	private UserEntity userEntity;
 	
 	public ResponsibleArea() {
 	}
@@ -50,20 +49,27 @@ public class ResponsibleArea {
 		this.areaId = areaId;
 	}
 
-	public String getAreaType() {
+//	public String getUserId() {
+//		return userId;
+//	}
+//
+//	public void setUserId(String userId) {
+//		this.userId = userId;
+//	}
+
+	public AreaType getAreaType() {
 		return areaType;
 	}
 
-	public void setAreaType(String areaType) {
+	public void setAreaType(AreaType areaType) {
 		this.areaType = areaType;
 	}
 
-
-	public String getUserId() {
-		return userId;
+	public UserEntity getUserEntity() {
+		return userEntity;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUserEntity(UserEntity userEntity) {
+		this.userEntity = userEntity;
 	}
 }

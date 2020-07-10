@@ -1,11 +1,14 @@
 package com.oee.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.oee.client.AuthServiceClient;
 import com.oee.dto.CurrentUser;
 import com.oee.dto.ResponsibleAreaDto;
+import com.oee.enums.AreaType;
+import com.oee.enums.UserRole;
 import org.springframework.stereotype.Service;
 
 import com.oee.entity.PlantInfo;
@@ -53,19 +56,30 @@ public class PlantInfoServiceImpl implements PlantInfoService{
 	@Override
 	public List<PlantInfo> getPlantByLoggedUser() {
 		CurrentUser currentUser = currentUserProvider.getCurrentUser();
-		Boolean isCompanyOwner = currentUser.hasRole("ROLE_COMPANY_OWNER");
-		Boolean isClientManager = currentUser.hasRole("ROLE_CLIENT_MANAGER");
-		Boolean isPlantManager = currentUser.hasRole("ROLE_PLANT_MANAGER");
-		Boolean isOperator = currentUser.hasRole("ROLE_OPERATOR");
-
+		Boolean isCompanyOwner = currentUser.hasRole(UserRole.COMPANY_OWNER.getRole());
+		Boolean isClientManager = currentUser.hasRole(UserRole.CLIENT_MANAGER.getRole());
+		Boolean isPlantManager = currentUser.hasRole(UserRole.PLANT_MANAGER.getRole());
+		List<PlantInfo> plantInfos = new ArrayList<>();
 		if(isCompanyOwner) {
 			List<ResponsibleAreaDto> areaDtos = authServiceClient.getResponsibleArea().getBody();
 			//Daha sonra bu streame area type filtresi eklenmeli.
-			List<Long> ids = areaDtos.stream().filter(rad -> rad.getAreaType().equals("COMPANY")).map(ResponsibleAreaDto::getAreaId).collect(Collectors.toList());
-			return plantInfoRepository.findByClientCompanyCompanyIdIn(ids);
+			List<Long> ids = areaDtos.stream().filter(rad -> rad.getAreaType().equals(AreaType.COMPANY.name())).map(ResponsibleAreaDto::getAreaId).collect(Collectors.toList());
+			plantInfos = plantInfoRepository.findByClientCompanyCompanyIdIn(ids);
+			return  plantInfos;
+		}else if(isClientManager) {
+			List<ResponsibleAreaDto> areaDtos = authServiceClient.getResponsibleArea().getBody();
+			//Daha sonra bu streame area type filtresi eklenmeli.
+			List<Long> ids = areaDtos.stream().filter(rad -> rad.getAreaType().equals(AreaType.CLIENT.name())).map(ResponsibleAreaDto::getAreaId).collect(Collectors.toList());
+			plantInfos = plantInfoRepository.findByClientClientIdIn(ids);
+			return  plantInfos;
+		}else if(isPlantManager) {
+			List<ResponsibleAreaDto> areaDtos = authServiceClient.getResponsibleArea().getBody();
+			//Daha sonra bu streame area type filtresi eklenmeli.
+			List<Long> ids = areaDtos.stream().filter(rad -> rad.getAreaType().equals(AreaType.PLANT.name())).map(ResponsibleAreaDto::getAreaId).collect(Collectors.toList());
+			plantInfos = plantInfoRepository.findAllById(ids);
+			return  plantInfos;
 		}
-
-		throw new RuntimeException("Herhangi bir bolge bulunamadi.");
+		return  plantInfos;
 	}
 
 	@Override
