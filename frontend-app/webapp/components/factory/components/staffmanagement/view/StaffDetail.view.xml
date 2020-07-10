@@ -38,25 +38,19 @@
 				<subSections>
 					<ObjectPageSubSection>
 						<blocks>
-							<m:ObjectHeader title="{/warehouseName}"  backgroundDesign="Transparent" icon="sap-icon://addresses" iconDensityAware="false" >
+							<m:ObjectHeader title="Perosonel adı" backgroundDesign="Transparent" icon="sap-icon://addresses" iconDensityAware="false" imageShape="Circle">
 								<m:attributes>
 									<m:ObjectAttribute title="{i18n>NAME} {i18n>SURNAME}" text="Bayram Baş"/>
 									<m:ObjectAttribute title="{i18n>ADDRESS}" text="BLR.01, B2.023"/>
 									<m:ObjectAttribute title="{i18n>PHONE}" text="+91-90100-98100"/>
 									<m:ObjectAttribute title="{i18n>MAIL}" text="example@bybas.com" active="true"/>
+									<m:ObjectAttribute title="Çalıştıgı yer " text="Fabrika adı"/>
 								</m:attributes>
 								<m:statuses>
 									<m:ObjectStatus title="{i18n>STATUS}" icon="sap-icon://employee-approvals" text="Available" state="Success"/>
-									<m:ObjectStatus title="{i18n>AUTHORITY}" icon="sap-icon://leads" text="Operatör" state="Warning"/>
+									<m:ObjectStatus title="{i18n>AUTHORITY}" icon="sap-icon://leads" text="Operatör" state="Warning"/>								
 								</m:statuses>
 							</m:ObjectHeader>
-							<m:footer>
-								<m:OverflowToolbar>
-									<m:ToolbarSpacer/>
-									<!-- <Button type="Accept" text="{i18n>ORDER_BTN_CREATE}" press=".openCreateOrderDialog"/> -->
-									<m:Button type="Accept" text="Personel Ekle" press="openCreatePersonDialog"/>
-								</m:OverflowToolbar>
-							</m:footer>
 						</blocks>
 					</ObjectPageSubSection>
 				</subSections>
