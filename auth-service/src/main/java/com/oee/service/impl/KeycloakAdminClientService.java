@@ -73,7 +73,7 @@ public class KeycloakAdminClientService {
         return userRepresentation;
     }
 
-    public Boolean addUserToGroup(String userId, String groupName){
+    public Boolean addUserToCompanyOwnerGroup(){
         KeycloakAdminClientConfig keycloakAdminClientConfig = KeycloakAdminClientUtils.loadConfig(environment);
         Keycloak keycloak = KeycloakAdminClientUtils.getKeycloakClient(keycloakAdminClientConfig);
         RealmResource realmResource = keycloak.realm(keycloakAdminClientConfig.getRealm());
@@ -86,7 +86,7 @@ public class KeycloakAdminClientService {
     }
 
     public Boolean createUser(CurrentUser userDto){
-        if(StringUtils.isEmpty(userDto.getUsername()) || StringUtils.isEmpty(userDto.getPasswordRetry()) || StringUtils.isEmpty(userDto.getPassword())) {
+        if(StringUtils.isEmpty(userDto.getUsername()) || StringUtils.isEmpty(userDto.getPasswordRetry()) || StringUtils.isEmpty(userDto.getPassword()) || StringUtils.isEmpty(userDto.getAreaId())) {
             throw new RuntimeException("Bilgilerin eksiksiz oldugundan emin olun.");
         }
 

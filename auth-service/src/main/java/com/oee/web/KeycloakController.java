@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.oee.config.CurrentUserProvider;
 import com.oee.dto.CurrentUser;
+import com.oee.entity.UserEntity;
 import com.oee.enums.UserRole;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ public class KeycloakController {
 
     @RequestMapping(path = "/company-owner", method= RequestMethod.POST)
     public ResponseEntity<Boolean> addCompanyOwnerRole() {
-        return ResponseEntity.ok(keycloakAdminClientService.addUserToGroup(currentUserProvider.getCurrentUser().getUserId(),"COMPANY_OWNER"));
+        return ResponseEntity.ok(keycloakAdminClientService.addUserToCompanyOwnerGroup());
     }
 
     @RequestMapping(path = "/add-operator", method= RequestMethod.POST)
@@ -60,9 +61,9 @@ public class KeycloakController {
         return ResponseEntity.ok(keycloakAdminClientService.createUser(userDto));
     }
 
-    @GetMapping(path = "/hello")
-    public String hello() {
-        return "Hello World!";
+    @RequestMapping(path = "/users", method= RequestMethod.GET)
+    public ResponseEntity<List<UserEntity>> getAllUsersByLoggedUser() {
+        return ResponseEntity.ok(keycloakAdminClientService.findAllUsersByLoggedUser());
     }
 
     @GetMapping(path = "/roles")
