@@ -147,6 +147,21 @@ public class KeycloakAdminClientService {
         return Boolean.TRUE;
     }
 
+    public Boolean updateUser(CurrentUser currentUserDto) {
+        KeycloakAdminClientConfig keycloakAdminClientConfig = KeycloakAdminClientUtils.loadConfig(environment);
+        Keycloak keycloak = KeycloakAdminClientUtils.getKeycloakClient(keycloakAdminClientConfig);
+        RealmResource realmResource = keycloak.realm(keycloakAdminClientConfig.getRealm());
+        UsersResource usersRessource = realmResource.users();
+        UserResource userResource = usersRessource.get(currentUserDto.getUserId());
+        UserRepresentation userRepresentation = userResource.toRepresentation();
+        userRepresentation.setFirstName(currentUserDto.getUsername());
+        userRepresentation.setLastName(currentUserDto.getLastName());
+        userRepresentation.setUsername(currentUserDto.getUsername());
+        userRepresentation.setEmail(currentUserDto.getEmail());
+        userResource.update(userRepresentation);
+        return Boolean.TRUE;
+    }
+
     public List<UserEntityOnly> findAllUsersByLoggedUser() {
         CurrentUser currentUser = currentUserProvider.getCurrentUser();
         List<Long> companyResponsibleAreaIds = new ArrayList<>();

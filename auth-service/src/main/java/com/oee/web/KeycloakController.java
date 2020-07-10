@@ -62,6 +62,11 @@ public class KeycloakController {
         return ResponseEntity.ok(keycloakAdminClientService.createUser(userDto));
     }
 
+    @RequestMapping(path = "/update-user", method= RequestMethod.PUT)
+    public ResponseEntity<Boolean> updateUser(@RequestBody CurrentUser userDto) {
+        return ResponseEntity.ok(keycloakAdminClientService.updateUser(userDto));
+    }
+
     @RequestMapping(path = "/users", method= RequestMethod.GET)
     public ResponseEntity<List<UserEntityOnly>> getAllUsersByLoggedUser() {
         return ResponseEntity.ok(keycloakAdminClientService.findAllUsersByLoggedUser());
