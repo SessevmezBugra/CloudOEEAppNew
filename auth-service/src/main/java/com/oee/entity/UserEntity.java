@@ -29,6 +29,9 @@ public class UserEntity {
     public UserEntity() {
     }
 
+//    public UserEntity(String id, String firstName, String lastName, String username) {
+//    }
+
     public String getId() {
         return id;
     }
@@ -59,5 +62,13 @@ public class UserEntity {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public List<ResponsibleArea> getResponsibleAreas() {
+        return responsibleAreas;
+    }
+
+    public void setResponsibleAreas(List<ResponsibleArea> responsibleAreas) {
+        this.responsibleAreas = responsibleAreas;
     }
 }
