@@ -2,6 +2,7 @@ package com.oee.service.impl;
 
 import com.oee.client.AuthServiceClient;
 import com.oee.dto.ResponsibleAreaDto;
+import com.oee.dto.UserEntityDto;
 import org.springframework.stereotype.Service;
 
 import com.oee.entity.CompanyInfo;
@@ -42,7 +43,9 @@ public class CompanyInfoServiceImpl implements CompanyInfoService{
 		ResponsibleAreaDto responsibleAreaDto = new ResponsibleAreaDto();
 		responsibleAreaDto.setAreaId(companyInfo.getCompanyId());
 		responsibleAreaDto.setAreaType("COMPANY");
-		responsibleAreaDto.setUserId(currentUserProvider.getCurrentUser().getUserId());
+		UserEntityDto userEntityDto = new UserEntityDto();
+		userEntityDto.setId(currentUserProvider.getCurrentUser().getUserId());
+		responsibleAreaDto.setUserEntity(userEntityDto);
 		authServiceClient.addCompanyToResponsibleArea(responsibleAreaDto);
 
 		return companyInfo;

@@ -3,7 +3,7 @@ package com.oee.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name="STATUS")
+@Table(name="ORDER_STATUS")
 public class Status {
 
     @Id

@@ -14,6 +14,8 @@ spring:
     hibernate:
       ddl-auto: update
       dialect: org.hibernate.dialect.MySQL8Dialect
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
 keycloak:
   resource: confirmation-service

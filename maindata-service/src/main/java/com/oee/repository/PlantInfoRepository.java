@@ -16,4 +16,6 @@ public interface PlantInfoRepository extends JpaRepository<PlantInfo, Long>{
 
 	PlantInfo findByWarehousesWarehouseId(Long id);
 
+	List<PlantInfo> findByClientClientIdIn(Iterable<Long> ids);
+
 }

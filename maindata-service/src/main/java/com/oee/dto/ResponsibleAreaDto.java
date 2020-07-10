@@ -4,9 +4,9 @@ package com.oee.dto;
 public class ResponsibleAreaDto {
 
     private Long id;
-    private String userId;
     private Long areaId;
     private String areaType;
+    private UserEntityDto userEntity;
 
     public ResponsibleAreaDto() {
     }
@@ -36,11 +36,11 @@ public class ResponsibleAreaDto {
         this.id = id;
     }
 
-    public String getUserId() {
-        return userId;
+    public UserEntityDto getUserEntity() {
+        return userEntity;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUserEntity(UserEntityDto userEntity) {
+        this.userEntity = userEntity;
     }
 }

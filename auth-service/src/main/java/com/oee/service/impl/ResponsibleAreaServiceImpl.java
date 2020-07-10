@@ -44,7 +44,7 @@ public class ResponsibleAreaServiceImpl implements ResponsibleAreaService{
 
 	@Override
 	public List<ResponsibleArea> findByUserId() {
-		return responsibleAreaRepository.findByUserId(currentUserProvider.getCurrentUser().getUserId());
+		return responsibleAreaRepository.findByUserEntityId(currentUserProvider.getCurrentUser().getUserId());
 	}
 
 }
