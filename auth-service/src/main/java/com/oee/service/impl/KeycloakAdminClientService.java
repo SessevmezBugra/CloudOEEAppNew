@@ -6,10 +6,7 @@ import java.util.stream.Collectors;
 
 import com.oee.client.MainDataServiceClient;
 import com.oee.config.CurrentUserProvider;
-import com.oee.dto.ClientDto;
-import com.oee.dto.CompanyDto;
-import com.oee.dto.CurrentUser;
-import com.oee.dto.PlantDto;
+import com.oee.dto.*;
 import com.oee.entity.ResponsibleArea;
 import com.oee.entity.UserEntity;
 import com.oee.enums.AreaType;
@@ -150,38 +147,52 @@ public class KeycloakAdminClientService {
         return Boolean.TRUE;
     }
 
-    public List<UserEntity> findAllUsersByLoggedUser() {
+    public List<UserEntityOnly> findAllUsersByLoggedUser() {
         CurrentUser currentUser = currentUserProvider.getCurrentUser();
-        List<Long> responsibleAreaIds = new ArrayList<>();
-        List<UserEntity> users = new ArrayList<>();
+        List<Long> companyResponsibleAreaIds = new ArrayList<>();
+        List<Long> clientResponsibleAreaIds = new ArrayList<>();
+        List<Long> plantResponsibleAreaIds = new ArrayList<>();
+        List<UserEntityOnly> companyUsers = new ArrayList<>();
+        List<UserEntityOnly> clientUsers = new ArrayList<>();
+        List<UserEntityOnly> plantUsers = new ArrayList<>();
+        List<UserEntityOnly> allUsers = new ArrayList<>();
         if(currentUser.getRoles().contains(UserRole.COMPANY_OWNER.getRole())) {
             List<CompanyDto> companyDtos = mainDataServiceClient.getCompaniesByLoggedUser().getBody();
             for (CompanyDto companyDto : companyDtos) {
-                responsibleAreaIds.add(companyDto.getCompanyId());
+                companyResponsibleAreaIds.add(companyDto.getCompanyId());
                 for (ClientDto client : companyDto.getClients()) {
-                    responsibleAreaIds.add(client.getClientId());
+                    clientResponsibleAreaIds.add(client.getClientId());
                     for (PlantDto plant : client.getPlants()) {
-                        responsibleAreaIds.add(plant.getPlantId());
+                        plantResponsibleAreaIds.add(plant.getPlantId());
                     }
                 }
             }
-            users = userEntityRepository.findByResponsibleAreasAreaIdIn(responsibleAreaIds);
+            companyUsers = userEntityRepository.findByResponsibleAreasAreaIdIn(companyResponsibleAreaIds, AreaType.COMPANY.name());
+            clientUsers = userEntityRepository.findByResponsibleAreasAreaIdIn(clientResponsibleAreaIds, AreaType.CLIENT.name());
+            plantUsers = userEntityRepository.findByResponsibleAreasAreaIdIn(plantResponsibleAreaIds, AreaType.PLANT.name());
+            allUsers.addAll(companyUsers);
+            allUsers.addAll(clientUsers);
+            allUsers.addAll(plantUsers);
         } else if (currentUser.getRoles().contains(UserRole.CLIENT_MANAGER.getRole())) {
             List<ClientDto> clientDtos = mainDataServiceClient.getClientsByLoggedUser().getBody();
             for (ClientDto clientDto : clientDtos) {
-                responsibleAreaIds.add(clientDto.getClientId());
+                clientResponsibleAreaIds.add(clientDto.getClientId());
                 for (PlantDto plant : clientDto.getPlants()) {
-                    responsibleAreaIds.add(plant.getPlantId());
+                    plantResponsibleAreaIds.add(plant.getPlantId());
                 }
             }
-            users = userEntityRepository.findByResponsibleAreasAreaIdIn(responsibleAreaIds);
+            clientUsers = userEntityRepository.findByResponsibleAreasAreaIdIn(clientResponsibleAreaIds, AreaType.CLIENT.name());
+            plantUsers = userEntityRepository.findByResponsibleAreasAreaIdIn(plantResponsibleAreaIds, AreaType.PLANT.name());
+            allUsers.addAll(clientUsers);
+            allUsers.addAll(plantUsers);
         } else if (currentUser.getRoles().contains(UserRole.PLANT_MANAGER.getRole())) {
             List<PlantDto> plantDtos = mainDataServiceClient.getPlantsByLoggedUser().getBody();
             for (PlantDto plantDto : plantDtos) {
-                responsibleAreaIds.add(plantDto.getPlantId());
+                plantResponsibleAreaIds.add(plantDto.getPlantId());
             }
-            users = userEntityRepository.findByResponsibleAreasAreaIdIn(responsibleAreaIds);
+            plantUsers = userEntityRepository.findByResponsibleAreasAreaIdIn(plantResponsibleAreaIds, AreaType.PLANT.name());
+            allUsers.addAll(plantUsers);
         }
-        return users;
+        return allUsers;
     }
 }

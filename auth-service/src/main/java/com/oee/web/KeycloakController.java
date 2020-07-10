@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.oee.config.CurrentUserProvider;
 import com.oee.dto.CurrentUser;
+import com.oee.dto.UserEntityOnly;
 import com.oee.entity.UserEntity;
 import com.oee.enums.UserRole;
 import org.springframework.http.ResponseEntity;
@@ -62,7 +63,7 @@ public class KeycloakController {
     }
 
     @RequestMapping(path = "/users", method= RequestMethod.GET)
-    public ResponseEntity<List<UserEntity>> getAllUsersByLoggedUser() {
+    public ResponseEntity<List<UserEntityOnly>> getAllUsersByLoggedUser() {
         return ResponseEntity.ok(keycloakAdminClientService.findAllUsersByLoggedUser());
     }
 
