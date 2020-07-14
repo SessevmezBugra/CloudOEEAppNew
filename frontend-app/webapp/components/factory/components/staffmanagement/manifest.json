@@ -69,45 +69,45 @@
 				"async": true
 			},
 			"routes": [
-					{
-						"pattern": "staffTracking",
-						"name": "staffTracking",
-						"target": [
-							"staffTracking"
-						]
-					},
-					{
-						"pattern": "staffDetail/{userId}/{layout}",
-						"name": "staffDetail",
-						"target": [
-							"staffTracking",
-							"staffDetail"
-						]
-					}
-				],
-				"targets": {
-					"staffTracking": {
-						"viewName": "StaffTracking",
-						"controlAggregation": "beginColumnPages"
-					},
-					"staffDetail": {
-						"viewName": "StaffDetail",
-						"controlAggregation": "midColumnPages"
-					},
-					"home": {
-						"type": "View",
-						"id": "home",
-						"name": "Home",
-						"title": "Home"
-					},
-					"notFound": {
-						"type": "View",
-						"id": "notFound",
-						"name": "NotFound",
-						"transition": "show"
-					}
+				{
+					"pattern": "",
+					"name": "home",
+					"target": "home"
+				},
+				{
+					"pattern": "staffTracking",
+					"name": "staffTracking",
+					"target": [
+						"staffTracking"
+					]
+				},
+				{
+					"pattern": "staffDetail/{userId}/{layout}",
+					"name": "staffDetail",
+					"target": [
+						"staffTracking",
+						"staffDetail"
+					]
+				}
+			],
+			"targets": {
+				"staffTracking": {
+					"viewName": "StaffTracking",
+					"controlAggregation": "beginColumnPages"
+				},
+				"staffDetail": {
+					"viewName": "StaffDetail",
+					"controlAggregation": "midColumnPages"
+				},
+				"home": {
+					"viewName": "Home",
+					"controlAggregation": "beginColumnPages"
+				},
+				"notFound": {
+					"viewName": "NotFound",
+					"controlAggregation": "beginColumnPages"
+				}
 			}
-			
 		}
 	}
 }

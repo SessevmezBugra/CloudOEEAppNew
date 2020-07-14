@@ -12,8 +12,8 @@ sap.ui.define([
         getCompanies: function() {
             return Service.doAjax("http://localhost:4000/main-data/company","", "GET", true);
         },
-        getCompanyInfo: function() {
-            return Service.doAjax("http://localhost:4000/main-data/company/8","", "GET", true);
+        getCompanyInfo: function(id) {
+            return Service.doAjax("http://localhost:4000/main-data/company/" + id, null, "GET", true);
         },
 
         //CLIENT

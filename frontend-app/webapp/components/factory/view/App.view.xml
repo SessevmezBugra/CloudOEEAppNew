@@ -13,7 +13,7 @@
 				<ToolbarSpacer/>
 				<Title text="{i18n>APP_TITLE}" level="H2"/>
 				<ToolbarSpacer/>
-				<Button id="errorButton" icon="sap-icon://message-popup" type="Transparent" tooltip="test5">
+				<!-- <Button id="errorButton" icon="sap-icon://message-popup" type="Transparent" tooltip="test5">
 					<layoutData>
 						<OverflowToolbarLayoutData closeOverflowOnInteraction="false"/>
 					</layoutData>
@@ -22,10 +22,10 @@
 					<layoutData>
 						<OverflowToolbarLayoutData closeOverflowOnInteraction="false"/>
 					</layoutData>
-				</Button>
+				</Button> -->
 				<Button
 					id="userButton"
-					text="{localUserModel>/userInfo/username}"
+					text="{localUserModel>/idTokenParsed/preferred_username}"
 					type="Transparent"
 					press=".onUserNamePress">
 					<layoutData>
@@ -40,7 +40,9 @@
 				<tnt:NavigationList>
 					<tnt:NavigationListItem text="Hizli Menu" key="fastMenu" icon="sap-icon://home"/>
 					<tnt:NavigationListItem text="Ana Veriler" key="mainData" icon="sap-icon://database">
-						<tnt:NavigationListItem  text="Şirketler" key="company">
+						<tnt:NavigationListItem  text="Varliklar" key="asset">
+						</tnt:NavigationListItem>
+						<!-- <tnt:NavigationListItem  text="Şirketler" key="company">
 						</tnt:NavigationListItem>
 						<tnt:NavigationListItem  text="Bolgeler" key="client">
 						</tnt:NavigationListItem>
@@ -49,7 +51,7 @@
 						<tnt:NavigationListItem  text="Depolar" key="warehouse">
 						</tnt:NavigationListItem>
 						<tnt:NavigationListItem  text="Malzemeler" key="material">
-						</tnt:NavigationListItem>
+						</tnt:NavigationListItem> -->
 					</tnt:NavigationListItem>
 					<tnt:NavigationListItem text="Stok Yonetimi" key="stockManagement" icon="sap-icon://inventory">
 						<tnt:NavigationListItem text="Stok Takibi" key="stockTracking">

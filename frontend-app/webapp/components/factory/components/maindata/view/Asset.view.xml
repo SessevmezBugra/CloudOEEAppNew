@@ -1,0 +1,39 @@
+<mvc:View controllerName="workerapp.components.factory.components.maindata.controller.Asset" 
+    xmlns="sap.m" 
+    xmlns:core="sap.ui.core" 
+    xmlns:mvc="sap.ui.core.mvc" 
+    xmlns:l="sap.ui.layout">
+
+    <Page showHeader="true" title="{i18n>ASSET_TITLE}" class="sapUiResponsivePadding--header" floatingFooter="true" backgroundDesign="Transparent">
+        <content>
+            <l:BlockLayout background="Dashboard">
+                <l:BlockLayoutRow>
+                    <l:BlockLayoutCell>
+                        <Tree mode="SingleSelectMaster" id="idTree" items="{assetModel>/assets/children/}" width="auto">
+                            <CustomTreeItem highlightText="{assetModel>text}">
+                                <FlexBox alignItems="Center" width="100%" justifyContent="Center">
+                                    <items>
+                                        <Text text="{assetModel>text}">
+                                            <layoutData>
+                                                <FlexItemData growFactor="1" />
+                                            </layoutData>
+                                        </Text>
+                                        <Button visible="{= ${assetModel>type} === 'company' ? true : false}" type="Accept" text="{i18n>CLIENT_BTN_CREATE}" press=".openCreateAssetDialog" class="sapUiSmallMarginEnd"/>
+                                        <Button visible="{= ${assetModel>type} === 'client' ? true : false}" type="Accept" text="{i18n>PLANT_BTN_CREATE}" press=".openCreateAssetDialog" class="sapUiSmallMarginEnd"/>
+                                        <Button visible="{= ${assetModel>type} === 'plant' ? true : false}" type="Default" text="{i18n>PLANT_BTN_DETAIL}" press=".goToAssetDetail" class="sapUiSmallMarginEnd"/>
+                                    </items>
+                                </FlexBox>
+                            </CustomTreeItem>
+                        </Tree>
+                    </l:BlockLayoutCell>
+                </l:BlockLayoutRow>
+            </l:BlockLayout>
+        </content>
+        <footer>
+            <OverflowToolbar>
+                <ToolbarSpacer/>
+                <Button type="Accept" text="{i18n>COMPANY_BTN_CREATE}" press=".openCreateAssetDialog"/>
+            </OverflowToolbar>
+        </footer>
+    </Page>
+</mvc:View>

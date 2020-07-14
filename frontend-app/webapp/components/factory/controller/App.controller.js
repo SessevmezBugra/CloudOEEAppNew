@@ -56,12 +56,13 @@ sap.ui.define([
 				this.getView().byId("userMessageActionSheet").destroy();
 				return;
 			}
+			var logoutText = oBundle.getText("TOOLPAGE_LOGOUT_BTN_TITLE");
 			var oActionSheet = new ActionSheet(this.getView().createId("userMessageActionSheet"), {
 				title: oBundle.getText("TOOLPAGE_USERNAME_BTN_TITLE"),
 				showCancelButton: false,
 				buttons: [
 					new Button({
-						text: 'Logout',
+						text: logoutText,
 						type: ButtonType.Transparent,
 						press: this.logout.bind(this)
 					}),
