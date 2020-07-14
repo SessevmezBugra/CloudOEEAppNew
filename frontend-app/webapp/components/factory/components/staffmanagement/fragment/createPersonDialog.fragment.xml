@@ -15,21 +15,23 @@
                             <core:Item text="Operatör" key="3"/>
                         </Select>
                         <Label text="Sorumluluk" />
-                        <Select forceSelection="false" selectedKey="{orderModel>/selectedPlant}" items="{orderModel>/plants}" change="onSelectedPlant">
-                            <core:Item text="{orderModel>plantName}" key="{orderModel>plantId}"/>
+                        <Select forceSelection="false" selectedKey="{staffModel>/selectedPlant}" items="{staffModel>/plants}" change="onSelectedPlant">
+                            <core:Item text="{staffModel>plantName}" key="{staffModel>plantId}"/>
                         </Select>
+                        <Label text="Personel Kullanıcı Adı" />
+                        <Input value="{staffModel>/personUserName}"/>
                         <Label text="Personel İsmi" />
-                        <Input value="{orderModel>/orderNumber}"/>
+                        <Input value="{staffModel>/personName}"/>
                         <Label text="Personel Soyismi" />
-                        <Input value="{orderModel>/materialNumberToProduced}"/>
+                        <Input value="{staffModel>/personSurname}"/>
                         <Label text="Personel E-Mail" />
-                        <Input value="{orderModel>/materialDescToProduced}"/>
+                        <Input value="{staffModel>/personMail}"/>
                         <Label text="Personel Telefon" />
-                        <Input value="{orderModel>/materialQuantityToProduced}"/>
+                        <Input value="{staffModel>/personPhone}"/>
                         <Label text="Personel Şifre" />
-                        <Input value="{orderModel>/materialQuantityToProduced}"/>
+                        <Input value="{staffModel>/password}"/>
                         <Label text="Personel Şifre Tekrar" />
-                        <Input value="{orderModel>/materialQuantityToProduced}"/>
+                        <Input value="{staffModel>/passwordRetry}"/>
                     </f:content>
                 </f:SimpleForm>
             </VBox>

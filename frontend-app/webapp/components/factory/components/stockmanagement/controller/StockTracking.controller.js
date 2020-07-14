@@ -76,10 +76,18 @@ sap.ui.define([
 				this.hideBusyIndicator();
 			}.bind(this)).catch(function(error) {
 				this.hideBusyIndicator();
-				MessageBox.alert(this.translateText("MESSAGEERROR"), {
-					icon: MessageBox.Icon.WARNING,
-					title: this.translateText("ERROR"),
-				});
+				if(!error){
+					MessageBox.alert(error, {
+						icon: MessageBox.Icon.WARNING,
+						title: this.translateText("ERROR"),
+					});
+				}
+				else {
+					MessageBox.alert(this.translateText("MESSAGEERROR"), {
+						icon: MessageBox.Icon.WARNING,
+						title: this.translateText("ERROR"),
+					});
+				}
 				console.log(error);
 			}.bind(this));
 		},
@@ -95,10 +103,18 @@ sap.ui.define([
 				});
 			}.bind(this)).catch(function(error) {
 				this.hideBusyIndicator();
-				MessageBox.alert(this.translateText("MESSAGEERROR"), {
-					icon: MessageBox.Icon.WARNING,
-					title: this.translateText("ERROR"),
-				});
+				if(!error){
+					MessageBox.alert(error, {
+						icon: MessageBox.Icon.WARNING,
+						title: this.translateText("ERROR"),
+					});
+				}
+				else {
+					MessageBox.alert(this.translateText("MESSAGEERROR"), {
+						icon: MessageBox.Icon.WARNING,
+						title: this.translateText("ERROR"),
+					});
+				}
 				console.log(error);
 			}.bind(this));
 		},
@@ -110,10 +126,18 @@ sap.ui.define([
 				this.hideBusyIndicator();
 			}.bind(this)).catch(function(error) {
 				this.hideBusyIndicator();
-				MessageBox.alert(this.translateText("MESSAGEERROR"), {
-					icon: MessageBox.Icon.WARNING,
-					title: this.translateText("ERROR"),
-				});
+				if(!error){
+					MessageBox.alert(error, {
+						icon: MessageBox.Icon.WARNING,
+						title: this.translateText("ERROR"),
+					});
+				}
+				else {
+					MessageBox.alert(this.translateText("MESSAGEERROR"), {
+						icon: MessageBox.Icon.WARNING,
+						title: this.translateText("ERROR"),
+					});
+				}
 				console.log(error);
 			}.bind(this));
 		},
@@ -176,10 +200,18 @@ sap.ui.define([
 					});
 				}.bind(this)).catch(function(error) {
 					this.hideBusyIndicator();
-					MessageBox.alert(this.translateText("MESSAGEERRORADD"), {
-						icon: MessageBox.Icon.WARNING,
-						title: this.translateText("ERROR"),
-					});
+					if(!error){
+						MessageBox.alert(error, {
+							icon: MessageBox.Icon.WARNING,
+							title: this.translateText("ERROR"),
+						});
+					}
+					else {
+						MessageBox.alert(this.translateText("MESSAGEERRORADD"), {
+							icon: MessageBox.Icon.WARNING,
+							title: this.translateText("ERROR"),
+						});
+					}
 					console.log(error);
 				}.bind(this));
 			}
@@ -220,10 +252,18 @@ sap.ui.define([
 					});
 				}.bind(this)).catch(function(error) {
 					this.hideBusyIndicator();
-					MessageBox.alert(this.translateText("MESSAGEERROREXTRACT"), {
-						icon: MessageBox.Icon.WARNING,
-						title: this.translateText("ERROR"),
-					});
+					if(!error){
+						MessageBox.alert(error, {
+							icon: MessageBox.Icon.WARNING,
+							title: this.translateText("ERROR"),
+						});
+					}
+					else {
+						MessageBox.alert(this.translateText("MESSAGEERROREXTRACT"), {
+							icon: MessageBox.Icon.WARNING,
+							title: this.translateText("ERROR"),
+						});
+					}
 					console.log(error);
 				}.bind(this));
 			}
@@ -252,10 +292,18 @@ sap.ui.define([
 				this.hideBusyIndicator();
 			}.bind(this)).catch(function(error) {
 				this.hideBusyIndicator();
-				MessageBox.alert(this.translateText("MESSAGEERROR"), {
-					icon: MessageBox.Icon.WARNING,
-					title: this.translateText("ERROR"),
-				});
+				if(!error){
+					MessageBox.alert(error, {
+						icon: MessageBox.Icon.WARNING,
+						title: this.translateText("ERROR"),
+					});
+				}
+				else {
+					MessageBox.alert(this.translateText("MESSAGEERROR"), {
+						icon: MessageBox.Icon.WARNING,
+						title: this.translateText("ERROR"),
+					});
+				}
 				console.log(error);
 			}.bind(this));
 		},
