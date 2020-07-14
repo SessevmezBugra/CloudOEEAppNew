@@ -8,6 +8,7 @@ import com.oee.dto.CurrentUser;
 import com.oee.dto.UserEntityOnly;
 import com.oee.entity.UserEntity;
 import com.oee.enums.UserRole;
+import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -70,6 +71,11 @@ public class KeycloakController {
     @RequestMapping(path = "/users", method= RequestMethod.GET)
     public ResponseEntity<List<UserEntityOnly>> getAllUsersByLoggedUser() {
         return ResponseEntity.ok(keycloakAdminClientService.findAllUsersByLoggedUser());
+    }
+
+    @RequestMapping(path = "/user/{id}", method= RequestMethod.GET)
+    public ResponseEntity<UserRepresentation> getByUserId(@PathVariable(value = "id", required = true) String userId) {
+        return ResponseEntity.ok(keycloakAdminClientService.findUserById(userId));
     }
 
     @GetMapping(path = "/roles")
