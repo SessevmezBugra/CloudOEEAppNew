@@ -210,4 +210,14 @@ public class KeycloakAdminClientService {
         }
         return allUsers;
     }
+
+    public UserRepresentation findUserById(String userId) {
+        KeycloakAdminClientConfig keycloakAdminClientConfig = KeycloakAdminClientUtils.loadConfig(environment);
+        Keycloak keycloak = KeycloakAdminClientUtils.getKeycloakClient(keycloakAdminClientConfig);
+        RealmResource realmResource = keycloak.realm(keycloakAdminClientConfig.getRealm());
+        UsersResource usersRessource = realmResource.users();
+        UserResource userResource = usersRessource.get(userId);
+        UserRepresentation userRepresentation = userResource.toRepresentation();
+        return userRepresentation;
+    }
 }

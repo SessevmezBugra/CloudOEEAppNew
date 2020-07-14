@@ -31,7 +31,6 @@ sap.ui.define([
         },
 
         //PLANT
-        
         getPlantInfo: function(id){
             return Service.doAjax("http://localhost:4000/main-data/plant/"+id,null,"GET",true);
         },
