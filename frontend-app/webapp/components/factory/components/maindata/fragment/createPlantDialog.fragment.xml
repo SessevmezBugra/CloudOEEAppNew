@@ -18,11 +18,11 @@
             </VBox>
         </content>
         <beginButton>
-            <Button text="Olustur" press=".createPlant">
+            <Button text="Olustur" press=".createAsset">
             </Button>
         </beginButton>
         <endButton>
-            <Button text="Iptal" press=".closePlantDialog">
+            <Button text="Iptal" press=".closeAssetDialog">
             </Button>
         </endButton>
     </Dialog>

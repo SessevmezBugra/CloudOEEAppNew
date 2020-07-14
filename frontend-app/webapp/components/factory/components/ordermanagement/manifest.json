@@ -70,6 +70,12 @@
 			},
 			"routes": [
 				{
+					"pattern": "",
+					"name": "home",
+					"target": "home",
+					"layout": "EndColumnFullScreen"
+				},
+				{
 					"pattern": "orderList",
 					"name": "orderList",
 					"target": [
@@ -95,16 +101,12 @@
 					"controlAggregation": "midColumnPages"
 				},
 				"home": {
-					"type": "View",
-					"id": "home",
-					"name": "Home",
-					"title": "Home"
+					"viewName": "Home",
+					"controlAggregation": "endColumnPages"
 				},
 				"notFound": {
-					"type": "View",
-					"id": "notFound",
-					"name": "NotFound",
-					"transition": "show"
+					"viewName": "NotFound",
+					"controlAggregation": "beginColumnPages"
 				}
 			}
 		}

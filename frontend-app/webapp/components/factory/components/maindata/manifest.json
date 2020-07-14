@@ -72,89 +72,40 @@
 				{
 					"pattern": "",
 					"name": "home",
-					"target": "home"
+					"target": "home",
+					"layout": "EndColumnFullScreen"
 				},
 				{
-					"pattern": "materiallist",
-					"name": "materialList",
-					"target": "materialList"
+					"pattern": "asset",
+					"name": "asset",
+					"target": "asset"
 				},
 				{
-					"pattern": "materialdetail/{action}/{id}",
-					"name": "materialDetail",
-					"target": "materialDetail"
-				},{
-					"pattern": "company",
-					"name": "company",
-					"target": "company"
-				},{
-					"pattern": "client",
-					"name": "client",
-					"target": "client"
-				},{
-					"pattern": "plant",
-					"name": "plant",
-					"target": "plant"
-				},{
-					"pattern": "warehouse",
-					"name": "warehouse",
-					"target": "warehouse"
-				},{
-					"pattern": "material",
-					"name": "material",
-					"target": "material"
+					"pattern": "assetDetail/{assetId}/{assetType}/{layout}",
+					"name": "assetDetail",
+					"target": [
+						"asset",
+						"assetDetail"
+					]
 				}
 
 			],
 			"targets": {
-				"materialList": {
-					"type": "View",
-					"id": "materialList",
-					"name": "MaterialList",
-					"title": "MaterialList"
+				"asset": {
+					"viewName": "Asset",
+					"controlAggregation": "beginColumnPages"
 				},
-				"materialDetail": {
-					"type": "View",
-					"id": "materialDetail",
-					"name": "MaterialDetail",
-					"title": "MaterialDetail"
-				},"company": {
-					"type": "View",
-					"id": "company",
-					"name": "Company",
-					"title": "Company"
-				},"client": {
-					"type": "View",
-					"id": "client",
-					"name": "Client",
-					"title": "Client"
-				},"plant": {
-					"type": "View",
-					"id": "plant",
-					"name": "Plant",
-					"title": "Plant"
-				},"warehouse": {
-					"type": "View",
-					"id": "warehouse",
-					"name": "Warehouse",
-					"title": "Warehouse"
-				},"material": {
-					"type": "View",
-					"id": "material",
-					"name": "Material",
-					"title": "Material"
+				"assetDetail": {
+					"viewName": "AssetDetail",
+					"controlAggregation": "midColumnPages"
 				},
 				"home": {
-					"type": "View",
-					"id": "home",
-					"name": "Home",
-					"title": "Home"
+					"viewName": "Home",
+					"controlAggregation": "endColumnPages"
 				},
 				"notFound": {
-					"type": "View",
-					"id": "notFound",
-					"name": "NotFound",
-					"transition": "show"
+					"viewName": "NotFound",
+					"controlAggregation": "beginColumnPages"
 				}
 			}
 		}
