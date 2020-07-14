@@ -1,8 +1,8 @@
 sap.ui.define([
 	"workerapp/base/BaseController",
-], function(
-	BaseController
-) {
+	"workerapp/services/authservice",
+	"sap/ui/model/json/JSONModel"
+], function(BaseController, AuthService, JSONModel) {
 	"use strict";
 
 	return BaseController.extend("workerapp.components.factory.components.staffmanagement.controller.StaffDetail", {
@@ -10,8 +10,25 @@ sap.ui.define([
 			this.oRouter = this.getRouter();
 			this.oModel = this.getModel("staffModel");
 
-			// this.oRouter.getRoute("orderDetail").attachPatternMatched(this._onProductMatched, this);
+			this.oRouter.getRoute("staffDetail").attachPatternMatched(this._onMatched, this);
 		},
+		_onMatched: function (oEvent) {
+			this.userId = oEvent.getParameter("arguments").userId;
+			this.getStaff();
+		},
+
+		getStaff: function (){
+            AuthService.getStaff().then(function (response) {
+                var responseData = [];
+				responseData.push(response.data);
+				this.getModel("staffModel").getData().detailUsers = responseData;
+                this.getModel("staffModel").refresh();
+                this.hideBusyIndicator();
+            }.bind(this)).catch(function () {
+                this.hideBusyIndicator();
+            }.bind(this));
+		},
+
 		handleFullScreen: function () {
 			var sNextLayout = this.oModel.getProperty("/actionButtonsInfo/midColumn/fullScreen");
 			this.oRouter.navTo("staffDetail", {layout: sNextLayout});

@@ -13,6 +13,9 @@ sap.ui.define([
 	"sap/m/MessageBox"
 ], function (BaseController, JSONModel, Device, formatter, SeparatorItem, Fragment, Filter, Token, FilterOperator, MaindataService, AuthService, MessageBox) {
 	"use strict";
+
+	var clicked = false;
+
 	return BaseController.extend("workerapp.components.factory.components.staffmanagement.controller.StaffTracking", {
 		formatter: formatter,
 
@@ -21,8 +24,11 @@ sap.ui.define([
             this.getRouter().getRoute("staffTracking").attachPatternMatched(this._onMaterialMatched, this);
 		},
 		_onMaterialMatched: function (oEvent) {
-			
-            // this.showBusyIndicator(); //hide companyler gelince calisacak.
+			this.showBusyIndicator();
+			// this.showBusyIndicator(); //hide companyler gelince calisacak.
+			this.getModel("staffModel").getData().showPassword = 0;
+			this.getModel("staffModel").refresh();
+			this.getStaff();
 		},
 		translateText: function (caption, insidevalue) {
 			// read msg from i18n model
@@ -44,24 +50,9 @@ sap.ui.define([
                 }
 				this._oDialog.open();
 				// this._oDialog.byId("DTP2").setMinDate(new Date());
-				var date = new Date();
-				sap.ui.core.Fragment.byId("createPersonDialog", "DTP2").setMinDate(new Date(date.getFullYear(), date.getMonth(), date.getDate()));
-				var oMultiInput = sap.ui.core.Fragment.byId("createPersonDialog", "stockMultiInput");
-				oMultiInput.addValidator(function(args){
-					var key = args.suggestionObject.getKey();
-					var tokens = oMultiInput.getTokens();
-					var isValid = true;
-					for(var token of tokens) {
-						if (token.getKey() == key){
-							isValid = false;
-						}
-					}
-					if(isValid){
-						return new Token({key: key, text: args.text});
-					}
-				});
-            }.bind(this));
+			}.bind(this));	
 		},
+
 		getPlants: function (callback) {
             MaindataService.getPlants().then(function (response) {
                 var responseData = response.data;
@@ -99,6 +90,17 @@ sap.ui.define([
             }.bind(this));
 		},
 
+		getStaff: function (){
+            AuthService.getStaff().then(function (response) {
+                var responseData = response.data;
+                this.getModel("staffModel").getData().users = responseData;
+                this.getModel("staffModel").refresh();
+                this.hideBusyIndicator();
+            }.bind(this)).catch(function () {
+                this.hideBusyIndicator();
+            }.bind(this));
+		},
+
 		closePersonDialog: function () {
 			this._oDialog.close();
 			this.clearPersonDialog();
@@ -123,13 +125,46 @@ sap.ui.define([
 			var selectedRoleId = selectedRole.getSelectedKey();
 			this.getModel("staffModel").setProperty("/selectedRoleId", selectedRoleId);
 			if(selectedRoleId == 0){
-				this.getCompanies();
+				this.getCompanies(function(isOk){
+					var assets = this.getModel("staffModel").getData().assets;
+					var companies = this.getModel("staffModel").getData().companies;
+					for(var company of companies){
+						assets.push({
+							assetId:company.companyId,
+							assetName:company.companyName
+						});
+					}
+					this.getModel("staffModel").refresh();
+				});
+
 			}
 			else if(selectedRoleId == 1){
-				this.getClients();
+				this.getClients(function(isOk){
+					var assets = this.getModel("staffModel").getData().assets;
+					var clients = this.getModel("staffModel").getData().clients;
+					for(var client of clients){
+						assets.push({
+							assetId:client.clientId,
+							assetName:client.clientName
+						});
+					}
+					this.getModel("staffModel").refresh();
+				});
+
 			}
 			else if(selectedRoleId == 2 || selectedRoleId == 3){
-				this.getPlants();
+				this.getPlants(function(isOk){
+					var assets = this.getModel("staffModel").getData().assets;
+					var plants = this.getModel("staffModel").getData().plants;
+					for(var plant of plants){
+						assets.push({
+							assetId:plant.plantId,
+							assetName:plant.plantName
+						});
+					}
+					this.getModel("staffModel").refresh();
+				});
+
 			}
 			else {
 				if(!selectedRoleId){
@@ -241,13 +276,12 @@ sap.ui.define([
 
 		onListItemPress: function (oEvent) {
 			var oNextUIState = this.getOwnerComponent().getHelper().getNextUIState(1);
-				// ,
-				// productPath = oEvent.getSource().getBindingContext("orderModel").getPath(),
-				// product = productPath.split("/").slice(-1).pop();
-
-			this.oRouter.navTo("staffDetail", {layout: oNextUIState.layout, userId: 1});
-
+			
 			var oItem = oEvent.getSource();
+			var users = oItem.getBindingContext("staffModel").getObject();
+
+			this.oRouter.navTo("staffDetail", {userId: users.id, layout: oNextUIState.layout});
+
 			oItem.setNavigated(true);
 			var oParent = oItem.getParent();
 			// store index of the item clicked, which can be used later in the columnResize event
@@ -259,7 +293,7 @@ sap.ui.define([
 				sQuery = oEvent.getParameter("query");
 
 			if (sQuery && sQuery.length > 0) {
-				oTableSearchState = [new Filter("materialDesc", FilterOperator.Contains, sQuery)];
+				oTableSearchState = [new Filter("username", FilterOperator.Contains, sQuery)];
 			}
 
 			this.getView().byId("staffTable").getBinding("items").filter(oTableSearchState, "Application");
@@ -272,6 +306,22 @@ sap.ui.define([
             // product = productPath.split("/").slice(-1).pop();
 
              this.oRouter.navTo("StaffDetail", {layout: oNextUIState.layout});
-        }
+		},
+
+		onPressShowPassword: function () {
+			
+			if(clicked)
+			{
+				this.getModel("staffModel").getData().showPassword = 0;
+				this.getModel("staffModel").refresh();
+			}
+			else
+			{
+				this.getModel("staffModel").getData().showPassword = 1;
+				this.getModel("staffModel").refresh();
+			}
+			clicked = !clicked;
+			
+		}
 	});
 });
