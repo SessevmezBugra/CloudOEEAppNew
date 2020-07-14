@@ -154,7 +154,7 @@ public class KeycloakAdminClientService {
         UsersResource usersRessource = realmResource.users();
         UserResource userResource = usersRessource.get(currentUserDto.getUserId());
         UserRepresentation userRepresentation = userResource.toRepresentation();
-        userRepresentation.setFirstName(currentUserDto.getUsername());
+        userRepresentation.setFirstName(currentUserDto.getFirstName());
         userRepresentation.setLastName(currentUserDto.getLastName());
         userRepresentation.setUsername(currentUserDto.getUsername());
         userRepresentation.setEmail(currentUserDto.getEmail());
