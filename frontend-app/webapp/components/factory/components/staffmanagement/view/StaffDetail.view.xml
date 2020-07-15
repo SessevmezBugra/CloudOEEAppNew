@@ -40,11 +40,11 @@
 						<blocks>
 							<m:ObjectHeader title="Perosonel adı" backgroundDesign="Transparent" icon="sap-icon://addresses" iconDensityAware="false" imageShape="Circle">
 								<m:attributes>
-									<m:ObjectAttribute title="{i18n>NAME} {i18n>SURNAME}" text="Bayram Baş"/>
+									<m:ObjectAttribute title="{i18n>NAME} {i18n>SURNAME}" text="{staffModel>/detailUsers/firstName} {staffModel>/detailUsers/lastName}"/>
 									<m:ObjectAttribute title="{i18n>ADDRESS}" text="BLR.01, B2.023"/>
-									<m:ObjectAttribute title="{i18n>PHONE}" text="+91-90100-98100"/>
-									<m:ObjectAttribute title="{i18n>MAIL}" text="example@bybas.com" active="true"/>
-									<m:ObjectAttribute title="Çalıştıgı yer " text="Fabrika adı"/>
+									<m:ObjectAttribute title="{i18n>PHONE}" text="---"/>
+									<m:ObjectAttribute title="{i18n>MAIL}" text="{staffModel>/detailUsers/email}" active="true"/>
+									<m:ObjectAttribute title="Kullanıcı adı " text="{staffModel>/detailUsers/username}"/>
 								</m:attributes>
 								<m:statuses>
 									<m:ObjectStatus title="{i18n>STATUS}" icon="sap-icon://employee-approvals" text="Available" state="Success"/>

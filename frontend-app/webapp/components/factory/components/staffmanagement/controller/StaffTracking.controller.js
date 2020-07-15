@@ -127,6 +127,7 @@ sap.ui.define([
 			if(selectedRoleId == 0){
 				this.getCompanies(function(isOk){
 					var assets = this.getModel("staffModel").getData().assets;
+					assets = [];
 					var companies = this.getModel("staffModel").getData().companies;
 					for(var company of companies){
 						assets.push({
@@ -135,12 +136,13 @@ sap.ui.define([
 						});
 					}
 					this.getModel("staffModel").refresh();
-				});
+				}.bind(this));
 
 			}
 			else if(selectedRoleId == 1){
 				this.getClients(function(isOk){
 					var assets = this.getModel("staffModel").getData().assets;
+					assets = [];
 					var clients = this.getModel("staffModel").getData().clients;
 					for(var client of clients){
 						assets.push({
@@ -149,12 +151,13 @@ sap.ui.define([
 						});
 					}
 					this.getModel("staffModel").refresh();
-				});
+				}.bind(this));
 
 			}
 			else if(selectedRoleId == 2 || selectedRoleId == 3){
 				this.getPlants(function(isOk){
 					var assets = this.getModel("staffModel").getData().assets;
+					assets = [];
 					var plants = this.getModel("staffModel").getData().plants;
 					for(var plant of plants){
 						assets.push({
@@ -163,7 +166,7 @@ sap.ui.define([
 						});
 					}
 					this.getModel("staffModel").refresh();
-				});
+				}.bind(this));
 
 			}
 			else {

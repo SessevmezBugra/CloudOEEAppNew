@@ -18,10 +18,8 @@ sap.ui.define([
 		},
 
 		getStaff: function (){
-            AuthService.getStaff().then(function (response) {
-                var responseData = [];
-				responseData.push(response.data);
-				this.getModel("staffModel").getData().detailUsers = responseData;
+            AuthService.getStaffByUserId(this.userId).then(function (response) {
+				this.getModel("staffModel").getData().detailUsers = response.data;
                 this.getModel("staffModel").refresh();
                 this.hideBusyIndicator();
             }.bind(this)).catch(function () {
