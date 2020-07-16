@@ -24,8 +24,7 @@ sap.ui.define([
             this.getRouter().getRoute("staffTracking").attachPatternMatched(this._onMaterialMatched, this);
 		},
 		_onMaterialMatched: function (oEvent) {
-			this.showBusyIndicator();
-			// this.showBusyIndicator(); //hide companyler gelince calisacak.
+			this.showBusyIndicator(); //hide companyler gelince calisacak.
 			this.getModel("staffModel").getData().showPassword = 0;
 			this.getModel("staffModel").refresh();
 			this.getStaff();

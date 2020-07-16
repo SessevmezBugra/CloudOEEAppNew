@@ -18,7 +18,7 @@ sap.ui.define([
 		onBeforeRouteMatched: function(oEvent) {
 			var oModel = this.getModel("staffModel");
 
-			var sLayout = oEvent.getParameters().arguments.layout;
+			var sLayout = oEvent.getParameters().config.layout;
 
 			if (!sLayout) {
 				sLayout = oEvent.getParameters().arguments.layout;
@@ -48,7 +48,7 @@ sap.ui.define([
 		onRouteMatched: function (oEvent) {
 			var oModel = this.getModel("staffModel");
 
-			var sLayout = oEvent.getParameters().arguments.layout;
+			var sLayout = oEvent.getParameters().config.layout;
 
 			
 			if (!sLayout) {
