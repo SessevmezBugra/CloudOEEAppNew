@@ -1,3 +1,7 @@
 .arcloudBackgroundColor{
     background: rgba(245, 245, 245, 0.5);
 }
+
+.sapUxAPObjectPageContainer, .sapUxAPObjectPageContainer+div, .sapUxAPObjectPageHeaderDetailsHidden {
+    background-color: transparent !important;
+}
