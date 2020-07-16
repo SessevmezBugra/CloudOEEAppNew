@@ -9,15 +9,16 @@
 
 	<ObjectPageLayout id="ObjectPageLayout"
 					backgroundDesignAnchorBar="Transparent"
+					showFooter="true" 
 					showTitleInHeaderContent="true"
-					alwaysShowContentHeader="false"
+					alwaysShowContentHeader="true"
 					preserveHeaderStateOnScroll="false"
 					headerContentPinnable="true"
 					isChildPage="true"
 					upperCaseAnchorBar="false">
 				<headerTitle>
 					<ObjectPageDynamicHeaderTitle backgroundDesign="Transparent">
-						<!-- <expandedHeading>
+						<expandedHeading>
 							<m:Title text="{i18n>PERSONELDETAIL}" wrapping="true" class="sapUiSmallMarginEnd"/>
 						</expandedHeading>
 
@@ -25,7 +26,7 @@
 								<m:FlexBox fitContainer="true" alignItems="Center" class="sapUiTinyMarginEnd">
 									<m:Title text="{i18n>PERSONELDETAIL}" wrapping="true" class="sapUiTinyMarginEnd"/>
 								</m:FlexBox>
-						</snappedHeading>-->
+						</snappedHeading>
 
 						<navigationActions>
 							<m:OverflowToolbarButton type="Transparent" icon="sap-icon://decline" press="handleClose"  tooltip="Close column" />
@@ -56,5 +57,12 @@
 				</subSections>
 			</ObjectPageSection>
 		</sections>
+		<footer>
+			<m:OverflowToolbar>
+				<m:ToolbarSpacer />
+				<m:Button press="openUpdatePersonDialog" type="Accept" text="{i18n>UPDATE_BTN_PERSON}"/>
+				<m:Button type="Reject" text="{i18n>DELETE_BTN_PERSON}"/>
+			</m:OverflowToolbar>
+		</footer>
 	</ObjectPageLayout>
 </mvc:View>

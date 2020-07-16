@@ -39,12 +39,59 @@ sap.ui.define([
 			var sNextLayout = 'OneColumn';
 			this.oRouter.navTo("staffTracking", {layout: sNextLayout});
 		},
-		// _onProductMatched: function (oEvent) {
-		// 	this._product = oEvent.getParameter("arguments").product || this._product || "0";
-		// 	this.getView().bindElement({
-		// 		path: "/ProductCollection/" + this._product,
-		// 		model: "products"
-		// 	});
-		// }
+		openUpdatePersonDialog: function () {
+			//this.showBusyIndicator(); //show fabrikalar gelince calisacak.
+            if (!this._oDialog) {
+                this._oDialog = sap.ui.xmlfragment("updatePersonDialog","workerapp.components.factory.components.staffmanagement.fragment.updatePersonDialog", this);
+                this.getView().addDependent(this._oDialog);
+            }
+			this._oDialog.open();
+			// this._oDialog.byId("DTP2").setMinDate(new Date());	
+		},
+		closeUpdatePersonDialog: function () {
+			this._oDialog.close();
+			this.clearPersonDialog();
+			this.hideBusyIndicator();
+		},
+		
+		clearPersonDialog: function() {
+			var personDialogData = this.getModel("staffModel").getData();
+			personDialogData.personMail= "";
+			personDialogData.personName= "";
+			personDialogData.personSurname= "";
+			personDialogData.personUserName= "";
+			this.getModel("staffModel").refresh();
+		},
+		
+		updatePerson: function () {
+			var personData = this.getModel("staffModel").getData();
+			var personadd = {
+				userId: this.userId,
+				email: personData.personMail,
+				firstName: personData.personName,
+				lastName: personData.personSurname
+			};
+			if(!personadd.email || !personadd.firstName || !personadd.lastName || !personadd.username ||
+				personadd.email == " " || personadd.firstName == " " || personadd.lastName == " " || personadd.username == " "){
+				MessageBox.alert(this.translateText("MESSAGEERROREMPTY"), {
+					icon: MessageBox.Icon.WARNING,
+					title: this.translateText("ERROR"),
+				});
+			}
+			else {
+				AuthService.getUpdateStaff(personadd).then(function (response) {
+					this.closePersonDialog();
+					// callback(true);
+					this.hideBusyIndicator();
+					MessageBox.alert(this.translateText("MESSAGEUPDATE"), {
+						icon: MessageBox.Icon.INFORMATION,
+						title: this.translateText("INFORMATION"),
+					});
+				}.bind(this)).catch(function () {
+					// callback(false);
+					this.hideBusyIndicator();
+				}.bind(this));
+			}
+		},
 	});
 });
