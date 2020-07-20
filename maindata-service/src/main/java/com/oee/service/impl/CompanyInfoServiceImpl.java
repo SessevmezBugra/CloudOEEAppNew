@@ -1,14 +1,20 @@
 package com.oee.service.impl;
 
 import com.oee.client.AuthServiceClient;
+import com.oee.client.OrderServiceClient;
+import com.oee.client.StockServiceClient;
 import com.oee.dto.ResponsibleAreaDto;
 import com.oee.dto.UserEntityDto;
+import com.oee.entity.ClientInfo;
+import com.oee.entity.PlantInfo;
+import com.oee.entity.WarehouseInfo;
 import org.springframework.stereotype.Service;
 
 import com.oee.entity.CompanyInfo;
 import com.oee.repository.CompanyInfoRepository;
 import com.oee.service.CompanyInfoService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,11 +24,15 @@ public class CompanyInfoServiceImpl implements CompanyInfoService{
 	private final CompanyInfoRepository companyInfoRepository;
 	private final AuthServiceClient authServiceClient;
 	private final CurrentUserProvider currentUserProvider;
+	private final StockServiceClient stockServiceClient;
+	private final OrderServiceClient orderServiceClient;
 	
-	public CompanyInfoServiceImpl(CompanyInfoRepository companyInfoRepository, AuthServiceClient authServiceClient, CurrentUserProvider currentUserProvider) {
+	public CompanyInfoServiceImpl(CompanyInfoRepository companyInfoRepository, AuthServiceClient authServiceClient, CurrentUserProvider currentUserProvider, StockServiceClient stockServiceClient, OrderServiceClient orderServiceClient) {
 		this.companyInfoRepository = companyInfoRepository;
 		this.authServiceClient = authServiceClient;
 		this.currentUserProvider = currentUserProvider;
+		this.stockServiceClient = stockServiceClient;
+		this.orderServiceClient = orderServiceClient;
 	}
 
 	@Override
@@ -58,7 +68,29 @@ public class CompanyInfoServiceImpl implements CompanyInfoService{
 
 	@Override
 	public Boolean delete(Long companyId) {
+		CompanyInfo companyInfo = companyInfoRepository.findById(companyId).get();
+		List<ClientInfo> clients = companyInfo.getClients();
+		List<Long> plantIds = new ArrayList<>();
+		List<Long> warehouseIds = new ArrayList<>();
+		List<Long> companyAndClientAndPlantIds = new ArrayList<>();
+		companyAndClientAndPlantIds.add(companyInfo.getCompanyId());
+		for (ClientInfo client : clients) {
+			companyAndClientAndPlantIds.add(client.getClientId());
+			List<PlantInfo> plants = client.getPlants();
+			for (PlantInfo plant : plants) {
+				companyAndClientAndPlantIds.add(plant.getPlantId());
+				plantIds.add(plant.getPlantId());
+				List<WarehouseInfo> warehouses = plant.getWarehouses();
+				for (WarehouseInfo warehouse : warehouses) {
+					warehouseIds.add(warehouse.getWarehouseId());
+				}
+			}
+		}
+
 		companyInfoRepository.deleteById(companyId);
+		orderServiceClient.deleteOrderByPlantIds(plantIds);
+		stockServiceClient.deleteStockByWarehouseIds(warehouseIds);
+		authServiceClient.deleteResponsibleAreaByIds(companyAndClientAndPlantIds);
 		return Boolean.TRUE;
 	}
 

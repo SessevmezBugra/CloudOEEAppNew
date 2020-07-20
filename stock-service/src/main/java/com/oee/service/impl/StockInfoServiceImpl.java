@@ -64,6 +64,12 @@ public class StockInfoServiceImpl implements StockInfoService {
     }
 
     @Override
+    public Boolean deleteByWarehouseIds(List<Long> warehouseIds) {
+        stockRepository.deleteByWarehouseIdIn(warehouseIds);
+        return Boolean.TRUE;
+    }
+
+    @Override
     public StockInfo addStock(StockInfo stockInfo) {
         if (stockInfo.getMaterialId() == null || stockInfo.getWarehouseId() == null) {
             throw new RuntimeException("MaterialId veya WarehouseId bos olamaz!");

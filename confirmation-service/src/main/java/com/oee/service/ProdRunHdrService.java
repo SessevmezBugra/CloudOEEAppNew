@@ -21,5 +21,6 @@ public interface ProdRunHdrService {
 	ProdRunHdr hold(ProdRunHdr prodRunHdr);
 
 	ProdRunHdr complete(ProdRunHdr prodRunHdr);
-	
+
+    Boolean deleteByOrderIds(List<Long> orderIds);
 }

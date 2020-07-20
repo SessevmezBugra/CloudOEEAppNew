@@ -47,4 +47,10 @@ public class ResponsibleAreaServiceImpl implements ResponsibleAreaService{
 		return responsibleAreaRepository.findByUserEntityId(currentUserProvider.getCurrentUser().getUserId());
 	}
 
+	@Override
+	public Boolean deleteByAreaIds(List<Long> areaIds) {
+		responsibleAreaRepository.deleteByAreaIdIn(areaIds);
+		return Boolean.TRUE;
+	}
+
 }

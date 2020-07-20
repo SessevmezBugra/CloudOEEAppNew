@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.List;
+
 @FeignClient(name = "confirmation-service", configuration = {ClientConfiguration.class})
 public interface ConfirmationServiceClient {
 
@@ -20,4 +22,6 @@ public interface ConfirmationServiceClient {
     @RequestMapping(value = "/confirmation/prodrunhdr/complete", method= RequestMethod.PUT)
     public ResponseEntity<ProdRunHdrDto> complete(@RequestBody ProdRunHdrDto prodRunHdrDto);
 
+    @RequestMapping(value = "/confirmation/prodrunhdr/order/order-ids", method= RequestMethod.DELETE)
+    public ResponseEntity<Boolean> deleteByOrderIds(List<Long> orderIds);
 }

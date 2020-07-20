@@ -60,6 +60,15 @@ public class OrderInfoServiceImpl implements OrderInfoService{
 	}
 
 	@Override
+	public Boolean deleteOrderByPlantIds(List<Long> plantIds) {
+		List<OrderInfo> orders = orderInfoRepository.findByPlantIdIn(plantIds);
+		List<Long> orderIds = orders.stream().map(OrderInfo::getOrderId).collect(Collectors.toList());
+		orderInfoRepository.deleteByPlantIdIn(plantIds);
+		confirmationServiceClient.deleteByOrderIds(orderIds);
+		return Boolean.TRUE;
+	}
+
+	@Override
 	public OrderInfo getById(Long orderId) {
 		return orderInfoRepository.findById(orderId).get();
 	}

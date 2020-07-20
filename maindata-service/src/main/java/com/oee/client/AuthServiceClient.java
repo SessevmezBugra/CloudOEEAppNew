@@ -21,4 +21,7 @@ public interface AuthServiceClient {
 
         @RequestMapping(value = "/auth/keycloak/company-owner", method= RequestMethod.POST)
         public ResponseEntity<Boolean> addCompanyOwnerRole();
+
+        @RequestMapping(value = "/auth/responsible-area/area-ids", method= RequestMethod.DELETE)
+        public ResponseEntity<Boolean> deleteResponsibleAreaByIds(List<Long> companyAndClientAndPlantIds);
 }

@@ -38,6 +38,11 @@ public class ResponsibleAreaRestController {
 	public ResponseEntity<Boolean> deleteResponsibleArea(@PathVariable(value="id", required=true) Long id){
 		return ResponseEntity.ok(responsibleAreaService.delete(id));
 	}
+
+	@RequestMapping(value="/area-ids", method=RequestMethod.DELETE)
+	public ResponseEntity<Boolean> deleteResponsibleAreaByAreaIds(@RequestBody List<Long> areaIds){
+		return ResponseEntity.ok(responsibleAreaService.deleteByAreaIds(areaIds));
+	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<ResponsibleArea> getResponsibleArea(@PathVariable(value="id", required=true) Long id){

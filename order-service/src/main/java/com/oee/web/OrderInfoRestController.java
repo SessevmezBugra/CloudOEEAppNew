@@ -39,6 +39,11 @@ public class OrderInfoRestController {
 		return ResponseEntity.ok(orderInfoService.delete(orderId));
 	}
 
+	@RequestMapping(value="/plant/plant-ids", method=RequestMethod.DELETE)
+	public ResponseEntity<Boolean> deleteOrderByPlantIds(@RequestBody List<Long> plantIds){
+		return ResponseEntity.ok(orderInfoService.deleteOrderByPlantIds(plantIds));
+	}
+
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<OrderDto>> getByLoggedUser(){
 		return ResponseEntity.ok(orderInfoService.getByLoggedUser());

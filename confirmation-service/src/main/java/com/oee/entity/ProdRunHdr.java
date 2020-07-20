@@ -30,9 +30,13 @@ public class ProdRunHdr {
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	
-//	@JsonManagedReference
-//	@OneToMany(cascade=CascadeType.ALL, mappedBy="prodRunHdr")
-//	private List<ProdRunData> prodRunDatas;
+	@JsonManagedReference
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="prodRunHdr")
+	private List<ProdRunData> prodRunDatas;
+
+	@JsonManagedReference
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="prodRunHdr")
+	private List<ConsumptionInfo> consumptionInfos;
 
 	@Column(name="STARTED_USER")
 	private String startedUser;
@@ -76,13 +80,13 @@ public class ProdRunHdr {
 		this.endTime = endTime;
 	}
 
-//	public List<ProdRunData> getProdRunDatas() {
-//		return prodRunDatas;
-//	}
-//
-//	public void setProdRunDatas(List<ProdRunData> prodRunDatas) {
-//		this.prodRunDatas = prodRunDatas;
-//	}
+	public List<ProdRunData> getProdRunDatas() {
+		return prodRunDatas;
+	}
+
+	public void setProdRunDatas(List<ProdRunData> prodRunDatas) {
+		this.prodRunDatas = prodRunDatas;
+	}
 
 
 	public String getStartedUser() {
@@ -107,5 +111,13 @@ public class ProdRunHdr {
 
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+
+	public List<ConsumptionInfo> getConsumptionInfos() {
+		return consumptionInfos;
+	}
+
+	public void setConsumptionInfos(List<ConsumptionInfo> consumptionInfos) {
+		this.consumptionInfos = consumptionInfos;
 	}
 }

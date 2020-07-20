@@ -37,6 +37,11 @@ public class ProdRunHdrRestController {
 	public ResponseEntity<Boolean> deleteProdRunHdr(@PathVariable(value="id", required=true) Long runId){
 		return ResponseEntity.ok(prodRunHdrService.delete(runId));
 	}
+
+	@RequestMapping(value="/order/order-ids", method=RequestMethod.DELETE)
+	public ResponseEntity<Boolean> deleteByOrderIds(@RequestBody List<Long> orderIds){
+		return ResponseEntity.ok(prodRunHdrService.deleteByOrderIds(orderIds));
+	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<ProdRunHdr> getProdRunHdrById(@PathVariable(value="id", required=true) Long runId){
