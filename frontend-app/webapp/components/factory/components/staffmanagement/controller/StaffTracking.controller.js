@@ -29,16 +29,6 @@ sap.ui.define([
 			this.getModel("staffModel").refresh();
 			this.getStaff();
 		},
-		translateText: function (caption, insidevalue) {
-			// read msg from i18n model
-			var oBundle = this.getView().getModel("i18n").getResourceBundle();
-			var sMsg = "";
-			if (insidevalue) sMsg = oBundle.getText(caption, insidevalue);
-			else sMsg = oBundle.getText(caption);
-  
-			if (sMsg) return sMsg;
-			else return "";
-		},
 
 		openCreatePersonDialog: function () {
 			this.showBusyIndicator(); //show fabrikalar gelince calisacak.
@@ -126,7 +116,6 @@ sap.ui.define([
 			if(selectedRoleId == 0){
 				this.getCompanies(function(isOk){
 					var assets = this.getModel("staffModel").getData().assets;
-					assets = [];
 					var companies = this.getModel("staffModel").getData().companies;
 					for(var company of companies){
 						assets.push({
@@ -136,12 +125,10 @@ sap.ui.define([
 					}
 					this.getModel("staffModel").refresh();
 				}.bind(this));
-
 			}
 			else if(selectedRoleId == 1){
 				this.getClients(function(isOk){
 					var assets = this.getModel("staffModel").getData().assets;
-					assets = [];
 					var clients = this.getModel("staffModel").getData().clients;
 					for(var client of clients){
 						assets.push({
@@ -151,12 +138,10 @@ sap.ui.define([
 					}
 					this.getModel("staffModel").refresh();
 				}.bind(this));
-
 			}
 			else if(selectedRoleId == 2 || selectedRoleId == 3){
 				this.getPlants(function(isOk){
 					var assets = this.getModel("staffModel").getData().assets;
-					assets = [];
 					var plants = this.getModel("staffModel").getData().plants;
 					for(var plant of plants){
 						assets.push({
@@ -166,7 +151,6 @@ sap.ui.define([
 					}
 					this.getModel("staffModel").refresh();
 				}.bind(this));
-
 			}
 			else {
 				if(!selectedRoleId){
@@ -199,7 +183,7 @@ sap.ui.define([
 			else {
 				if(personadd.password != personadd.passwordRetry){
 					this.hideBusyIndicator();
-					MessageBox.alert("Şifreler Uyuşmuyor. Lütfen kontrol ediniz...", {
+					MessageBox.alert(this.translateText("PASSWORD_NOT_EQ"), {
 						icon: MessageBox.Icon.WARNING,
 						title: this.translateText("ERROR")
 					});
@@ -299,15 +283,6 @@ sap.ui.define([
 			}
 
 			this.getView().byId("staffTable").getBinding("items").filter(oTableSearchState, "Application");
-		},
-
-        toPage2: function () {
-            var oNextUIState = this.getOwnerComponent().getHelper().getNextUIState(1);
-            // ,
-            // productPath = oEvent.getSource().getBindingContext("orderModel").getPath(),
-            // product = productPath.split("/").slice(-1).pop();
-
-             this.oRouter.navTo("StaffDetail", {layout: oNextUIState.layout});
 		},
 
 		onPressShowPassword: function () {
