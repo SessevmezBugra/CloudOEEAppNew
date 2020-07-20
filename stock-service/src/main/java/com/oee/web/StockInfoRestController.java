@@ -67,14 +67,22 @@ public class StockInfoRestController {
 		return ResponseEntity.ok(stockInfoService.getById(stockId));
 	}
 
+
 	@RequestMapping(value="/ids", method=RequestMethod.POST)
 	public ResponseEntity<List<StockInfo>> getStockInfoByIds(@RequestBody List<Long> stockIds){
 		return ResponseEntity.ok(stockInfoService.getByIds(stockIds));
 	}
+
 	 
 	@RequestMapping(value="/warehouse/{warehouseId}", method=RequestMethod.GET)
 	public ResponseEntity<List<StockInfo>> getStockInfoByWarehouseId(@PathVariable(value="warehouseId", required=true) Long warehouseId){
 		return ResponseEntity.ok(stockInfoService.getByWarehouseId(warehouseId));
+	}
+
+	@RequestMapping(value="/warehouse/warehouse-ids", method=RequestMethod.DELETE)
+	public ResponseEntity<Boolean> deleteStockInfoByWarehouseIds(@RequestBody List<Long> warehouseIds){
+		System.err.println();
+		return ResponseEntity.ok(stockInfoService.deleteByWarehouseIds(warehouseIds));
 	}
 
 	@RequestMapping(value="/warehouse/{warehouseId}/material/{materialId}", method=RequestMethod.GET)

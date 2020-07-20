@@ -1,18 +1,18 @@
-package com.oee.service;
+package com.oee.client;
 
+import com.oee.config.ClientConfiguration;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.oee.config.ClientConfiguration;
-import com.oee.dto.StockInfoDto;
+import java.util.List;
 
 @FeignClient(name = "stock-service", configuration = {ClientConfiguration.class})
-public interface StockServiceProxy {
+public interface StockServiceClient {
 
-	@RequestMapping(value = "/rest/stock/stockinfo", method=RequestMethod.POST)
-	public ResponseEntity<StockInfoDto> createStockInfo(@RequestBody StockInfoDto stockInfoDto);
+    @RequestMapping(value = "/stock/stockinfo/warehouse/warehouse-ids", method= RequestMethod.DELETE)
+    public ResponseEntity<Boolean> deleteStockByWarehouseIds(@RequestBody List<Long> warehouseIds);
 
 }

@@ -12,7 +12,9 @@ public interface OrderInfoService {
 	OrderInfo update(OrderInfo orderInfo);
 	
 	Boolean delete(Long id);
-	
+
+	Boolean deleteOrderByPlantIds(List<Long> plantIds);
+
 	OrderInfo getById(Long orderId);
 	
 	List<OrderInfo> getByPlantId(Long plantId);

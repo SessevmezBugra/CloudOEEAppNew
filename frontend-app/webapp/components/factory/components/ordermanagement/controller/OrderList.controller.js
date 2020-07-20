@@ -40,28 +40,31 @@ sap.ui.define([
 		openCreateOrderDialog: function () {
 			this.showBusyIndicator();//show fabrikalar gelince calisacak.
             this.getPlants(function (isOk) {
-                if (!this._oDialog) {
-                    this._oDialog = sap.ui.xmlfragment("createOrderDialog","workerapp.components.factory.components.ordermanagement.fragment.createOrderDialog", this);
-                    this.getView().addDependent(this._oDialog);
-                }
-				this._oDialog.open();
-				// this._oDialog.byId("DTP2").setMinDate(new Date());
-				var date = new Date();
-				sap.ui.core.Fragment.byId("createOrderDialog", "DTP2").setMinDate(new Date(date.getFullYear(), date.getMonth(), date.getDate()));
-				var oMultiInput = sap.ui.core.Fragment.byId("createOrderDialog", "stockMultiInput");
-				oMultiInput.addValidator(function(args){
-					var key = args.suggestionObject.getKey();
-					var tokens = oMultiInput.getTokens();
-					var isValid = true;
-					for(var token of tokens) {
-						if (token.getKey() == key){
-							isValid = false;
+				if(isOk) {
+					if (!this._oDialog) {
+						this._oDialog = sap.ui.xmlfragment("createOrderDialog","workerapp.components.factory.components.ordermanagement.fragment.createOrderDialog", this);
+						this.getView().addDependent(this._oDialog);
+					}
+					this._oDialog.open();
+					// this._oDialog.byId("DTP2").setMinDate(new Date());
+					var date = new Date();
+					sap.ui.core.Fragment.byId("createOrderDialog", "DTP2").setMinDate(new Date(date.getFullYear(), date.getMonth(), date.getDate()));
+					var oMultiInput = sap.ui.core.Fragment.byId("createOrderDialog", "stockMultiInput");
+					oMultiInput.addValidator(function(args){
+						var key = args.suggestionObject.getKey();
+						var tokens = oMultiInput.getTokens();
+						var isValid = true;
+						for(var token of tokens) {
+							if (token.getKey() == key){
+								isValid = false;
+							}
 						}
-					}
-					if(isValid){
-						return new Token({key: key, text: args.text});
-					}
-				});
+						if(isValid){
+							return new Token({key: key, text: args.text});
+						}
+					});
+				}
+                
             }.bind(this));
 		},
 

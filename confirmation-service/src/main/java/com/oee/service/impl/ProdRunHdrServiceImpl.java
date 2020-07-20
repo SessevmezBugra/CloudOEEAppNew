@@ -91,4 +91,10 @@ public class ProdRunHdrServiceImpl implements ProdRunHdrService{
 		return prodRunHdrRepository.save(lastProdRunHdr);
 	}
 
+	@Override
+	public Boolean deleteByOrderIds(List<Long> orderIds) {
+		prodRunHdrRepository.deleteByOrderIdIn(orderIds);
+		return Boolean.TRUE;
+	}
+
 }

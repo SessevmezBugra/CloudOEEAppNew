@@ -15,4 +15,6 @@ public interface ResponsibleAreaService {
 	ResponsibleArea findById(Long id);
 	
 	List<ResponsibleArea> findByUserId();
+
+    Boolean deleteByAreaIds(List<Long> areaIds);
 }
