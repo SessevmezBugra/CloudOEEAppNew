@@ -15,8 +15,8 @@
                             <core:Item text="Operatör" key="3"/>
                         </Select>
                         <Label text="Sorumluluk" />
-                        <Select forceSelection="false" selectedKey="{staffModel>/selectedPlant}" items="{staffModel>/plants}" change="onSelectedPlant">
-                            <core:Item text="{staffModel>plantName}" key="{staffModel>plantId}"/>
+                        <Select forceSelection="false" selectedKey="{staffModel>/selectedAsset}" items="{staffModel>/assets}" >
+                            <core:Item text="{staffModel>assetName}" key="{staffModel>assetId}"/>
                         </Select>
                         <Label text="Personel Kullanıcı Adı" />
                         <Input value="{staffModel>/personUserName}"/>
@@ -29,9 +29,18 @@
                         <Label text="Personel Telefon" />
                         <Input value="{staffModel>/personPhone}"/>
                         <Label text="Personel Şifre" />
-                        <Input value="{staffModel>/password}"/>
+                        <Input value="{staffModel>/password}" type="{= ${staffModel>/showPassword} > 0 ? 'Text' : 'Password'}">
+                            <layoutData>
+                                <l:GridData span="XL7 L7 M7 S10" />
+                            </layoutData>
+                        </Input>
+                        <Button icon="{= ${staffModel>/showPassword} > 0 ? 'sap-icon://show' : 'sap-icon://hide'}" type="Transparent" press=".onPressShowPassword" ariaLabelledBy="editButtonLabel">
+                            <layoutData>
+                                <l:GridData span="XL1 L1 M1 S2" />
+                            </layoutData>
+                        </Button>
                         <Label text="Personel Şifre Tekrar" />
-                        <Input value="{staffModel>/passwordRetry}"/>
+                        <Input value="{staffModel>/passwordRetry}" type="{= ${staffModel>/showPassword} > 0 ? 'Text' : 'Password'}"/>
                     </f:content>
                 </f:SimpleForm>
             </VBox>

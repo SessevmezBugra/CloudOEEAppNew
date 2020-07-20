@@ -18,8 +18,11 @@ sap.ui.define([
 		onBeforeRouteMatched: function(oEvent) {
 			var oModel = this.getModel("staffModel");
 
-			var sLayout = oEvent.getParameters().arguments.layout;
+			var sLayout = oEvent.getParameters().config.layout;
 
+			if (!sLayout) {
+				sLayout = oEvent.getParameters().arguments.layout;
+			}
 			// If there is no layout parameter, query for the default level 0 layout (normally OneColumn)
 			if (!sLayout) {
 				var oNextUIState = this.getOwnerComponent().getHelper().getNextUIState(0);
@@ -34,19 +37,23 @@ sap.ui.define([
         
 		onColumnResize: function(oEvent) {
 			// This event is ideal to call scrollToIndex function of the Table
-			var oMasterView = oEvent.getSource().getBeginColumnPages()[0];
+			//var oMasterView = oEvent.getSource().getBeginColumnPages()[0];
 
-			if (oMasterView.getController().iIndex) {
-				var oTable = oMasterView.byId("staffTable");
-				oTable.scrollToIndex(oMasterView.getController().iIndex);
-			}
+			//if (oMasterView.getController().iIndex) {
+			//	var oTable = oMasterView.byId("staffTable");
+			//	oTable.scrollToIndex(oMasterView.getController().iIndex);
+			//}
 
 		},
 		onRouteMatched: function (oEvent) {
 			var oModel = this.getModel("staffModel");
 
-			var sLayout = oEvent.getParameters().arguments.layout;
+			var sLayout = oEvent.getParameters().config.layout;
 
+			
+			if (!sLayout) {
+				sLayout = oEvent.getParameters().arguments.layout;
+			}
 			// If there is no layout parameter, query for the default level 0 layout (normally OneColumn)
 			if (!sLayout) {
 				var oNextUIState = this.getOwnerComponent().getHelper().getNextUIState(0);

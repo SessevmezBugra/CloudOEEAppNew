@@ -14,7 +14,9 @@ sap.ui.define([
 		init: async function() {
 			BaseComponent.prototype.init.apply(this, arguments);
 
-			var oModel = new JSONModel();
+			var oModel = new JSONModel({
+				assets:[]
+			}); 
 			this.setModel(oModel, "staffModel");
 
 			var oParentComponent = Component.getOwnerComponentFor(Component.getOwnerComponentFor(this));

@@ -9,8 +9,9 @@
 
 	<ObjectPageLayout id="ObjectPageLayout"
 					backgroundDesignAnchorBar="Transparent"
+					showFooter="true" 
 					showTitleInHeaderContent="true"
-					alwaysShowContentHeader="false"
+					alwaysShowContentHeader="true"
 					preserveHeaderStateOnScroll="false"
 					headerContentPinnable="true"
 					isChildPage="true"
@@ -18,12 +19,12 @@
 				<headerTitle>
 					<ObjectPageDynamicHeaderTitle backgroundDesign="Transparent">
 						<expandedHeading>
-							<m:Title text="{i18n>PERSONELDETAIL}" wrapping="true" class="sapUiSmallMarginEnd"/>
+							<m:Title text="{staffModel>/detailUsers/firstName} {staffModel>/detailUsers/lastName}" wrapping="true" class="sapUiSmallMarginEnd"/>
 						</expandedHeading>
 
 						<snappedHeading>
 								<m:FlexBox fitContainer="true" alignItems="Center" class="sapUiTinyMarginEnd">
-									<m:Title text="{i18n>PERSONELDETAIL}" wrapping="true" class="sapUiTinyMarginEnd"/>
+									<m:Title text="{staffModel>/detailUsers/firstName} {staffModel>/detailUsers/lastName}" wrapping="true" class="sapUiTinyMarginEnd"/>
 								</m:FlexBox>
 						</snappedHeading>
 
@@ -38,23 +39,36 @@
 				<subSections>
 					<ObjectPageSubSection>
 						<blocks>
-							<m:ObjectHeader title="Perosonel adı" backgroundDesign="Transparent" icon="sap-icon://addresses" iconDensityAware="false" imageShape="Circle">
-								<m:attributes>
-									<m:ObjectAttribute title="{i18n>NAME} {i18n>SURNAME}" text="Bayram Baş"/>
-									<m:ObjectAttribute title="{i18n>ADDRESS}" text="BLR.01, B2.023"/>
-									<m:ObjectAttribute title="{i18n>PHONE}" text="+91-90100-98100"/>
-									<m:ObjectAttribute title="{i18n>MAIL}" text="example@bybas.com" active="true"/>
-									<m:ObjectAttribute title="Çalıştıgı yer " text="Fabrika adı"/>
-								</m:attributes>
-								<m:statuses>
-									<m:ObjectStatus title="{i18n>STATUS}" icon="sap-icon://employee-approvals" text="Available" state="Success"/>
-									<m:ObjectStatus title="{i18n>AUTHORITY}" icon="sap-icon://leads" text="Operatör" state="Warning"/>								
-								</m:statuses>
-							</m:ObjectHeader>
+							<l:BlockLayout background="Dashboard">
+								<l:BlockLayoutRow>
+                                    <l:BlockLayoutCell>
+										<m:ObjectHeader backgroundDesign="Transparent" icon="sap-icon://addresses" iconDensityAware="false" imageShape="Circle">
+											<m:attributes>
+												<m:ObjectAttribute title="{i18n>NAME} {i18n>SURNAME}" text="{staffModel>/detailUsers/firstName} {staffModel>/detailUsers/lastName}"/>
+												<m:ObjectAttribute title="{i18n>ADDRESS}" text="BLR.01, B2.023"/>
+												<m:ObjectAttribute title="{i18n>PHONE}" text="---"/>
+												<m:ObjectAttribute title="{i18n>MAIL}" text="{staffModel>/detailUsers/email}" active="true"/>
+												<m:ObjectAttribute title="Kullanıcı adı " text="{staffModel>/detailUsers/username}"/>
+											</m:attributes>
+											<m:statuses>
+												<m:ObjectStatus title="{i18n>STATUS}" icon="sap-icon://employee-approvals" text="Available" state="Success"/>
+												<m:ObjectStatus title="{i18n>AUTHORITY}" icon="sap-icon://leads" text="Operatör" state="Warning"/>								
+											</m:statuses>
+										</m:ObjectHeader>
+									</l:BlockLayoutCell>
+                                </l:BlockLayoutRow>
+							</l:BlockLayout>
 						</blocks>
 					</ObjectPageSubSection>
 				</subSections>
 			</ObjectPageSection>
 		</sections>
+		<footer>
+			<m:OverflowToolbar>
+				<m:ToolbarSpacer />
+				<m:Button press="openUpdatePersonDialog" type="Accept" text="{i18n>UPDATE_BTN_PERSON}"/>
+				<m:Button type="Reject" text="{i18n>DELETE_BTN_PERSON}"/>
+			</m:OverflowToolbar>
+		</footer>
 	</ObjectPageLayout>
 </mvc:View>

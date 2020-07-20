@@ -72,7 +72,8 @@
 				{
 					"pattern": "",
 					"name": "home",
-					"target": "home"
+					"target": "home",
+					"layout": "EndColumnFullScreen"
 				},
 				{
 					"pattern": "staffTracking",
@@ -101,7 +102,7 @@
 				},
 				"home": {
 					"viewName": "Home",
-					"controlAggregation": "beginColumnPages"
+					"controlAggregation": "endColumnPages"
 				},
 				"notFound": {
 					"viewName": "NotFound",

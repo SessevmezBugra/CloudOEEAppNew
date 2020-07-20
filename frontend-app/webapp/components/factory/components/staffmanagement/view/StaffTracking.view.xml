@@ -19,7 +19,7 @@
 		<!-- DynamicPage Content -->
 		<f:content>
 			<Panel width="" class="arcloudBackgroundColor">
-				<Table id="staffTable" backgroundDesign="Transparent" width="auto">
+				<Table id="staffTable" items="{staffModel>/users}" backgroundDesign="Transparent" width="auto">
 					<headerToolbar>
 						<OverflowToolbar>
 							<ToolbarSpacer/>
@@ -35,7 +35,7 @@
 						</Column>
 
 						<Column minScreenWidth="Desktop" demandPopin="true">
-							<Text text="Personel Company" />
+							<Text text="Personel User Name" />
 						</Column>
 						<Column minScreenWidth="Desktop" demandPopin="true">
 							<Text text="Status" />
@@ -44,10 +44,10 @@
 					<items>
 						<ColumnListItem type="Navigation" press="onListItemPress">
 							<cells>
-								<ObjectIdentifier text="{orderModel>plantName}" />
-								<ObjectIdentifier text="{orderModel>orderNo}" />
-								<ObjectIdentifier text="{orderModel>customer}" />
-								<ObjectIdentifier text="{orderModel>status}" />
+								<ObjectIdentifier text="{staffModel>firstName}" />
+								<ObjectIdentifier text="{staffModel>lastName}" />
+								<ObjectIdentifier text="{staffModel>username}" />
+								<ObjectIdentifier text="{staffModel>status}" />
 							</cells>
 						</ColumnListItem>
 					</items>
