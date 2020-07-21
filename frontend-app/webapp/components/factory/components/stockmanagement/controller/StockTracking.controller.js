@@ -27,16 +27,6 @@ sap.ui.define([
 			this.showBusyIndicator(); //hide warehouselar gelince calisacak.
 			this.getWarehouses();
 		},
-		translateText: function (caption, insidevalue) {
-			// read msg from i18n model
-			var oBundle = this.getView().getModel("i18n").getResourceBundle();
-			var sMsg = "";
-			if (insidevalue) sMsg = oBundle.getText(caption, insidevalue);
-			else sMsg = oBundle.getText(caption);
-  
-			if (sMsg) return sMsg;
-			else return "";
-		},
 
 		onSelectedTab: function(oEvent) {
 			//this.showBusyIndicator();
@@ -183,11 +173,20 @@ sap.ui.define([
 				"warehouseId": warehouseId
 			  };
 			if(!materialQuantity || !warehouseId || !materialId || materialQuantity == " " || warehouseId == " " || materialId == " "){
-				this.hideBusyIndicator();
-				MessageBox.alert(this.translateText("MESSAGEERROREMPTY"), {
-					icon: MessageBox.Icon.WARNING,
-					title: this.translateText("ERROR"),
-				});
+				if(materialQuantity == 0){
+					this.hideBusyIndicator();
+					MessageBox.alert(this.translateText("MESSAGEERRORZERO"), {
+						icon: MessageBox.Icon.WARNING,
+						title: this.translateText("ERROR"),
+					});
+				}
+				else {
+					this.hideBusyIndicator();
+					MessageBox.alert(this.translateText("MESSAGEERROREMPTY"), {
+						icon: MessageBox.Icon.WARNING,
+						title: this.translateText("ERROR"),
+					});
+				}
 			}
 			else{
 				stockservice.addStock(stockinfo).then(function(response) {
@@ -235,11 +234,20 @@ sap.ui.define([
 				"warehouseId": warehouseId
 			  };
 			if(!materialQuantity || !warehouseId || !materialId || materialQuantity == " " || warehouseId == " " || materialId == " "){
-				this.hideBusyIndicator();
-				MessageBox.alert(this.translateText("MESSAGEERROREMPTY"), {
-					icon: MessageBox.Icon.WARNING,
-					title: this.translateText("ERROR"),
-				});
+				if(materialQuantity == 0){
+					this.hideBusyIndicator();
+					MessageBox.alert(this.translateText("MESSAGEERRORZERO"), {
+						icon: MessageBox.Icon.WARNING,
+						title: this.translateText("ERROR"),
+					});
+				}
+				else {
+					this.hideBusyIndicator();
+					MessageBox.alert(this.translateText("MESSAGEERROREMPTY"), {
+						icon: MessageBox.Icon.WARNING,
+						title: this.translateText("ERROR"),
+					});
+				}
 			}
 			else{
 				stockservice.exctractStock(stockinfo).then(function(response) {

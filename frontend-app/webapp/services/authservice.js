@@ -23,7 +23,7 @@ sap.ui.define([
         getStaffByUserId: function(id) {
             return Service.doAjax("http://localhost:4000/auth/keycloak/user/"+id, null, "GET", true);
         },
-        getUpdateStaff: function(person) {
+        updateStaff: function(person) {
             return Service.doAjax("http://localhost:4000/auth/keycloak/update-user", person, "PUT", true);
         }
 
