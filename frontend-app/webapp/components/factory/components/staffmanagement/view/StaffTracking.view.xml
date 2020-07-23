@@ -11,7 +11,7 @@
 		<f:title>
 			<f:DynamicPageTitle backgroundDesign="Transparent">
 				<f:heading>
-					<Title text="Personeller"/>
+					<Title text="{i18n>PERSONELS}"/>
 				</f:heading>
 			</f:DynamicPageTitle>
 		</f:title>
@@ -28,17 +28,17 @@
 					</headerToolbar>
 					<columns>
 						<Column>
-							<Text text="Personel Name" />
+							<Text text="{i18n>PERSONEL_NAME}" />
 						</Column>
 						<Column minScreenWidth="Desktop" demandPopin="true">
-							<Text text="Personel Surname" />
+							<Text text="{i18n>PERSONEL_SURNAME}" />
 						</Column>
 
 						<Column minScreenWidth="Desktop" demandPopin="true">
-							<Text text="Personel User Name" />
+							<Text text="{i18n>PERSONEL_USER_NAME}" />
 						</Column>
 						<Column minScreenWidth="Desktop" demandPopin="true">
-							<Text text="Status" />
+							<Text text="{i18n>STATUS}" />
 						</Column>
 					</columns>
 					<items>
@@ -60,7 +60,7 @@
 			<OverflowToolbar>
 				<ToolbarSpacer/>
 				<!-- <Button type="Accept" text="{i18n>ORDER_BTN_CREATE}" press=".openCreateOrderDialog"/> -->
-				<Button type="Accept" text="Personel Ekle" press="openCreatePersonDialog"/>
+				<Button type="Accept" text="{i18n>PERSONEL_ADD}" press="openCreatePersonDialog"/>
 			</OverflowToolbar>
 		</f:footer>
 	</f:DynamicPage>

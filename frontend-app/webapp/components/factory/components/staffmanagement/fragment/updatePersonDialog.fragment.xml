@@ -7,22 +7,20 @@
             <VBox class="sapUiSmallMargin">
                 <f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
                     <f:content>
-                        <Label text="Personel İsmi" />
+                        <Label text="{i18n>PERSONEL_NAME}" />
                         <Input value="{staffModel>/personName}"/>
-                        <Label text="Personel Soyismi" />
+                        <Label text="{i18n>PERSONEL_SURNAME}" />
                         <Input value="{staffModel>/personSurname}"/>
-                        <Label text="Personel E-Mail" />
-                        <Input value="{staffModel>/personMail}"/>
                     </f:content>
                 </f:SimpleForm>
             </VBox>
         </content>
         <beginButton>
-            <Button text="Güncelle" press=".updatePerson">
+            <Button text="{i18n>PERSONEL_UPDATE}" press=".updatePerson">
             </Button>
         </beginButton>
         <endButton>
-            <Button text="Iptal" press=".closeUpdatePersonDialog">
+            <Button text="{i18n>CANCEL}" press=".closeUpdatePersonDialog">
             </Button>
         </endButton>
     </Dialog>

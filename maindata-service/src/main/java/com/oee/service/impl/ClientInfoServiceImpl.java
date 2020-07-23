@@ -5,8 +5,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.oee.client.AuthServiceClient;
+import com.oee.client.OrderServiceClient;
+import com.oee.client.StockServiceClient;
 import com.oee.dto.CurrentUser;
 import com.oee.dto.ResponsibleAreaDto;
+import com.oee.entity.PlantInfo;
+import com.oee.entity.WarehouseInfo;
 import com.oee.enums.AreaType;
 import com.oee.enums.UserRole;
 import org.springframework.stereotype.Service;
@@ -21,11 +25,15 @@ public class ClientInfoServiceImpl implements ClientInfoService{
 	private final ClientInfoRepository clientInfoRepository;
 	private final AuthServiceClient authServiceClient;
 	private final CurrentUserProvider currentUserProvider;
+	private final StockServiceClient stockServiceClient;
+	private final OrderServiceClient orderServiceClient;
 	
-	public ClientInfoServiceImpl(ClientInfoRepository clientInfoRepository, AuthServiceClient authServiceClient, CurrentUserProvider currentUserProvider) {
+	public ClientInfoServiceImpl(ClientInfoRepository clientInfoRepository, AuthServiceClient authServiceClient, CurrentUserProvider currentUserProvider, StockServiceClient stockServiceClient, OrderServiceClient orderServiceClient) {
 		this.clientInfoRepository = clientInfoRepository;
 		this.authServiceClient = authServiceClient;
 		this.currentUserProvider = currentUserProvider;
+		this.stockServiceClient = stockServiceClient;
+		this.orderServiceClient = orderServiceClient;
 	}
 
 	@Override
@@ -41,7 +49,23 @@ public class ClientInfoServiceImpl implements ClientInfoService{
 
 	@Override
 	public Boolean delete(Long clientId) {
+		ClientInfo clientInfo = clientInfoRepository.findById(clientId).get();
+		List<PlantInfo> plants = clientInfo.getPlants();
+		List<Long> plantIds = new ArrayList<>();
+		List<Long> warehouseIds = new ArrayList<>();
+		List<Long> clientAndPlantIds = new ArrayList<>();
+		clientAndPlantIds.add(clientInfo.getClientId());
+		for (PlantInfo plant : plants) {
+			clientAndPlantIds.add(plant.getPlantId());
+				List<WarehouseInfo> warehouses = plant.getWarehouses();
+				for (WarehouseInfo warehouse : warehouses) {
+					warehouseIds.add(warehouse.getWarehouseId());
+				}
+		}
 		clientInfoRepository.deleteById(clientId);
+		orderServiceClient.deleteOrderByPlantIds(plantIds);
+		stockServiceClient.deleteStockByWarehouseIds(warehouseIds);
+		authServiceClient.deleteResponsibleAreaByIds(clientAndPlantIds);
 		return Boolean.TRUE;
 	}
 

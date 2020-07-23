@@ -85,6 +85,17 @@ sap.ui.define([
 
 		getParentComponent: function(component) {
 			return Component.getOwnerComponentFor(component);
+		},
+
+		translateText: function (caption, insidevalue) {
+			// read msg from i18n model
+			var oBundle = this.getView().getModel("i18n").getResourceBundle();
+			var sMsg = "";
+			if (insidevalue) sMsg = oBundle.getText(caption, insidevalue);
+			else sMsg = oBundle.getText(caption);
+  
+			if (sMsg) return sMsg;
+			else return "";
 		}
 	});
 });

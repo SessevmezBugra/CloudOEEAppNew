@@ -7,28 +7,33 @@
             <VBox class="sapUiSmallMargin">
                 <f:SimpleForm editable="true" layout="ResponsiveGridLayout" title="Personel" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
                     <f:content>
+<<<<<<< HEAD
                         <Label text="Role Seç" />
                         <Select forceSelection="false" change="onSelectedRole" selectedKey ="0">
+=======
+                        <Label text="{i18n>SELECT_ROLE}" />
+                        <Select forceSelection="false" change="onSelectedRole">
+>>>>>>> 814a488744780c9fd05818f7dc3533fd47924010
                             <core:Item text="Şirket Yöneticisi" key="0"/>
                             <core:Item text="Bölge Yöneticisi" key="1"/>
                             <core:Item text="Fabrika Yöneticisi" key="2"/>
                             <core:Item text="Operatör" key="3"/>
                         </Select>
-                        <Label text="Sorumluluk" />
+                        <Label text="{i18n>RESPONSIBILITY}" />
                         <Select forceSelection="false" selectedKey="{staffModel>/selectedAsset}" items="{staffModel>/assets}" >
                             <core:Item text="{staffModel>assetName}" key="{staffModel>assetId}"/>
                         </Select>
-                        <Label text="Personel Kullanıcı Adı" />
+                        <Label text="{i18n>PERSONEL_USER_NAME}" />
                         <Input value="{staffModel>/personUserName}"/>
-                        <Label text="Personel İsmi" />
+                        <Label text="{i18n>PERSONEL_NAME}" />
                         <Input value="{staffModel>/personName}"/>
-                        <Label text="Personel Soyismi" />
+                        <Label text="{i18n>PERSONEL_SURNAME}" />
                         <Input value="{staffModel>/personSurname}"/>
-                        <Label text="Personel E-Mail" />
+                        <Label text="{i18n>PERSONEL_EMAIL}" />
                         <Input value="{staffModel>/personMail}"/>
-                        <Label text="Personel Telefon" />
+                        <Label text="{i18n>PERSONEL_PHONE}" />
                         <Input value="{staffModel>/personPhone}"/>
-                        <Label text="Personel Şifre" />
+                        <Label text="{i18n>PERSONEL_PASSWORD}" />
                         <Input value="{staffModel>/password}" type="{= ${staffModel>/showPassword} > 0 ? 'Text' : 'Password'}">
                             <layoutData>
                                 <l:GridData span="XL7 L7 M7 S10" />
@@ -39,18 +44,18 @@
                                 <l:GridData span="XL1 L1 M1 S2" />
                             </layoutData>
                         </Button>
-                        <Label text="Personel Şifre Tekrar" />
+                        <Label text="{i18n>PERSONEL_PASSWORD_RETRY}" />
                         <Input value="{staffModel>/passwordRetry}" type="{= ${staffModel>/showPassword} > 0 ? 'Text' : 'Password'}"/>
                     </f:content>
                 </f:SimpleForm>
             </VBox>
         </content>
         <beginButton>
-            <Button text="Olustur" press=".createPerson">
+            <Button text="{i18n>PERSONEL_CREAT}" press=".createPerson">
             </Button>
         </beginButton>
         <endButton>
-            <Button text="Iptal" press=".closePersonDialog">
+            <Button text="{i18n>CANCEL}" press=".closePersonDialog">
             </Button>
         </endButton>
     </Dialog>

@@ -5,8 +5,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.oee.client.AuthServiceClient;
+import com.oee.client.OrderServiceClient;
+import com.oee.client.StockServiceClient;
 import com.oee.dto.CurrentUser;
 import com.oee.dto.ResponsibleAreaDto;
+import com.oee.entity.WarehouseInfo;
 import com.oee.enums.AreaType;
 import com.oee.enums.UserRole;
 import org.springframework.stereotype.Service;
@@ -21,11 +24,15 @@ public class PlantInfoServiceImpl implements PlantInfoService{
 	private final PlantInfoRepository plantInfoRepository;
 	private final AuthServiceClient authServiceClient;
 	private final CurrentUserProvider currentUserProvider;
+	private final StockServiceClient stockServiceClient;
+	private final OrderServiceClient orderServiceClient;
 	
-	public PlantInfoServiceImpl(PlantInfoRepository plantInfoRepository, AuthServiceClient authServiceClient, CurrentUserProvider currentUserProvider) {
+	public PlantInfoServiceImpl(PlantInfoRepository plantInfoRepository, AuthServiceClient authServiceClient, CurrentUserProvider currentUserProvider, StockServiceClient stockServiceClient, OrderServiceClient orderServiceClient) {
 		this.plantInfoRepository = plantInfoRepository;
 		this.authServiceClient = authServiceClient;
 		this.currentUserProvider = currentUserProvider;
+		this.stockServiceClient = stockServiceClient;
+		this.orderServiceClient = orderServiceClient;
 	}
 	@Override
 	public PlantInfo create(PlantInfo plantInfo) {
@@ -39,7 +46,18 @@ public class PlantInfoServiceImpl implements PlantInfoService{
 
 	@Override
 	public Boolean delete(Long plantId) {
+		PlantInfo plantInfo = plantInfoRepository.findById(plantId).get();
+		List<Long> warehouseIds = new ArrayList<>();
+		List<Long> plantIds = new ArrayList<>();
+		plantIds.add(plantInfo.getPlantId());
+			List<WarehouseInfo> warehouses = plantInfo.getWarehouses();
+			for (WarehouseInfo warehouse : warehouses) {
+				warehouseIds.add(warehouse.getWarehouseId());
+			}
 		plantInfoRepository.deleteById(plantId);
+		orderServiceClient.deleteOrderByPlantIds(plantIds);
+		stockServiceClient.deleteStockByWarehouseIds(warehouseIds);
+		authServiceClient.deleteResponsibleAreaByIds(plantIds);
 		return Boolean.TRUE;
 	}
 
