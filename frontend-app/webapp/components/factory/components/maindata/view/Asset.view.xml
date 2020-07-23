@@ -9,8 +9,8 @@
             <l:BlockLayout background="Dashboard">
                 <l:BlockLayoutRow>
                     <l:BlockLayoutCell>
-                        <Tree mode="SingleSelectMaster" id="idTree" items="{assetModel>/assets/children/}" width="auto">
-                            <CustomTreeItem highlightText="{assetModel>text}">
+                        <Tree mode="SingleSelectMaster" id="idTree" items="{assetModel>/assets/children/}" selectionChange=".goToAssetDetailTreeTable" width="auto">
+                            <CustomTreeItem type ="Active" id = "listItem" highlightText="{assetModel>text}" >
                                 <FlexBox alignItems="Center" width="100%" justifyContent="Center">
                                     <items>
                                         <Text text="{assetModel>text}">
@@ -20,7 +20,6 @@
                                         </Text>
                                         <Button visible="{= ${assetModel>type} === 'company' ? true : false}" type="Accept" text="{i18n>CLIENT_BTN_CREATE}" press=".openCreateAssetDialog" class="sapUiSmallMarginEnd"/>
                                         <Button visible="{= ${assetModel>type} === 'client' ? true : false}" type="Accept" text="{i18n>PLANT_BTN_CREATE}" press=".openCreateAssetDialog" class="sapUiSmallMarginEnd"/>
-                                        <Button visible="{= ${assetModel>type} === 'plant' ? true : false}" type="Default" text="{i18n>PLANT_BTN_DETAIL}" press=".goToAssetDetail" class="sapUiSmallMarginEnd"/>
                                     </items>
                                 </FlexBox>
                             </CustomTreeItem>

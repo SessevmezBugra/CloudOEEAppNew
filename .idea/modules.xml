@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/CloudOEEProject.iml" filepath="$PROJECT_DIR$/.idea/CloudOEEProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/auth-service/auth-service.iml" filepath="$PROJECT_DIR$/auth-service/auth-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/config-service/config-service.iml" filepath="$PROJECT_DIR$/config-service/config-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/confirmation-service/confirmation-service.iml" filepath="$PROJECT_DIR$/confirmation-service/confirmation-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eureka-server/eureka-server.iml" filepath="$PROJECT_DIR$/eureka-server/eureka-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gateway-service/gateway-service.iml" filepath="$PROJECT_DIR$/gateway-service/gateway-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/maindata-service/maindata-service.iml" filepath="$PROJECT_DIR$/maindata-service/maindata-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-service/order-service.iml" filepath="$PROJECT_DIR$/order-service/order-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/stock-service/stock-service.iml" filepath="$PROJECT_DIR$/stock-service/stock-service.iml" />
+    </modules>
+  </component>
+</project>

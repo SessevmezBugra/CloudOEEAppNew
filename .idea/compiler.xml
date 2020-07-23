@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="gateway-service" />
+        <module name="maindata-service" />
+        <module name="config-service" />
+        <module name="eureka-server" />
+        <module name="stock-service" />
+        <module name="order-service" />
+        <module name="auth-service" />
+        <module name="confirmation-service" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="auth-service" target="1.8" />
+      <module name="config-service" target="1.8" />
+      <module name="confirmation-service" target="1.8" />
+      <module name="eureka-server" target="1.8" />
+      <module name="gateway-service" target="1.8" />
+      <module name="maindata-service" target="1.8" />
+      <module name="order-service" target="1.8" />
+      <module name="stock-service" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="auth-service" options="-parameters" />
+      <module name="config-service" options="-parameters" />
+      <module name="confirmation-service" options="-parameters" />
+      <module name="eureka-server" options="-parameters" />
+      <module name="gateway-service" options="-parameters" />
+      <module name="maindata-service" options="-parameters" />
+      <module name="order-service" options="-parameters" />
+      <module name="stock-service" options="-parameters" />
+    </option>
+  </component>
+</project>

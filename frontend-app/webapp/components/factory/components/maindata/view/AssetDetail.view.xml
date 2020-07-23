@@ -3,13 +3,117 @@
     xmlns:mvc="sap.ui.core.mvc" 
     xmlns:m="sap.m" 
     xmlns:f="sap.f" 
-    xmlns:l="sap.ui.layout" 
+    xmlns:l="sap.ui.layout"
     xmlns:form="sap.ui.layout.form">
-
-    <ObjectPageLayout id="ObjectPageLayout" showFooter="true" 
+<ObjectPageLayout id="ObjectPageLayoutCompany" showFooter="true" 
     backgroundDesignAnchorBar="Transparent" showTitleInHeaderContent="true" 
     alwaysShowContentHeader="true" preserveHeaderStateOnScroll="false" 
-    headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false">
+    headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false" visible="false">
+     <headerTitle>
+            <ObjectPageDynamicHeaderTitle backgroundDesign="Transparent">
+                <expandedHeading>
+                    <m:Title text="XY" wrapping="true" class="sapUiSmallMarginEnd"/>
+                </expandedHeading>
+                <snappedHeading>
+                    <m:FlexBox fitContainer="true" alignItems="Center">
+                        <m:Title text="XX" wrapping="true" class="sapUiSmallMarginEnd"/>
+                    </m:FlexBox>
+                </snappedHeading>
+
+                <navigationActions>
+                    <m:OverflowToolbarButton type="Transparent" icon="sap-icon://decline" press="handleClose" tooltip="Close column" />
+                </navigationActions>
+
+            </ObjectPageDynamicHeaderTitle>
+        </headerTitle>
+      	<sections>
+						<ObjectPageSection title="{i18n>PERSONELDETAIL}">
+				<subSections>
+					<ObjectPageSubSection>
+						<blocks>
+							<l:BlockLayout background="Dashboard">
+								<l:BlockLayoutRow>
+                                    <l:BlockLayoutCell>
+										<m:ObjectHeader backgroundDesign="Transparent" icon="sap-icon://addresses" iconDensityAware="false" imageShape="Circle">
+											<m:attributes>
+												<m:ObjectAttribute title="{i18n>NAME} {i18n>SURNAME}" text="{staffModel>/detailUsers/firstName} {staffModel>/detailUsers/lastName}"/>
+												<m:ObjectAttribute title="{i18n>ADDRESS}" text="BLR.01, B2.023"/>
+												<m:ObjectAttribute title="{i18n>PHONE}" text="---"/>
+												<m:ObjectAttribute title="{i18n>MAIL}" text="{staffModel>/detailUsers/email}" active="true"/>
+												<m:ObjectAttribute title="Kullanıcı adı " text="{staffModel>/detailUsers/username}"/>
+											</m:attributes>
+											<m:statuses>
+												<m:ObjectStatus title="{i18n>STATUS}" icon="sap-icon://employee-approvals" text="Available" state="Success"/>
+												<m:ObjectStatus title="{i18n>AUTHORITY}" icon="sap-icon://leads" text="Operatör" state="Warning"/>								
+											</m:statuses>
+										</m:ObjectHeader>
+									</l:BlockLayoutCell>
+                                </l:BlockLayoutRow>
+							</l:BlockLayout>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+		</sections>
+        <footer>
+			<m:OverflowToolbar>
+                <m:Button  type="Critical" text="{i18n>PLANT_BTN_DELETE}" press="openDeleteCompanyDialog"/>    
+				<m:ToolbarSpacer />
+				<m:Button press="openCreateWarehouseDialog" type="Accept" text="{i18n>ASSETDETAIL_BTN_CREATE_WAREHOUSE}"/>
+				<m:Button press="openCreateMaterialDialog" type="Accept" text="{i18n>ASSETDETAIL_BTN_CREATE_MATERIAL}"/>
+                              
+
+			</m:OverflowToolbar>
+		</footer>
+    </ObjectPageLayout>
+    <ObjectPageLayout id="ObjectPageLayoutClient" showFooter="true" 
+    backgroundDesignAnchorBar="Transparent" showTitleInHeaderContent="true" 
+    alwaysShowContentHeader="true" preserveHeaderStateOnScroll="false" 
+    headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false" visible="false">
+         <headerTitle>
+            <ObjectPageDynamicHeaderTitle backgroundDesign="Transparent">
+                <expandedHeading>
+                    <m:Title text="XY" wrapping="true" class="sapUiSmallMarginEnd"/>
+                </expandedHeading>
+                <snappedHeading>
+                    <m:FlexBox fitContainer="true" alignItems="Center">
+                        <m:Title text="XX" wrapping="true" class="sapUiSmallMarginEnd"/>
+                    </m:FlexBox>
+                </snappedHeading>
+
+                <navigationActions>
+                    <m:OverflowToolbarButton type="Transparent" icon="sap-icon://decline" press="handleClose" tooltip="Close column" />
+                </navigationActions>
+
+            </ObjectPageDynamicHeaderTitle>
+        </headerTitle>
+      	<sections>
+			<ObjectPageSection title="example">
+				<subSections>
+
+					<ObjectPageSubSection title="Example">
+						<blocks>
+                             <m:Title text="CLIENT" wrapping="true" class="sapUiSmallMarginEnd"/>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+		</sections>
+        <footer>
+			<m:OverflowToolbar>
+                <m:Button  type="Critical" text="{i18n>PLANT_BTN_DELETE}" press="openDeleteCompanyDialog"/>    
+				<m:ToolbarSpacer />
+				<m:Button press="openCreateWarehouseDialog" type="Accept" text="{i18n>ASSETDETAIL_BTN_CREATE_WAREHOUSE}"/>
+				<m:Button press="openCreateMaterialDialog" type="Accept" text="{i18n>ASSETDETAIL_BTN_CREATE_MATERIAL}"/>
+                              
+
+			</m:OverflowToolbar>
+		</footer>
+    </ObjectPageLayout>
+    <ObjectPageLayout id="ObjectPageLayoutPlant" showFooter="true" 
+    backgroundDesignAnchorBar="Transparent" showTitleInHeaderContent="true" 
+    alwaysShowContentHeader="true" preserveHeaderStateOnScroll="false" 
+    headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false" visible="false">
         <headerTitle>
             <ObjectPageDynamicHeaderTitle backgroundDesign="Transparent">
                 <expandedHeading>
@@ -94,9 +198,12 @@
         </sections>
         <footer>
 			<m:OverflowToolbar>
+                <m:Button  type="Critical" text="{i18n>PLANT_BTN_DELETE}" press="openDeleteCompanyDialog"/>    
 				<m:ToolbarSpacer />
 				<m:Button press="openCreateWarehouseDialog" type="Accept" text="{i18n>ASSETDETAIL_BTN_CREATE_WAREHOUSE}"/>
 				<m:Button press="openCreateMaterialDialog" type="Accept" text="{i18n>ASSETDETAIL_BTN_CREATE_MATERIAL}"/>
+                              
+
 			</m:OverflowToolbar>
 		</footer>
     </ObjectPageLayout>

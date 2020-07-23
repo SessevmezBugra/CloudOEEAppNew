@@ -220,12 +220,12 @@ sap.ui.define([
         },
 
         // Tree Table a tiklanildiginda calisir
-        // goToAssetDetail: function(oEvent) {
-        //     var oNextUIState = this.getOwnerComponent().getHelper().getNextUIState(1);
-        // 	var asset = oEvent.getParameter("listItem").getBindingContext("assetModel").getObject();
+        goToAssetDetailTreeTable: function(oEvent) {
+            var oNextUIState = this.getOwnerComponent().getHelper().getNextUIState(1);
+       	var asset = oEvent.getParameter("listItem").getBindingContext("assetModel").getObject();
 
-        // 	this.getRouter().navTo("assetDetail", {assetId: asset.id, assetType: asset.type, layout: oNextUIState.layout});
-        // }
+         	this.getRouter().navTo("assetDetail", {assetId: asset.id, assetType: asset.type, layout: oNextUIState.layout});
+       },
 
         goToAssetDetail: function (oEvent) {
             var oNextUIState = this.getOwnerComponent().getHelper().getNextUIState(1);

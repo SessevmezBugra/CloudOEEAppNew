@@ -8,7 +8,7 @@
                 <f:SimpleForm editable="true" layout="ResponsiveGridLayout" title="Personel" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
                     <f:content>
                         <Label text="Role Seç" />
-                        <Select forceSelection="false" change="onSelectedRole">
+                        <Select forceSelection="false" change="onSelectedRole" selectedKey ="0">
                             <core:Item text="Şirket Yöneticisi" key="0"/>
                             <core:Item text="Bölge Yöneticisi" key="1"/>
                             <core:Item text="Fabrika Yöneticisi" key="2"/>
