@@ -2,7 +2,7 @@ sap.ui.define([
 	"workerapp/base/BaseController",
 	'sap/ui/model/json/JSONModel',
 	'sap/ui/Device',
-	'workerapp/model/formatter',
+	'workerapp/components/factory/components/ordermanagement/model/formatter',
 	'sap/ui/core/SeparatorItem',
 	"workerapp/services/maindataservice",
 	"workerapp/services/stockservice",
@@ -29,7 +29,7 @@ sap.ui.define([
 			this.showBusyIndicator(); //hide orderlar gelince calisacak.
 			OrderService.getOrdersByLoggedUser().then(function (response) {
                 var responseData = response.data;
-                this.getModel("orderModel").getData().orders = responseData;
+				this.getModel("orderModel").getData().orders = responseData;
                 this.getModel("orderModel").refresh();
                 this.hideBusyIndicator();
             }.bind(this)).catch(function () {
