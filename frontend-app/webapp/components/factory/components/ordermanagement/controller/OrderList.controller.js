@@ -2,7 +2,7 @@ sap.ui.define([
 	"workerapp/base/BaseController",
 	'sap/ui/model/json/JSONModel',
 	'sap/ui/Device',
-	'workerapp/model/formatter',
+	'workerapp/components/factory/components/ordermanagement/model/formatter',
 	'sap/ui/core/SeparatorItem',
 	"workerapp/services/maindataservice",
 	"workerapp/services/stockservice",
@@ -29,7 +29,7 @@ sap.ui.define([
 			this.showBusyIndicator(); //hide orderlar gelince calisacak.
 			OrderService.getOrdersByLoggedUser().then(function (response) {
                 var responseData = response.data;
-                this.getModel("orderModel").getData().orders = responseData;
+				this.getModel("orderModel").getData().orders = responseData;
                 this.getModel("orderModel").refresh();
                 this.hideBusyIndicator();
             }.bind(this)).catch(function () {
@@ -65,7 +65,9 @@ sap.ui.define([
 					});
 				}
                 
-            }.bind(this));
+			}.bind(this));
+			this.getModel("orderModel").getData().selectedCheckbox = false;
+			this.getModel("orderModel").refresh();
 		},
 
 		closeOrderDialog: function () {
@@ -313,6 +315,60 @@ sap.ui.define([
             }.bind(this)).catch(function () {
                 this.hideBusyIndicator();
             }.bind(this));
+		},
+
+		checkBox: function (oEvent) {
+			this.showBusyIndicator();
+			var bSelected = oEvent.getParameter('selected');
+			if(bSelected)
+			{
+				this.getModel("orderModel").getData().selectedCheckbox = true;
+				this.getModel("orderModel").refresh();
+				this.getWarehouses();
+				this.getMaterials();
+			}
+			else
+			{
+				this.getModel("orderModel").getData().selectedCheckbox = false;
+				this.getModel("orderModel").refresh();
+			}
+			bSelected = !bSelected;
+		},
+
+		getWarehouses: function () {
+			this.showBusyIndicator(); //hide orderlar gelince calisacak.
+			var orderModel = this.getModel("orderModel").getData();
+			MaindataService.getWarehousesByPlantId(orderModel.selectedPlant).then(function (response) {
+                var responseData = response.data;
+				this.getModel("orderModel").getData().warehouses = responseData;
+                this.getModel("orderModel").refresh();
+                this.hideBusyIndicator();
+            }.bind(this)).catch(function () {
+                this.hideBusyIndicator();
+            }.bind(this));
+		},
+
+		getMaterials: function () {
+			this.showBusyIndicator(); //hide orderlar gelince calisacak.
+			var orderModel = this.getModel("orderModel").getData();
+			MaindataService.getMaterialsByPlantId(orderModel.selectedPlant).then(function (response) {
+                var responseData = response.data;
+				this.getModel("orderModel").getData().materials = responseData;
+                this.getModel("orderModel").refresh();
+                this.hideBusyIndicator();
+            }.bind(this)).catch(function () {
+                this.hideBusyIndicator();
+            }.bind(this));
+		},
+
+		onSelectedWarehouse: function () {
+			//this.showBusyIndicator(); //Stoklar geldiginde hide calisacak.
+			this.clearOrderDialog();
+		},
+
+		onSelectedMaterial: function () {
+			//this.showBusyIndicator(); //Stoklar geldiginde hide calisacak.
+			this.clearOrderDialog();
 		},
 	});
 });
