@@ -1,15 +1,8 @@
 <mvc:View displayBlock="true" controllerName="workerapp.components.factory.components.ordermanagement.controller.App" height="100%"
-	  xmlns="sap.f"
-	  xmlns:m="sap.m"
-	  xmlns:mvc="sap.ui.core.mvc">
-	  <m:App  backgroundImage="./images/orderManagement.png">
-	<FlexibleColumnLayout
-	    columnResize="onColumnResize"
-		autoFocus="false"
-		id="app"
-		stateChange="onStateChanged"
-		restoreFocusOnBackNavigation="true"
-		layout="{orderModel>/layout}"
-		backgroundDesign="Transparent"/>
-		</m:App>
+	xmlns="sap.f"
+	xmlns:m="sap.m"
+	xmlns:mvc="sap.ui.core.mvc">
+	<m:App backgroundImage="./images/orderManagement.png">
+		<FlexibleColumnLayout columnResize="onColumnResize" autoFocus="false" id="app" stateChange="onStateChanged" restoreFocusOnBackNavigation="true" layout="{orderModel>/layout}" backgroundDesign="Transparent"/>
+	</m:App>
 </mvc:View>

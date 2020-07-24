@@ -37,5 +37,13 @@ sap.ui.define([
         completeOrder: function(order) {
             return Service.doAjax("http://localhost:4000/order/orderinfo/complete-order", order, "PUT", true); 
         },
+
+        getActiveOrders: function() {
+            return Service.doAjax("http://localhost:4000/order/orderinfo/active-order", null, "GET", true); 
+        },
+
+        getOrderInfoById: function(orderId) {
+            return Service.doAjax("http://localhost:4000/order/orderinfo/" + orderId, null, "GET", true); 
+        },
     }
 });

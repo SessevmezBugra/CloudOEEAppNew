@@ -28,4 +28,6 @@ public interface OrderInfoService {
 	OrderInfo resumeOrder(OrderInfo orderInfo);
 
 	OrderInfo completeOrder(OrderInfo orderInfo);
+
+    List<OrderDto> getActiveOrdersByLoggedUser();
 }

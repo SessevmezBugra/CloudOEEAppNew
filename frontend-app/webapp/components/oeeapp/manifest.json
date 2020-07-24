@@ -1,7 +1,7 @@
 {
 	"_version": "1.17.0",
 	"sap.app": {
-		"id": "workerapp.components.factory.components.oeeapp",
+		"id": "workerapp.components.oeeapp",
 		"type": "application",
 		"i18n": "i18n/i18n.properties",
 		"title": "{{appTitle}}",
@@ -21,7 +21,7 @@
 	},
 	"sap.ui5": {
 		"rootView": {
-			"viewName": "workerapp.components.factory.components.oeeapp.view.App",
+			"viewName": "workerapp.components.oeeapp.view.App",
 			"type": "XML",
 			"async": true,
 			"id": "app"
@@ -44,7 +44,7 @@
 			"i18n": {
 				"type": "sap.ui.model.resource.ResourceModel",
 				"settings": {
-					"bundleName": "workerapp.components.factory.components.oeeapp.i18n.i18n"
+					"bundleName": "workerapp.components.oeeapp.i18n.i18n"
 				}
 			}
 		},
@@ -59,7 +59,7 @@
 			"config": {
 				"routerClass": "sap.m.routing.Router",
 				"viewType": "XML",
-				"path": "workerapp.components.factory.components.oeeapp.view",
+				"path": "workerapp.components.oeeapp.view",
 				"controlId": "app",
 				"controlAggregation": "pages",
 				"transition": "slide",
@@ -71,22 +71,42 @@
 			"routes": [
 				{
 					"pattern": "",
-					"name": "OEEApp",
-					"target": "oeeApp"
+					"name": "orderManagement",
+					"target": [
+						"orderManagement"
+					]
+				},
+				{
+					"pattern": "orderDetail/{orderId}/{layout}",
+					"name": "orderDetail",
+					"target": [
+						"orderManagement",
+						"orderDetail"
+					]
+				},
+				{
+					"pattern": "reportProduction",
+					"name": "reportProduction",
+					"target": "reportProduction",
+					"layout": "EndColumnFullScreen"
 				}
 			],
 			"targets": {
-				"oeeApp": {
-					"type": "View",
-					"id": "oeeApp",
-					"name": "OEEApp",
-					"title": "OEEApp"
+				"orderManagement": {
+					"viewName": "OrderManagement",
+					"controlAggregation": "beginColumnPages"
+				},
+				"orderDetail": {
+					"viewName": "OrderDetail",
+					"controlAggregation": "midColumnPages"
+				},
+				"reportProduction": {
+					"viewName": "ReportProduction",
+					"controlAggregation": "endColumnPages"
 				},
 				"notFound": {
-					"type": "View",
-					"id": "notFound",
-					"name": "NotFound",
-					"transition": "show"
+					"viewName": "NotFound",
+					"controlAggregation": "beginColumnPages"
 				}
 			}
 		}

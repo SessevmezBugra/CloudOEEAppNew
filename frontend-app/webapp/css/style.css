@@ -5,3 +5,7 @@
 .sapUxAPObjectPageContainer, .sapUxAPObjectPageContainer+div, .sapUxAPObjectPageHeaderDetailsHidden {
     background-color: transparent !important;
 }
+
+.arcloudIconFontSize1 {
+    font-size: 15px;
+}

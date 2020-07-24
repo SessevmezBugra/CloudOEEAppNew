@@ -40,7 +40,7 @@
 				"lazy": true
 			},
 			"oeeAppComponent": {
-				"name": "workerapp.components.factory.components.oeeapp",
+				"name": "workerapp.components.oeeapp",
 				"settings": {},
 				"componentData": {},
 				"lazy": true

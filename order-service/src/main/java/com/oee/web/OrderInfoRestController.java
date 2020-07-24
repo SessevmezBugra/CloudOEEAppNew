@@ -3,6 +3,7 @@ package com.oee.web;
 import java.util.List;
 
 import com.oee.dto.OrderDto;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -77,5 +78,10 @@ public class OrderInfoRestController {
 	@RequestMapping(value="/resume-order", method=RequestMethod.PUT)
 	public ResponseEntity<OrderInfo> resumeOrderById(@RequestBody OrderInfo orderInfo){
 		return ResponseEntity.ok(orderInfoService.resumeOrder(orderInfo));
+	}
+
+	@RequestMapping(value="/active-order", method=RequestMethod.GET)
+	public ResponseEntity<List<OrderDto>> getActiveOrdersByLoggedUser(){
+		return ResponseEntity.ok(orderInfoService.getActiveOrdersByLoggedUser());
 	}
 }

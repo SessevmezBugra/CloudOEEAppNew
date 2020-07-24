@@ -30,7 +30,9 @@ eureka:
         
         
 spring:
-#  datasource:
+  jackson:
+    date-format: dd-MM-yyyy HH:mm
+  #  datasource:
 #    hikari:
 #      minimumIdle: 2
 #      maximumPoolSize: 10

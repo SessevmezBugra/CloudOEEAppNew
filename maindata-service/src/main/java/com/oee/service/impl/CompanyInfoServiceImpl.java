@@ -8,6 +8,7 @@ import com.oee.dto.UserEntityDto;
 import com.oee.entity.ClientInfo;
 import com.oee.entity.PlantInfo;
 import com.oee.entity.WarehouseInfo;
+import com.oee.error.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.oee.entity.CompanyInfo;
@@ -96,7 +97,7 @@ public class CompanyInfoServiceImpl implements CompanyInfoService{
 
 	@Override
 	public CompanyInfo getById(Long companyId) {
-		return companyInfoRepository.findById(companyId).get();
+		return companyInfoRepository.findById(companyId).orElseThrow(() -> new EntityNotFoundException("Boyle bir sirket bulunmamaktadir."));
 	}
 
 }

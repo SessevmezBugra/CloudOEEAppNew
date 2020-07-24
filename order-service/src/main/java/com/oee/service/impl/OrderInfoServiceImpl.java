@@ -12,6 +12,7 @@ import com.oee.dto.PlantDto;
 import com.oee.dto.ProdRunHdrDto;
 import com.oee.entity.OrderedMaterial;
 import com.oee.enums.Status;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ import com.oee.repository.OrderInfoRepository;
 import com.oee.service.OrderInfoService;
 
 @Service
+@RequiredArgsConstructor
 public class OrderInfoServiceImpl implements OrderInfoService{
 	
 	private final OrderInfoRepository orderInfoRepository;
@@ -27,14 +29,6 @@ public class OrderInfoServiceImpl implements OrderInfoService{
 	private final ModelMapper modelMapper;
 	private final CurrentUserProvider currentUserProvider;
 	private final ConfirmationServiceClient confirmationServiceClient;
-	
-	public OrderInfoServiceImpl(OrderInfoRepository orderInfoRepository, MainDataServiceClient mainDataServiceClient, ModelMapper modelMapper, CurrentUserProvider currentUserProvider, ConfirmationServiceClient confirmationServiceClient) {
-		this.orderInfoRepository = orderInfoRepository;
-		this.mainDataServiceClient = mainDataServiceClient;
-		this.modelMapper = modelMapper;
-		this.currentUserProvider = currentUserProvider;
-		this.confirmationServiceClient = confirmationServiceClient;
-	}
 
 	@Override
 	public OrderInfo create(OrderInfo orderInfo) {
@@ -159,6 +153,15 @@ public class OrderInfoServiceImpl implements OrderInfoService{
 		prodRunHdrDto.setEndTime(orderInfoDto.getActualEndDate());
 		confirmationServiceClient.complete(prodRunHdrDto);
 		return orderInfo;
+	}
+
+	@Override
+	public List<OrderDto> getActiveOrdersByLoggedUser() {
+		List<PlantDto> plantDtos = mainDataServiceClient.getPlantByLoggedUser().getBody();
+		List<Long> ids = plantDtos.stream().map(PlantDto::getPlantId).collect(Collectors.toList());
+		List<OrderInfo> orders = orderInfoRepository.findByPlantIdInAndStatus(ids, Status.ACT);
+		List<OrderDto> orderDtos = Arrays.asList(modelMapper.map(orders, OrderDto[].class));
+		return orderDtos;
 	}
 
 }

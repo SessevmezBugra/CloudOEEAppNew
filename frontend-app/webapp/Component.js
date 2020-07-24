@@ -46,10 +46,11 @@ sap.ui.define([
 
 			await this.getRouter().attachBeforeRouteMatched(function (oEvent) {
 				var target = this.getRouter().getHashChanger().hash;
-				if (this.UserService.getKeycloak().authenticated && !this.UserService.getKeycloak().isTokenExpired() && target != "factory") {
+				if (this.UserService.getKeycloak().authenticated && !this.UserService.getKeycloak().isTokenExpired() && target != "factory" && target != "oeeapp") {
 					this.getRouter().getHashChanger().replaceHash("factory");
-				} else if ((!this.UserService.getKeycloak().authenticated || this.UserService.getKeycloak().isTokenExpired()) && target == "factory") {
-					this.getRouter().getHashChanger().replaceHash("");
+				} else if ((!this.UserService.getKeycloak().authenticated || this.UserService.getKeycloak().isTokenExpired()) && (target == "factory" || target == "oeeapp")) {
+					// this.getRouter().getHashChanger().replaceHash("");
+					window.location.pathname="/index.html";
 				}
 				// this.hideBusyIndicator();
 			}.bind(this));

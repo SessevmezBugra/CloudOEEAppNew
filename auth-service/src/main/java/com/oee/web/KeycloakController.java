@@ -78,6 +78,11 @@ public class KeycloakController {
         return ResponseEntity.ok(keycloakAdminClientService.findUserById(userId));
     }
 
+    @RequestMapping(path = "/user/{id}", method= RequestMethod.DELETE)
+    public ResponseEntity<Boolean> deleteUserById(@PathVariable(value = "id", required = true) String userId) {
+        return ResponseEntity.ok(keycloakAdminClientService.deleteById(userId));
+    }
+
     @GetMapping(path = "/roles")
     public Collection<String> rolesOfCurrentUser() {
         return keycloakAdminClientService.getCurrentUserRoles();

@@ -25,6 +25,7 @@ sap.ui.define([
 			this.getRouter().attachBeforeRouteMatched(function (oEvent) {
 				if (!this.UserService.getKeycloak().authenticated || this.UserService.getKeycloak().isTokenExpired()) {
 					oParentComponent.getRouter().navTo("home", {}, true /*no history*/);
+					this.getRouter().getHashChanger().replaceHash("");
 				}
 				this.hideBusyIndicator();
 			}.bind(this));

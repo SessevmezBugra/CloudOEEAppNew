@@ -76,7 +76,7 @@ sap.ui.define([
 			oActionSheet.openBy(oEvent.getSource());
 		},
 
-		logout: function() {
+		logout: function () {
 			// this.getParentComponent(this.getOwnerComponent()).getModel("localUserModel").setData(null)
 			// var rootComponent = this.getParentComponent(this.getOwnerComponent());
 			// rootComponent.getRouter().navTo("home");
@@ -86,7 +86,12 @@ sap.ui.define([
 		onItemSelect: function (oEvent) {
 			var level = oEvent.getParameter('item').getLevel();
 			if (level == 0) {
-				this.getRouter().navTo(oEvent.getParameter('item').getKey());
+				if("oeeApp" == oEvent.getParameter('item').getKey()) {
+					var rootComponent = this.getParentComponent(this.getOwnerComponent());
+					rootComponent.getRouter().navTo("oeeapp");
+				}else {
+					this.getRouter().navTo(oEvent.getParameter('item').getKey());
+				}
 			} else {
 				var oComponentTargetInfo = {};
 				oComponentTargetInfo[oEvent.getParameter('item').getParent().getKey()] = {

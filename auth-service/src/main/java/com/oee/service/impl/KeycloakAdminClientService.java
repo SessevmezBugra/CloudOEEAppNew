@@ -208,7 +208,10 @@ public class KeycloakAdminClientService {
             plantUsers = userEntityRepository.findByResponsibleAreasAreaIdIn(plantResponsibleAreaIds, AreaType.PLANT.name());
             allUsers.addAll(plantUsers);
         }
-        return allUsers;
+
+        List<UserEntityOnly>  allUsersWithoutCurrentUser = allUsers.stream().filter(userEntityOnly -> !currentUser.getUserId().equals(userEntityOnly.getId())).collect(Collectors.toList());
+
+        return allUsersWithoutCurrentUser;
     }
 
     public UserRepresentation findUserById(String userId) {
@@ -219,5 +222,14 @@ public class KeycloakAdminClientService {
         UserResource userResource = usersRessource.get(userId);
         UserRepresentation userRepresentation = userResource.toRepresentation();
         return userRepresentation;
+    }
+
+    public Boolean deleteById(String userId) {
+        KeycloakAdminClientConfig keycloakAdminClientConfig = KeycloakAdminClientUtils.loadConfig(environment);
+        Keycloak keycloak = KeycloakAdminClientUtils.getKeycloakClient(keycloakAdminClientConfig);
+        RealmResource realmResource = keycloak.realm(keycloakAdminClientConfig.getRealm());
+        UsersResource usersRessource = realmResource.users();
+        usersRessource.delete(userId);
+        return Boolean.TRUE;
     }
 }
