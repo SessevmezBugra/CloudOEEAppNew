@@ -15,9 +15,12 @@ sap.ui.define([
 
 	return BaseController.extend("workerapp.components.factory.components.maindata.controller.AssetDetail", {
 		onInit: function () {
-			this.oRouter = this.getRouter();
 
-			this.oRouter.getRoute("assetDetail").attachPatternMatched(this._onMatched, this);
+
+			this.oRouter = this.getRouter();
+            this.oRouter.getRoute("assetDetail").attachPatternMatched(this._onMatched, this);
+
+            
 		},
 		handleClose: function () {
 			var sNextLayout = 'OneColumn';
@@ -26,7 +29,9 @@ sap.ui.define([
 		_onMatched: function (oEvent) {
             this.assetId = oEvent.getParameter("arguments").assetId;
             this.assetType = oEvent.getParameter("arguments").assetType;
-			this.getAssetDetail();
+            this.getAssetDetail();
+            this.checkView(this.assetType);
+
 		},
 
         getAssetDetail: function() {
@@ -40,7 +45,29 @@ sap.ui.define([
                 this.getMaterialsByPlantId();
             }
         },
+        checkView(assetType)
+        {
+            if(assetType== "company")
+            {
+                this.getView().byId("ObjectPageLayoutCompany").setVisible(true);
+                this.getView().byId("ObjectPageLayoutClient").setVisible(false);
+                this.getView().byId("ObjectPageLayoutPlant").setVisible(false);
 
+            }
+            if(assetType == "client"){
+               this.getView().byId("ObjectPageLayoutClient").setVisible(true);
+               this.getView().byId("ObjectPageLayoutCompany").setVisible(false);
+               this.getView().byId("ObjectPageLayoutPlant").setVisible(false);
+            }
+            if(assetType =="plant"){
+                this.getView().byId("ObjectPageLayoutPlant").setVisible(true);
+                this.getView().byId("ObjectPageLayoutClient").setVisible(false);
+                this.getView().byId("ObjectPageLayoutCompany").setVisible(false);
+
+             }
+
+
+        },
         getAssetDetailInfo: function () {
             this.showBusyIndicator();
             var getAssetInfoService;
@@ -59,7 +86,9 @@ sap.ui.define([
             }.bind(this)).catch(function () {
                 this.hideBusyIndicator();
             }.bind(this));
+
         },
+        
 
         getWarehousesByPlantId: function() {
             this.getModel("maindataModel").getData().warehouseTableBusy = true;
@@ -187,6 +216,67 @@ sap.ui.define([
             createAssetFunction(dto).then(function (response) {
                 var responseData = response.data;
                 console.log(responseData);
+                this.getAssetDetail();
+                //hideBusy companyler geldikten sonra calisacak
+            }.bind(this)).catch(function () {
+                this.hideBusyIndicator();
+            }.bind(this));
+        },
+        openDeleteCompanyDialog (oEvent)
+        {
+            this._oDialog = this.deleteCompanyDialog();
+            this.getView().addDependent(this._oDialog);
+            this._oDialog.open();
+        },
+        deleteCompanyDialog: function () {
+            var oBundle = this.getView().getModel("i18n").getResourceBundle();
+
+            var title = "";
+            var question = "";
+            var deleteBtnText = oBundle.getText("ASSET_DIALOG_DELETE_BTN");
+            var closeBtnText = oBundle.getText("ASSET_DIALOG_CLOSE_BTN");
+            title = oBundle.getText("ASSET_DIALOG_COMPANY_DELETE_TITLE");
+            question = oBundle.getText("ASSET_DIALOG_COMPANY_DELETE_QUESTION");
+            
+            return new Dialog({
+                title: title,
+                content: new SimpleForm({
+                    content: [
+                        new sap.m.Text({ 
+                            wrapping:true,
+                            wrappingType : sap.m.WrappingType.Hyphenated,
+                            text: question
+                        }),
+                    ]
+                }) ,
+                beginButton: new Button({
+                    type: ButtonType.Emphasized,
+                    text: deleteBtnText,
+                    press: function () {
+                        //servis gelince yorumdan çıkart
+                       this.deleteCompany();
+                        this.closeAssetDialog();
+                    }.bind(this)
+                }),
+                endButton: new Button({
+                    text: closeBtnText,
+                    press: function () {
+                        this.closeAssetDialog();
+                    }.bind(this)
+                })
+            });
+
+        },
+
+
+        deleteCompany: function () {
+            this.showBusyIndicator();
+            var deleteAssetFunction;
+            var dto;
+            deleteAssetFunction = MaindataService.deleteCompanyInfoById;          
+            deleteAssetFunction(this.assetId).then(function (response) {
+                var responseData = response.data;
+                console.log(responseData +"<----");
                 this.getAssetDetail();
                 //hideBusy companyler geldikten sonra calisacak
             }.bind(this)).catch(function () {

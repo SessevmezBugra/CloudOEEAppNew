@@ -15,6 +15,9 @@ sap.ui.define([
         getCompanyInfo: function(id) {
             return Service.doAjax("http://localhost:4000/main-data/company/" + id, null, "GET", true);
         },
+        deleteCompanyInfoById: function(id) {
+            return Service.doAjax("http://localhost:4000/main-data/company/" + id, null, "DELETE", true);
+        },
 
         //CLIENT
         getClients: function() {

@@ -7,8 +7,13 @@
             <VBox class="sapUiSmallMargin">
                 <f:SimpleForm editable="true" layout="ResponsiveGridLayout" title="Personel" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
                     <f:content>
+<<<<<<< HEAD
+                        <Label text="Role Seç" />
+                        <Select forceSelection="false" change="onSelectedRole" selectedKey ="0">
+=======
                         <Label text="{i18n>SELECT_ROLE}" />
                         <Select forceSelection="false" change="onSelectedRole">
+>>>>>>> 814a488744780c9fd05818f7dc3533fd47924010
                             <core:Item text="Şirket Yöneticisi" key="0"/>
                             <core:Item text="Bölge Yöneticisi" key="1"/>
                             <core:Item text="Fabrika Yöneticisi" key="2"/>
