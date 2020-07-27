@@ -1,19 +1,19 @@
 package com.oee.service;
 
-import com.oee.entity.Status;
+import com.oee.entity.OrderStatus;
 
 import java.util.List;
 
 public interface StatusService {
 
-    Status create(Status status);
+    OrderStatus create(OrderStatus orderStatus);
 
-    Status update(Status status);
+    OrderStatus update(OrderStatus orderStatus);
 
     Boolean deleteById(Long statusId);
 
-    Status findById(Long id);
+    OrderStatus findById(Long id);
 
-    List<Status> findAll();
+    List<OrderStatus> findAll();
 
 }

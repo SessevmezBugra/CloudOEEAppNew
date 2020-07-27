@@ -1,6 +1,6 @@
 package com.oee.web;
 
-import com.oee.entity.Status;
+import com.oee.entity.OrderStatus;
 import com.oee.service.StatusService;
 import com.oee.util.ApiPaths;
 import org.springframework.http.ResponseEntity;
@@ -19,13 +19,13 @@ public class StatusRestController {
     }
 
     @RequestMapping(method= RequestMethod.POST)
-    public ResponseEntity<Status> createStatus(@RequestBody Status status) {
-        return ResponseEntity.ok(statusService.create(status));
+    public ResponseEntity<OrderStatus> createStatus(@RequestBody OrderStatus orderStatus) {
+        return ResponseEntity.ok(statusService.create(orderStatus));
     }
 
     @RequestMapping(method= RequestMethod.PUT)
-    public ResponseEntity<Status> updateStatus(@RequestBody Status status) {
-        return ResponseEntity.ok(statusService.create(status));
+    public ResponseEntity<OrderStatus> updateStatus(@RequestBody OrderStatus orderStatus) {
+        return ResponseEntity.ok(statusService.create(orderStatus));
     }
 
     @RequestMapping(value="/{id}", method= RequestMethod.DELETE)
@@ -34,12 +34,12 @@ public class StatusRestController {
     }
 
     @RequestMapping(method= RequestMethod.GET)
-    public ResponseEntity<List<Status>> getAll() {
+    public ResponseEntity<List<OrderStatus>> getAll() {
         return ResponseEntity.ok(statusService.findAll());
     }
 
     @RequestMapping(value="/{id}", method= RequestMethod.GET)
-    public ResponseEntity<Status> getById(@PathVariable(value="id", required=true) Long id) {
+    public ResponseEntity<OrderStatus> getById(@PathVariable(value="id", required=true) Long id) {
         return ResponseEntity.ok(statusService.findById(id));
     }
 

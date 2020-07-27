@@ -15,10 +15,15 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name="PLANT_INFO")
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@Getter
+@Setter
+@NoArgsConstructor
 public class PlantInfo {
 	
 	@Id
@@ -36,55 +41,19 @@ public class PlantInfo {
 	@JsonManagedReference
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="plant")
 	private List<WarehouseInfo> warehouses;
+
+	@JsonManagedReference
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="plant")
+	private List<ReasonCode> reasonCodes;
+
+	@JsonManagedReference
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="plant")
+	private List<QualityType> qualityTypes;
 	
 	@JsonBackReference
 	@ManyToOne(optional=true)
 	@JoinColumn(name="CLIENT_ID", referencedColumnName="CLIENT_ID")
 	private ClientInfo client;
-	
-	public PlantInfo() {
-		// TODO Auto-generated constructor stub
-	}
 
-	public String getPlantName() {
-		return plantName;
-	}
-
-	public void setPlantName(String plantName) {
-		this.plantName = plantName;
-	}
-
-	public ClientInfo getClient() {
-		return client;
-	}
-
-	public void setClient(ClientInfo client) {
-		this.client = client;
-	}
-
-	public List<MaterialInfo> getMaterials() {
-		return materials;
-	}
-
-	public void setMaterials(List<MaterialInfo> materials) {
-		this.materials = materials;
-	}
-
-	public List<WarehouseInfo> getWarehouses() {
-		return warehouses;
-	}
-
-	public void setWarehouses(List<WarehouseInfo> warehouses) {
-		this.warehouses = warehouses;
-	}
-
-	public Long getPlantId() {
-		return plantId;
-	}
-
-	public void setPlantId(Long plantId) {
-		this.plantId = plantId;
-	}
-	
 	
 }

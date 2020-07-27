@@ -30,5 +30,13 @@ public final class ApiPaths {
 	public static final class StatusCtrl{
 		public static final String CTRL = BASE_PATH + "/status";
 	}
+
+	public static final class ReasonCodeCtrl {
+		public static final String CTRL = BASE_PATH + "/reason-code";
+	}
+
+	public static final class QualityTypeCtrl {
+		public static final String CTRL = BASE_PATH + "/quality-type";
+	}
 	
 }

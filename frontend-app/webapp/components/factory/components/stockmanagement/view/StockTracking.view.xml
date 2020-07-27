@@ -49,7 +49,7 @@
 											<Text text="{stockModel>materialDesc}" id="text4"/>
 											<ObjectStatus	class="sapUiSmallMarginBottom"
 												text="{= ${stockModel>quantity} > 0 ? 'Stok Var' : 'Stok Yok'}"
-												icon="sap-icon://status-positive"
+												icon="sap-icon://orderStatus-positive"
 												state="{= ${stockModel>quantity} > 0 ? 'Success' : 'Error'}" 
 												visible="true"/>
 											<Text text="{stockModel>quantity}" id="text5"/>
@@ -119,7 +119,7 @@
 							</f:content>
 						</f:SimpleForm>
 					</IconTabFilter>
-					<IconTabFilter text="{i18n>PRODUCTLOG}" icon="sap-icon://shipping-status" iconColor="Critical" id="filter2">
+					<IconTabFilter text="{i18n>PRODUCTLOG}" icon="sap-icon://shipping-orderStatus" iconColor="Critical" id="filter2">
 						<content>
 							<Toolbar>
 								<Title text="{i18n>SEARCH}" />
@@ -135,7 +135,7 @@
 											<Text text="{stockModel>materialDesc}" />
 											<ObjectStatus	class="sapUiSmallMarginBottom"
 												text="{= ${stockModel>positive}  === true ? 'Stok Eklendi.' : 'Stok Çıkartıldı.' }"
-												icon="sap-icon://status-positive"
+												icon="sap-icon://orderStatus-positive"
 												state="{= ${stockModel>positive}  === true ? 'Success' : 'Error' }" 
 												visible="true" id="positive"/>
 											<Text text="{stockModel>quantity}" />

@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="ORDER_STATUS")
-public class Status {
+public class OrderStatus {
 
     @Id
     @Column(name="ID")
@@ -20,7 +20,7 @@ public class Status {
     @Column(name="LANG")
     private String lang;
 
-    public Status() {
+    public OrderStatus() {
     }
 
     public Long getId() {

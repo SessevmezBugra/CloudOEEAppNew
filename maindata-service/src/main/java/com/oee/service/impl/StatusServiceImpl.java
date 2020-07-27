@@ -1,6 +1,6 @@
 package com.oee.service.impl;
 
-import com.oee.entity.Status;
+import com.oee.entity.OrderStatus;
 import com.oee.repository.StatusRepository;
 import com.oee.service.StatusService;
 import org.springframework.stereotype.Service;
@@ -18,13 +18,13 @@ public class StatusServiceImpl implements StatusService {
 
 
     @Override
-    public Status create(Status status) {
-        return repository.save(status);
+    public OrderStatus create(OrderStatus orderStatus) {
+        return repository.save(orderStatus);
     }
 
     @Override
-    public Status update(Status status) {
-        return repository.save(status);
+    public OrderStatus update(OrderStatus orderStatus) {
+        return repository.save(orderStatus);
     }
 
     @Override
@@ -34,12 +34,12 @@ public class StatusServiceImpl implements StatusService {
     }
 
     @Override
-    public Status findById(Long id) {
+    public OrderStatus findById(Long id) {
         return repository.findById(id).get();
     }
 
     @Override
-    public List<Status> findAll() {
+    public List<OrderStatus> findAll() {
         return repository.findAll();
     }
 }

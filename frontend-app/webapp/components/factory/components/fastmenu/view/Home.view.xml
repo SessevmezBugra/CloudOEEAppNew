@@ -184,7 +184,7 @@
 								<ObjectIdentifier text="{fastMenuModel>plantName}" />
 								<ObjectIdentifier text="{fastMenuModel>orderNo}" />
 								<ObjectIdentifier text="{fastMenuModel>customer}" />
-								<ObjectIdentifier text="{fastMenuModel>status}" />
+								<ObjectIdentifier text="{fastMenuModel>orderStatus}" />
 								<ObjectIdentifier text="{fastMenuModel>plannedStartDate}" />
 								<ObjectIdentifier text="{fastMenuModel>plannedEndDate}" />
 								<ObjectIdentifier text="{fastMenuModel>materialDesc}" />

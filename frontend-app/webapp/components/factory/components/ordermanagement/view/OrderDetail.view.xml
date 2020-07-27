@@ -121,7 +121,7 @@
 											<m:cells>
 												<m:ObjectIdentifier text="{orderModel>startTime}" />
 												<m:ObjectIdentifier text="{orderModel>endTime}" />
-												<m:ObjectIdentifier text="{orderModel>status}" />
+												<m:ObjectIdentifier text="{orderModel>orderStatus}" />
 												<m:ObjectIdentifier text="{orderModel>startedUser}" />
 												<m:ObjectIdentifier text="{orderModel>endingUser}" />
 											</m:cells>

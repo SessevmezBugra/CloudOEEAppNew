@@ -54,28 +54,28 @@
 								<ObjectIdentifier text="{orderModel>plantName}" />
 								<ObjectIdentifier text="{orderModel>orderNo}" />
 								<ObjectIdentifier text="{orderModel>customer}" />
-								<ObjectIdentifier text="{orderModel>status}" />
+								<ObjectIdentifier text="{orderModel>orderStatus}" />
 								<ObjectIdentifier text="{orderModel>plannedStartDate}" />
 								<ObjectIdentifier text="{orderModel>plannedEndDate}" />
 								<ObjectIdentifier text="{orderModel>materialDesc}" />
 								<FlexBox renderType="Div">
 									<items>
-										<Button text="Baslat" visible="{= ${orderModel>status} === 'NEW'}" type="Accept" class="sapUiSmallMarginEnd" press="startOrder">
+										<Button text="Baslat" visible="{= ${orderModel>orderStatus} === 'NEW'}" type="Accept" class="sapUiSmallMarginEnd" press="startOrder">
 											<layoutData>
 												<FlexItemData growFactor="1" />
 											</layoutData>
 										</Button>
-										<Button text="Beklet" visible="{= ${orderModel>status} === 'ACT'}" type="Emphasized" class="sapUiSmallMarginEnd" press="holdOrder">
+										<Button text="Beklet" visible="{= ${orderModel>orderStatus} === 'ACT'}" type="Emphasized" class="sapUiSmallMarginEnd" press="holdOrder">
 											<layoutData>
 												<FlexItemData growFactor="1" />
 											</layoutData>
 										</Button>
-										<Button text="Devam Ettir" visible="{= ${orderModel>status} === 'HOLD'}" type="Accept" class="sapUiSmallMarginEnd" press="resumeOrder">
+										<Button text="Devam Ettir" visible="{= ${orderModel>orderStatus} === 'HOLD'}" type="Accept" class="sapUiSmallMarginEnd" press="resumeOrder">
 											<layoutData>
 												<FlexItemData growFactor="1" />
 											</layoutData>
 										</Button>
-										<Button text="Tamamla" visible="{= ${orderModel>status} === 'ACT'}" type="Accept" class="sapUiSmallMarginEnd" press="completeOrder">
+										<Button text="Tamamla" visible="{= ${orderModel>orderStatus} === 'ACT'}" type="Accept" class="sapUiSmallMarginEnd" press="completeOrder">
 											<layoutData>
 												<FlexItemData growFactor="1" />
 											</layoutData>

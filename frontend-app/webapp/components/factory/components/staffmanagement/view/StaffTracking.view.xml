@@ -47,7 +47,7 @@
 								<ObjectIdentifier text="{staffModel>firstName}" />
 								<ObjectIdentifier text="{staffModel>lastName}" />
 								<ObjectIdentifier text="{staffModel>username}" />
-								<ObjectIdentifier text="{staffModel>status}" />
+								<ObjectIdentifier text="{staffModel>orderStatus}" />
 							</cells>
 						</ColumnListItem>
 					</items>
