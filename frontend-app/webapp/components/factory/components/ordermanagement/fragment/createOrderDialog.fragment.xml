@@ -2,7 +2,7 @@
     xmlns:l="sap.ui.layout" 
     xmlns:f="sap.ui.layout.form" 
     xmlns:core="sap.ui.core">
-    <Dialog title="Bir siparis olusturun" contentWidth="450px" contentHeight="700px" resizable="true">
+    <Dialog title="Bir siparis olusturun" contentWidth="450px" contentHeight="700px" resizable="false">
         <content>
             <VBox class="sapUiSmallMargin">
                 <f:SimpleForm editable="true" layout="ResponsiveGridLayout" title="Siparis" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
@@ -11,12 +11,21 @@
                         <Select forceSelection="false" selectedKey="{orderModel>/selectedPlant}" items="{orderModel>/plants}" change="onSelectedPlant">
                             <core:Item text="{orderModel>plantName}" key="{orderModel>plantId}"/>
                         </Select>
+                        <CheckBox id="chkId" text="Stoğa Üretim" select ="checkBox" selected="false"/>
+                        <Label text="Depo" />
+                        <Select forceSelection="false" visible="{orderModel>/selectedCheckbox}" selectedKey="{orderModel>/selectedWarehouses}" items="{orderModel>/warehouses}" change="onSelectedWarehouse">
+                            <core:Item text="{orderModel>warehouseName}" key="{orderModel>warehouseId}"/>
+                        </Select>
+                        <Label text="Malzeme" />
+                        <Select forceSelection="false" visible="{orderModel>/selectedCheckbox}" selectedKey="{orderModel>/selectedMaterial}" items="{orderModel>/materials}" change="onSelectedMaterial">
+                            <core:Item text="{orderModel>materialDesc}" key="{orderModel>materialId}"/>
+                        </Select>
                         <Label text="Siparis Numarasi" />
-                        <Input value="{orderModel>/orderNumber}"/>
+                        <Input value="{orderModel>/orderNumber}" visible="{= ${orderModel>/selectedCheckbox} ? false : true}"/>
                         <Label text="Uretilecek Malzeme Numarasi" />
-                        <Input value="{orderModel>/materialNumberToProduced}"/>
+                        <Input value="{orderModel>/materialNumberToProduced}" visible="{= ${orderModel>/selectedCheckbox} ? false : true}"/>
                         <Label text="Uretilecek Malzeme Aciklamasi" />
-                        <Input value="{orderModel>/materialDescToProduced}"/>
+                        <Input value="{orderModel>/materialDescToProduced}" visible="{= ${orderModel>/selectedCheckbox} ? false : true}"/>
                         <Label text="Uretilecek Malzeme Miktari" />
                         <Input value="{orderModel>/materialQuantityToProduced}"/>
                         <Label text="Planlanan Baslangic Tarihi" />

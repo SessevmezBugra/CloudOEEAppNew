@@ -54,7 +54,15 @@
 								<ObjectIdentifier text="{orderModel>plantName}" />
 								<ObjectIdentifier text="{orderModel>orderNo}" />
 								<ObjectIdentifier text="{orderModel>customer}" />
-								<ObjectIdentifier text="{orderModel>status}" />
+								<ObjectStatus class="sapUiSmallMarginBottom"
+								text="{
+										path: 'orderModel>status',
+										formatter: '.formatter.statusText'
+										}"
+								state="{
+										path: 'orderModel>status',
+										formatter: '.formatter.statusStats'
+										}" />
 								<ObjectIdentifier text="{orderModel>plannedStartDate}" />
 								<ObjectIdentifier text="{orderModel>plannedEndDate}" />
 								<ObjectIdentifier text="{orderModel>materialDesc}" />
