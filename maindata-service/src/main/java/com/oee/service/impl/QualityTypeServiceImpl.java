@@ -43,7 +43,7 @@ public class QualityTypeServiceImpl implements QualityTypeService {
 
     @Override
     public List<QualityType> findByPlantId(Long id) {
-        return repository.findByPlantId(id);
+        return repository.findByPlantPlantId(id);
     }
 
 }

@@ -43,7 +43,7 @@ public class ReasonCodeServiceImpl implements ReasonCodeService {
 
     @Override
     public List<ReasonCode> findByPlantId(Long id) {
-        return reasonCodeRepository.findByPlantId(id);
+        return reasonCodeRepository.findByPlantPlantId(id);
     }
 
 }
