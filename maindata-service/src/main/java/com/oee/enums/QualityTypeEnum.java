@@ -1,13 +1,14 @@
 package com.oee.enums;
 
-public enum QualityType {
+public enum QualityTypeEnum {
     FIRST_QUALITY("FIRST_QUALITY", "First Quality"),
-    SECOND_QUALITY("SECOND_QUALITY", "Second Quality");
+    SECOND_QUALITY("SECOND_QUALITY", "Second Quality"),
+    SCRAP("SCRAP", "Scrap");
 
     private final String qualityType;
     private final String qualityDesc;
 
-    QualityType(String qualityType, String qualityDesc) {
+    QualityTypeEnum(String qualityType, String qualityDesc) {
         this.qualityType = qualityType;
         this.qualityDesc = qualityDesc;
     }
