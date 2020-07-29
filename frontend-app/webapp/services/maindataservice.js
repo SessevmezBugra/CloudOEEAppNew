@@ -70,5 +70,15 @@ sap.ui.define([
             return Service.doAjax("http://localhost:4000/main-data/material/plant/" + id, null, "GET", true);
         },
 
+        //REASON CODE
+        getReasonCodesByPlantId: function(id){
+            return Service.doAjax("http://localhost:4000/main-data/reason-code/plant/" + id, null, "GET", true);
+        },
+
+        //QUALITY TYPE
+        getQualityTypesByPlantId: function(id){
+            return Service.doAjax("http://localhost:4000/main-data/quality-type/plant/" + id, null, "GET", true);
+        },
+
     }
 });
