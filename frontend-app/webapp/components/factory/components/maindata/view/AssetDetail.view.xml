@@ -140,16 +140,25 @@
                             <l:BlockLayout background="Dashboard">
                                 <l:BlockLayoutRow>
                                     <l:BlockLayoutCell>
-                                        <m:Table id="warehouseTable" backgroundDesign="Solid" width="auto" items="{maindataModel>/warehouses}" enableBusyIndicator="false" busy="{orderModel>/warehouseTableBusy}">
+                                        <m:Table id="warehouseTable" selectionMode="mm" selectionBehaviour="RowOnly" backgroundDesign="Solid" width="auto" items="{maindataModel>/warehouses}" enableBusyIndicator="false" busy="{orderModel>/warehouseTableBusy}">
                                             <m:columns>
                                                 <m:Column minScreenWidth="Tablet" demandPopin="true">
                                                     <m:Text text="{i18n>ASSETDETAIL_WAREHOUSE_NAME}" />
+                                                </m:Column>
+                                                <m:Column minScreenWidth="Tablet" demandPopin="true">
+                                                    <m:Text text="{i18n>ASSETDETAIL_TRANSACTIONS_TITLE}" />
                                                 </m:Column>
                                             </m:columns>
                                             <m:items>
                                                 <m:ColumnListItem >
                                                     <m:cells>
                                                         <m:ObjectIdentifier text="{maindataModel>warehouseName}" />
+                                                    </m:cells>
+                                                    <m:cells>
+                                                         <m:HBox>
+                                                             <m:Button  type="Accept" class = "sapUiSmallMarginEnd" text="{i18n>ASSET_DIALOG_UPDATE_BTN}"/>                                               
+                                                             <m:Button  type="Critical" press = "openDeleteWarehouseDialog" text="{i18n>ASSET_DIALOG_DELETE_BTN}"/>    
+                                                         </m:HBox>
                                                     </m:cells>
                                                 </m:ColumnListItem>
                                             </m:items>
@@ -176,6 +185,9 @@
                                                 <m:Column minScreenWidth="Tablet" demandPopin="true">
                                                     <m:Text text="{i18n>ASSETDETAIL_MATERIAL_NUMBER}" />
                                                 </m:Column>
+                                                 <m:Column minScreenWidth="Tablet" demandPopin="true">
+                                                    <m:Text text="{i18n>ASSETDETAIL_TRANSACTIONS_TITLE}" />
+                                                </m:Column>
                                             </m:columns>
                                             <m:items>
                                                 <m:ColumnListItem >
@@ -184,6 +196,98 @@
                                                     </m:cells>
                                                     <m:cells>
                                                         <m:ObjectIdentifier text="{maindataModel>materialNumber}" />
+                                                    </m:cells>
+                                                    <m:cells>
+                                                         <m:HBox>
+                                                             <m:Button  type="Accept" class = "sapUiSmallMarginEnd" text="{i18n>ASSET_DIALOG_UPDATE_BTN}"/>                                               
+                                                             <m:Button  type="Critical" press = "openDeleteMaterialDialog" text="{i18n>ASSET_DIALOG_DELETE_BTN}"/>    
+                                                         </m:HBox>
+                                                    </m:cells>
+                                                </m:ColumnListItem>
+                                            </m:items>
+                                        </m:Table>
+                                    </l:BlockLayoutCell>
+                                </l:BlockLayoutRow>
+                            </l:BlockLayout>
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+             <ObjectPageSection title="{i18n>ASSETDETAIL_QUALITY_TITLE}">
+                <subSections>
+                    <ObjectPageSubSection >
+                        <blocks>
+                            <l:BlockLayout background="Dashboard">
+                                <l:BlockLayoutRow>
+                                    <l:BlockLayoutCell>
+                                        <m:Table id="qualityTable" backgroundDesign="Solid" width="auto" items="{maindataModel>/qualityType}" enableBusyIndicator="false" busy="{maindataModel>/materialTableBusy}">
+                                            <m:columns>
+                                                <m:Column minScreenWidth="Tablet" demandPopin="true">
+                                                    <m:Text text="{i18n>ASSETDETAIL_QUALITY_CODE}" />
+                                                </m:Column>
+                                                <m:Column minScreenWidth="Tablet" demandPopin="true">
+                                                    <m:Text text="{i18n>ASSETDETAIL_QUALITY_DESC}" />
+                                                </m:Column>
+                                                 <m:Column minScreenWidth="Tablet" demandPopin="true">
+                                                    <m:Text text="{i18n>ASSETDETAIL_TRANSACTIONS_TITLE}" />
+                                                </m:Column>
+                                            </m:columns>
+                                            <m:items>
+                                                <m:ColumnListItem >
+                                                    <m:cells>
+                                                        <m:ObjectIdentifier text="{maindataModel>qualityType}" />
+                                                    </m:cells>
+                                                    <m:cells>
+                                                        <m:ObjectIdentifier text="{maindataModel>qualityDesc}" />
+                                                    </m:cells>
+                                                    <m:cells>
+                                                         <m:HBox>
+                                                             <m:Button  type="Accept" class = "sapUiSmallMarginEnd" text="{i18n>ASSET_DIALOG_UPDATE_BTN}"/>                                               
+                                                             <m:Button  type="Critical"  press = "openDeleteQualityTypeDialog" text="{i18n>ASSET_DIALOG_DELETE_BTN}"/>    
+                                                         </m:HBox>
+                                                    </m:cells>
+                                                </m:ColumnListItem>
+                                            </m:items>
+                                        </m:Table>
+                                    </l:BlockLayoutCell>
+                                </l:BlockLayoutRow>
+                            </l:BlockLayout>
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+            <ObjectPageSection title="{i18n>ASSETDETAIL_REASONCODE_TITLE}">
+                <subSections>
+                    <ObjectPageSubSection >
+                        <blocks>
+                            <l:BlockLayout background="Dashboard">
+                                <l:BlockLayoutRow>
+                                    <l:BlockLayoutCell>
+                                        <m:Table id="reasonCodeTable" backgroundDesign="Solid" width="auto" items="{maindataModel>/reasonCode}" enableBusyIndicator="false" busy="{maindataModel>/materialTableBusy}">
+                                            <m:columns>
+                                                <m:Column minScreenWidth="Tablet" demandPopin="true">
+                                                    <m:Text text="{i18n>ASSETDETAIL_REASONCODE_CODE}" />
+                                                </m:Column>
+                                                <m:Column minScreenWidth="Tablet" demandPopin="true">
+                                                    <m:Text text="{i18n>ASSETDETAIL_REASONCODE_DESC}" />
+                                                </m:Column>
+                                                 <m:Column minScreenWidth="Tablet" demandPopin="true">
+                                                    <m:Text text="{i18n>ASSETDETAIL_TRANSACTIONS_TITLE}" />
+                                                </m:Column>
+                                            </m:columns>
+                                            <m:items>
+                                                <m:ColumnListItem >
+                                                    <m:cells>
+                                                        <m:ObjectIdentifier text="{maindataModel>reasonCode}" />
+                                                    </m:cells>
+                                                    <m:cells>
+                                                        <m:ObjectIdentifier text="{maindataModel>reasonDesc}" />
+                                                    </m:cells>
+                                                    <m:cells>
+                                                         <m:HBox>
+                                                             <m:Button  type="Accept" class = "sapUiSmallMarginEnd" text="{i18n>ASSET_DIALOG_UPDATE_BTN}"/>                                               
+                                                             <m:Button  type="Critical" press = "openDeleteReasonCodeDialog" text="{i18n>ASSET_DIALOG_DELETE_BTN}"/>    
+                                                         </m:HBox>
                                                     </m:cells>
                                                 </m:ColumnListItem>
                                             </m:items>
@@ -202,8 +306,8 @@
 				<m:ToolbarSpacer />
 				<m:Button press="openCreateWarehouseDialog" type="Accept" text="{i18n>ASSETDETAIL_BTN_CREATE_WAREHOUSE}"/>
 				<m:Button press="openCreateMaterialDialog" type="Accept" text="{i18n>ASSETDETAIL_BTN_CREATE_MATERIAL}"/>
-                              
-
+				<m:Button press="openCreateReasonDialog" type="Accept" text="{i18n>ASSETDETAIL_BTN_CREATE_REASONCODE}"/>
+				<m:Button press="openCreateQualityTypeDialog" type="Accept" text="{i18n>ASSETDETAIL_BTN_CREATE_QUALITYTYPE}"/>
 			</m:OverflowToolbar>
 		</footer>
     </ObjectPageLayout>
