@@ -4,8 +4,9 @@ sap.ui.define([
     "workerapp/services/orderservice",
     "workerapp/services/confirmationservice",
     'sap/ui/model/Filter',
-    'sap/ui/model/FilterOperator'
-], function (JSONModel, BaseController, OrderService, ConfirmationService, Filter, FilterOperator) {
+    'sap/ui/model/FilterOperator',
+    "sap/m/MessageToast",
+], function (JSONModel, BaseController, OrderService, ConfirmationService, Filter, FilterOperator, MessageToast) {
     "use strict";
 
     return BaseController.extend("workerapp.components.oeeapp.controller.ReportProduction", {
@@ -71,15 +72,15 @@ sap.ui.define([
             oBinding.filter([oFilter]);
         },
 
-        getOrderInfo: function (callback) {
+        getOrderInfo: function () {
             this.showBusyIndicator();
             OrderService.getOrderInfoById(this.orderId).then(function (response) {
                 this.getModel("reportProductionModel").getData().selectedOrder = response.data;
                 this.getModel("reportProductionModel").refresh();
                 this.hideBusyIndicator();
-                callback(true);
+                //callback(true);
             }.bind(this)).catch(function () {
-                callback(false);
+                //callback(false);
                 this.hideBusyIndicator();
             }.bind(this));
         }
