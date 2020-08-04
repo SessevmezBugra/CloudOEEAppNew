@@ -41,7 +41,7 @@ public class PlantInfoServiceImpl implements PlantInfoService{
 		return plantInfo;
 	}
 
-	private void createStandartQualities(PlantInfo plantInfo) {x
+	private void createStandartQualities(PlantInfo plantInfo) {
 		QualityType qualityType = new QualityType();
 		qualityType.setPlant(plantInfo);
 		qualityType.setQualityType(QualityTypeEnum.FIRST_QUALITY.getQualityType());
