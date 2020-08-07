@@ -27,6 +27,11 @@ public class ProdRunDataRestController {
 	public ResponseEntity<ProdRunData> createProdRunData(@RequestBody ProdRunData prodRunData){
 		return ResponseEntity.ok(prodRunDataService.create(prodRunData));
 	}
+
+	@RequestMapping(value="/order/{id}", method=RequestMethod.POST)
+	public ResponseEntity<List<ProdRunData>> createAllProdRunData(@PathVariable(value="id", required=true) Long orderId, @RequestBody List<ProdRunData> prodRunDatas){
+		return ResponseEntity.ok(prodRunDataService.createAll(orderId, prodRunDatas));
+	}
 	
 	@RequestMapping(method=RequestMethod.PUT)
 	public ResponseEntity<ProdRunData> updateProdRunData(@RequestBody ProdRunData prodRunData){

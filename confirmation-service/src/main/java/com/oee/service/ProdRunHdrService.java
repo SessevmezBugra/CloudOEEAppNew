@@ -23,4 +23,6 @@ public interface ProdRunHdrService {
 	ProdRunHdr complete(ProdRunHdr prodRunHdr);
 
     Boolean deleteByOrderIds(List<Long> orderIds);
+
+    ProdRunHdr findLastProdRunHdrByOrderId(Long orderId);
 }

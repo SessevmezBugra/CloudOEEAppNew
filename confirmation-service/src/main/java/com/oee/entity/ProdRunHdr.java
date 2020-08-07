@@ -7,9 +7,15 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.oee.enums.Status;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name="PROD_RUN_HDR")
+@Getter
+@Setter
+@NoArgsConstructor
 public class ProdRunHdr {
 	
 	@Id
@@ -22,7 +28,7 @@ public class ProdRunHdr {
 	
 	@Column(name="START_TIME")
 	private Date startTime;
-	
+
 	@Column(name="END_TIME")
 	private Date endTime;
 
@@ -43,81 +49,5 @@ public class ProdRunHdr {
 
 	@Column(name="ENDING_USER")
 	private String endingUser;
-	
-	public ProdRunHdr() {
-		// TODO Auto-generated constructor stub
-	}
 
-	public Long getRunId() {
-		return runId;
-	}
-
-	public void setRunId(Long runId) {
-		this.runId = runId;
-	}
-
-	public Long getOrderId() {
-		return orderId;
-	}
-
-	public void setOrderId(Long orderId) {
-		this.orderId = orderId;
-	}
-
-	public Date getStartTime() {
-		return startTime;
-	}
-
-	public void setStartTime(Date startTime) {
-		this.startTime = startTime;
-	}
-
-	public Date getEndTime() {
-		return endTime;
-	}
-
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
-	}
-
-	public List<ProdRunData> getProdRunDatas() {
-		return prodRunDatas;
-	}
-
-	public void setProdRunDatas(List<ProdRunData> prodRunDatas) {
-		this.prodRunDatas = prodRunDatas;
-	}
-
-
-	public String getStartedUser() {
-		return startedUser;
-	}
-
-	public void setStartedUser(String startedUser) {
-		this.startedUser = startedUser;
-	}
-
-	public String getEndingUser() {
-		return endingUser;
-	}
-
-	public void setEndingUser(String endingUser) {
-		this.endingUser = endingUser;
-	}
-
-	public Status getStatus() {
-		return status;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
-	}
-
-	public List<ConsumptionInfo> getConsumptionInfos() {
-		return consumptionInfos;
-	}
-
-	public void setConsumptionInfos(List<ConsumptionInfo> consumptionInfos) {
-		this.consumptionInfos = consumptionInfos;
-	}
 }

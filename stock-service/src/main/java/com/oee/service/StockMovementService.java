@@ -8,6 +8,8 @@ import com.oee.entity.StockMovement;
 public interface StockMovementService {
 
 	StockMovement create(StockMovement stockMovement);
+
+	List<StockMovement> createAll(List<StockMovement> stockMovements);
 	
 	StockMovement update(StockMovement stockMovement);
 	

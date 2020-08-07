@@ -55,7 +55,11 @@ public class StockInfoRestController {
 	public ResponseEntity<StockInfo> extractStockInfo(@RequestBody StockInfo stockInfo){
 		return ResponseEntity.ok(stockInfoService.extractStock(stockInfo));
 	}
-	
+
+	@RequestMapping(value="/extract/all",method=RequestMethod.PUT)
+	public ResponseEntity<List<StockInfo>> extractAllStockInfo(@RequestBody List<StockInfo> stockInfos){
+		return ResponseEntity.ok(stockInfoService.extractAllStock(stockInfos));
+	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<Boolean> deleteStockInfo(@PathVariable(value="id", required=true) Long stockId){

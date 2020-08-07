@@ -97,4 +97,9 @@ public class ProdRunHdrServiceImpl implements ProdRunHdrService{
 		return Boolean.TRUE;
 	}
 
+	@Override
+	public ProdRunHdr findLastProdRunHdrByOrderId(Long orderId) {
+		return prodRunHdrRepository.findTopByOrderIdOrderByRunIdDesc(orderId);
+	}
+
 }

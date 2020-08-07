@@ -15,5 +15,6 @@ public interface ConsumptionInfoService {
 	ConsumptionInfo getById(Long consumptionId);
 	
 	List<ConsumptionInfo> getByRunId(Long runId);
-	
+
+	List<ConsumptionInfo> createAll(Long orderId, List<ConsumptionInfo> consumptionInfos);
 }

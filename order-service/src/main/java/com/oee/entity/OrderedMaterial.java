@@ -28,7 +28,7 @@ public class OrderedMaterial {
 	private Double plannedProdQuantity;
 	
 	@Column(name="ACTUAL_PROD_QUANTITY")
-	private Double actualProdQuantity;
+	private Double actualProdQuantity = 0.0;
 	
 	public OrderedMaterial() {
 		// TODO Auto-generated constructor stub

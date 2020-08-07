@@ -8,6 +8,7 @@ import com.oee.client.MainDataServiceClient;
 import com.oee.dto.PlantDto;
 import com.oee.dto.StockMovDto;
 import com.oee.dto.WarehouseDto;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -16,24 +17,23 @@ import com.oee.repository.StockMovementRepository;
 import com.oee.service.StockMovementService;
 
 @Service
+@RequiredArgsConstructor
 public class StockMovementServiceImpl implements StockMovementService{
 	
 	private final StockMovementRepository stockMovementRepository;
 	private final CurrentUserProvider currentUserProvider;
 	private final MainDataServiceClient mainDataServiceClient;
 	private final ModelMapper modelMapper;
-	
-	public StockMovementServiceImpl(StockMovementRepository stockMovementRepository, CurrentUserProvider currentUserProvider, MainDataServiceClient mainDataServiceClient, ModelMapper modelMapper) {
-		this.stockMovementRepository = stockMovementRepository;
-		this.currentUserProvider = currentUserProvider;
-		this.mainDataServiceClient = mainDataServiceClient;
-		this.modelMapper = modelMapper;
-	}
 
 	@Override
 	public StockMovement create(StockMovement stockMovement) {
 		stockMovement.setUsername(currentUserProvider.getCurrentUser().getUsername());
 		return stockMovementRepository.save(stockMovement);
+	}
+
+	@Override
+	public List<StockMovement> createAll(List<StockMovement> stockMovements) {
+		return stockMovementRepository.saveAll(stockMovements);
 	}
 
 	@Override

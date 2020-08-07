@@ -1,5 +1,7 @@
 package com.oee.web;
 
+import com.oee.dto.OrderDto;
+import com.oee.dto.ProdRunDataDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +33,11 @@ public class OrderedMaterialRestController {
 	@RequestMapping(method=RequestMethod.PUT)
 	public ResponseEntity<OrderedMaterial> updateOrderedMaterial(@RequestBody OrderedMaterial orderedMaterial){
 		return ResponseEntity.ok(orderedMaterialService.update(orderedMaterial));
+	}
+
+	@RequestMapping(value="/add-production/{orderId}/{quantity}", method=RequestMethod.PUT)
+	public ResponseEntity<OrderedMaterial> addProductionToActualProd(@PathVariable(value="orderId", required=true) Long orderId, @PathVariable(value="quantity", required=true) Double quantity){
+		return ResponseEntity.ok(orderedMaterialService.addProductionToActualProd(orderId, quantity));
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)

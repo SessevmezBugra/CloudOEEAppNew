@@ -1,5 +1,6 @@
 package com.oee.service.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,7 +10,9 @@ import com.oee.dto.PlantDto;
 import com.oee.dto.StockDto;
 import com.oee.dto.WarehouseDto;
 import com.oee.entity.StockMovement;
+import com.oee.error.EntityNotFoundException;
 import com.oee.service.StockMovementService;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -18,19 +21,13 @@ import com.oee.repository.StockRepository;
 import com.oee.service.StockInfoService;
 
 @Service
+@RequiredArgsConstructor
 public class StockInfoServiceImpl implements StockInfoService {
 
     private final StockRepository stockRepository;
     private final StockMovementService stockMovementService;
     private final MainDataServiceClient mainDataServiceClient;
     private final ModelMapper modelMapper;
-
-    public StockInfoServiceImpl(StockRepository stockRepository, StockMovementService stockMovementService, MainDataServiceClient mainDataServiceClient, ModelMapper modelMapper) {
-        this.stockRepository = stockRepository;
-        this.stockMovementService = stockMovementService;
-        this.mainDataServiceClient = mainDataServiceClient;
-        this.modelMapper = modelMapper;
-    }
 
     @Override
     public StockInfo create(StockInfo stockInfo) {
@@ -150,6 +147,28 @@ public class StockInfoServiceImpl implements StockInfoService {
             }
         }
         return stockDtos;
+    }
+
+    @Override
+    public List<StockInfo> extractAllStock(List<StockInfo> stockInfos) {
+        List<Long> ids = stockInfos.stream().map(StockInfo::getStockId).collect(Collectors.toList());
+        List<StockInfo> foundStocks = stockRepository.findAllById(ids);
+        List<StockMovement> stockMovements = new ArrayList<>();
+        for (StockInfo foundStock : foundStocks) {
+            StockInfo stockMov = stockInfos.stream().filter(stockInfo -> stockInfo.getStockId() == foundStock.getStockId()).findFirst().orElseThrow(() -> new EntityNotFoundException("Boyle bir stok bulunmamaktadir!"));
+            if (foundStock.getQuantity() < stockMov.getQuantity()) {
+                throw new RuntimeException("Depoda bu teyit icin yeterli stok bulunmamaktadir!");
+            }
+            foundStock.setQuantity(foundStock.getQuantity() - stockMov.getQuantity());
+            StockMovement stockMovement = new StockMovement();
+            stockMovement.setPositive(false);
+            stockMovement.setQuantity(stockMov.getQuantity());
+            stockMovement.setStock(foundStock);
+            stockMovements.add(stockMovement);
+        }
+        stockRepository.saveAll(foundStocks);
+        stockMovementService.createAll(stockMovements);
+        return stockInfos;
     }
 
 }

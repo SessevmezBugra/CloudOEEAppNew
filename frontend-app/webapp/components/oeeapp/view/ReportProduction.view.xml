@@ -20,7 +20,7 @@
                 <l:BlockLayoutRow>
                     <l:BlockLayoutCell>
 
-                        <FlexBox alignItems="Start" justifyContent="SpaceBetween" wrap="Wrap">
+                        <FlexBox alignItems="Start" justifyContent="SpaceBetween" wrap="Wrap" busy="{reportProductionModel>/selectedOrderLayoutBusy}">
                             <items>
                                 <FlexBox direction="Column" alignItems="Start">
                                     <items>
@@ -64,7 +64,7 @@
                 </l:BlockLayoutRow>
                 <l:BlockLayoutRow>
                     <l:BlockLayoutCell>
-                        <Table backgroundDesign="Transparent" width="auto" items="{reportProductionModel>/qualityTypes}">
+                        <Table backgroundDesign="Transparent" width="auto" items="{reportProductionModel>/qualityTypes}" enableBusyIndicator="false" busy="{reportProductionModel>/qualityTypesTableBusy}">
                             <columns>
                                 <Column minScreenWidth="Tablet" demandPopin="true">
                                     <Text text="{i18n>QUALITY_TYPE}" />
@@ -84,7 +84,7 @@
                                 <ColumnListItem>
                                     <cells>
                                         <Text text="{reportProductionModel>qualityDesc}" />
-                                        <Input value="{reportProductionModel>quantity}" />
+                                        <Input value="{reportProductionModel>quantity}" type="Number"/>
                                         <MultiInput id="reasonCodesMultiInput" suggestionItems="{
                                                     path: 'reportProductionModel>/reasonCodes',
                                                     templateShareable: true

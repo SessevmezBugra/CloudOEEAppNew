@@ -15,4 +15,6 @@ public interface ProdRunDataService {
 	ProdRunData getById(Long entryId);
 	
 	List<ProdRunData> getByRunId(Long runId);
+
+	List<ProdRunData> createAll(Long orderId, List<ProdRunData> prodRunDatas);
 }

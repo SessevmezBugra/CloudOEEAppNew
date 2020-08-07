@@ -27,6 +27,11 @@ public class ConsumptionInfoRestController {
 	public ResponseEntity<ConsumptionInfo> createConsumptionInfo(@RequestBody ConsumptionInfo consumptionInfo){
 		return ResponseEntity.ok(consumptionInfoService.create(consumptionInfo));
 	}
+
+	@RequestMapping(value="/{id}", method=RequestMethod.POST)
+	public ResponseEntity<List<ConsumptionInfo>> createAllConsumptionInfo(@PathVariable(value="id", required=true) Long orderId, @RequestBody List<ConsumptionInfo> consumptionInfos){
+		return ResponseEntity.ok(consumptionInfoService.createAll(orderId, consumptionInfos));
+	}
 	
 	@RequestMapping(method=RequestMethod.PUT)
 	public ResponseEntity<ConsumptionInfo> updateConsumptionInfo(@RequestBody ConsumptionInfo consumptionInfo){

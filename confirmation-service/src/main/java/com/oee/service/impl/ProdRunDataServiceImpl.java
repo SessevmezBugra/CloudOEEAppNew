@@ -2,6 +2,12 @@ package com.oee.service.impl;
 
 import java.util.List;
 
+import com.oee.client.OrderServiceClient;
+import com.oee.entity.ProdRunHdr;
+import com.oee.enums.Status;
+import com.oee.error.EntityNotFoundException;
+import com.oee.service.ProdRunHdrService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import com.oee.entity.ProdRunData;
@@ -10,17 +16,23 @@ import com.oee.service.ProdRunDataService;
 
 
 @Service
+@RequiredArgsConstructor
 public class ProdRunDataServiceImpl implements ProdRunDataService{
 	
 	private final ProdRunDataRepository prodRunDataRepository;
-	
-	public ProdRunDataServiceImpl(ProdRunDataRepository prodRunDataRepository) {
-		this.prodRunDataRepository = prodRunDataRepository;
-	}
+	private final ProdRunHdrService prodRunHdrService;
+	private final OrderServiceClient orderServiceClient;
 
 	@Override
 	public ProdRunData create(ProdRunData prodRunData) {
-		return prodRunDataRepository.save(prodRunData);
+		ProdRunHdr prodRunHdr = prodRunHdrService.findLastProdRunHdrByOrderId(prodRunData.getProdRunHdr().getOrderId());
+		if(prodRunHdr == null || prodRunHdr.getStatus() != Status.ACT) {
+			throw new EntityNotFoundException("Boyle bir siparis olusturulmamis veya baslatilmamistir.");
+		}
+		prodRunData.setProdRunHdr(prodRunHdr);
+		prodRunDataRepository.save(prodRunData);
+		orderServiceClient.addProductionToActualProd(prodRunData.getProdRunHdr().getOrderId(), prodRunData.getQuantity());
+		return prodRunData;
 	}
 
 	@Override
@@ -42,6 +54,26 @@ public class ProdRunDataServiceImpl implements ProdRunDataService{
 	@Override
 	public List<ProdRunData> getByRunId(Long runId) {
 		return prodRunDataRepository.findByProdRunHdrRunId(runId);
+	}
+
+	@Override
+	public List<ProdRunData> createAll(Long orderId, List<ProdRunData> prodRunDatas) {
+		ProdRunHdr prodRunHdr = prodRunHdrService.findLastProdRunHdrByOrderId(orderId);
+		if(prodRunHdr == null || prodRunHdr.getStatus() != Status.ACT) {
+			throw new EntityNotFoundException("Boyle bir siparis olusturulmamis veya baslatilmamistir.");
+		}
+		Double sumOfProduction = 0.0;
+		for (ProdRunData prodRunData : prodRunDatas) {
+			prodRunData.setProdRunHdr(prodRunHdr);
+			if(!prodRunData.getQualityType().equals("SCRAP")){
+				if(prodRunData.getQuantity() != null) {
+					sumOfProduction += prodRunData.getQuantity();
+				}
+			}
+		}
+		prodRunDataRepository.saveAll(prodRunDatas);
+		orderServiceClient.addProductionToActualProd(orderId, sumOfProduction);
+		return prodRunDatas;
 	}
 
 }

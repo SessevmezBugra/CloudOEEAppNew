@@ -212,13 +212,19 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(apiError);
     }
 
-    @ExceptionHandler(Exception.class)
-    public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
-        ApiError apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR);
-        apiError.setMessage(ex.getMessage());
-        apiError.setDebugMessage(ex.getLocalizedMessage());
-        return buildResponseEntity(apiError);
-    }
+//    @ExceptionHandler(Exception.class)
+//    public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
+//        ApiError apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR);
+//        System.err.println("Test");
+//        System.err.println(ex.getStackTrace());
+//        System.err.println("Test");
+//        System.err.println(ex.getCause().getMessage());
+//        System.err.println("Test");
+//        System.err.println(ex.getCause().getLocalizedMessage());
+//        apiError.setMessage(ex.getMessage());
+//        apiError.setDebugMessage(ex.getLocalizedMessage());
+//        return buildResponseEntity(apiError);
+//    }
 
 
     private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {

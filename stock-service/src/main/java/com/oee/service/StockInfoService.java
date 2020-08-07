@@ -28,4 +28,6 @@ public interface StockInfoService {
     StockInfo getByWarehouseIdAndMaterialId(Long warehouseId, Long materialId);
 
     List<StockDto> getByPlantId(Long plantId);
+
+    List<StockInfo> extractAllStock(List<StockInfo> stockInfos);
 }
