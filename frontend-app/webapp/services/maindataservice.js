@@ -58,6 +58,9 @@ sap.ui.define([
         getWarehousesByPlantId: function(id) {
             return Service.doAjax("http://localhost:4000/main-data/warehouse/plant/" + id, null, "GET", true);
         },
+        deleteWarehouse: function(warehouse){
+            return Service.doAjax("http://localhost:4000/main-data/warehouse/" + warehouse,null,"DELETE",true);
+        },
 
         //MATERIAL
         getMaterials: function(){
@@ -69,6 +72,34 @@ sap.ui.define([
         getMaterialsByPlantId: function(id) {
             return Service.doAjax("http://localhost:4000/main-data/material/plant/" + id, null, "GET", true);
         },
+        deleteMaterial: function(material){
+            return Service.doAjax("http://localhost:4000/main-data/material/" + material,null,"DELETE",true);
+        },
+
+        //REASON CODE
+        getReasonCodesByPlantId: function(id){
+            return Service.doAjax("http://localhost:4000/main-data/reason-code/plant/" + id, null, "GET", true);
+        },
+        createReasonCode: function(reasonCode){
+            return Service.doAjax("http://localhost:4000/main-data/reason-code", reasonCode, "POST", true);
+            
+        },
+        deleteReasonCode: function(reasonCode){
+            return Service.doAjax("http://localhost:4000/main-data/reason-code/" + reasonCode,null,"DELETE",true);
+        },
+
+
+        //QUALITY TYPE
+        getQualityTypesByPlantId: function(id){
+            return Service.doAjax("http://localhost:4000/main-data/quality-type/plant/" + id, null, "GET", true);
+        },
+        createQualityType: function(qualityType){
+            return Service.doAjax("http://localhost:4000/main-data/quality-type", qualityType, "POST", true);
+        },
+        deleteQualityType: function(qualityType){
+            return Service.doAjax("http://localhost:4000/main-data/quality-type/" + qualityType,null,"DELETE",true);
+        },
+
 
     }
 });

@@ -9,9 +9,13 @@ import com.oee.client.OrderServiceClient;
 import com.oee.client.StockServiceClient;
 import com.oee.dto.CurrentUser;
 import com.oee.dto.ResponsibleAreaDto;
+import com.oee.entity.QualityType;
 import com.oee.entity.WarehouseInfo;
 import com.oee.enums.AreaType;
+import com.oee.enums.QualityTypeEnum;
 import com.oee.enums.UserRole;
+import com.oee.service.QualityTypeService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import com.oee.entity.PlantInfo;
@@ -19,6 +23,7 @@ import com.oee.repository.PlantInfoRepository;
 import com.oee.service.PlantInfoService;
 
 @Service
+@RequiredArgsConstructor
 public class PlantInfoServiceImpl implements PlantInfoService{
 
 	private final PlantInfoRepository plantInfoRepository;
@@ -26,17 +31,32 @@ public class PlantInfoServiceImpl implements PlantInfoService{
 	private final CurrentUserProvider currentUserProvider;
 	private final StockServiceClient stockServiceClient;
 	private final OrderServiceClient orderServiceClient;
+	private final QualityTypeService qualityTypeService;
 	
-	public PlantInfoServiceImpl(PlantInfoRepository plantInfoRepository, AuthServiceClient authServiceClient, CurrentUserProvider currentUserProvider, StockServiceClient stockServiceClient, OrderServiceClient orderServiceClient) {
-		this.plantInfoRepository = plantInfoRepository;
-		this.authServiceClient = authServiceClient;
-		this.currentUserProvider = currentUserProvider;
-		this.stockServiceClient = stockServiceClient;
-		this.orderServiceClient = orderServiceClient;
-	}
+
 	@Override
 	public PlantInfo create(PlantInfo plantInfo) {
-		return plantInfoRepository.save(plantInfo);
+		plantInfoRepository.save(plantInfo);
+		createStandartQualities(plantInfo);
+		return plantInfo;
+	}
+
+	private void createStandartQualities(PlantInfo plantInfo) {
+		QualityType qualityType = new QualityType();
+		qualityType.setPlant(plantInfo);
+		qualityType.setQualityType(QualityTypeEnum.FIRST_QUALITY.getQualityType());
+		qualityType.setQualityDesc(QualityTypeEnum.FIRST_QUALITY.getQualityDesc());
+		qualityTypeService.create(qualityType);
+		qualityType = new QualityType();
+		qualityType.setPlant(plantInfo);
+		qualityType.setQualityType(QualityTypeEnum.SECOND_QUALITY.getQualityType());
+		qualityType.setQualityDesc(QualityTypeEnum.SECOND_QUALITY.getQualityDesc());
+		qualityTypeService.create(qualityType);
+		qualityType = new QualityType();
+		qualityType.setPlant(plantInfo);
+		qualityType.setQualityType(QualityTypeEnum.SCRAP.getQualityType());
+		qualityType.setQualityDesc(QualityTypeEnum.SCRAP.getQualityDesc());
+		qualityTypeService.create(qualityType);
 	}
 
 	@Override

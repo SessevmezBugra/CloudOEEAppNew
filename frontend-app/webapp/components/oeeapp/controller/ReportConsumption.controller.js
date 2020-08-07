@@ -25,6 +25,8 @@ sap.ui.define([
                 this.getModel("reportConsumptionModel").getData().orders = response.data;
                 this.getModel("reportConsumptionModel").refresh();
                 this.hideBusyIndicator();
+
+                
                 callback(true);
             }.bind(this)).catch(function () {
                 callback(false);
@@ -38,7 +40,7 @@ sap.ui.define([
             this.getActiveOrders(function (isOk) {
                 if (isOk) {
                     if (!this._oDialog) {
-                        this._oDialog = sap.ui.xmlfragment("orderListDialog", "workerapp.components.oeeapp.fragment.orderListDialog", this);
+                        this._oDialog = sap.ui.xmlfragment("orderListDialogConsumption", "workerapp.components.oeeapp.fragment.orderListDialogConsumption", this);
                         this.getView().addDependent(this._oDialog);
                     }
                     this._oDialog.open();

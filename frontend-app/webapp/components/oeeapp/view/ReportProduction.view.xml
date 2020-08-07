@@ -4,7 +4,7 @@
     xmlns:core="sap.ui.core"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:l="sap.ui.layout">
-    <f:DynamicPage class="sapUiNoContentPadding" toggleHeaderOnTitleClick="false" backgroundDesign="Transparent">
+    <f:DynamicPage showFooter="true" class="sapUiNoContentPadding" toggleHeaderOnTitleClick="false" backgroundDesign="Transparent">
         <!-- DynamicPage Title -->
         <f:title>
             <f:DynamicPageTitle backgroundDesign="Transparent">
@@ -64,7 +64,7 @@
                 </l:BlockLayoutRow>
                 <l:BlockLayoutRow>
                     <l:BlockLayoutCell>
-                        <Table  backgroundDesign="Transparent" width="auto" items="{reportProductionModel>/confirmationData}">
+                        <Table backgroundDesign="Transparent" width="auto" items="{reportProductionModel>/qualityTypes}">
                             <columns>
                                 <Column minScreenWidth="Tablet" demandPopin="true">
                                     <Text text="{i18n>QUALITY_TYPE}" />
@@ -83,10 +83,17 @@
                             <items>
                                 <ColumnListItem>
                                     <cells>
-                                        <ObjectIdentifier text="test" />
-                                        <Input value="test" />
-                                        <Button text="test"  press="onPress" />
-                                        <Text text="test" />
+                                        <Text text="{reportProductionModel>qualityDesc}" />
+                                        <Input value="{reportProductionModel>quantity}" />
+                                        <MultiInput id="reasonCodesMultiInput" suggestionItems="{
+                                                    path: 'reportProductionModel>/reasonCodes',
+                                                    templateShareable: true
+                                                }" valueHelpRequest="handleValueHelp" visible="{= ${reportProductionModel>qualityType} === 'SCRAP' }">
+                                            <suggestionItems>
+                                                <core:Item key="{reportProductionModel>reasonCode}" text="{reportProductionModel>reasonDesc}" />
+                                            </suggestionItems>
+                                        </MultiInput>
+                                        <TextArea value="{reportProductionModel>scrapDesc}" rows="3" cols="40" visible="{= ${reportProductionModel>qualityType} === 'SCRAP' }"/>
                                     </cells>
                                 </ColumnListItem>
                             </items>
@@ -96,5 +103,12 @@
                 </l:BlockLayoutRow>
             </l:BlockLayout>
         </f:content>
+        <f:footer>
+            <OverflowToolbar>
+                <ToolbarSpacer/>
+                <!-- <Button type="Accept" text="{i18n>ORDER_BTN_CREATE}" press=".openCreateOrderDialog"/> -->
+                <Button type="Accept" text="{i18n>REPORT_PRODUCTION}" press=".reportProduction"/>
+            </OverflowToolbar>
+        </f:footer>
     </f:DynamicPage>
 </mvc:View>
