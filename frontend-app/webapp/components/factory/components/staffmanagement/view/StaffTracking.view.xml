@@ -59,7 +59,6 @@
 		<f:footer>
 			<OverflowToolbar>
 				<ToolbarSpacer/>
-				<!-- <Button type="Accept" text="{i18n>ORDER_BTN_CREATE}" press=".openCreateOrderDialog"/> -->
 				<Button type="Accept" text="{i18n>PERSONEL_ADD}" press="openCreatePersonDialog"/>
 			</OverflowToolbar>
 		</f:footer>

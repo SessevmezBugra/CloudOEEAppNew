@@ -89,6 +89,12 @@
 					"name": "reportProduction",
 					"target": "reportProduction",
 					"layout": "EndColumnFullScreen"
+				},
+				{
+					"pattern": "reportConsumption",
+					"name": "reportConsumption",
+					"target": "reportConsumption",
+					"layout": "MidColumnFullScreen"
 				}
 			],
 			"targets": {
@@ -103,6 +109,10 @@
 				"reportProduction": {
 					"viewName": "ReportProduction",
 					"controlAggregation": "endColumnPages"
+				},
+				"reportConsumption": {
+					"viewName": "ReportConsumption",
+					"controlAggregation": "midColumnPages"
 				},
 				"notFound": {
 					"viewName": "NotFound",
