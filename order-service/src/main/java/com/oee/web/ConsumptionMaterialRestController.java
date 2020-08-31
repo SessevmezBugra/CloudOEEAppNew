@@ -48,4 +48,9 @@ public class ConsumptionMaterialRestController {
 	public ResponseEntity<List<ConsumptionStockDto>> getConsumptionMaterialByOrderId(@PathVariable(value="id", required=true) Long orderId){
 		return ResponseEntity.ok(consumptionMaterialService.getByOrderId(orderId));
 	}
+
+	@RequestMapping(value="/without-warehouse-info/order/{id}", method=RequestMethod.GET)
+	public ResponseEntity<List<ConsumptionStockDto>> getByOrderIdWithoutWarehouseInfo(@PathVariable(value="id", required=true) Long orderId){
+		return ResponseEntity.ok(consumptionMaterialService.getByOrderIdWithoutWarehouseInfo(orderId));
+	}
 }

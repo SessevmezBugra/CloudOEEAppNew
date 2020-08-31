@@ -17,4 +17,6 @@ public interface ConsumptionMaterialService {
 	
 	List<ConsumptionStockDto> getByOrderId(Long id);
 
+	List<ConsumptionStockDto> getByOrderIdWithoutWarehouseInfo(Long id);
+
 }

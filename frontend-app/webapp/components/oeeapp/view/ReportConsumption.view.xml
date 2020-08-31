@@ -20,7 +20,7 @@
                 <l:BlockLayoutRow>
                     <l:BlockLayoutCell>
 
-                        <FlexBox alignItems="Start" justifyContent="SpaceBetween" wrap="Wrap">
+                        <FlexBox alignItems="Start" justifyContent="SpaceBetween" wrap="Wrap" busy="{reportConsumptionModel>/selectedOrderLayoutBusy}">
                             <items>
                                 <FlexBox direction="Column" alignItems="Start">
                                     <items>
@@ -64,29 +64,20 @@
                 </l:BlockLayoutRow>
                 <l:BlockLayoutRow>
                     <l:BlockLayoutCell>
-                        <Table  backgroundDesign="Transparent" width="auto" items="{reportProductionModel>/confirmationData}">
+                        <Table  backgroundDesign="Transparent" width="auto" items="{reportConsumptionModel>/consumptionStocks}" enableBusyIndicator="false" busy="{reportConsumptionModel>/qualityTypesTableBusy}">
                             <columns>
                                 <Column minScreenWidth="Tablet" demandPopin="true">
-                                    <Text text="{i18n>QUALITY_TYPE}" />
+                                    <Text text="{i18n>MATERIAL_DESC}" />
                                 </Column>
                                 <Column minScreenWidth="Tablet" demandPopin="true">
                                     <Text text="{i18n>QUANTITY}" />
-                                </Column>
-
-                                <Column minScreenWidth="Tablet" demandPopin="true">
-                                    <Text text="{i18n>REASON_CODE}" />
-                                </Column>
-                                <Column minScreenWidth="Tablet" demandPopin="true">
-                                    <Text text="{i18n>DESC}" />
                                 </Column>
                             </columns>
                             <items>
                                 <ColumnListItem>
                                     <cells>
-                                        <ObjectIdentifier text="test" />
-                                        <Input value="test" />
-                                        <Button text="test"  press="onPress" />
-                                        <Text text="test" />
+                                        <ObjectIdentifier text="{reportConsumptionModel>materialDesc}" />
+                                        <Input value="{reportConsumptionModel>quantity}" />
                                     </cells>
                                 </ColumnListItem>
                             </items>
@@ -96,5 +87,12 @@
                 </l:BlockLayoutRow>
             </l:BlockLayout>
         </f:content>
+        <f:footer>
+            <OverflowToolbar>
+                <ToolbarSpacer/>
+                <!-- <Button type="Accept" text="{i18n>ORDER_BTN_CREATE}" press=".openCreateOrderDialog"/> -->
+                <Button type="Accept" text="{i18n>REPORT_CONSUMPTION}" press=".reportConsumption"/>
+            </OverflowToolbar>
+        </f:footer>
     </f:DynamicPage>
 </mvc:View>

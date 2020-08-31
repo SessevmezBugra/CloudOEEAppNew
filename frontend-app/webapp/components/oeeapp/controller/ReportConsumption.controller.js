@@ -74,15 +74,23 @@ sap.ui.define([
             oBinding.filter([oFilter]);
         },
 
-        getOrderInfo: function (callback) {
+        getOrderInfo: function () {
             this.showBusyIndicator();
             OrderService.getOrderInfoById(this.orderId).then(function (response) {
                 this.getModel("reportConsumptionModel").getData().selectedOrder = response.data;
                 this.getModel("reportConsumptionModel").refresh();
-                this.hideBusyIndicator();
-                callback(true);
+                this.getConsumptionStockByOrderIdWithoutWarehouseInfo();
             }.bind(this)).catch(function () {
-                callback(false);
+                this.hideBusyIndicator();
+            }.bind(this));
+        },
+
+        getConsumptionStockByOrderIdWithoutWarehouseInfo: function() {
+            OrderService.getConsumptionStockByOrderIdWithoutWarehouseInfo(this.orderId).then(function (response) {
+                this.getModel("reportConsumptionModel").getData().consumptionStocks = response.data;
+                this.getModel("reportConsumptionModel").refresh();
+                this.hideBusyIndicator();
+            }.bind(this)).catch(function () {
                 this.hideBusyIndicator();
             }.bind(this));
         }

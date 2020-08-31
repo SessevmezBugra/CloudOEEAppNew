@@ -22,6 +22,10 @@ sap.ui.define([
             return Service.doAjax("http://localhost:4000/order/consumption-material/order/" + id, null, "GET", true); 
         },
 
+        getConsumptionStockByOrderIdWithoutWarehouseInfo: function(id) {
+            return Service.doAjax("http://localhost:4000/order/consumption-material/without-warehouse-info/order/" + id, null, "GET", true); 
+        },
+
         startOrder: function(order) {
             return Service.doAjax("http://localhost:4000/order/order-info/start-order", order, "PUT", true); 
         },

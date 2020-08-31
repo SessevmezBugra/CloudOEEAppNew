@@ -13,7 +13,7 @@ import java.util.List;
 @FeignClient(name = "stock-service", configuration = {ClientConfiguration.class})
 public interface StockServiceClient {
 
-    @RequestMapping(value = "/stock/stockinfo/ids", method= RequestMethod.POST)
+    @RequestMapping(value = "/stock/stock-info/ids", method= RequestMethod.POST)
     public ResponseEntity<List<StockDto>> getStockByIds(@RequestBody List<Long> stockIds);
 
 }

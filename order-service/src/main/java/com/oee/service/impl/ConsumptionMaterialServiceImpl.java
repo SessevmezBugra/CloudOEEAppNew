@@ -70,19 +70,52 @@ public class ConsumptionMaterialServiceImpl implements ConsumptionMaterialServic
 					consumptionStockDto.setQuantity(stockDto.getQuantity());
 					consumptionStockDto.setMaterialId(stockDto.getMaterialId());
 					consumptionStockDto.setWarehouseId(stockDto.getWarehouseId());
+					break;
 				}
 			}
-		}
-		for (ConsumptionStockDto consumptionStockDto : consumptionStockDtos) {
 			for (MaterialDto materialDto : materialDtos) {
 				if (materialDto.getMaterialId() == consumptionStockDto.getMaterialId()){
 					consumptionStockDto.setMaterialDesc(materialDto.getMaterialDesc());
 					consumptionStockDto.setMaterialNumber(materialDto.getMaterialNumber());
+					break;
 				}
 			}
 			for (WarehouseDto warehouseDto : warehouseDtos) {
 				if(consumptionStockDto.getWarehouseId() == warehouseDto.getWarehouseId()) {
 					consumptionStockDto.setWarehouseName(warehouseDto.getWarehouseName());
+					break;
+				}
+			}
+		}
+
+		return consumptionStockDtos;
+	}
+
+	@Override
+	public List<ConsumptionStockDto> getByOrderIdWithoutWarehouseInfo(Long id) {
+		List<ConsumptionStock> consumptionStocks = consumptionMaterialRepository.findByOrderOrderId(id);
+		List<ConsumptionStockDto> consumptionStockDtos = Arrays.asList(modelMapper.map(consumptionStocks, ConsumptionStockDto[].class));
+		List<Long> stockIds = consumptionStocks.stream().map(ConsumptionStock::getStockId).collect(Collectors.toList());
+		List<StockDto> stockDtos = stockServiceClient.getStockByIds(stockIds).getBody();
+		List<Long> materialIds = stockDtos.stream().map(StockDto::getMaterialId).collect(Collectors.toList());
+//		List<Long> warehouseIds = stockDtos.stream().map(StockDto::getWarehouseId).collect(Collectors.toList());
+		List<MaterialDto> materialDtos = mainDataServiceClient.getMaterialsByIds(materialIds).getBody();
+//		List<WarehouseDto> warehouseDtos = mainDataServiceClient.getWarehousesByIds(warehouseIds).getBody();
+
+		for (ConsumptionStockDto consumptionStockDto : consumptionStockDtos) {
+			for (StockDto stockDto : stockDtos) {
+				if (consumptionStockDto.getStockId() == stockDto.getStockId()) {
+					consumptionStockDto.setQuantity(stockDto.getQuantity());
+					consumptionStockDto.setMaterialId(stockDto.getMaterialId());
+					consumptionStockDto.setWarehouseId(stockDto.getWarehouseId());
+					break;
+				}
+			}
+			for (MaterialDto materialDto : materialDtos) {
+				if (materialDto.getMaterialId() == consumptionStockDto.getMaterialId()){
+					consumptionStockDto.setMaterialDesc(materialDto.getMaterialDesc());
+					consumptionStockDto.setMaterialNumber(materialDto.getMaterialNumber());
+					break;
 				}
 			}
 		}
