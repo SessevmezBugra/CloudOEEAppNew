@@ -1,11 +1,17 @@
 package com.oee.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name="ORDERED_MATERIAL")
+@Getter
+@Setter
+@NoArgsConstructor
 public class OrderedMaterial {
 
 	@Id
@@ -25,61 +31,18 @@ public class OrderedMaterial {
 	private String materialNumber;
 
 	@Column(name="PLANNED_PROD_QUANTITY")
-	private Double plannedProdQuantity;
+	private Double plannedProdQuantity = 0.0;
 	
 	@Column(name="ACTUAL_PROD_QUANTITY")
 	private Double actualProdQuantity = 0.0;
-	
-	public OrderedMaterial() {
-		// TODO Auto-generated constructor stub
-	}
 
-	public Long getId() {
-		return id;
-	}
+	@Column(name="IS_STOCK_PROD")
+	private Boolean isStockProd;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+	@Column(name="MATERIAL_ID")
+	private Long materialId;
 
-	public String getMaterialDesc() {
-		return materialDesc;
-	}
+	@Column(name="WAREHOUSE_ID")
+	private Long warehouseId;
 
-	public void setMaterialDesc(String materialDesc) {
-		this.materialDesc = materialDesc;
-	}
-
-	public Double getPlannedProdQuantity() {
-		return plannedProdQuantity;
-	}
-
-	public void setPlannedProdQuantity(Double plannedProdQuantity) {
-		this.plannedProdQuantity = plannedProdQuantity;
-	}
-
-	public Double getActualProdQuantity() {
-		return actualProdQuantity;
-	}
-
-	public void setActualProdQuantity(Double actualProdQuantity) {
-		this.actualProdQuantity = actualProdQuantity;
-	}
-
-	public OrderInfo getOrder() {
-		return order;
-	}
-
-	public void setOrder(OrderInfo order) {
-		this.order = order;
-	}
-
-
-	public String getMaterialNumber() {
-		return materialNumber;
-	}
-
-	public void setMaterialNumber(String materialNumber) {
-		this.materialNumber = materialNumber;
-	}
 }

@@ -6,13 +6,13 @@
 	xmlns:mvc="sap.ui.core.mvc">
 	<Page showHeader="false" title="{i18n>STOCK_INFORMATION}" backgroundDesign="Transparent" >
 		<content>
-			<Panel xmlns="sap.m" width="auto" expandable="true" expanded="true" id="panel0" >
+			<Panel width="auto">
 				<headerToolbar>
 					<Toolbar id="toolbar1">
 						<Title text="{i18n>WAREHOUSE}"></Title>
 						<ToolbarSpacer></ToolbarSpacer>
 						<Label text="{i18n>CHOOSEWAREHOUSE} : "></Label>
-						<ComboBox items="{stockModel>/warehouses}" change="onSelectedWarehouse" width="20%" >
+						<ComboBox items="{stockModel>/warehouses}" change="onSelectedWarehouse" width="20%" selectedKey="{stockModel>/selectedWarehouseId}">
 							<items>
 								<core:Item key="{stockModel>warehouseId}" text="{stockModel>warehouseName}"/>
 							</items>
@@ -20,21 +20,11 @@
 					</Toolbar>
 				</headerToolbar>
 				<content>
-					<ObjectHeader title="{stockModel>/selectedWarehouse/warehouseName}"  backgroundDesign="Solid" number="İstanbul, Turkey" numberUnit="05:15 PM, Thursday" icon="sap-icon://addresses" iconDensityAware="false" >
-						<attributes>
-							<ObjectAttribute title="{i18n>ADDRESS}" text="BLR.01, B2.023"/>
-							<ObjectAttribute title="{i18n>OFFICEPHONE}" text="+91-90100-98100"/>
-							<ObjectAttribute title="{i18n>EMAIL}" text="example@bybas.com" active="true"/>
-						</attributes>
-						<statuses>
-							<ObjectStatus title="{i18n>STATUS}" icon="sap-icon://employee-approvals" text="Available" state="Success"/>
-						</statuses>
-					</ObjectHeader>
 				</content>
 			</Panel>
 			<IconTabBar select="onSelectedTab" backgroundDesign="Transparent" headerBackgroundDesign="Transparent" class="arcloudBackgroundColor">
 				<items>
-					<IconTabFilter text="{i18n>PRODUCT}" icon="sap-icon://product" iconColor="Neutral" id="filter3">
+					<IconTabFilter text="{i18n>PRODUCT}" icon="sap-icon://product" iconColor="Neutral" id="filter3" key="stockInfo">
 						<content>
 							<Toolbar>
 								<Title text="{i18n>SEARCH}" />
@@ -45,9 +35,9 @@
 								<items>
 									<ColumnListItem type="Active" id="item4">
 										<cells>
-											<Text text="{stockModel>materialId}" id="text3"/>
+											<Text text="{stockModel>materialNumber}" id="text3"/>
 											<Text text="{stockModel>materialDesc}" id="text4"/>
-											<ObjectStatus	class="sapUiSmallMarginBottom"
+											<ObjectStatus
 												text="{= ${stockModel>quantity} > 0 ? 'Stok Var' : 'Stok Yok'}"
 												icon="sap-icon://status-inactive"
 												state="{= ${stockModel>quantity} > 0 ? 'Success' : 'Error'}" 
@@ -81,7 +71,7 @@
 							</Table>
 						</content>
 					</IconTabFilter>
-					<IconTabFilter text="{i18n>PRODUCTADD}" icon="sap-icon://add-product" iconColor="Positive" id="filter1">
+					<IconTabFilter text="{i18n>PRODUCTADD}" icon="sap-icon://add-product" iconColor="Positive" id="filter1" key="addStock">
 						<f:SimpleForm id="simple1" title="{i18n>PRODUCTADD}" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" columnsM="6" columnsL="5" columnsXL="5" emptySpanL="3" emptySpanXL="3" emptySpanM="2">
 							<f:content>
 								<Label text="{i18n>PRODUCTNAME}"></Label>
@@ -119,7 +109,7 @@
 							</f:content>
 						</f:SimpleForm>
 					</IconTabFilter>
-					<IconTabFilter text="{i18n>PRODUCTLOG}" icon="sap-icon://activity-individual" iconColor="Critical" id="filter2">
+					<IconTabFilter text="{i18n>PRODUCTLOG}" icon="sap-icon://activity-individual" iconColor="Critical" id="filter2" key="stockMov">
 						<content>
 							<Toolbar>
 								<Title text="{i18n>SEARCH}" />
@@ -131,12 +121,12 @@
 								<items>
 									<ColumnListItem type="Active" >
 										<cells>
-											<Text text="{stockModel>materialId}"/>
-											<Text text="{stockModel>materialDesc}" />
-											<ObjectStatus	class="sapUiSmallMarginBottom"
-												text="{= ${stockModel>positive}  === true ? 'Stok Eklendi.' : 'Stok Çıkartıldı.' }"
+											<Text text="{stockModel>stock/materialNumber}"/>
+											<Text text="{stockModel>stock/materialDesc}" />
+											<ObjectStatus
+												text="{= ${stockModel>isPositive}  === true ? 'Stok Eklendi.' : 'Stok Çıkartıldı.' }"
 												icon="sap-icon://status-inactive"
-												state="{= ${stockModel>positive}  === true ? 'Success' : 'Error' }" 
+												state="{= ${stockModel>isPositive}  === true ? 'Success' : 'Error' }" 
 												visible="true" id="positive"/>
 											<Text text="{stockModel>quantity}" />
 											<Text text="{stockModel>username}" />

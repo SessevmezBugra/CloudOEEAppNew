@@ -1,8 +1,8 @@
-<mvc:View controllerName="workerapp.components.factory.controller.App" 
+<mvc:View id="factoryAppView" controllerName="workerapp.components.factory.controller.App" 
 	xmlns:mvc="sap.ui.core.mvc" 
 	xmlns="sap.m" displayBlock="true" 
 	xmlns:tnt="sap.tnt">
-	<tnt:ToolPage id="toolPage">
+	<tnt:ToolPage id="toolPage" sideExpanded="{factoryGlobalModel>/sideNavigationExpanded}">
 		<tnt:header>
 			<tnt:ToolHeader>
 				<Button id="sideNavigationToggleButton" icon="sap-icon://menu2" type="Transparent" press=".onSideNavButtonPress" tooltip="{i18n>TOOLPAGE_NAV_TOGGLE_BTN_TOOL_TIP}">
@@ -35,7 +35,7 @@
 			</tnt:ToolHeader>
 		</tnt:header>
 		<tnt:sideContent>
-			<tnt:SideNavigation expanded="true"
+			<tnt:SideNavigation
 				itemSelect=".onItemSelect">
 				<tnt:NavigationList>
 					<tnt:NavigationListItem text="Hizli Menu" key="fastMenu" icon="sap-icon://home"/>

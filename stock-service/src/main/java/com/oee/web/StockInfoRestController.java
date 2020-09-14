@@ -79,7 +79,7 @@ public class StockInfoRestController {
 
 	 
 	@RequestMapping(value="/warehouse/{warehouseId}", method=RequestMethod.GET)
-	public ResponseEntity<List<StockInfo>> getStockInfoByWarehouseId(@PathVariable(value="warehouseId", required=true) Long warehouseId){
+	public ResponseEntity<List<StockDto>> getStockInfoByWarehouseId(@PathVariable(value="warehouseId", required=true) Long warehouseId){
 		return ResponseEntity.ok(stockInfoService.getByWarehouseId(warehouseId));
 	}
 

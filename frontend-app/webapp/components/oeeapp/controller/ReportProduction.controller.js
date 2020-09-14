@@ -174,7 +174,7 @@ sap.ui.define([
 
             if (aSelectedItems && aSelectedItems.length > 0) {
                 aSelectedItems.forEach(function (oItem) {
-                    var key = oItem.getBindingContext("reportProductionModel").getObject().reasonCode;
+                    var key = oItem.getBindingContext("reportProductionModel").getObject().reasonId;
                     var tokens = this.oMultiInput.getTokens();
                     var isValid = true;
                     for (var token of tokens) {
@@ -185,7 +185,7 @@ sap.ui.define([
                     if (isValid) {
                         this.oMultiInput.addToken(new Token({
                             text: oItem.getBindingContext("reportProductionModel").getObject().reasonDesc,
-                            key: oItem.getBindingContext("reportProductionModel").getObject().reasonCode
+                            key: oItem.getBindingContext("reportProductionModel").getObject().reasonId
                         }));
                     }
                 }.bind(this));
@@ -193,28 +193,31 @@ sap.ui.define([
         },
 
         reportProduction: function () {
+            this.showBusyIndicator();
             var qualityTypes = this.getModel("reportProductionModel").getData().qualityTypes;
             var prodRunData = [];
             for (var qualityType of qualityTypes) {
-                var scrapDetails = [];
+                var data = {
+                    quantity: qualityType.quantity,
+                    qualityId: qualityType.qualityId,
+                    confirmationTime: new Date()
+                };
                 if (qualityType.qualityType == "SCRAP") {
+                    var scrapDetails = [];
                     if (this.oMultiInput) {
                         var tokens = this.oMultiInput.getTokens();
                         for (var token of tokens) {
                             scrapDetails.push({
-                                reasonCode: token.getKey(),
-                                reasonDesc: token.getText()
+                                reasonId: token.getKey()
                             });
                         }
                     }
+                    data.scrap = {
+                        scrapDesc: qualityType.scrapDesc,
+                        scrapDetails: scrapDetails
+                    }
                 }
-                prodRunData.push({
-                    quantity: qualityType.quantity,
-                    qualityType: qualityType.qualityType,
-                    confirmationTime: new Date(),
-                    scrapDesc: qualityType.scrapDesc,
-                    scrapDetails: scrapDetails
-                });
+                prodRunData.push(data);
             }
 
             ConfirmationService.reportProdRunData(this.orderId, prodRunData).then(function (response) {
@@ -223,7 +226,7 @@ sap.ui.define([
                     title: this.getResourceBundle().getText("REPORT_PRODUCTION_MESSAGE_BOX_TITLE"),
                     emphasizedAction: this.getResourceBundle().getText("REPORT_PRODUCTION_OK"),
                     onClose: function (sAction) {
-                        
+
                     }.bind(this)
                 });
                 this.hideBusyIndicator();
@@ -233,13 +236,13 @@ sap.ui.define([
 
         },
 
-        destroyProdRunDataTable: function() {
+        destroyProdRunDataTable: function () {
             var qualityTypes = this.getModel("reportProductionModel").getData().qualityTypes;
-            for(var qualityType of qualityTypes) {
+            for (var qualityType of qualityTypes) {
                 qualityType.quantity = "";
                 qualityType.scrapDesc = "";
             }
-            if(this.oMultiInput) {
+            if (this.oMultiInput) {
                 this.oMultiInput.removeAllTokens();
             }
             this.getModel("reportProductionModel").refresh();

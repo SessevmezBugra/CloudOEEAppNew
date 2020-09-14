@@ -1,0 +1,113 @@
+<mvc:View displayBlock="true" controllerName="workerapp.components.factory.components.ordermanagement.controller.ProdRunDetail" height="100%"
+	xmlns="sap.uxap"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:m="sap.m"
+	xmlns:f="sap.f"
+	xmlns:form="sap.ui.layout.form">
+
+	<ObjectPageLayout backgroundDesignAnchorBar="Transparent" showTitleInHeaderContent="true" alwaysShowContentHeader="true" preserveHeaderStateOnScroll="false" headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false">
+		<headerTitle>
+			<ObjectPageDynamicHeaderTitle backgroundDesign="Transparent">
+				<expandedHeading>
+					<m:Title text="{i18n>PRODRUNDETAIL_TITLE}" wrapping="true" class="sapUiSmallMarginEnd"/>
+				</expandedHeading>
+				<snappedHeading>
+					<m:FlexBox fitContainer="true" alignItems="Center">
+						<m:Title text="{i18n>PRODRUNDETAIL_TITLE}" wrapping="true" class="sapUiSmallMarginEnd"/>
+					</m:FlexBox>
+				</snappedHeading>
+
+				<navigationActions>
+					<m:OverflowToolbarButton type="Transparent" icon="sap-icon://decline" press="handleClose" tooltip="Close column" />
+				</navigationActions>
+
+			</ObjectPageDynamicHeaderTitle>
+		</headerTitle>
+
+		<sections>
+			<ObjectPageSection title="{i18n>PRODRUNDETAIL_PROD_CONFIRMATION}">
+				<subSections>
+					<ObjectPageSubSection >
+						<blocks>
+							<m:Panel width="" class="arcloudBackgroundColor">
+								<m:Table  backgroundDesign="Solid" width="auto" items="{orderModel>/prodRunDatas}" enableBusyIndicator="false" busy="{orderModel>/prodRunDataTableBusy}">
+
+									<m:columns>
+										<m:Column minScreenWidth="Tablet" demandPopin="true">
+											<m:Text text="{i18n>QUANTITY}" />
+										</m:Column>
+										<m:Column minScreenWidth="Tablet" demandPopin="true">
+											<m:Text text="{i18n>QUALITY_TYPE}" />
+										</m:Column>
+										<m:Column minScreenWidth="Tablet" demandPopin="true">
+											<m:Text text="{i18n>CONFIRMATION_DATE}" />
+										</m:Column>
+										<m:Column minScreenWidth="Tablet" demandPopin="true">
+											<m:Text text="{i18n>USER}" />
+										</m:Column>
+									</m:columns>
+									<m:items>
+										<m:ColumnListItem >
+											<m:cells>
+												<m:ObjectIdentifier text="{orderModel>quantity}" />
+												<m:ObjectIdentifier text="{orderModel>qualityType}" />
+												<m:Text text="{
+														path: 'orderModel>confirmationTime',
+														formatter: '.formatter.dateFormat'}"/>
+												<m:ObjectIdentifier text="{orderModel>user}" />
+											</m:cells>
+										</m:ColumnListItem>
+									</m:items>
+								</m:Table>
+							</m:Panel>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+			<ObjectPageSection title="{i18n>PRODRUNDETAIL_CONSUMPTION_CONFIRMATION}">
+				<subSections>
+					<ObjectPageSubSection>
+						<blocks>
+							<m:Panel width="" class="arcloudBackgroundColor">
+								<m:Table  backgroundDesign="Solid" width="auto" items="{orderModel>/consumptionDatas}" enableBusyIndicator="false" busy="{orderModel>/consumptionDataTableBusy}">
+
+									<m:columns>
+										<m:Column minScreenWidth="Tablet" demandPopin="true">
+											<m:Text text="{i18n>MATERIAL_DESC}" />
+										</m:Column>
+										<m:Column minScreenWidth="Tablet" demandPopin="true">
+											<m:Text text="{i18n>WAREHOUSE}" />
+										</m:Column>
+										<m:Column minScreenWidth="Tablet" demandPopin="true">
+											<m:Text text="{i18n>QUANTITY}" />
+										</m:Column>
+
+										<m:Column minScreenWidth="Tablet" demandPopin="true">
+											<m:Text text="{i18n>CONFIRMATION_DATE}" />
+										</m:Column>
+										<m:Column minScreenWidth="Tablet" demandPopin="true">
+											<m:Text text="{i18n>USER}" />
+										</m:Column>
+									</m:columns>
+									<m:items>
+										<m:ColumnListItem>
+											<m:cells>
+												<m:ObjectIdentifier text="{orderModel>materialDesc}" />
+												<m:ObjectIdentifier text="{orderModel>warehouseName}" />
+												<m:ObjectIdentifier text="{orderModel>quantity}" />
+												<m:Text text="{
+														path: 'orderModel>confirmationTime',
+														formatter: '.formatter.dateFormat'}"/>
+												<m:ObjectIdentifier text="{orderModel>user}" />
+											</m:cells>
+										</m:ColumnListItem>
+									</m:items>
+								</m:Table>
+							</m:Panel>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+		</sections>
+	</ObjectPageLayout>
+</mvc:View>

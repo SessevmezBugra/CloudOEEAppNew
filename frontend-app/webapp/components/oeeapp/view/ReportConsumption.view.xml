@@ -4,7 +4,7 @@
     xmlns:core="sap.ui.core"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:l="sap.ui.layout">
-    <f:DynamicPage class="sapUiNoContentPadding" toggleHeaderOnTitleClick="false" backgroundDesign="Transparent">
+    <f:DynamicPage showFooter="true" class="sapUiNoContentPadding" toggleHeaderOnTitleClick="false" backgroundDesign="Transparent">
         <!-- DynamicPage Title -->
         <f:title>
             <f:DynamicPageTitle backgroundDesign="Transparent">
@@ -77,7 +77,7 @@
                                 <ColumnListItem>
                                     <cells>
                                         <ObjectIdentifier text="{reportConsumptionModel>materialDesc}" />
-                                        <Input value="{reportConsumptionModel>quantity}" />
+                                        <Input value="{reportConsumptionModel>consumptionQuantity}" />
                                     </cells>
                                 </ColumnListItem>
                             </items>

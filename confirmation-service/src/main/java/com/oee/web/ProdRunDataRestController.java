@@ -2,6 +2,7 @@ package com.oee.web;
 
 import java.util.List;
 
+import com.oee.dto.ProdRunDataDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -48,8 +49,8 @@ public class ProdRunDataRestController {
 		return ResponseEntity.ok(prodRunDataService.getById(entryId));
 	}
 	
-	@RequestMapping(value="/prodrunhdr/{id}", method=RequestMethod.GET)
-	public ResponseEntity<List<ProdRunData>> getProdRunDataByRunId(@PathVariable(value="id", required=true) Long runId){
+	@RequestMapping(value="/run-id/{id}", method=RequestMethod.GET)
+	public ResponseEntity<List<ProdRunDataDto>> getProdRunDataByRunId(@PathVariable(value="id", required=true) Long runId){
 		return ResponseEntity.ok(prodRunDataService.getByRunId(runId));
 	}
 	

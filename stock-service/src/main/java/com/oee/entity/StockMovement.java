@@ -10,10 +10,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 @Entity
 @Table(name = "STOCK_MOVEMENT")
+@Setter
+@Getter
+@NoArgsConstructor
 public class StockMovement {
 
     @Id
@@ -35,45 +41,4 @@ public class StockMovement {
     @JoinColumn(name = "STOCK_ID")
     private StockInfo stock;
 
-    public StockMovement() {}
-
-    public StockInfo getStock() {
-        return stock;
-    }
-
-    public void setStock(StockInfo stock) {
-        this.stock = stock;
-    }
-
-    public Long getStockMovId() {
-        return stockMovId;
-    }
-
-    public void setStockMovId(Long stockMovId) {
-        this.stockMovId = stockMovId;
-    }
-
-    public Double getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Double quantity) {
-        this.quantity = quantity;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-	public Boolean getPositive() {
-		return isPositive;
-	}
-
-	public void setPositive(Boolean isPositive) {
-		this.isPositive = isPositive;
-	}
 }

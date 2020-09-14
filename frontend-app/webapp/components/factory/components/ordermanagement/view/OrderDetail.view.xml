@@ -1,8 +1,8 @@
-<mvc:View displayBlock="true" controllerName="workerapp.components.factory.components.ordermanagement.controller.OrderDetail" height="100%" 
-	xmlns="sap.uxap" 
-	xmlns:mvc="sap.ui.core.mvc" 
-	xmlns:m="sap.m" 
-	xmlns:f="sap.f" 
+<mvc:View displayBlock="true" controllerName="workerapp.components.factory.components.ordermanagement.controller.OrderDetail" height="100%"
+	xmlns="sap.uxap"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:m="sap.m"
+	xmlns:f="sap.f"
 	xmlns:form="sap.ui.layout.form">
 
 	<ObjectPageLayout id="ObjectPageLayout" backgroundDesignAnchorBar="Transparent" showTitleInHeaderContent="true" alwaysShowContentHeader="true" preserveHeaderStateOnScroll="false" headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false">
@@ -97,7 +97,7 @@
 					<ObjectPageSubSection>
 						<blocks>
 							<m:Panel width="" class="arcloudBackgroundColor">
-								<m:Table id="prodRunsTable" backgroundDesign="Solid" width="auto" items="{orderModel>/prodRuns}"  enableBusyIndicator="false" busy="{orderModel>/prodRunsTableBusy}">
+								<m:Table id="prodRunsTable" backgroundDesign="Solid" width="auto" items="{orderModel>/prodRuns}" enableBusyIndicator="false" busy="{orderModel>/prodRunsTableBusy}">
 
 									<m:columns>
 										<m:Column minScreenWidth="Tablet" demandPopin="true">
@@ -117,11 +117,22 @@
 										</m:Column>
 									</m:columns>
 									<m:items>
-										<m:ColumnListItem type="Navigation" press="onListItemPress">
+										<m:ColumnListItem type="Navigation" press="onPressProdRunDetail">
 											<m:cells>
-												<m:ObjectIdentifier text="{orderModel>startTime}" />
-												<m:ObjectIdentifier text="{orderModel>endTime}" />
-												<m:ObjectIdentifier text="{orderModel>orderStatus}" />
+												<m:ObjectIdentifier text="{
+													path: 'orderModel>startTime',
+													formatter: '.formatter.dateFormat'}"/>
+												<m:ObjectIdentifier text="{
+													path: 'orderModel>endTime',
+													formatter: '.formatter.dateFormat'}"/>
+												<m:ObjectStatus
+													text="{
+															path: 'orderModel>status',
+															formatter: '.formatter.statusText'
+															}"
+													state="{
+															path: 'orderModel>status',
+															formatter: '.formatter.statusStats'}" />
 												<m:ObjectIdentifier text="{orderModel>startedUser}" />
 												<m:ObjectIdentifier text="{orderModel>endingUser}" />
 											</m:cells>

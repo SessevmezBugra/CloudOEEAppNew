@@ -15,7 +15,7 @@ sap.ui.define([
         getCompanyInfo: function(id) {
             return Service.doAjax("http://localhost:4000/main-data/company/" + id, null, "GET", true);
         },
-        deleteCompanyInfoById: function(id) {
+        deleteCompanyById: function(id) {
             return Service.doAjax("http://localhost:4000/main-data/company/" + id, null, "DELETE", true);
         },
 
@@ -32,6 +32,9 @@ sap.ui.define([
         getClientInfoByCompanyId: function(id) {
             return Service.doAjax("http://localhost:4000/main-data/client/company/" + id, null, "GET", true);
         },
+        deleteClientById: function(id) {
+            return Service.doAjax("http://localhost:4000/main-data/client/" + id, null, "DELETE", true);
+        },
 
         //PLANT
         getPlantInfo: function(id){
@@ -46,6 +49,9 @@ sap.ui.define([
         getPlantByClientId: function(id) {
             return Service.doAjax("http://localhost:4000/main-data/plant/client/" + id, null, "GET", true);
         },
+        deletePlantById: function(id) {
+            return Service.doAjax("http://localhost:4000/main-data/plant/" + id, null, "DELETE", true);
+        },
 
         //WAREHOUSE
         //giriş yapan kullanıcının sorumlu olduğu depoları döner
@@ -55,11 +61,14 @@ sap.ui.define([
         createWarehouse: function(warehouse){
             return Service.doAjax("http://localhost:4000/main-data/warehouse",warehouse,"POST",true);
         },
+        updateWarehouse: function(warehouse){
+            return Service.doAjax("http://localhost:4000/main-data/warehouse",warehouse,"PUT",true);
+        },
         getWarehousesByPlantId: function(id) {
             return Service.doAjax("http://localhost:4000/main-data/warehouse/plant/" + id, null, "GET", true);
         },
-        deleteWarehouse: function(warehouse){
-            return Service.doAjax("http://localhost:4000/main-data/warehouse/" + warehouse,null,"DELETE",true);
+        deleteWarehouseById: function(id){
+            return Service.doAjax("http://localhost:4000/main-data/warehouse/" + id, null,"DELETE",true);
         },
 
         //MATERIAL
@@ -69,11 +78,14 @@ sap.ui.define([
         createMaterial: function(material){
             return Service.doAjax("http://localhost:4000/main-data/material",material,"POST",true);
         },
+        updateMaterial: function(material){
+            return Service.doAjax("http://localhost:4000/main-data/material",material,"PUT",true);
+        },
         getMaterialsByPlantId: function(id) {
             return Service.doAjax("http://localhost:4000/main-data/material/plant/" + id, null, "GET", true);
         },
-        deleteMaterial: function(material){
-            return Service.doAjax("http://localhost:4000/main-data/material/" + material,null,"DELETE",true);
+        deleteMaterialById: function(id){
+            return Service.doAjax("http://localhost:4000/main-data/material/" + id, null, "DELETE", true);
         },
 
         //REASON CODE
@@ -84,8 +96,12 @@ sap.ui.define([
             return Service.doAjax("http://localhost:4000/main-data/reason-code", reasonCode, "POST", true);
             
         },
-        deleteReasonCode: function(reasonCode){
-            return Service.doAjax("http://localhost:4000/main-data/reason-code/" + reasonCode,null,"DELETE",true);
+        updateReasonCode: function(reasonCode){
+            return Service.doAjax("http://localhost:4000/main-data/reason-code", reasonCode, "PUT", true);
+            
+        },
+        deleteReasonCodeById: function(id){
+            return Service.doAjax("http://localhost:4000/main-data/reason-code/" + id, null, "DELETE", true);
         },
 
 
@@ -96,8 +112,11 @@ sap.ui.define([
         createQualityType: function(qualityType){
             return Service.doAjax("http://localhost:4000/main-data/quality-type", qualityType, "POST", true);
         },
-        deleteQualityType: function(qualityType){
-            return Service.doAjax("http://localhost:4000/main-data/quality-type/" + qualityType,null,"DELETE",true);
+        updateQualityType: function(qualityType){
+            return Service.doAjax("http://localhost:4000/main-data/quality-type", qualityType, "PUT", true);
+        },
+        deleteQualityTypeById: function(id){
+            return Service.doAjax("http://localhost:4000/main-data/quality-type/" + id, null, "DELETE", true);
         },
 
 

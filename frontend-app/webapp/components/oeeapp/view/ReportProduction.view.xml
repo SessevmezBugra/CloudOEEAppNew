@@ -90,7 +90,7 @@
                                                     templateShareable: true
                                                 }" valueHelpRequest="handleValueHelp" visible="{= ${reportProductionModel>qualityType} === 'SCRAP' }">
                                             <suggestionItems>
-                                                <core:Item key="{reportProductionModel>reasonCode}" text="{reportProductionModel>reasonDesc}" />
+                                                <core:Item key="{reportProductionModel>reasonId}" text="{reportProductionModel>reasonDesc}" />
                                             </suggestionItems>
                                         </MultiInput>
                                         <TextArea value="{reportProductionModel>scrapDesc}" rows="3" cols="40" visible="{= ${reportProductionModel>qualityType} === 'SCRAP' }"/>

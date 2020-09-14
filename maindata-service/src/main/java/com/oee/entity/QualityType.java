@@ -16,9 +16,9 @@ import javax.persistence.*;
 public class QualityType {
 
     @Id
-    @Column(name="ID")
+    @Column(name="QUALITY_ID")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
+    private Long qualityId;
 
     @JsonBackReference
     @ManyToOne(optional=true)

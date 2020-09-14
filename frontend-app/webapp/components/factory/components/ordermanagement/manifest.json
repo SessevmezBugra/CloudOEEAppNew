@@ -89,6 +89,15 @@
 						"orderList",
 						"orderDetail"
 					]
+				},
+				{
+					"pattern": "prodRunDetail/{orderId}/{runId}/{layout}",
+					"name": "prodRunDetail",
+					"target": [
+						"orderList",
+						"orderDetail",
+						"prodRunDetail"
+					]
 				}
 			],
 			"targets": {
@@ -99,6 +108,10 @@
 				"orderDetail": {
 					"viewName": "OrderDetail",
 					"controlAggregation": "midColumnPages"
+				},
+				"prodRunDetail": {
+					"viewName": "ProdRunDetail",
+					"controlAggregation": "endColumnPages"
 				},
 				"home": {
 					"viewName": "Home",

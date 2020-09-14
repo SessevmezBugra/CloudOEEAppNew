@@ -27,7 +27,7 @@ public class ConfirmationServiceApplication {
 	@Bean
 	public ModelMapper getModelMapper() {
 		ModelMapper mapper =new ModelMapper();
-		mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+		mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STANDARD);
 		return mapper;
 	}
 }

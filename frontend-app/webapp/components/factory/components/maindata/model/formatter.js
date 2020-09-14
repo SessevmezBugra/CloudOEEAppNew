@@ -3,16 +3,39 @@ sap.ui.define([], function () {
 
     return {
 
-        fooBar: function (iInteger) {
-            var sReturn = "";
-            if (iInteger) { // iInteger is 0
-                sRetrun = "foo";
-            } else if (iInteger <= 5) {
-                sReturn = "bar";
-            } else if (fFloat > 5) {
-                sReturn = "foo bar";
+        deleteAssetBtnText: function (type) {
+            var resourceBundle = this.getView().getModel("i18n").getResourceBundle();
+            switch (type) {
+                case "company":
+                    return resourceBundle.getText("ASSETDETAIL_COMPANY_DELETE");
+                case "client":
+                    return resourceBundle.getText("ASSETDETAIL_CLIENT_DELETE");
+                case "plant":
+					return resourceBundle.getText("ASSETDETAIL_PLANT_DELETE");
+                default:
+                    return type;
             }
-            return sReturn;
+        },
+        
+        assetDetailTitle: function (type, data) {
+            switch (type) {
+                case "company":
+                    return data.companyName;
+                case "client":
+                    return data.clientName;
+                case "plant":
+					return data.plantName;
+                default:
+                    return type;
+            } 
+        },
+
+        updateQualityTypeVisiblity: function(qualityType) {
+            if(qualityType != "SCRAP" && qualityType != "FIRST_QUALITY" && qualityType != "SECOND_QUALITY") {
+                return true;
+            }else {
+                return false;
+            }
         }
         
     };

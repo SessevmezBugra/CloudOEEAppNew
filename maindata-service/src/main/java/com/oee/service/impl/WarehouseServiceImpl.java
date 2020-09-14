@@ -37,7 +37,9 @@ public class WarehouseServiceImpl implements WarehouseService {
 
 	@Override
 	public WarehouseInfo update(WarehouseInfo warehouseInfo) {
-		return repository.save(warehouseInfo);
+		WarehouseInfo warehouse = repository.findById(warehouseInfo.getWarehouseId()).get();
+		warehouse.setWarehouseName(warehouseInfo.getWarehouseName());
+		return repository.save(warehouse);
 	}
 
 	@Override

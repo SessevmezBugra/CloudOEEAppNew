@@ -11,27 +11,28 @@
                         <Select forceSelection="false" selectedKey="{orderModel>/selectedPlant}" items="{orderModel>/plants}" change="onSelectedPlant">
                             <core:Item text="{orderModel>plantName}" key="{orderModel>plantId}"/>
                         </Select>
-                        <CheckBox id="chkId" text="Stoğa Üretim" select ="checkBox" selected="false"/>
+                        <CheckBox text="Stoğa Üretim" select ="onClickStockProduction" selected="{orderModel>/isStockProduction}"/>
                         <Label text="Depo" />
-                        <Select forceSelection="false" visible="{orderModel>/selectedCheckbox}" selectedKey="{orderModel>/selectedWarehouses}" items="{orderModel>/warehouses}" change="onSelectedWarehouse">
+                        <Select forceSelection="false" visible="{orderModel>/isStockProduction}" selectedKey="{orderModel>/selectedWarehouse}" items="{orderModel>/warehouses}" change="onSelectedWarehouse">
                             <core:Item text="{orderModel>warehouseName}" key="{orderModel>warehouseId}"/>
                         </Select>
                         <Label text="Malzeme" />
-                        <Select forceSelection="false" visible="{orderModel>/selectedCheckbox}" selectedKey="{orderModel>/selectedMaterial}" items="{orderModel>/materials}" change="onSelectedMaterial">
+                        <Select forceSelection="false" visible="{orderModel>/isStockProduction}" selectedKey="{orderModel>/selectedMaterial}" items="{orderModel>/materials}" change="onSelectedMaterial">
                             <core:Item text="{orderModel>materialDesc}" key="{orderModel>materialId}"/>
                         </Select>
                         <Label text="Siparis Numarasi" />
-                        <Input value="{orderModel>/orderNumber}" visible="{= ${orderModel>/selectedCheckbox} ? false : true}"/>
+                        <Input value="{orderModel>/orderNumber}" />
                         <Label text="Uretilecek Malzeme Numarasi" />
-                        <Input value="{orderModel>/materialNumberToProduced}" visible="{= ${orderModel>/selectedCheckbox} ? false : true}"/>
+                        <Input value="{orderModel>/materialNumberToProduced}" visible="{= ${orderModel>/isStockProduction} ? false : true}"/>
                         <Label text="Uretilecek Malzeme Aciklamasi" />
-                        <Input value="{orderModel>/materialDescToProduced}" visible="{= ${orderModel>/selectedCheckbox} ? false : true}"/>
+                        <Input value="{orderModel>/materialDescToProduced}" visible="{= ${orderModel>/isStockProduction} ? false : true}"/>
                         <Label text="Uretilecek Malzeme Miktari" />
                         <Input value="{orderModel>/materialQuantityToProduced}"/>
                         <Label text="Planlanan Baslangic Tarihi" />
                         <DateTimePicker id="DTP1" value="{path:'orderModel>/plannedStartDate', type:'sap.ui.model.type.DateTime', formatOptions: { style: 'medium', strictParsing: true}}" class="sapUiSmallMarginBottom"/>
                         <Label text="Planlanan Bitis Tarihi" />
                         <DateTimePicker id="DTP2" value="{path:'orderModel>/plannedEndDate', type:'sap.ui.model.type.DateTime', formatOptions: { style: 'medium', strictParsing: true}}" class="sapUiSmallMarginBottom"/>
+                        
                         <Label text="Tuketilecek Stoklar" />
                         <MultiInput id="stockMultiInput" suggestionItems="{
                                 path: 'orderModel>/stocks',

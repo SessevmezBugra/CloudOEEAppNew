@@ -5,9 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.oee.client.MainDataServiceClient;
-import com.oee.dto.PlantDto;
-import com.oee.dto.StockMovDto;
-import com.oee.dto.WarehouseDto;
+import com.oee.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -60,17 +58,21 @@ public class StockMovementServiceImpl implements StockMovementService{
 	@Override
 	public List<StockMovDto> getByWarehouseId(Long id) {
 		PlantDto plantDto = mainDataServiceClient.getPlantByWarehouseId(id).getBody();
+		List<MaterialDto> materialDtos = plantDto.getMaterials();
+		List<WarehouseDto> warehouseDtos = plantDto.getWarehouses();
 		List<StockMovDto> stockMovDtos = Arrays.asList(modelMapper.map(stockMovementRepository.findByStockWarehouseId(id), StockMovDto[].class));
-		for (int i = 0; i < stockMovDtos.size(); i++) {
-			for (int k = 0; k < plantDto.getMaterials().size(); k++) {
-				if(stockMovDtos.get(i).getMaterialId() == plantDto.getMaterials().get(k).getMaterialId()) {
-					stockMovDtos.get(i).setMaterialDesc(plantDto.getMaterials().get(k).getMaterialDesc());
-					stockMovDtos.get(i).setMaterialNumber(plantDto.getMaterials().get(k).getMaterialNumber());
+		for (StockMovDto stockMovDto : stockMovDtos) {
+			for (MaterialDto materialDto : materialDtos) {
+				if(stockMovDto.getStock().getMaterialId() == materialDto.getMaterialId()) {
+					stockMovDto.getStock().setMaterialDesc(materialDto.getMaterialDesc());
+					stockMovDto.getStock().setMaterialNumber(materialDto.getMaterialNumber());
+					break;
 				}
 			}
-			for (int l = 0; l < plantDto.getWarehouses().size(); l++) {
-				if(stockMovDtos.get(i).getWarehouseId() == plantDto.getWarehouses().get(l).getWarehouseId()) {
-					stockMovDtos.get(i).setWarehouseName(plantDto.getWarehouses().get(l).getWarehouseName());
+			for (WarehouseDto warehouseDto : warehouseDtos) {
+				if(stockMovDto.getStock().getWarehouseId() == warehouseDto.getWarehouseId()) {
+					stockMovDto.getStock().setWarehouseName(warehouseDto.getWarehouseName());
+					break;
 				}
 			}
 		}

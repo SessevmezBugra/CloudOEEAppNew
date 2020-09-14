@@ -16,53 +16,42 @@ sap.ui.define([
 		
 		onInit: function () {
 			var stockModel = new JSONModel();
-			this.setModel(stockModel,"stockModel");			
+			this.setModel(stockModel, "stockModel");			
 			this.getRouter().getRoute("stockTracking").attachPatternMatched(this._onMaterialMatched, this);
 		},
 		
 		_onMaterialMatched: function (oEvent) {
-			this.getModel("stockModel").destroy();
 			var stockModel = new JSONModel();
-			this.setModel(stockModel,"stockModel");
+			this.setModel(stockModel, "stockModel");
 			this.showBusyIndicator(); //hide warehouselar gelince calisacak.
 			this.getWarehouses();
 		},
 
 		onSelectedTab: function(oEvent) {
-			//this.showBusyIndicator();
-			//this.getStockInfo();
-			//this.getStockMovement();
-			if(this.getModel("stockModel").getProperty("/selectedWarehouseId")){
-				this.showBusyIndicator();
-				this.getStockInfo();
-				this.getStockMovement();
-			}
-			else {
+			if(!this.getModel("stockModel").getProperty("/selectedWarehouseId")){
 				MessageBox.alert(this.translateText("CHOOSEWAREHOUSEMESSAGE"), {
 					icon: MessageBox.Icon.INFORMATION,
 					title: this.translateText("ERROR"),
 				});
+				return;
 			}
-		},
 
-		getMaterialsDesc: function() {
-			var stockData = this.getModel("stockModel").getProperty("/stocks");
-			var materialData = this.getModel("stockModel").getProperty("/materials");
-			for(var stock of stockData){
-				for(var material of materialData){
-					if(stock.materialId == material.materialId) {
-						stock.materialDesc = material.materialDesc;
-					}
-				}
+			var selectedTab = oEvent.getParameter("key");
+			if(selectedTab == "stockInfo"){
+				this.showBusyIndicator();
+				this.getStockInfo();
+			}else if(selectedTab == "stockMov") {
+				this.showBusyIndicator();
+				this.getStockMovement();
 			}
-			this.getModel("stockModel").refresh();
+
+			
 		},
 
 		getStockInfo: function() {
 			var warehouseId = this.getModel("stockModel").getProperty("/selectedWarehouseId");
 			stockservice.getStockInfoByWarehouseId(warehouseId).then(function(response) {
 				this.getModel("stockModel").setProperty("/stocks", response.data);
-				this.getMaterialsDesc();
 				this.hideBusyIndicator();
 			}.bind(this)).catch(function(error) {
 				this.hideBusyIndicator();
@@ -139,27 +128,30 @@ sap.ui.define([
 			this.getModel("stockModel").setProperty("/selectedWarehouseId", selectedWarehouseId);
 			var selectedWarehouseInfo = this.getModel("stockModel").getProperty(oEvent.getSource().getSelectedItem().oBindingContexts.stockModel.sPath);
 			this.getModel("stockModel").getData().selectedWarehouse = selectedWarehouseInfo;
-			if(selectedWarehouseInfo.warehouseId == selectedWarehouseId) {
-				this.getModel("stockModel").setProperty("/selectedPlantId", selectedWarehouseInfo.plantId);
-			}
+			this.getModel("stockModel").setProperty("/selectedPlantId", selectedWarehouseInfo.plantId);
 			this.getModel("stockModel").refresh();
 			this.getMaterials();
 			this.getStockInfo();
 			this.getStockMovement();
 		},
 
+		
+
 
 		onSelectedMaterial: function(oEvent) {
+			this.showBusyIndicator();
 			var selectedMaterial = oEvent.getSource();
 			var selectedMaterialId = selectedMaterial.getSelectedKey();
-			this.getModel("stockModel").setProperty("/selectedMaterialId", selectedMaterialId);
-			var stockData = this.getModel("stockModel").getProperty("/stocks");
-			for(var stock of stockData){
-				if(stock.materialId == selectedMaterialId) {
-					this.getModel("stockModel").getData().currentStock = stock.quantity;
-				}
-			}
-			this.getModel("stockModel").refresh();
+			var selectedWarehouseId = this.getModel("stockModel").getData().selectedWarehouseId;
+			
+			stockservice.getStockInfoByWarehouseIdAndMaterialId(selectedWarehouseId, selectedMaterialId).then(function(response) {
+				this.getModel("stockModel").getData().currentStock = response.data.quantity;
+				this.getModel("stockModel").refresh();
+				this.hideBusyIndicator();
+			}.bind(this)).catch(function(error) {
+				this.hideBusyIndicator();
+			}.bind(this));
+			
 		},
 
 		saveStock: function () {
@@ -296,7 +288,6 @@ sap.ui.define([
 			var warehouseId = this.getModel("stockModel").getProperty("/selectedWarehouseId");
 			stockservice.getStockMovByWarehouseId(warehouseId).then(function(response) {
 				this.getModel("stockModel").setProperty("/stockmovement", response.data.reverse());
-				this.getMaterialsDesc();
 				this.hideBusyIndicator();
 			}.bind(this)).catch(function(error) {
 				this.hideBusyIndicator();

@@ -17,32 +17,32 @@ sap.ui.define([
 		formatter: formatter,
 
 		onInit: function () {
-            this.oRouter = this.getOwnerComponent().getRouter();
-            this.getRouter().getRoute("orderList").attachPatternMatched(this._onMatched, this);
+			this.oRouter = this.getOwnerComponent().getRouter();
+			this.getRouter().getRoute("orderList").attachPatternMatched(this._onMatched, this);
 		},
 
 		_onMatched: function (oEvent) {
 			this.getOrders();
 		},
-		
+
 		getOrders: function () {
 			this.showBusyIndicator(); //hide orderlar gelince calisacak.
 			OrderService.getOrdersByLoggedUser().then(function (response) {
-                var responseData = response.data;
+				var responseData = response.data;
 				this.getModel("orderModel").getData().orders = responseData;
-                this.getModel("orderModel").refresh();
-                this.hideBusyIndicator();
-            }.bind(this)).catch(function () {
-                this.hideBusyIndicator();
-            }.bind(this));
+				this.getModel("orderModel").refresh();
+				this.hideBusyIndicator();
+			}.bind(this)).catch(function () {
+				this.hideBusyIndicator();
+			}.bind(this));
 		},
 
 		openCreateOrderDialog: function () {
 			this.showBusyIndicator();//show fabrikalar gelince calisacak.
-            this.getPlants(function (isOk) {
-				if(isOk) {
+			this.getPlants(function (isOk) {
+				if (isOk) {
 					if (!this._oDialog) {
-						this._oDialog = sap.ui.xmlfragment("createOrderDialog","workerapp.components.factory.components.ordermanagement.fragment.createOrderDialog", this);
+						this._oDialog = sap.ui.xmlfragment("createOrderDialog", "workerapp.components.factory.components.ordermanagement.fragment.createOrderDialog", this);
 						this.getView().addDependent(this._oDialog);
 					}
 					this._oDialog.open();
@@ -50,23 +50,23 @@ sap.ui.define([
 					var date = new Date();
 					sap.ui.core.Fragment.byId("createOrderDialog", "DTP2").setMinDate(new Date(date.getFullYear(), date.getMonth(), date.getDate()));
 					var oMultiInput = sap.ui.core.Fragment.byId("createOrderDialog", "stockMultiInput");
-					oMultiInput.addValidator(function(args){
+					oMultiInput.addValidator(function (args) {
 						var key = args.suggestionObject.getKey();
 						var tokens = oMultiInput.getTokens();
 						var isValid = true;
-						for(var token of tokens) {
-							if (token.getKey() == key){
+						for (var token of tokens) {
+							if (token.getKey() == key) {
 								isValid = false;
 							}
 						}
-						if(isValid){
-							return new Token({key: key, text: args.text});
+						if (isValid) {
+							return new Token({ key: key, text: args.text });
 						}
 					});
 				}
-                
+
 			}.bind(this));
-			this.getModel("orderModel").getData().selectedCheckbox = false;
+			this.getModel("orderModel").getData().isStockProduction = false;
 			this.getModel("orderModel").refresh();
 		},
 
@@ -74,42 +74,42 @@ sap.ui.define([
 			this._oDialog.close();
 			this.clearOrderDialog();
 		},
-		
-		clearOrderDialog: function() {
+
+		clearOrderDialog: function () {
 			var orderDialogData = this.getModel("orderModel").getData();
 			orderDialogData.materialNumberToProduced = "";
-			orderDialogData.materialDescToProduced= "";
-			orderDialogData.materialQuantityToProduced= 0;
-			orderDialogData.plannedStartDate= new Date();
-			orderDialogData.plannedEndDate= new Date();
-			orderDialogData.customerName= "";
-			orderDialogData.orderNumber= "";
+			orderDialogData.materialDescToProduced = "";
+			orderDialogData.materialQuantityToProduced = 0;
+			orderDialogData.plannedStartDate = new Date();
+			orderDialogData.plannedEndDate = new Date();
+			orderDialogData.customerName = "";
+			orderDialogData.orderNumber = "";
 			this.getModel("orderModel").refresh();
 			var oMultiInput = sap.ui.core.Fragment.byId("createOrderDialog", "stockMultiInput");
-			if(oMultiInput){
+			if (oMultiInput) {
 				oMultiInput.destroyTokens();
 			}
 		},
 
 		getGroupHeader: function (oGroup) {
-			return new SeparatorItem( {
+			return new SeparatorItem({
 				text: oGroup.key
 			});
 		},
 
 		getPlants: function (callback) {
-            MaindataService.getPlants().then(function (response) {
-                var responseData = response.data;
-                this.getModel("orderModel").getData().plants = responseData;
-                this.getModel("orderModel").refresh();
-                callback(true);
-                this.hideBusyIndicator();
-            }.bind(this)).catch(function () {
-                callback(false);
-                this.hideBusyIndicator();
-            }.bind(this));
+			MaindataService.getPlants().then(function (response) {
+				var responseData = response.data;
+				this.getModel("orderModel").getData().plants = responseData;
+				this.getModel("orderModel").refresh();
+				callback(true);
+				this.hideBusyIndicator();
+			}.bind(this)).catch(function () {
+				callback(false);
+				this.hideBusyIndicator();
+			}.bind(this));
 		},
-		
+
 		createOrder: function () {
 			var orderData = this.getModel("orderModel").getData();
 
@@ -122,15 +122,18 @@ sap.ui.define([
 				orderedMaterial: {
 					materialDesc: orderData.materialDescToProduced,
 					materialNumber: orderData.materialNumberToProduced,
-					plannedProdQuantity: orderData.materialQuantityToProduced
+					plannedProdQuantity: orderData.materialQuantityToProduced,
+					isStockProd: orderData.isStockProduction,
+					materialId: orderData.selectedMaterial,
+					warehouseId: orderData.selectedWarehouse
 				},
 				consumptionStocks: [
-					
+
 				]
 
 			};
 			var oMultiInput = sap.ui.core.Fragment.byId("createOrderDialog", "stockMultiInput");
-			for(var token of oMultiInput.getTokens()) {
+			for (var token of oMultiInput.getTokens()) {
 				order.consumptionStocks.push({
 					stockId: token.getKey()
 				});
@@ -139,10 +142,10 @@ sap.ui.define([
 				this.closeOrderDialog();
 				this.hideBusyIndicator();
 				this.getOrders();
-            }.bind(this)).catch(function () {
-                // callback(false);
-                this.hideBusyIndicator();
-            }.bind(this));
+			}.bind(this)).catch(function () {
+				// callback(false);
+				this.hideBusyIndicator();
+			}.bind(this));
 
 		},
 
@@ -150,6 +153,11 @@ sap.ui.define([
 			this.showBusyIndicator(); //Stoklar geldiginde hide calisacak.
 			this.clearOrderDialog();
 			this.getStocks();
+			var isStockProduction = this.getModel("orderModel").getData().isStockProduction;
+			if (isStockProduction) {
+				this.getWarehouses();
+				this.getMaterials();
+			}
 		},
 
 		getStocks: function () {
@@ -157,11 +165,11 @@ sap.ui.define([
 			StockService.getStocksByPlantId(selectedPlant).then(function (response) {
 				var responseData = response.data;
 				this.getModel("orderModel").getData().stocks = responseData;
-                this.getModel("orderModel").refresh();
-                this.hideBusyIndicator();
-            }.bind(this)).catch(function () {
-                this.hideBusyIndicator();
-            }.bind(this));
+				this.getModel("orderModel").refresh();
+				this.hideBusyIndicator();
+			}.bind(this)).catch(function () {
+				this.hideBusyIndicator();
+			}.bind(this));
 		},
 
 		handleValueHelp: function (oEvent) {
@@ -214,12 +222,12 @@ sap.ui.define([
 					var key = oItem.getBindingContext("orderModel").getObject().stockId;
 					var tokens = oMultiInput.getTokens();
 					var isValid = true;
-					for(var token of tokens) {
-						if (token.getKey() == key){
+					for (var token of tokens) {
+						if (token.getKey() == key) {
 							isValid = false;
 						}
 					}
-					if(isValid){
+					if (isValid) {
 						oMultiInput.addToken(new Token({
 							text: oItem.getBindingContext("orderModel").getObject().materialDesc,
 							key: oItem.getBindingContext("orderModel").getObject().stockId
@@ -230,18 +238,21 @@ sap.ui.define([
 		},
 
 		onListItemPress: function (oEvent) {
+			this.getParentComponent(this.getOwnerComponent()).getModel("factoryGlobalModel").getData().sideNavigationExpanded = false;
+			this.getParentComponent(this.getOwnerComponent()).getModel("factoryGlobalModel").refresh();
 			var oNextUIState = this.getOwnerComponent().getHelper().getNextUIState(1);
 
 			var oItem = oEvent.getSource();
 			var order = oItem.getBindingContext("orderModel").getObject();
 
-			this.oRouter.navTo("orderDetail", {orderId: order.orderId, layout: oNextUIState.layout});
-			
+			this.oRouter.navTo("orderDetail", { orderId: order.orderId, layout: oNextUIState.layout });
+
 			oItem.setNavigated(true);
 			var oParent = oItem.getParent();
 			// store index of the item clicked, which can be used later in the columnResize event
 			this.iIndex = oParent.indexOfItem(oItem);
 		},
+		
 		onSearch: function (oEvent) {
 			var oTableSearchState = [],
 				sQuery = oEvent.getParameter("query");
@@ -252,7 +263,7 @@ sap.ui.define([
 
 			this.getView().byId("ordersTable").getBinding("items").filter(oTableSearchState, "Application");
 		},
-		
+
 		startOrder: function (oEvent) {
 			this.showBusyIndicator();
 			var order = oEvent.getSource().getParent().getParent().getBindingContext("orderModel").getObject();
@@ -264,9 +275,9 @@ sap.ui.define([
 			OrderService.startOrder(orderDto).then(function (response) {
 				this.hideBusyIndicator();
 				this.getOrders();
-            }.bind(this)).catch(function () {
-                this.hideBusyIndicator();
-            }.bind(this));
+			}.bind(this)).catch(function () {
+				this.hideBusyIndicator();
+			}.bind(this));
 		},
 
 		holdOrder: function (oEvent) {
@@ -280,9 +291,9 @@ sap.ui.define([
 			OrderService.holdOrder(orderDto).then(function (response) {
 				this.hideBusyIndicator();
 				this.getOrders();
-            }.bind(this)).catch(function () {
-                this.hideBusyIndicator();
-            }.bind(this));
+			}.bind(this)).catch(function () {
+				this.hideBusyIndicator();
+			}.bind(this));
 		},
 
 		resumeOrder: function (oEvent) {
@@ -296,9 +307,9 @@ sap.ui.define([
 			OrderService.resumeOrder(orderDto).then(function (response) {
 				this.hideBusyIndicator();
 				this.getOrders();
-            }.bind(this)).catch(function () {
-                this.hideBusyIndicator();
-            }.bind(this));
+			}.bind(this)).catch(function () {
+				this.hideBusyIndicator();
+			}.bind(this));
 		},
 
 		completeOrder: function (oEvent) {
@@ -312,63 +323,47 @@ sap.ui.define([
 			OrderService.completeOrder(orderDto).then(function (response) {
 				this.hideBusyIndicator();
 				this.getOrders();
-            }.bind(this)).catch(function () {
-                this.hideBusyIndicator();
-            }.bind(this));
+			}.bind(this)).catch(function () {
+				this.hideBusyIndicator();
+			}.bind(this));
 		},
 
-		checkBox: function (oEvent) {
+		onClickStockProduction: function (oEvent) {
 			this.showBusyIndicator();
 			var bSelected = oEvent.getParameter('selected');
-			if(bSelected)
-			{
-				this.getModel("orderModel").getData().selectedCheckbox = true;
-				this.getModel("orderModel").refresh();
+			if (bSelected) {
 				this.getWarehouses();
 				this.getMaterials();
+			} else {
+				this.hideBusyIndicator();
 			}
-			else
-			{
-				this.getModel("orderModel").getData().selectedCheckbox = false;
-				this.getModel("orderModel").refresh();
-			}
-			bSelected = !bSelected;
 		},
 
 		getWarehouses: function () {
 			this.showBusyIndicator(); //hide orderlar gelince calisacak.
 			var orderModel = this.getModel("orderModel").getData();
 			MaindataService.getWarehousesByPlantId(orderModel.selectedPlant).then(function (response) {
-                var responseData = response.data;
+				var responseData = response.data;
 				this.getModel("orderModel").getData().warehouses = responseData;
-                this.getModel("orderModel").refresh();
-                this.hideBusyIndicator();
-            }.bind(this)).catch(function () {
-                this.hideBusyIndicator();
-            }.bind(this));
+				this.getModel("orderModel").refresh();
+				this.hideBusyIndicator();
+			}.bind(this)).catch(function () {
+				this.hideBusyIndicator();
+			}.bind(this));
 		},
 
 		getMaterials: function () {
 			this.showBusyIndicator(); //hide orderlar gelince calisacak.
 			var orderModel = this.getModel("orderModel").getData();
 			MaindataService.getMaterialsByPlantId(orderModel.selectedPlant).then(function (response) {
-                var responseData = response.data;
+				var responseData = response.data;
 				this.getModel("orderModel").getData().materials = responseData;
-                this.getModel("orderModel").refresh();
-                this.hideBusyIndicator();
-            }.bind(this)).catch(function () {
-                this.hideBusyIndicator();
-            }.bind(this));
+				this.getModel("orderModel").refresh();
+				this.hideBusyIndicator();
+			}.bind(this)).catch(function () {
+				this.hideBusyIndicator();
+			}.bind(this));
 		},
-
-		onSelectedWarehouse: function () {
-			//this.showBusyIndicator(); //Stoklar geldiginde hide calisacak.
-			this.clearOrderDialog();
-		},
-
-		onSelectedMaterial: function () {
-			//this.showBusyIndicator(); //Stoklar geldiginde hide calisacak.
-			this.clearOrderDialog();
-		},
+		
 	});
 });

@@ -5,8 +5,9 @@ sap.ui.define([
     "workerapp/services/confirmationservice",
     'sap/ui/model/Filter',
     'sap/ui/model/FilterOperator',
-	"sap/m/MessageToast",
-], function (JSONModel, BaseController, OrderService, ConfirmationService, Filter, FilterOperator, MessageToast) {
+    "sap/m/MessageToast",
+    'sap/m/MessageBox'
+], function (JSONModel, BaseController, OrderService, ConfirmationService, Filter, FilterOperator, MessageToast, MessageBox) {
     "use strict";
 
     return BaseController.extend("workerapp.components.oeeapp.controller.ReportConsumption", {
@@ -93,6 +94,40 @@ sap.ui.define([
             }.bind(this)).catch(function () {
                 this.hideBusyIndicator();
             }.bind(this));
+        },
+
+        reportConsumption: function() {
+            this.showBusyIndicator();
+            var consumptionStocks = this.getModel("reportConsumptionModel").getData().consumptionStocks;
+            var consumptionDatas = [];
+            for(var consumptionStock of consumptionStocks) {
+                consumptionDatas.push({
+                    confirmationTime : new Date(),
+                    quantity: consumptionStock.consumptionQuantity,
+                    stockId: consumptionStock.stockId
+                });
+            }
+            ConfirmationService.reportConsumption(this.orderId, consumptionDatas).then(function (response) {
+                this.destroyConsumptionTable();
+                MessageBox.success(this.getResourceBundle().getText("REPORT_CONSUMPTION_MESSAGE_BOX_CONTENT"), {
+                    title: this.getResourceBundle().getText("REPORT_CONSUMPTION_MESSAGE_BOX_TITLE"),
+                    emphasizedAction: this.getResourceBundle().getText("REPORT_CONSUMPTION_OK"),
+                    onClose: function (sAction) {
+                        
+                    }.bind(this)
+                });
+                this.hideBusyIndicator();
+            }.bind(this)).catch(function () {
+                this.hideBusyIndicator();
+            }.bind(this));
+        },
+
+        destroyConsumptionTable: function() {
+            var consumptionStocks = this.getModel("reportConsumptionModel").getData().consumptionStocks;
+            for(var consumptionStock of consumptionStocks) {
+                consumptionStock.consumptionQuantity = 0;
+            };
+            this.getModel("reportConsumptionModel").refresh();
         }
     });
 }, true);

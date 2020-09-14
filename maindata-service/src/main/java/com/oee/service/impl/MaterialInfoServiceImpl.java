@@ -32,7 +32,10 @@ public class MaterialInfoServiceImpl implements MaterialInfoService{
 
 	@Override
 	public MaterialInfo update(MaterialInfo materialInfo) {
-		return materialInfoRepository.save(materialInfo);
+		MaterialInfo material = materialInfoRepository.findById(materialInfo.getMaterialId()).get();
+		material.setMaterialDesc(materialInfo.getMaterialDesc());
+		material.setMaterialNumber(materialInfo.getMaterialNumber());
+		return materialInfoRepository.save(material);
 	}
 
 	@Override
@@ -43,7 +46,7 @@ public class MaterialInfoServiceImpl implements MaterialInfoService{
 
 	@Override
 	public MaterialInfo getById(Long materialId) {
-		return materialInfoRepository.getOne(materialId);
+		return materialInfoRepository.findById(materialId).get();
 	}
 
 	@Override

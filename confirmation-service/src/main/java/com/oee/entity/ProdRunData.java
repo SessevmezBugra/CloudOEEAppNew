@@ -34,17 +34,13 @@ public class ProdRunData {
 	@Column(name="USER")
 	private String user;
 
-	@Column(name="QUALITY_TYPE")
-	private String qualityType;
+	@Column(name="QUALITY_ID")
+	private Long qualityId;
 
 	@Column(name="CONFIRMATION_TIME")
 	private Date confirmationTime;
 
-	@JsonManagedReference
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="prodRunData")
-	private List<ScrapDetail> scrapDetails;
-
-	@Column(name="SCRAP_DESC")
-	private String scrapDesc;
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "prodRunData")
+	private Scrap scrap;
 
 }

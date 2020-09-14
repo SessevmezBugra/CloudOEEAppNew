@@ -19,7 +19,7 @@
 		<!-- DynamicPage Content -->
 		<f:content>
 			<Panel width="" class="arcloudBackgroundColor">
-				<Table id="staffTable" items="{staffModel>/users}" backgroundDesign="Transparent" width="auto">
+				<Table id="staffTable" items="{staffModel>/users}" autoPopinMode="true" contextualWidth="Auto">
 					<headerToolbar>
 						<OverflowToolbar>
 							<ToolbarSpacer/>
@@ -27,18 +27,15 @@
 						</OverflowToolbar>
 					</headerToolbar>
 					<columns>
-						<Column>
+						<Column importance="High">
 							<Text text="{i18n>PERSONEL_NAME}" />
 						</Column>
-						<Column minScreenWidth="Desktop" demandPopin="true">
+						<Column importance="High">
 							<Text text="{i18n>PERSONEL_SURNAME}" />
 						</Column>
 
-						<Column minScreenWidth="Desktop" demandPopin="true">
+						<Column importance="High">
 							<Text text="{i18n>PERSONEL_USER_NAME}" />
-						</Column>
-						<Column minScreenWidth="Desktop" demandPopin="true">
-							<Text text="{i18n>STATUS}" />
 						</Column>
 					</columns>
 					<items>
@@ -47,7 +44,6 @@
 								<ObjectIdentifier text="{staffModel>firstName}" />
 								<ObjectIdentifier text="{staffModel>lastName}" />
 								<ObjectIdentifier text="{staffModel>username}" />
-								<ObjectIdentifier text="{staffModel>orderStatus}" />
 							</cells>
 						</ColumnListItem>
 					</items>

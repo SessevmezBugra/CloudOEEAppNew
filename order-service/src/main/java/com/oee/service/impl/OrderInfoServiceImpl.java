@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import com.oee.client.ConfirmationServiceClient;
 import com.oee.client.MainDataServiceClient;
 import com.oee.config.CurrentUserProvider;
+import com.oee.dto.MaterialDto;
 import com.oee.dto.OrderDto;
 import com.oee.dto.PlantDto;
 import com.oee.dto.ProdRunHdrDto;
@@ -35,6 +36,11 @@ public class OrderInfoServiceImpl implements OrderInfoService{
 		OrderedMaterial orderedMaterial = orderInfo.getOrderedMaterial();
 		if (orderedMaterial == null) {
 			throw new RuntimeException("Lutfen uretim malzemesini doldurunuz.");
+		}
+		if (orderedMaterial.getIsStockProd()) {
+			MaterialDto materialDto = mainDataServiceClient.getMaterialById(orderedMaterial.getMaterialId()).getBody();
+			orderedMaterial.setMaterialDesc(materialDto.getMaterialDesc());
+			orderedMaterial.setMaterialNumber(materialDto.getMaterialNumber());
 		}
 		orderedMaterial.setOrder(orderInfo);
 		orderInfo.setStatus(Status.NEW);

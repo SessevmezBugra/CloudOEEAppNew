@@ -1,7 +1,8 @@
 sap.ui.define([
 	"workerapp/base/BaseComponent",
-	"sap/ui/core/Component"
-], function(BaseComponent, Component) {
+	"sap/ui/core/Component",
+	'sap/ui/model/json/JSONModel'
+], function(BaseComponent, Component, JSONModel) {
 	"use strict";
 
 	return BaseComponent.extend("workerapp.components.factory.Component", {
@@ -11,7 +12,10 @@ sap.ui.define([
 		
 		init: async function() {
 			BaseComponent.prototype.init.apply(this, arguments);
-
+			var oModel = new JSONModel({
+				sideNavigationExpanded: true
+			});
+			this.setModel(oModel, "factoryGlobalModel");
 			var oParentComponent = Component.getOwnerComponentFor(this);
 			// await this.getRouter().attachBeforeRouteMatched(async function (oEvent){
 			// 	await this.UserService.initCheckSSO().then(function(isValid) {

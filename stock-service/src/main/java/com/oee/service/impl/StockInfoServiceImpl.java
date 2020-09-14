@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.oee.client.MainDataServiceClient;
+import com.oee.dto.MaterialDto;
 import com.oee.dto.PlantDto;
 import com.oee.dto.StockDto;
 import com.oee.dto.WarehouseDto;
@@ -56,8 +57,21 @@ public class StockInfoServiceImpl implements StockInfoService {
     }
 
     @Override
-    public List<StockInfo> getByWarehouseId(Long warehouseId) {
-        return stockRepository.findByWarehouseId(warehouseId);
+    public List<StockDto> getByWarehouseId(Long warehouseId) {
+        PlantDto plantDto = mainDataServiceClient.getPlantByWarehouseId(warehouseId).getBody();
+        List<MaterialDto> materialDtos = plantDto.getMaterials();
+        List<StockInfo> stockInfos = stockRepository.findByWarehouseId(warehouseId);
+        List<StockDto> stockDtos = Arrays.asList(modelMapper.map(stockInfos, StockDto[].class));
+        for (StockDto stockDto : stockDtos) {
+            for (MaterialDto materialDto : materialDtos) {
+                if(stockDto.getMaterialId() == materialDto.getMaterialId()) {
+                    stockDto.setMaterialDesc(materialDto.getMaterialDesc());
+                    stockDto.setMaterialNumber(materialDto.getMaterialNumber());
+                    break;
+                }
+            }
+        }
+        return stockDtos;
     }
 
     @Override
@@ -80,7 +94,7 @@ public class StockInfoServiceImpl implements StockInfoService {
             System.err.println(foundStockInfo.getQuantity());
             stockRepository.save(foundStockInfo);
             StockMovement stockMovement = new StockMovement();
-            stockMovement.setPositive(true);
+            stockMovement.setIsPositive(true);
             stockMovement.setQuantity(stockInfo.getQuantity());
             stockMovement.setStock(foundStockInfo);
             stockMovementService.create(stockMovement);
@@ -89,7 +103,7 @@ public class StockInfoServiceImpl implements StockInfoService {
             System.err.println("test32");
             stockRepository.save(stockInfo);
             StockMovement stockMovement = new StockMovement();
-            stockMovement.setPositive(true);
+            stockMovement.setIsPositive(true);
             stockMovement.setQuantity(stockInfo.getQuantity());
             stockMovement.setStock(stockInfo);
             stockMovementService.create(stockMovement);
@@ -115,7 +129,7 @@ public class StockInfoServiceImpl implements StockInfoService {
         foundStockInfo.setQuantity(foundStockInfo.getQuantity() - stockInfo.getQuantity());
         stockRepository.save(foundStockInfo);
         StockMovement stockMovement = new StockMovement();
-        stockMovement.setPositive(false);
+        stockMovement.setIsPositive(false);
         stockMovement.setQuantity(stockInfo.getQuantity());
         stockMovement.setStock(foundStockInfo);
         stockMovementService.create(stockMovement);
@@ -138,11 +152,13 @@ public class StockInfoServiceImpl implements StockInfoService {
                 if(stockDtos.get(i).getMaterialId() == plantDto.getMaterials().get(k).getMaterialId()) {
                     stockDtos.get(i).setMaterialDesc(plantDto.getMaterials().get(k).getMaterialDesc());
                     stockDtos.get(i).setMaterialNumber(plantDto.getMaterials().get(k).getMaterialNumber());
+                    break;
                 }
             }
             for (int l = 0; l < plantDto.getWarehouses().size(); l++) {
                 if(stockDtos.get(i).getWarehouseId() == plantDto.getWarehouses().get(l).getWarehouseId()) {
                     stockDtos.get(i).setWarehouseName(plantDto.getWarehouses().get(l).getWarehouseName());
+                    break;
                 }
             }
         }
@@ -161,7 +177,7 @@ public class StockInfoServiceImpl implements StockInfoService {
             }
             foundStock.setQuantity(foundStock.getQuantity() - stockMov.getQuantity());
             StockMovement stockMovement = new StockMovement();
-            stockMovement.setPositive(false);
+            stockMovement.setIsPositive(false);
             stockMovement.setQuantity(stockMov.getQuantity());
             stockMovement.setStock(foundStock);
             stockMovements.add(stockMovement);

@@ -21,12 +21,9 @@ public class ScrapDetail {
 
     @JsonBackReference
     @ManyToOne(optional=true)
-    @JoinColumn(name="ENTRY_ID")
-    private ProdRunData prodRunData;
+    @JoinColumn(name="SCRAP_ID")
+    private Scrap scrap;
 
-    @Column(name="REASON_CODE")
-    private String reasonCode;
-
-    @Column(name="REASON_DESC")
-    private String reasonDesc;
+    @Column(name="REASON_ID")
+    private String reasonId;
 }

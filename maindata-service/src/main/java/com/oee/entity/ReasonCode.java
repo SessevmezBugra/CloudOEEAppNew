@@ -16,9 +16,9 @@ import javax.persistence.*;
 public class ReasonCode {
 
     @Id
-    @Column(name="ID")
+    @Column(name="REASON_ID")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
+    private Long reasonId;
 
     @JsonBackReference
     @ManyToOne(optional=true)

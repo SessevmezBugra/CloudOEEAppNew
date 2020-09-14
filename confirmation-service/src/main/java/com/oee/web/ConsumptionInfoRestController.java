@@ -2,6 +2,7 @@ package com.oee.web;
 
 import java.util.List;
 
+import com.oee.dto.ConsumptionDataDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,7 +29,7 @@ public class ConsumptionInfoRestController {
 		return ResponseEntity.ok(consumptionInfoService.create(consumptionInfo));
 	}
 
-	@RequestMapping(value="/{id}", method=RequestMethod.POST)
+	@RequestMapping(value="/order/{id}", method=RequestMethod.POST)
 	public ResponseEntity<List<ConsumptionInfo>> createAllConsumptionInfo(@PathVariable(value="id", required=true) Long orderId, @RequestBody List<ConsumptionInfo> consumptionInfos){
 		return ResponseEntity.ok(consumptionInfoService.createAll(orderId, consumptionInfos));
 	}
@@ -49,8 +50,8 @@ public class ConsumptionInfoRestController {
 	}
 	
 	@RequestMapping(value="/run-id/{id}", method=RequestMethod.GET)
-	public ResponseEntity<List<ConsumptionInfo>> getConsumptionInfoByOrderId(@PathVariable(value="id", required=true) Long orderId){
-		return ResponseEntity.ok(consumptionInfoService.getByRunId(orderId));
+	public ResponseEntity<List<ConsumptionDataDto>> getConsumptionInfoByRunId(@PathVariable(value="id", required=true) Long runId){
+		return ResponseEntity.ok(consumptionInfoService.getByRunId(runId));
 	}
 	
 }

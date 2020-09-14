@@ -17,7 +17,7 @@ public interface StockInfoService {
 
 	List<StockInfo> getByIds(List<Long> ids);
 
-	List<StockInfo> getByWarehouseId(Long warehouseId);
+	List<StockDto> getByWarehouseId(Long warehouseId);
 
 	Boolean deleteByWarehouseIds(List<Long> warehouseIds);
 	

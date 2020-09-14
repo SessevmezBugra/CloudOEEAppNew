@@ -1,16 +1,27 @@
-<mvc:View controllerName="workerapp.components.factory.components.maindata.controller.Asset" 
-    xmlns="sap.m" 
-    xmlns:core="sap.ui.core" 
-    xmlns:mvc="sap.ui.core.mvc" 
-    xmlns:l="sap.ui.layout">
+<mvc:View controllerName="workerapp.components.factory.components.maindata.controller.Asset"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.f">
 
-    <Page showHeader="true" title="{i18n>ASSET_TITLE}" class="sapUiResponsivePadding--header" floatingFooter="true" backgroundDesign="Transparent">
-        <content>
+    <f:DynamicPage showFooter="true" class="sapUiNoContentPadding" toggleHeaderOnTitleClick="false" backgroundDesign="Transparent">
+        <!-- DynamicPage Title -->
+        <f:title>
+            <f:DynamicPageTitle backgroundDesign="Transparent">
+                <f:heading>
+                    <Title text="{i18n>ASSET_TITLE}"/>
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+
+        <!-- DynamicPage Content -->
+        <f:content>
             <l:BlockLayout background="Dashboard">
                 <l:BlockLayoutRow>
                     <l:BlockLayoutCell>
                         <Tree mode="SingleSelectMaster" id="idTree" items="{assetModel>/assets/children/}" selectionChange=".goToAssetDetailTreeTable" width="auto">
-                            <CustomTreeItem type ="Active" id = "listItem" highlightText="{assetModel>text}" >
+                            <CustomTreeItem type ="Active" id = "listItem" highlightText="{assetModel>text}">
                                 <FlexBox alignItems="Center" width="100%" justifyContent="Center">
                                     <items>
                                         <Text text="{assetModel>text}">
@@ -27,12 +38,16 @@
                     </l:BlockLayoutCell>
                 </l:BlockLayoutRow>
             </l:BlockLayout>
-        </content>
-        <footer>
-            <OverflowToolbar>
-                <ToolbarSpacer/>
-                <Button type="Accept" text="{i18n>COMPANY_BTN_CREATE}" press=".openCreateAssetDialog"/>
-            </OverflowToolbar>
-        </footer>
-    </Page>
+
+    </f:content>
+
+    <!-- DynamicPage Footer -->
+    <f:footer>
+        <OverflowToolbar>
+            <ToolbarSpacer/>
+            <!-- <Button type="Accept" text="{i18n>ORDER_BTN_CREATE}" press=".openCreateOrderDialog"/> -->
+            <Button type="Accept" text="{i18n>COMPANY_BTN_CREATE}" press=".openCreateAssetDialog"/>
+        </OverflowToolbar>
+    </f:footer>
+</f:DynamicPage>
 </mvc:View>

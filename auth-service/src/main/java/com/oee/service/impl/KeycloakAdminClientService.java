@@ -218,8 +218,8 @@ public class KeycloakAdminClientService {
         KeycloakAdminClientConfig keycloakAdminClientConfig = KeycloakAdminClientUtils.loadConfig(environment);
         Keycloak keycloak = KeycloakAdminClientUtils.getKeycloakClient(keycloakAdminClientConfig);
         RealmResource realmResource = keycloak.realm(keycloakAdminClientConfig.getRealm());
-        UsersResource usersRessource = realmResource.users();
-        UserResource userResource = usersRessource.get(userId);
+        UsersResource usersResource = realmResource.users();
+        UserResource userResource = usersResource.get(userId);
         UserRepresentation userRepresentation = userResource.toRepresentation();
         return userRepresentation;
     }
@@ -228,8 +228,8 @@ public class KeycloakAdminClientService {
         KeycloakAdminClientConfig keycloakAdminClientConfig = KeycloakAdminClientUtils.loadConfig(environment);
         Keycloak keycloak = KeycloakAdminClientUtils.getKeycloakClient(keycloakAdminClientConfig);
         RealmResource realmResource = keycloak.realm(keycloakAdminClientConfig.getRealm());
-        UsersResource usersRessource = realmResource.users();
-        usersRessource.delete(userId);
+        UsersResource usersResource = realmResource.users();
+        usersResource.delete(userId);
         return Boolean.TRUE;
     }
 }

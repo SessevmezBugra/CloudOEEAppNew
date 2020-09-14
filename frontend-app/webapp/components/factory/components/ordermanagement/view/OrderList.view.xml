@@ -54,7 +54,7 @@
 								<ObjectIdentifier text="{orderModel>plantName}" />
 								<ObjectIdentifier text="{orderModel>orderNo}" />
 								<ObjectIdentifier text="{orderModel>customer}" />
-								<ObjectStatus class="sapUiSmallMarginBottom"
+								<ObjectStatus
 								text="{
 										path: 'orderModel>status',
 										formatter: '.formatter.statusText'
@@ -63,8 +63,14 @@
 										path: 'orderModel>status',
 										formatter: '.formatter.statusStats'
 										}" />
-								<ObjectIdentifier text="{orderModel>plannedStartDate}" />
-								<ObjectIdentifier text="{orderModel>plannedEndDate}" />
+								<Text text="{
+										path: 'orderModel>plannedStartDate',
+										formatter: '.formatter.dateFormat'
+										}"/>
+								<Text text="{
+										path: 'orderModel>plannedEndDate',
+										formatter: '.formatter.dateFormat'
+										}"/>
 								<ObjectIdentifier text="{orderModel>materialDesc}" />
 								<FlexBox renderType="Div">
 									<items>

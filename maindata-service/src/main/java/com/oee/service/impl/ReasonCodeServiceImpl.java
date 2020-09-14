@@ -22,7 +22,10 @@ public class ReasonCodeServiceImpl implements ReasonCodeService {
 
     @Override
     public ReasonCode update(ReasonCode reasonCode) {
-        return reasonCodeRepository.save(reasonCode);
+        ReasonCode code = reasonCodeRepository.findById(reasonCode.getReasonId()).get();
+        code.setReasonCode(reasonCode.getReasonCode());
+        code.setReasonDesc(reasonCode.getReasonDesc());
+        return reasonCodeRepository.save(code);
     }
 
     @Override
