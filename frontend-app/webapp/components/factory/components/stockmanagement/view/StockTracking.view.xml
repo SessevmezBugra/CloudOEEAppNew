@@ -4,7 +4,7 @@
 	xmlns:core="sap.ui.core" 
 	xmlns:f="sap.ui.layout.form" 
 	xmlns:mvc="sap.ui.core.mvc">
-	<Page showHeader="false" title="{i18n>STOCK_INFORMATION}" backgroundDesign="Transparent" >
+	<Page showHeader="false" title="{i18n>STOCK_INFORMATION}">
 		<content>
 			<Panel width="auto">
 				<headerToolbar>
@@ -22,7 +22,7 @@
 				<content>
 				</content>
 			</Panel>
-			<IconTabBar select="onSelectedTab" backgroundDesign="Transparent" headerBackgroundDesign="Transparent" class="arcloudBackgroundColor">
+			<IconTabBar select="onSelectedTab">
 				<items>
 					<IconTabFilter text="{i18n>PRODUCT}" icon="sap-icon://product" iconColor="Neutral" id="filter3" key="stockInfo">
 						<content>
@@ -31,7 +31,7 @@
 								<ToolbarSpacer />
 								<SearchField width="40%" liveChange=".onFilterProducts"/>
 							</Toolbar>
-							<Table noDataText="{i18n>STOCK_NODATA}" id="stockTable" items="{stockModel>/stocks}" backgroundDesign="Transparent">
+							<Table noDataText="{i18n>STOCK_NODATA}" id="stockTable" items="{stockModel>/stocks}">
 								<items>
 									<ColumnListItem type="Active" id="item4">
 										<cells>
@@ -117,7 +117,7 @@
 								<SearchField width="40%" liveChange=".onFilterMov"/>
 							</Toolbar>
 
-							<Table noDataText="{i18n>STOCK_NODATA}" id="movementTable"  items="{stockModel>/stockmovement}" backgroundDesign="Transparent">
+							<Table noDataText="{i18n>STOCK_NODATA}" id="movementTable"  items="{stockModel>/stockmovement}">
 								<items>
 									<ColumnListItem type="Active" >
 										<cells>

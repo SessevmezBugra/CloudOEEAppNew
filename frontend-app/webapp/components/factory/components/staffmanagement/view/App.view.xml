@@ -2,7 +2,7 @@
 	  xmlns="sap.f"
 	  xmlns:m="sap.m"
 	  xmlns:mvc="sap.ui.core.mvc">
-	  <m:App backgroundImage="./images/personels.png">
+	  <m:App>
 	<FlexibleColumnLayout
 	    columnResize="onColumnResize"
 		autoFocus="false"
@@ -10,6 +10,6 @@
 		stateChange="onStateChanged"
 		restoreFocusOnBackNavigation="true"
 		layout="{staffModel>/layout}"
-		backgroundDesign="Transparent"/>
+		backgroundDesign="Translucent"/>
 		</m:App>
 </mvc:View>

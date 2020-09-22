@@ -13,7 +13,9 @@ import com.oee.enums.AreaType;
 import com.oee.enums.UserRole;
 import com.oee.repository.UserEntityRepository;
 import com.oee.service.ResponsibleAreaService;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import feign.Client;
+import lombok.RequiredArgsConstructor;
 import org.keycloak.KeycloakPrincipal;
 import org.keycloak.adapters.RefreshableKeycloakSecurityContext;
 import org.keycloak.admin.client.CreatedResponseUtil;
@@ -30,9 +32,11 @@ import com.oee.config.KeycloakAdminClientConfig;
 import com.oee.util.KeycloakAdminClientUtils;
 import org.springframework.util.StringUtils;
 
+import javax.persistence.EntityExistsException;
 import javax.ws.rs.core.Response;
 
 @Service
+@RequiredArgsConstructor
 public class KeycloakAdminClientService {
 
     private final CurrentUserProvider currentUserProvider;
@@ -40,14 +44,6 @@ public class KeycloakAdminClientService {
     private final ResponsibleAreaService responsibleAreaService;
     private final MainDataServiceClient mainDataServiceClient;
     private final UserEntityRepository userEntityRepository;
-
-    public KeycloakAdminClientService(CurrentUserProvider currentUserProvider, Environment environment, ResponsibleAreaService responsibleAreaService, MainDataServiceClient mainDataServiceClient, UserEntityRepository userEntityRepository) {
-        this.currentUserProvider = currentUserProvider;
-        this.environment = environment;
-        this.responsibleAreaService = responsibleAreaService;
-        this.mainDataServiceClient = mainDataServiceClient;
-        this.userEntityRepository = userEntityRepository;
-    }
 
     public List<String> getCurrentUserRoles() {
         return currentUserProvider.getCurrentUser().getRoles();
@@ -70,14 +66,50 @@ public class KeycloakAdminClientService {
         return userRepresentation;
     }
 
-    public Boolean addUserToCompanyOwnerGroup(){
+    public Boolean addUserToCompanyOwnerGroup(String userId){
         KeycloakAdminClientConfig keycloakAdminClientConfig = KeycloakAdminClientUtils.loadConfig(environment);
         Keycloak keycloak = KeycloakAdminClientUtils.getKeycloakClient(keycloakAdminClientConfig);
         RealmResource realmResource = keycloak.realm(keycloakAdminClientConfig.getRealm());
         UsersResource usersResource = realmResource.users();
-        UserResource userResource = usersResource.get(currentUserProvider.getCurrentUser().getUserId());
+        UserResource userResource = usersResource.get(userId);
         GroupsResource groupsResource = realmResource.groups();
-        List<String> groupId = groupsResource.groups().stream().filter(gr -> gr.getName().equals("COMPANY_OWNER")).map(GroupRepresentation::getId).collect(Collectors.toList());
+        List<String> groupId = groupsResource.groups().stream().filter(gr -> gr.getName().equals(UserRole.COMPANY_OWNER.name())).map(GroupRepresentation::getId).collect(Collectors.toList());
+        userResource.joinGroup(groupId.get(0));
+        return Boolean.TRUE;
+    }
+
+    public Boolean addUserToClientManagerGroup(String userId){
+        KeycloakAdminClientConfig keycloakAdminClientConfig = KeycloakAdminClientUtils.loadConfig(environment);
+        Keycloak keycloak = KeycloakAdminClientUtils.getKeycloakClient(keycloakAdminClientConfig);
+        RealmResource realmResource = keycloak.realm(keycloakAdminClientConfig.getRealm());
+        UsersResource usersResource = realmResource.users();
+        UserResource userResource = usersResource.get(userId);
+        GroupsResource groupsResource = realmResource.groups();
+        List<String> groupId = groupsResource.groups().stream().filter(gr -> gr.getName().equals(UserRole.CLIENT_MANAGER.name())).map(GroupRepresentation::getId).collect(Collectors.toList());
+        userResource.joinGroup(groupId.get(0));
+        return Boolean.TRUE;
+    }
+
+    public Boolean addUserToPlantManagerGroup(String userId){
+        KeycloakAdminClientConfig keycloakAdminClientConfig = KeycloakAdminClientUtils.loadConfig(environment);
+        Keycloak keycloak = KeycloakAdminClientUtils.getKeycloakClient(keycloakAdminClientConfig);
+        RealmResource realmResource = keycloak.realm(keycloakAdminClientConfig.getRealm());
+        UsersResource usersResource = realmResource.users();
+        UserResource userResource = usersResource.get(userId);
+        GroupsResource groupsResource = realmResource.groups();
+        List<String> groupId = groupsResource.groups().stream().filter(gr -> gr.getName().equals(UserRole.PLANT_MANAGER.name())).map(GroupRepresentation::getId).collect(Collectors.toList());
+        userResource.joinGroup(groupId.get(0));
+        return Boolean.TRUE;
+    }
+
+    public Boolean addUserToOperatorGroup(String userId){
+        KeycloakAdminClientConfig keycloakAdminClientConfig = KeycloakAdminClientUtils.loadConfig(environment);
+        Keycloak keycloak = KeycloakAdminClientUtils.getKeycloakClient(keycloakAdminClientConfig);
+        RealmResource realmResource = keycloak.realm(keycloakAdminClientConfig.getRealm());
+        UsersResource usersResource = realmResource.users();
+        UserResource userResource = usersResource.get(userId);
+        GroupsResource groupsResource = realmResource.groups();
+        List<String> groupId = groupsResource.groups().stream().filter(gr -> gr.getName().equals(UserRole.OPERATOR.name())).map(GroupRepresentation::getId).collect(Collectors.toList());
         userResource.joinGroup(groupId.get(0));
         return Boolean.TRUE;
     }
@@ -110,6 +142,7 @@ public class KeycloakAdminClientService {
         userRepresentation.setUsername(userDto.getUsername());
         userRepresentation.setFirstName(userDto.getFirstName());
         userRepresentation.setLastName(userDto.getLastName());
+        userRepresentation.setEnabled(true);
         Response response = usersRessource.create(userRepresentation);
 
         String userId = CreatedResponseUtil.getCreatedId(response);
@@ -132,15 +165,19 @@ public class KeycloakAdminClientService {
         if (userDto.getRoles().contains(UserRole.OPERATOR.name())) {
             groupId = groupsResource.groups().stream().filter(gr -> gr.getName().equals(UserRole.OPERATOR.name())).map(GroupRepresentation::getId).collect(Collectors.toList());
             responsibleArea.setAreaType(AreaType.PLANT);
+            responsibleArea.setUserRole(UserRole.OPERATOR);
         } else if (userDto.getRoles().contains(UserRole.PLANT_MANAGER.name())) {
             groupId = groupsResource.groups().stream().filter(gr -> gr.getName().equals(UserRole.PLANT_MANAGER.name())).map(GroupRepresentation::getId).collect(Collectors.toList());
             responsibleArea.setAreaType(AreaType.PLANT);
+            responsibleArea.setUserRole(UserRole.PLANT_MANAGER);
         } else if (userDto.getRoles().contains(UserRole.CLIENT_MANAGER.name())) {
             groupId = groupsResource.groups().stream().filter(gr -> gr.getName().equals(UserRole.CLIENT_MANAGER.name())).map(GroupRepresentation::getId).collect(Collectors.toList());
             responsibleArea.setAreaType(AreaType.CLIENT);
+            responsibleArea.setUserRole(UserRole.CLIENT_MANAGER);
         } else if (userDto.getRoles().contains(UserRole.COMPANY_OWNER.name())) {
             groupId = groupsResource.groups().stream().filter(gr -> gr.getName().equals(UserRole.COMPANY_OWNER.name())).map(GroupRepresentation::getId).collect(Collectors.toList());
             responsibleArea.setAreaType(AreaType.COMPANY);
+            responsibleArea.setUserRole(UserRole.COMPANY_OWNER);
         }
         userResource.joinGroup(groupId.get(0));
         responsibleAreaService.create(responsibleArea);
@@ -230,6 +267,91 @@ public class KeycloakAdminClientService {
         RealmResource realmResource = keycloak.realm(keycloakAdminClientConfig.getRealm());
         UsersResource usersResource = realmResource.users();
         usersResource.delete(userId);
+        return Boolean.TRUE;
+    }
+
+
+    public Boolean isRoleExist(ResponsibleArea responsibleArea) {
+        ResponsibleArea foundedArea = responsibleAreaService.findByUserIdAndUserRoleAndAreaId(responsibleArea.getUserEntity().getId(), responsibleArea.getUserRole(), responsibleArea.getAreaId());
+
+        if(foundedArea != null) {
+            return true;
+        }
+        return false;
+    }
+
+    public Boolean addCompanyOwnerRole(ResponsibleArea responsibleArea) {
+        responsibleArea.setUserRole(UserRole.COMPANY_OWNER);
+        responsibleArea.setAreaType(AreaType.COMPANY);
+        if (isRoleExist(responsibleArea)){
+            throw new EntityExistsException("Bu rol bu kullanici icin mevcuttur.");
+        }
+        responsibleAreaService.create(responsibleArea);
+        addUserToCompanyOwnerGroup(responsibleArea.getUserEntity().getId());
+        return Boolean.TRUE;
+    }
+
+    public Boolean addClientManagerRole(ResponsibleArea responsibleArea) {
+        responsibleArea.setUserRole(UserRole.CLIENT_MANAGER);
+        responsibleArea.setAreaType(AreaType.CLIENT);
+        if (isRoleExist(responsibleArea)){
+            throw new EntityExistsException("Bu rol bu kullanici icin mevcuttur.");
+        }
+        responsibleAreaService.create(responsibleArea);
+        addUserToClientManagerGroup(responsibleArea.getUserEntity().getId());
+        return Boolean.TRUE;
+    }
+
+    public Boolean addPlantManagerRole(ResponsibleArea responsibleArea) {
+        responsibleArea.setUserRole(UserRole.PLANT_MANAGER);
+        responsibleArea.setAreaType(AreaType.PLANT);
+        if (isRoleExist(responsibleArea)){
+            throw new EntityExistsException("Bu rol bu kullanici icin mevcuttur.");
+        }
+        responsibleAreaService.create(responsibleArea);
+        addUserToPlantManagerGroup(responsibleArea.getUserEntity().getId());
+        return Boolean.TRUE;
+    }
+
+    public Boolean addOperatorRole(ResponsibleArea responsibleArea) {
+        responsibleArea.setUserRole(UserRole.OPERATOR);
+        responsibleArea.setAreaType(AreaType.PLANT);
+        if (isRoleExist(responsibleArea)){
+            throw new EntityExistsException("Bu rol bu kullanici icin mevcuttur.");
+        }
+        responsibleAreaService.create(responsibleArea);
+        addUserToOperatorGroup(responsibleArea.getUserEntity().getId());
+        return Boolean.TRUE;
+    }
+
+    public Boolean deleteByResponsibleAreaId(Long responsibleAreaId) {
+        ResponsibleArea responsibleArea = responsibleAreaService.findById(responsibleAreaId);
+        List<ResponsibleArea> responsibleAreas = responsibleArea.getUserEntity().getResponsibleAreas();
+        Boolean isSameRoleExist = false;
+        for (ResponsibleArea area : responsibleAreas) {
+            System.err.println(area.getUserRole().getRole());
+            if(responsibleArea.getId() != area.getId() && responsibleArea.getUserRole().equals(area.getUserRole())) {
+                isSameRoleExist = true;
+            }
+        }
+        System.err.println(responsibleAreaId);
+//        responsibleAreas.remove(responsibleArea);
+        responsibleAreaService.delete(responsibleAreaId);
+        if(!isSameRoleExist) {
+            removeFromGroup(responsibleArea.getUserEntity().getId(), responsibleArea.getUserRole().name());
+        }
+        return Boolean.TRUE;
+    }
+
+    public Boolean removeFromGroup(String userId, String groupName) {
+        KeycloakAdminClientConfig keycloakAdminClientConfig = KeycloakAdminClientUtils.loadConfig(environment);
+        Keycloak keycloak = KeycloakAdminClientUtils.getKeycloakClient(keycloakAdminClientConfig);
+        RealmResource realmResource = keycloak.realm(keycloakAdminClientConfig.getRealm());
+        UsersResource usersResource = realmResource.users();
+        UserResource userResource = usersResource.get(userId);
+        GroupsResource groupsResource = realmResource.groups();
+        List<String> groupId = groupsResource.groups().stream().filter(gr -> gr.getName().equals(groupName)).map(GroupRepresentation::getId).collect(Collectors.toList());
+        userResource.leaveGroup(groupId.get(0));
         return Boolean.TRUE;
     }
 }

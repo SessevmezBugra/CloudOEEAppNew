@@ -55,4 +55,9 @@ public class CompanyInfoRestController {
 		return ResponseEntity.ok(companyInfoService.getById(companyId));
 	}
 
+	@RequestMapping(value = "/ids", method = RequestMethod.POST)
+	public ResponseEntity<List<CompanyInfo>> getCompaniesByIds(@RequestBody List<Long> companyIds) {
+		return ResponseEntity.ok(companyInfoService.findCompaniesByIds(companyIds));
+	}
+
 }

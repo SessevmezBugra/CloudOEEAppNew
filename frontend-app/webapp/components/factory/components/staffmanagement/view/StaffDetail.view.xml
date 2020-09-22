@@ -7,16 +7,16 @@
 	xmlns:form="sap.ui.layout.form"
 	xmlns:l="sap.ui.layout">
 
-	<ObjectPageLayout id="ObjectPageLayout" backgroundDesignAnchorBar="Transparent" showFooter="true" showTitleInHeaderContent="true" alwaysShowContentHeader="true" preserveHeaderStateOnScroll="false" headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false">
+	<ObjectPageLayout id="ObjectPageLayout" showFooter="true" showTitleInHeaderContent="true" alwaysShowContentHeader="true" preserveHeaderStateOnScroll="false" headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false">
 		<headerTitle>
-			<ObjectPageDynamicHeaderTitle backgroundDesign="Transparent">
+			<ObjectPageDynamicHeaderTitle>
 				<expandedHeading>
-					<m:Title text="{staffModel>/detailUsers/firstName} {staffModel>/detailUsers/lastName}" wrapping="true" class="sapUiSmallMarginEnd"/>
+					<m:Title text="{staffModel>/userDetail/firstName} {staffModel>/userDetail/lastName}" wrapping="true" class="sapUiSmallMarginEnd"/>
 				</expandedHeading>
 
 				<snappedHeading>
 					<m:FlexBox fitContainer="true" alignItems="Center" class="sapUiTinyMarginEnd">
-						<m:Title text="{staffModel>/detailUsers/firstName} {staffModel>/detailUsers/lastName}" wrapping="true" class="sapUiTinyMarginEnd"/>
+						<m:Title text="{staffModel>/userDetail/firstName} {staffModel>/userDetail/lastName}" wrapping="true" class="sapUiTinyMarginEnd"/>
 					</m:FlexBox>
 				</snappedHeading>
 
@@ -36,8 +36,8 @@
 									<l:BlockLayoutCell>
 										<m:ObjectHeader backgroundDesign="Transparent" icon="sap-icon://account" iconDensityAware="false" imageShape="Circle">
 											<m:attributes>
-												<m:ObjectAttribute title="{i18n>NAME} {i18n>SURNAME}" text="{staffModel>/detailUsers/firstName} {staffModel>/detailUsers/lastName}"/>
-												<m:ObjectAttribute title="Kullanıcı Adı " text="{staffModel>/detailUsers/username}"/>
+												<m:ObjectAttribute title="{i18n>NAME} {i18n>SURNAME}" text="{staffModel>/userDetail/firstName} {staffModel>/userDetail/lastName}"/>
+												<m:ObjectAttribute title="Kullanıcı Adı " text="{staffModel>/userDetail/username}"/>
 											</m:attributes>
 											<m:statuses>
 
@@ -57,24 +57,44 @@
 							<l:BlockLayout background="Dashboard">
 								<l:BlockLayoutRow>
 									<l:BlockLayoutCell>
-										<Table items="{staffModel>/users}" autoPopinMode="true" contextualWidth="Auto">
-											<columns>
-												<Column importance="High">
-													<Text text="{i18n>RESPONSIBLE_AREA}" />
-												</Column>
-												<Column importance="High">
-													<Text text="{i18n>PERSONEL_ROLES}" />
-												</Column>
-											</columns>
-											<items>
-												<ColumnListItem>
-													<cells>
-														<ObjectIdentifier text="{staffModel>areaType}" />
-														<ObjectIdentifier text="{staffModel>lastName}" />
-													</cells>
-												</ColumnListItem>
-											</items>
-										</Table>
+										<m:Table items="{staffModel>/userRoles}" autoPopinMode="true" contextualWidth="Auto" enableBusyIndicator="false" busy="{staffModel>/personRolesTableBusy}">
+											<m:headerToolbar>
+												<m:OverflowToolbar>
+													<m:content>
+														<m:ToolbarSpacer />
+														<m:Button press="openAddRoleDialog" type="Accept" text="{i18n>ADD_ROLE}" />
+													</m:content>
+												</m:OverflowToolbar>
+											</m:headerToolbar>
+											<m:columns>
+												<m:Column importance="High">
+													<m:Text text="{i18n>RESPONSIBLE_AREA_TYPE}" />
+												</m:Column>
+												<m:Column importance="High">
+													<m:Text text="{i18n>RESPONSIBLE_AREA_NAME}" />
+												</m:Column>
+												<m:Column importance="High">
+													<m:Text text="{i18n>PERSONEL_ROLE}" />
+												</m:Column>
+												<m:Column importance="High">
+												</m:Column>
+											</m:columns>
+											<m:items>
+												<m:ColumnListItem>
+													<m:cells>
+														<m:ObjectIdentifier text="{
+															path: 'staffModel>areaType',
+															formatter: '.formatter.responsibleAreaDesc'}"/>
+														<m:ObjectIdentifier text="{staffModel>areaName}" />
+														<m:ObjectIdentifier text="{
+															path: 'staffModel>userRole',
+															formatter: '.formatter.roleDesc'}"/>
+														<m:Button text="{i18n>REMOVE}" type="Critical" press="openRemoveRoleDialog">
+														</m:Button>
+													</m:cells>
+												</m:ColumnListItem>
+											</m:items>
+										</m:Table>
 									</l:BlockLayoutCell>
 								</l:BlockLayoutRow>
 							</l:BlockLayout>

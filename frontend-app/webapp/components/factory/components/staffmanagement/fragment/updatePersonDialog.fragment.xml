@@ -8,9 +8,9 @@
                 <f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
                     <f:content>
                         <Label text="{i18n>PERSONEL_NAME}" />
-                        <Input value="{staffModel>/personName}"/>
+                        <Input value="{staffModel>/personDialogData/personName}"/>
                         <Label text="{i18n>PERSONEL_SURNAME}" />
-                        <Input value="{staffModel>/personSurname}"/>
+                        <Input value="{staffModel>/personDialogData/personSurname}"/>
                     </f:content>
                 </f:SimpleForm>
             </VBox>

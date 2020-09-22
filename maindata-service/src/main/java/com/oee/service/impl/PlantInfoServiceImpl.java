@@ -125,5 +125,9 @@ public class PlantInfoServiceImpl implements PlantInfoService{
 		return plantInfoRepository.findByWarehousesWarehouseId(warehouseId);
 	}
 
+	@Override
+	public List<PlantInfo> getPlantByIds(List<Long> ids) {
+		return plantInfoRepository.findAllById(ids);
+	}
 
 }

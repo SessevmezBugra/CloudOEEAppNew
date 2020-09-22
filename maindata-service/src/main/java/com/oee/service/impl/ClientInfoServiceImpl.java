@@ -101,4 +101,9 @@ public class ClientInfoServiceImpl implements ClientInfoService{
 		return clientInfos;
 	}
 
+	@Override
+	public List<ClientInfo> getClientsByIds(List<Long> ids) {
+		return clientInfoRepository.findAllById(ids);
+	}
+
 }

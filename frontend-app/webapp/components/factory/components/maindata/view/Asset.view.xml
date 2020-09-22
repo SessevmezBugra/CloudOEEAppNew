@@ -5,10 +5,10 @@
     xmlns:l="sap.ui.layout"
     xmlns:f="sap.f">
 
-    <f:DynamicPage showFooter="true" class="sapUiNoContentPadding" toggleHeaderOnTitleClick="false" backgroundDesign="Transparent">
+    <f:DynamicPage showFooter="true" class="sapUiNoContentPadding" toggleHeaderOnTitleClick="false">
         <!-- DynamicPage Title -->
         <f:title>
-            <f:DynamicPageTitle backgroundDesign="Transparent">
+            <f:DynamicPageTitle>
                 <f:heading>
                     <Title text="{i18n>ASSET_TITLE}"/>
                 </f:heading>

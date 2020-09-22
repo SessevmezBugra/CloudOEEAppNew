@@ -15,5 +15,7 @@ public interface CompanyInfoService {
 	Boolean delete(Long companyId);
 	
 	CompanyInfo getById(Long companyId);
+
+	List<CompanyInfo> findCompaniesByIds(List<Long> ids);
 	
 }

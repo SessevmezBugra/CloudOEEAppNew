@@ -18,4 +18,6 @@ public interface ClientInfoService {
 
 	List<ClientInfo> getClientsByLoggedUser();
 
+	List<ClientInfo> getClientsByIds(List<Long> ids);
+
 }

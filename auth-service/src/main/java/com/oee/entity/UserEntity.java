@@ -23,7 +23,7 @@ public class UserEntity {
     private String username;
 
     @JsonManagedReference
-    @OneToMany(cascade=CascadeType.ALL, mappedBy="userEntity")
+    @OneToMany(cascade=CascadeType.REMOVE, mappedBy="userEntity")
     private List<ResponsibleArea> responsibleAreas;
 
     public UserEntity() {

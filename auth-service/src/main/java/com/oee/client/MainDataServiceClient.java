@@ -18,13 +18,22 @@ public interface MainDataServiceClient {
     @RequestMapping(value = "/main-data/company", method= RequestMethod.GET)
     public ResponseEntity<List<CompanyDto>> getCompaniesByLoggedUser();
 
+    @RequestMapping(value = "/main-data/company/ids", method= RequestMethod.POST)
+    public ResponseEntity<List<CompanyDto>> getCompaniesByIds(@RequestBody List<Long> ids);
+
     @RequestMapping(value = "/main-data/client", method= RequestMethod.GET)
     public ResponseEntity<List<ClientDto>> getClientsByLoggedUser();
+
+    @RequestMapping(value = "/main-data/client/ids", method= RequestMethod.POST)
+    public ResponseEntity<List<ClientDto>> getClientsByIds(@RequestBody List<Long> ids);
 
     @RequestMapping(value = "/main-data/plant", method= RequestMethod.GET)
     public ResponseEntity<List<PlantDto>> getPlantsByLoggedUser();
 
-    @RequestMapping(value = "/maindata/companyinfo", method=RequestMethod.POST)
+    @RequestMapping(value = "/main-data/plant/ids", method= RequestMethod.POST)
+    public ResponseEntity<List<PlantDto>> getPlantsByIds(@RequestBody List<Long> ids);
+
+    @RequestMapping(value = "/maindata/company", method=RequestMethod.POST)
     public ResponseEntity<CompanyDto> createCompanyInfo(@RequestBody CompanyDto companyDto);
 
 }

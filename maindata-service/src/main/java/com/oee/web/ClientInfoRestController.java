@@ -53,4 +53,9 @@ public class ClientInfoRestController {
 	public ResponseEntity<List<ClientInfo>> getClientInfoByCompanyId(@PathVariable(value="id", required=true) Long companyId){
 		return ResponseEntity.ok(clientInfoService.getByCompanyId(companyId));
 	}
+
+	@RequestMapping(value="/ids", method=RequestMethod.POST)
+	public ResponseEntity<List<ClientInfo>> getClientsByIds(@RequestBody List<Long> ids){
+		return ResponseEntity.ok(clientInfoService.getClientsByIds(ids));
+	}
 }

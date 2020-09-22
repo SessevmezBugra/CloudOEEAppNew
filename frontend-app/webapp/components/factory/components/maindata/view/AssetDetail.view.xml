@@ -5,9 +5,9 @@
     xmlns:f="sap.f"
     xmlns:l="sap.ui.layout"
     xmlns:form="sap.ui.layout.form">
-    <ObjectPageLayout showFooter="true" backgroundDesignAnchorBar="Transparent" showTitleInHeaderContent="true" alwaysShowContentHeader="true" preserveHeaderStateOnScroll="false" headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false">
+    <ObjectPageLayout showFooter="true"  showTitleInHeaderContent="true" alwaysShowContentHeader="true" preserveHeaderStateOnScroll="false" headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false">
         <headerTitle>
-            <ObjectPageDynamicHeaderTitle backgroundDesign="Transparent">
+            <ObjectPageDynamicHeaderTitle>
                 <expandedHeading>
                     <m:Title text="{maindataModel>/assetInfo/assetName}" wrapping="true" class="sapUiSmallMarginEnd" />
                 </expandedHeading>

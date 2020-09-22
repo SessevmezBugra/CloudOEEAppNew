@@ -6,6 +6,7 @@ import java.util.List;
 import com.oee.config.CurrentUserProvider;
 import com.oee.dto.CurrentUser;
 import com.oee.dto.UserEntityOnly;
+import com.oee.entity.ResponsibleArea;
 import com.oee.entity.UserEntity;
 import com.oee.enums.UserRole;
 import org.keycloak.representations.idm.UserRepresentation;
@@ -28,7 +29,7 @@ public class KeycloakController {
 
     @RequestMapping(path = "/company-owner", method= RequestMethod.POST)
     public ResponseEntity<Boolean> addCompanyOwnerRole() {
-        return ResponseEntity.ok(keycloakAdminClientService.addUserToCompanyOwnerGroup());
+        return ResponseEntity.ok(keycloakAdminClientService.addUserToCompanyOwnerGroup(currentUserProvider.getCurrentUser().getUserId()));
     }
 
     @RequestMapping(path = "/add-operator", method= RequestMethod.POST)
@@ -91,5 +92,30 @@ public class KeycloakController {
     @GetMapping(path = "/profile")
     public Object profileOfCurrentUser() {
         return keycloakAdminClientService.getUserProfileOfLoggedUser();
+    }
+
+    @RequestMapping(value="/companyowner-role", method=RequestMethod.POST)
+    public ResponseEntity<Boolean> addCompanyOwnerRole(@RequestBody ResponsibleArea responsibleArea){
+        return ResponseEntity.ok(keycloakAdminClientService.addCompanyOwnerRole(responsibleArea));
+    }
+
+    @RequestMapping(value="/clientmanager-role", method=RequestMethod.POST)
+    public ResponseEntity<Boolean> addClientManagerRole(@RequestBody ResponsibleArea responsibleArea){
+        return ResponseEntity.ok(keycloakAdminClientService.addClientManagerRole(responsibleArea));
+    }
+
+    @RequestMapping(value="/plantmanager-role", method=RequestMethod.POST)
+    public ResponseEntity<Boolean> addPlantManagerRole(@RequestBody ResponsibleArea responsibleArea){
+        return ResponseEntity.ok(keycloakAdminClientService.addPlantManagerRole(responsibleArea));
+    }
+
+    @RequestMapping(value="/operator-role", method=RequestMethod.POST)
+    public ResponseEntity<Boolean> addOperatorRole(@RequestBody ResponsibleArea responsibleArea){
+        return ResponseEntity.ok(keycloakAdminClientService.addOperatorRole(responsibleArea));
+    }
+
+    @RequestMapping(path = "/remove-role/{id}", method= RequestMethod.DELETE)
+    public ResponseEntity<Boolean> deleteRoleByResponsibleAreaId(@PathVariable(value = "id", required = true) Long responsibleAreaId) {
+        return ResponseEntity.ok(keycloakAdminClientService.deleteByResponsibleAreaId(responsibleAreaId));
     }
 }

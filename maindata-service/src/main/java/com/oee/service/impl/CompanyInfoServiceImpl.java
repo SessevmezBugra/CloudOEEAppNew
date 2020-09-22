@@ -100,4 +100,9 @@ public class CompanyInfoServiceImpl implements CompanyInfoService{
 		return companyInfoRepository.findById(companyId).orElseThrow(() -> new EntityNotFoundException("Boyle bir sirket bulunmamaktadir."));
 	}
 
+	@Override
+	public List<CompanyInfo> findCompaniesByIds(List<Long> ids) {
+		return companyInfoRepository.findAllById(ids);
+	}
+
 }

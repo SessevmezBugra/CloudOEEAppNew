@@ -2,6 +2,7 @@ package com.oee.web;
 
 import java.util.List;
 
+import com.oee.dto.ResponsibleAreaDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,5 +53,10 @@ public class ResponsibleAreaRestController {
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<ResponsibleArea>> getResponsibleArea(){
 		return ResponseEntity.ok(responsibleAreaService.findByUserId());
+	}
+
+	@RequestMapping(value="/user/{id}", method=RequestMethod.GET)
+	public ResponseEntity<List<ResponsibleAreaDto>> getResponsibleAreaByUserId(@PathVariable(value="id", required=true) String id){
+		return ResponseEntity.ok(responsibleAreaService.findByUserId(id));
 	}
 }

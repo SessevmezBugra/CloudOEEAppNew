@@ -2,7 +2,7 @@
 	xmlns="sap.f"
 	xmlns:m="sap.m"
 	xmlns:mvc="sap.ui.core.mvc">
-	<m:App backgroundImage="./images/orderManagement.png">
-		<FlexibleColumnLayout columnResize="onColumnResize" autoFocus="false" id="app" stateChange="onStateChanged" restoreFocusOnBackNavigation="true" layout="{orderModel>/layout}" backgroundDesign="Transparent"/>
+	<m:App>
+		<FlexibleColumnLayout columnResize="onColumnResize" autoFocus="false" id="app" stateChange="onStateChanged" restoreFocusOnBackNavigation="true" layout="{orderModel>/layout}" backgroundDesign="Translucent"/>
 	</m:App>
 </mvc:View>
