@@ -3,10 +3,14 @@ sap.ui.define([
 	"workerapp/base/BaseController",
 	"workerapp/services/orderservice",
 	"workerapp/services/confirmationservice",
-], function (JSONModel, BaseController, OrderService, ConfirmationService) {
+	'workerapp/components/oeeapp/model/formatter',
+], function (JSONModel, BaseController, OrderService, ConfirmationService, formatter) {
 	"use strict";
 
-	return BaseController.extend("workerapp.components.oeeapp.controller.OrderDetail", {
+	return BaseController.extend("", {
+		
+		formatter: formatter,
+
 		onInit: function () {
 			this.oRouter = this.getRouter();
 			this.oModel = this.getModel("orderModel");
@@ -15,8 +19,9 @@ sap.ui.define([
 		},
 		handleClose: function () {
 			var sNextLayout = 'OneColumn';
-			this.oRouter.navTo("orderManagement", {layout: sNextLayout});
+			this.oRouter.navTo("orderList", {layout: sNextLayout});
 		},
+		
 		_onMatched: function (oEvent) {
 			this.orderId = oEvent.getParameter("arguments").orderId;
 			this.getProducedMaterial();
@@ -68,6 +73,22 @@ sap.ui.define([
 				this.getModel("orderModel").refresh();
                 this.hideBusyIndicator();
             }.bind(this));
+		},
+
+		onPressProdRunDetail: function(oEvent) {
+			this.getOwnerComponent().getModel("oeeGlobalModel").getData().sideNavigationExpanded = false;
+			this.getOwnerComponent().getModel("oeeGlobalModel").refresh();
+			var oNextUIState = this.getOwnerComponent().getHelper().getNextUIState(2);
+
+			var oItem = oEvent.getSource();
+			var prodRunHdr = oItem.getBindingContext("orderModel").getObject();
+
+			this.oRouter.navTo("prodRunDetail", { orderId: this.orderId, runId: prodRunHdr.runId, layout: oNextUIState.layout });
+
+			oItem.setNavigated(true);
+			var oParent = oItem.getParent();
+			// store index of the item clicked, which can be used later in the columnResize event
+			this.iIndex = oParent.indexOfItem(oItem);
 		}
 	});
 }, true);

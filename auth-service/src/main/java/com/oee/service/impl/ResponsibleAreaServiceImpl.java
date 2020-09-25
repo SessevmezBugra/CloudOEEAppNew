@@ -49,6 +49,12 @@ public class ResponsibleAreaServiceImpl implements ResponsibleAreaService{
 	}
 
 	@Override
+	public Boolean deleteByUserId(String userId) {
+		responsibleAreaRepository.deleteByUserEntityId(userId);
+		return Boolean.TRUE;
+	}
+
+	@Override
 	public ResponsibleArea findById(Long id) {
 		return responsibleAreaRepository.findById(id).get();
 	}

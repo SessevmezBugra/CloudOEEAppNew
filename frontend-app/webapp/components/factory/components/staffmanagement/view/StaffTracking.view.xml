@@ -5,7 +5,7 @@
 	xmlns:core="sap.ui.core"
 	xmlns:mvc="sap.ui.core.mvc">
 	<Page showHeader="false">
-		<f:DynamicPage id="dynamicPageId" showFooter="true" class="sapUiNoContentPadding" toggleHeaderOnTitleClick="false" backgroundDesign="Transparent">
+		<f:DynamicPage id="dynamicPageId" showFooter="true" class="sapUiNoContentPadding" toggleHeaderOnTitleClick="false" >
 			<!-- DynamicPage Title -->
 			<f:title>
 				<f:DynamicPageTitle>

@@ -13,6 +13,8 @@ public interface ResponsibleAreaService {
 	ResponsibleArea update(ResponsibleArea responsibleArea);
 	
 	Boolean delete(Long id);
+
+	Boolean deleteByUserId(String userId);
 	
 	ResponsibleArea findById(Long id);
 	

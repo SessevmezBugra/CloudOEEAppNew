@@ -326,6 +326,49 @@ sap.ui.define([
 				this.getModel("staffModel").refresh();
                 this.hideBusyIndicator();
             }.bind(this));
+		},
+
+		openDeleteUserDialog: function() {
+			
+			var oBundle = this.getView().getModel("i18n").getResourceBundle();
+            this._deleteUserDialog = new sap.m.Dialog({
+                title: oBundle.getText("DELETE_USER"),
+                content: new SimpleForm({
+                    content: [
+                        new sap.m.Text({
+                            wrapping: true,
+                            wrappingType: sap.m.WrappingType.Hyphenated,
+                            text: oBundle.getText("DELETE_USER_QUESTION")
+                        }),
+                    ]
+                }),
+                beginButton: new sap.m.Button({
+                    type: ButtonType.Emphasized,
+                    text: oBundle.getText("REMOVE"),
+                    press: function () {
+                        this.removeUser();
+                    }.bind(this)
+                }),
+                endButton: new sap.m.Button({
+                    text: oBundle.getText("CANCEL"),
+                    press: function () {
+                       this._deleteUserDialog.close();
+                    }.bind(this)
+                })
+            });
+            this.getView().addDependent(this._deleteUserDialog);
+            this._deleteUserDialog.open();
+		},
+
+		removeUser: function() {
+			this._deleteUserDialog.close();
+			this.showBusyIndicator();
+			AuthService.removeUser(this.userId).then(function (response) {
+				this.handleClose();
+                this.hideBusyIndicator();
+            }.bind(this)).catch(function () {
+                this.hideBusyIndicator();
+            }.bind(this));
 		}
 		
 	});

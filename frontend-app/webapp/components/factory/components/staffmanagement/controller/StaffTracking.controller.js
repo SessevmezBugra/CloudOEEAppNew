@@ -94,6 +94,7 @@ sap.ui.define([
 
 		clearPersonDialog: function () {
 			var personDialogData = this.getModel("staffModel").getData();
+			personDialogData.selectedAsset = "";
 			personDialogData.selectedRole = "";
 			personDialogData.personMail = "";
 			personDialogData.personName = "";
@@ -108,7 +109,6 @@ sap.ui.define([
 			var assets = [];
 			this.showBusyIndicator();
 			var selectedRole = oEvent.getSource().getSelectedKey();
-			this.getModel("staffModel").setProperty("/selectedRole", selectedRole);
 			if (selectedRole == "COMPANY_OWNER") {
 				this.getCompanies(function (isOk) {
 					var companies = this.getModel("staffModel").getData().companies;
@@ -171,6 +171,7 @@ sap.ui.define([
 			};
 			if (!personadd.areaId || !personadd.firstName || !personadd.lastName || !personadd.password || !personadd.passwordRetry || !personadd.username ||
 				personadd.firstName == "" || personadd.lastName == "" || personadd.password == "" || personadd.passwordRetry == "" || personadd.username == "") {
+					this.hideBusyIndicator();
 				MessageBox.alert(this.translateText("MESSAGEERROREMPTY"), {
 					icon: MessageBox.Icon.WARNING,
 					title: this.translateText("ERROR"),
@@ -185,12 +186,13 @@ sap.ui.define([
 					});
 				}
 				else {
+					this._oDialog.close();
 					if (personData.selectedRole == "COMPANY_OWNER") {
 						AuthService.addCompanyOwner(personadd).then(function (response) {
 							this.closePersonDialog();
 							// callback(true);
 							this.hideBusyIndicator();
-							MessageBox.alert(this.translateText("ROLE_ADDED"), {
+							MessageBox.alert(this.translateText("MESSAGEADD"), {
 								icon: MessageBox.Icon.INFORMATION,
 								title: this.translateText("INFORMATION"),
 							});
@@ -250,6 +252,7 @@ sap.ui.define([
 					}
 					else {
 						if (!personData.selectedRole) {
+							this.hideBusyIndicator();
 							MessageBox.alert(this.translateText("MESSAGEERROR"), {
 								icon: MessageBox.Icon.WARNING,
 								title: this.translateText("ERROR"),

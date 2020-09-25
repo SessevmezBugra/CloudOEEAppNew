@@ -8,7 +8,7 @@
                 <f:SimpleForm editable="true" layout="ResponsiveGridLayout" title="Personel" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
                     <f:content>
                         <Label text="{i18n>SELECT_ROLE}" />
-                        <Select forceSelection="false" change="onSelectedRole">
+                        <Select forceSelection="false" change="onSelectedRole" selectedKey="{staffModel>/selectedRole}">
                             <core:Item text="Şirket Yöneticisi" key="COMPANY_OWNER"/>
                             <core:Item text="Bölge Yöneticisi" key="CLIENT_MANAGER"/>
                             <core:Item text="Fabrika Yöneticisi" key="PLANT_MANAGER"/>
@@ -30,7 +30,7 @@
                                 <l:GridData span="XL7 L7 M7 S10" />
                             </layoutData>
                         </Input>
-                        <Button icon="{= ${staffModel>/showPassword} > 0 ? 'sap-icon://show' : 'sap-icon://hide'}" type="Transparent" press=".onPressShowPassword" ariaLabelledBy="editButtonLabel">
+                        <Button icon="{= ${staffModel>/showPassword} > 0 ? 'sap-icon://show' : 'sap-icon://hide'}"  press=".onPressShowPassword" ariaLabelledBy="editButtonLabel">
                             <layoutData>
                                 <l:GridData span="XL1 L1 M1 S2" />
                             </layoutData>

@@ -4,10 +4,10 @@
     xmlns:core="sap.ui.core"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:l="sap.ui.layout">
-    <f:DynamicPage showFooter="true" class="sapUiNoContentPadding" toggleHeaderOnTitleClick="false" backgroundDesign="Transparent">
+    <f:DynamicPage showFooter="true" class="sapUiNoContentPadding" toggleHeaderOnTitleClick="false">
         <!-- DynamicPage Title -->
         <f:title>
-            <f:DynamicPageTitle backgroundDesign="Transparent">
+            <f:DynamicPageTitle>
                 <f:heading>
                     <Title text="Uretimi Bildir"/>
                 </f:heading>
@@ -64,7 +64,7 @@
                 </l:BlockLayoutRow>
                 <l:BlockLayoutRow>
                     <l:BlockLayoutCell>
-                        <Table backgroundDesign="Transparent" width="auto" items="{reportProductionModel>/qualityTypes}" enableBusyIndicator="false" busy="{reportProductionModel>/qualityTypesTableBusy}">
+                        <Table  width="auto" items="{reportProductionModel>/qualityTypes}" enableBusyIndicator="false" busy="{reportProductionModel>/qualityTypesTableBusy}">
                             <columns>
                                 <Column minScreenWidth="Tablet" demandPopin="true">
                                     <Text text="{i18n>QUALITY_TYPE}" />

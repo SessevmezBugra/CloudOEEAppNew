@@ -18,7 +18,7 @@
                 </snappedHeading>
 
                 <navigationActions>
-                    <m:OverflowToolbarButton type="Transparent" icon="sap-icon://decline" press="handleClose" tooltip="Close column" />
+                    <m:OverflowToolbarButton icon="sap-icon://decline" press="handleClose" tooltip="Close column" />
                 </navigationActions>
 
             </ObjectPageDynamicHeaderTitle>

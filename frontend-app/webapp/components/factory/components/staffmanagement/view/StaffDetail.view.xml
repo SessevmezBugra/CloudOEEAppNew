@@ -21,7 +21,7 @@
 				</snappedHeading>
 
 				<navigationActions>
-					<m:OverflowToolbarButton type="Transparent" icon="sap-icon://decline" press="handleClose" tooltip="Close column" />
+					<m:OverflowToolbarButton  icon="sap-icon://decline" press="handleClose" tooltip="Close column" />
 				</navigationActions>
 
 			</ObjectPageDynamicHeaderTitle>
@@ -34,7 +34,7 @@
 							<l:BlockLayout background="Dashboard">
 								<l:BlockLayoutRow>
 									<l:BlockLayoutCell>
-										<m:ObjectHeader backgroundDesign="Transparent" icon="sap-icon://account" iconDensityAware="false" imageShape="Circle">
+										<m:ObjectHeader  icon="sap-icon://account" iconDensityAware="false" imageShape="Circle">
 											<m:attributes>
 												<m:ObjectAttribute title="{i18n>NAME} {i18n>SURNAME}" text="{staffModel>/userDetail/firstName} {staffModel>/userDetail/lastName}"/>
 												<m:ObjectAttribute title="Kullanıcı Adı " text="{staffModel>/userDetail/username}"/>
@@ -107,7 +107,7 @@
 			<m:OverflowToolbar>
 				<m:ToolbarSpacer />
 				<m:Button press="openUpdatePersonDialog" type="Accept" text="{i18n>UPDATE_BTN_PERSON}"/>
-				<m:Button type="Reject" text="{i18n>DELETE_BTN_PERSON}"/>
+				<m:Button press="openDeleteUserDialog" type="Reject" text="{i18n>DELETE_BTN_PERSON}"/>
 			</m:OverflowToolbar>
 		</footer>
 	</ObjectPageLayout>

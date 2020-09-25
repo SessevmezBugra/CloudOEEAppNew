@@ -19,6 +19,7 @@ sap.ui.define([
 			var localUserModel = new LocalStorageModel("localUserModel");
 			this.setModel(localUserModel,"localUserModel");
 			this.setModel(models.createDeviceModel(), "device");
+			this.keycloak = this.UserService.getKeycloak();
 		},
 
 		hideBusyIndicator : function() {

@@ -4,10 +4,10 @@
     xmlns:core="sap.ui.core"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:l="sap.ui.layout">
-    <f:DynamicPage showFooter="true" class="sapUiNoContentPadding" toggleHeaderOnTitleClick="false" backgroundDesign="Transparent">
+    <f:DynamicPage showFooter="true" class="sapUiNoContentPadding" toggleHeaderOnTitleClick="false">
         <!-- DynamicPage Title -->
         <f:title>
-            <f:DynamicPageTitle backgroundDesign="Transparent">
+            <f:DynamicPageTitle>
                 <f:heading>
                     <Title text="Tüketim Bildir"/>
                 </f:heading>
@@ -64,7 +64,7 @@
                 </l:BlockLayoutRow>
                 <l:BlockLayoutRow>
                     <l:BlockLayoutCell>
-                        <Table  backgroundDesign="Transparent" width="auto" items="{reportConsumptionModel>/consumptionStocks}" enableBusyIndicator="false" busy="{reportConsumptionModel>/qualityTypesTableBusy}">
+                        <Table width="auto" items="{reportConsumptionModel>/consumptionStocks}" enableBusyIndicator="false" busy="{reportConsumptionModel>/qualityTypesTableBusy}">
                             <columns>
                                 <Column minScreenWidth="Tablet" demandPopin="true">
                                     <Text text="{i18n>MATERIAL_DESC}" />

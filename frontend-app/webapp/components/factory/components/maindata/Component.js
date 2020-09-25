@@ -17,17 +17,9 @@ sap.ui.define([
 			var oModel = new JSONModel();
 			this.setModel(oModel, "maindataModel");
 			var oParentComponent = Component.getOwnerComponentFor(Component.getOwnerComponentFor(this));
-			// await this.getRouter().attachBeforeRouteMatched(async function (oEvent){
-			// 	await this.UserService.initCheckSSO().then(function(isValid) {
-			// 		if(!isValid){
-			// 			oParentComponent.getRouter().navTo("home", {}, true /*no history*/);
-			// 		}
-			// 	}.bind(this));
-			// 	this.hideBusyIndicator();
-			// }.bind(this), this);
 
 			this.getRouter().attachBeforeRouteMatched(function (oEvent) {
-				if (!this.UserService.getKeycloak().authenticated || this.UserService.getKeycloak().isTokenExpired()) {
+				if (!this.keycloak.authenticated || this.keycloak.isTokenExpired()) {
 					oParentComponent.getRouter().navTo("home", {}, true /*no history*/);
 				}
 				this.hideBusyIndicator();

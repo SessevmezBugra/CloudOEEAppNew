@@ -16,21 +16,17 @@ sap.ui.define([
 
 			var oModel = new JSONModel();
 			this.setModel(oModel, "orderModel");
+			var oeeGlobalModel = new JSONModel({
+				sideNavigationExpanded: true
+			});
+			this.setModel(oeeGlobalModel, "oeeGlobalModel");
 
 			var oParentComponent = Component.getOwnerComponentFor(this);
-			// await this.getRouter().attachBeforeRouteMatched(async function (oEvent){
-			// 	await this.UserService.initCheckSSO().then(function(isValid) {
-			// 		if(!isValid){
-			// 			oParentComponent.getRouter().navTo("home", {}, true /*no history*/);
-			// 		}
-			// 	}.bind(this));
-			// 	this.hideBusyIndicator();
-			// }.bind(this), this);
 
 			this.getRouter().attachBeforeRouteMatched(function (oEvent) {
-				if (!this.UserService.getKeycloak().authenticated || this.UserService.getKeycloak().isTokenExpired()) {
-					// oParentComponent.getRouter().navTo("home", {}, true /*no history*/);
-					window.location.pathname="/index.html";
+				if (!this.keycloak.authenticated || this.keycloak.isTokenExpired() || !(this.keycloak.hasRealmRole("COMPANY_OWNER") || this.keycloak.hasRealmRole("CLIENT_MANAGER") || this.keycloak.hasRealmRole("PLANT_MANAGER") || this.keycloak.hasRealmRole("OPERATOR"))) {
+					oParentComponent.getRouter().navTo("home", {}, true /*no history*/);
+					this.getRouter().getHashChanger().replaceHash("");
 				}
 				this.hideBusyIndicator();
 			}.bind(this));

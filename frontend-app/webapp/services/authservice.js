@@ -51,5 +51,9 @@ sap.ui.define([
             return Service.doAjax("http://localhost:4000/auth/keycloak/remove-role/" + id, null, "DELETE", true);
         },
 
+        removeUser: function(id) {
+            return Service.doAjax("http://localhost:4000/auth/keycloak/user/" + id, null, "DELETE", true);
+        }
+
     }
 });

@@ -13,16 +13,6 @@
 				<ToolbarSpacer/>
 				<Title text="{i18n>APP_TITLE}" level="H2"/>
 				<ToolbarSpacer/>
-				<!-- <Button id="errorButton" icon="sap-icon://message-popup" type="Transparent" tooltip="test5">
-					<layoutData>
-						<OverflowToolbarLayoutData closeOverflowOnInteraction="false"/>
-					</layoutData>
-				</Button>
-				<Button id="notificationButton" icon="sap-icon://ui-notifications" type="Transparent" tooltip="test7">
-					<layoutData>
-						<OverflowToolbarLayoutData closeOverflowOnInteraction="false"/>
-					</layoutData>
-				</Button> -->
 				<Button
 					id="userButton"
 					text="{localUserModel>/idTokenParsed/preferred_username}"

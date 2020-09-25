@@ -18,5 +18,8 @@ public interface ResponsibleAreaRepository extends JpaRepository<ResponsibleArea
 	@Transactional
     void deleteByAreaIdIn(List<Long> areaIds);
 
+    @Transactional
+    void deleteByUserEntityId(String userId);
+
     ResponsibleArea findByUserEntityIdAndUserRoleAndAreaId(String userId, UserRole role, Long areaId);
 }

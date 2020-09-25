@@ -14,13 +14,20 @@ sap.ui.define([
 			BaseComponent.prototype.init.apply(this, arguments);
 
 			await this.UserService.initCheckSSO().then(function (isValid) {
-				if (isValid && !this.UserService.getKeycloak().isTokenExpired()) {
+				if (isValid && !this.keycloak.isTokenExpired()) {
 
 					var localUserModel = new LocalStorageModel("localUserModel");
-					localUserModel.setData(this.UserService.getKeycloak());
+					localUserModel.setData(this.keycloak);
 					this.setModel(localUserModel, "localUserModel");
 
-					this.getRouter().getHashChanger().replaceHash("factory");
+					if(this.keycloak.hasRealmRole("COMPANY_OWNER") || this.keycloak.hasRealmRole("CLIENT_MANAGER") || this.keycloak.hasRealmRole("PLANT_MANAGER")){
+						this.getRouter().getHashChanger().replaceHash("factory");
+					} else if(this.keycloak.hasRealmRole("OPERATOR")) {
+						this.getRouter().getHashChanger().replaceHash("oeeapp");
+					} else {
+						this.keycloak.logout();
+						window.location.pathname="/index.html";
+					}
 
 				} else {
 					this.getRouter().getHashChanger().replaceHash("");
@@ -30,10 +37,10 @@ sap.ui.define([
 
 			setInterval(function () {
 				console.log("interval")
-				this.UserService.getKeycloak().updateToken(240).then(function(refreshed) {
+				this.keycloak.updateToken(240).then(function(refreshed) {
 					if (refreshed) {
 						var localUserModel = new LocalStorageModel("localUserModel");
-						localUserModel.setData(this.UserService.getKeycloak());
+						localUserModel.setData(this.keycloak);
 						this.setModel(localUserModel, "localUserModel");
 						console.log("Refresh token success");
 					} else {
@@ -46,58 +53,22 @@ sap.ui.define([
 
 			await this.getRouter().attachBeforeRouteMatched(function (oEvent) {
 				var target = this.getRouter().getHashChanger().hash;
-				if (this.UserService.getKeycloak().authenticated && !this.UserService.getKeycloak().isTokenExpired() && target != "factory" && target != "oeeapp") {
-					this.getRouter().getHashChanger().replaceHash("factory");
-				} else if ((!this.UserService.getKeycloak().authenticated || this.UserService.getKeycloak().isTokenExpired()) && (target == "factory" || target == "oeeapp")) {
-					// this.getRouter().getHashChanger().replaceHash("");
+				if (this.keycloak.authenticated && !this.keycloak.isTokenExpired() && target != "factory" && target != "oeeapp") {
+					if(this.keycloak.hasRealmRole("COMPANY_OWNER") || this.keycloak.hasRealmRole("CLIENT_MANAGER") || this.keycloak.hasRealmRole("PLANT_MANAGER")){
+						this.getRouter().getHashChanger().replaceHash("factory");
+					} else if(this.keycloak.hasRealmRole("OPERATOR")) {
+						this.getRouter().getHashChanger().replaceHash("oeeapp");
+					} else {
+						this.keycloak.logout();
+						window.location.pathname="/index.html";
+					}
+					
+				} else if ((!this.keycloak.authenticated || this.keycloak.isTokenExpired()) && (target == "factory" || target == "oeeapp")) {
+					this.getRouter().getHashChanger().replaceHash("");
 					window.location.pathname="/index.html";
 				}
 				// this.hideBusyIndicator();
 			}.bind(this));
-			
-
-			// this.getRouter().attachBeforeRouteMatched(async function (oEvent) {
-			// 	await this.UserService.initCheckSSO().then(function (isValid) {
-			// 		var target = this.getRouter().getHashChanger().hash;
-			// 		if (isValid) {
-			// 		// 	if(target == "register" || target == ""){
-			// 				this.getRouter().getHashChanger().replaceHash("factory");
-			// 			// }
-			// 		} else {
-			// 			this.getRouter().getHashChanger().replaceHash("");
-			// 		}
-			// 	}.bind(this));
-			// 	this.hideBusyIndicator();
-			// }.bind(this), this);
-
-
-			// await this.validateToken().then(function (isValid) {
-			// 	if (isValid) {
-			// 		var target = this.getRouter().getHashChanger().hash;
-			// 		if(target == "register" || target == ""){
-			// 			this.getRouter().getHashChanger().replaceHash("factory");
-			// 		}
-			// 	} else {
-			// 		this.getRouter().getHashChanger().replaceHash("");
-			// 	}
-			// 	this.hideBusyIndicator();
-			// }.bind(this));
-
-
-			// this.getRouter().attachBeforeRouteMatched(async function (oEvent) {
-			// 	await this.validateToken().then(function (isValid) {
-			// 		var target = this.getRouter().getHashChanger().hash;
-			// 		if (isValid) {
-			// 			if(target == "register" || target == ""){
-			// 				this.getRouter().getHashChanger().replaceHash("factory");
-			// 			}
-			// 		} else if (target != "register" && target != "") {
-			// 			this.getRouter().getHashChanger().replaceHash("");
-			// 		}
-			// 	}.bind(this));
-			// 	this.hideBusyIndicator();
-			// }.bind(this), this);
-
 
 			this.getRouter().initialize();
 		},

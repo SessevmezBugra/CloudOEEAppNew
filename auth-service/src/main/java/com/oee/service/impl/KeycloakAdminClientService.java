@@ -143,6 +143,7 @@ public class KeycloakAdminClientService {
         userRepresentation.setFirstName(userDto.getFirstName());
         userRepresentation.setLastName(userDto.getLastName());
         userRepresentation.setEnabled(true);
+        userRepresentation.setEmailVerified(true);
         Response response = usersRessource.create(userRepresentation);
 
         String userId = CreatedResponseUtil.getCreatedId(response);
@@ -219,12 +220,7 @@ public class KeycloakAdminClientService {
                     }
                 }
             }
-            companyUsers = userEntityRepository.findByResponsibleAreasAreaIdIn(companyResponsibleAreaIds, AreaType.COMPANY.name());
-            clientUsers = userEntityRepository.findByResponsibleAreasAreaIdIn(clientResponsibleAreaIds, AreaType.CLIENT.name());
-            plantUsers = userEntityRepository.findByResponsibleAreasAreaIdIn(plantResponsibleAreaIds, AreaType.PLANT.name());
-            allUsers.addAll(companyUsers);
-            allUsers.addAll(clientUsers);
-            allUsers.addAll(plantUsers);
+            allUsers = userEntityRepository.findByResponsibleAreasAreaIdIn(companyResponsibleAreaIds, AreaType.COMPANY.name(), clientResponsibleAreaIds, AreaType.CLIENT.name(), plantResponsibleAreaIds, AreaType.PLANT.name());
         } else if (currentUser.getRoles().contains(UserRole.CLIENT_MANAGER.getRole())) {
             List<ClientDto> clientDtos = mainDataServiceClient.getClientsByLoggedUser().getBody();
             for (ClientDto clientDto : clientDtos) {
@@ -233,17 +229,13 @@ public class KeycloakAdminClientService {
                     plantResponsibleAreaIds.add(plant.getPlantId());
                 }
             }
-            clientUsers = userEntityRepository.findByResponsibleAreasAreaIdIn(clientResponsibleAreaIds, AreaType.CLIENT.name());
-            plantUsers = userEntityRepository.findByResponsibleAreasAreaIdIn(plantResponsibleAreaIds, AreaType.PLANT.name());
-            allUsers.addAll(clientUsers);
-            allUsers.addAll(plantUsers);
+            allUsers = userEntityRepository.findByResponsibleAreasAreaIdIn(null, null, clientResponsibleAreaIds, AreaType.CLIENT.name(), plantResponsibleAreaIds, AreaType.PLANT.name());
         } else if (currentUser.getRoles().contains(UserRole.PLANT_MANAGER.getRole())) {
             List<PlantDto> plantDtos = mainDataServiceClient.getPlantsByLoggedUser().getBody();
             for (PlantDto plantDto : plantDtos) {
                 plantResponsibleAreaIds.add(plantDto.getPlantId());
             }
-            plantUsers = userEntityRepository.findByResponsibleAreasAreaIdIn(plantResponsibleAreaIds, AreaType.PLANT.name());
-            allUsers.addAll(plantUsers);
+            allUsers = userEntityRepository.findByResponsibleAreasAreaIdIn(null, null, null, null, plantResponsibleAreaIds, AreaType.PLANT.name());
         }
 
         List<UserEntityOnly>  allUsersWithoutCurrentUser = allUsers.stream().filter(userEntityOnly -> !currentUser.getUserId().equals(userEntityOnly.getId())).collect(Collectors.toList());
@@ -267,6 +259,7 @@ public class KeycloakAdminClientService {
         RealmResource realmResource = keycloak.realm(keycloakAdminClientConfig.getRealm());
         UsersResource usersResource = realmResource.users();
         usersResource.delete(userId);
+        responsibleAreaService.deleteByUserId(userId);
         return Boolean.TRUE;
     }
 
@@ -354,4 +347,5 @@ public class KeycloakAdminClientService {
         userResource.leaveGroup(groupId.get(0));
         return Boolean.TRUE;
     }
+
 }

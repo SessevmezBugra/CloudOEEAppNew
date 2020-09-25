@@ -3,7 +3,7 @@
 	xmlns:f="sap.f"
 	xmlns="sap.m" displayBlock="true"
 	xmlns:tnt="sap.tnt">
-	<tnt:ToolPage id="toolPage">
+	<tnt:ToolPage id="toolPage" sideExpanded="{oeeGlobalModel>/sideNavigationExpanded}">
 		<tnt:header>
 			<tnt:ToolHeader design="Transparent">
 				<Button id="sideNavigationToggleButton" icon="sap-icon://menu2" type="Transparent" press=".onSideNavButtonPress" tooltip="{i18n>TOOLPAGE_NAV_TOGGLE_BTN_TOOL_TIP}">
@@ -39,7 +39,7 @@
 		<tnt:sideContent>
 			<tnt:SideNavigation expanded="true" itemSelect=".onItemSelect">
 				<tnt:NavigationList>
-					<tnt:NavigationListItem text="Siparisleri Yonet" key="orderManagement" icon="sap-icon://order-status"/>
+					<tnt:NavigationListItem text="Siparisleri Yonet" key="orderList" icon="sap-icon://order-status"/>
 					<tnt:NavigationListItem text="Uretim Bildir" key="reportProduction" icon="sap-icon://add-product">
 					</tnt:NavigationListItem>
 					<tnt:NavigationListItem text="Tuketim Bildir" key="reportConsumption" icon="sap-icon://back-to-top">
@@ -53,7 +53,7 @@
 		</tnt:sideContent>
 		<tnt:mainContents>
 			<App backgroundImage="./images/factory.jpeg">
-				<f:FlexibleColumnLayout columnResize="onColumnResize" autoFocus="false" id="app" stateChange="onStateChanged" restoreFocusOnBackNavigation="true" layout="{orderModel>/layout}" backgroundDesign="Transparent"/>
+				<f:FlexibleColumnLayout columnResize="onColumnResize" autoFocus="false" id="app" stateChange="onStateChanged" restoreFocusOnBackNavigation="true" layout="{orderModel>/layout}" backgroundDesign="Translucent"/>
 			</App>
 		</tnt:mainContents>
 	</tnt:ToolPage>

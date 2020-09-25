@@ -57,12 +57,11 @@
 		},
 		"routing": {
 			"config": {
-				"routerClass": "sap.m.routing.Router",
+				"routerClass": "sap.f.routing.Router",
 				"viewType": "XML",
-				"path": "workerapp.components.oeeapp.view",
+				"viewPath": "workerapp.components.oeeapp.view",
 				"controlId": "app",
-				"controlAggregation": "pages",
-				"transition": "slide",
+				"controlAggregation": "midColumnPages",
 				"bypassed": {
 					"target": "notFound"
 				},
@@ -71,51 +70,74 @@
 			"routes": [
 				{
 					"pattern": "",
-					"name": "orderManagement",
+					"name": "orderList",
 					"target": [
-						"orderManagement"
+						"orderList"
 					]
 				},
 				{
 					"pattern": "orderDetail/{orderId}/{layout}",
 					"name": "orderDetail",
 					"target": [
-						"orderManagement",
+						"orderList",
 						"orderDetail"
+					]
+				},
+				{
+					"pattern": "prodRunDetail/{orderId}/{runId}/{layout}",
+					"name": "prodRunDetail",
+					"target": [
+						"orderList",
+						"orderDetail",
+						"prodRunDetail"
 					]
 				},
 				{
 					"pattern": "reportProduction",
 					"name": "reportProduction",
-					"target": "reportProduction",
-					"layout": "EndColumnFullScreen"
+					"target": "reportProduction"
 				},
 				{
 					"pattern": "reportConsumption",
 					"name": "reportConsumption",
-					"target": "reportConsumption",
-					"layout": "MidColumnFullScreen"
+					"target": "reportConsumption"
 				}
 			],
 			"targets": {
-				"orderManagement": {
-					"viewName": "OrderManagement",
+				"orderList": {
+					"viewId": "orderList",
+					"viewName": "OrderList",
+					"viewLevel": 0,
 					"controlAggregation": "beginColumnPages"
 				},
 				"orderDetail": {
+					"viewId": "orderDetail",
 					"viewName": "OrderDetail",
+					"viewLevel": 0,
 					"controlAggregation": "midColumnPages"
 				},
-				"reportProduction": {
-					"viewName": "ReportProduction",
+				"prodRunDetail": {
+					"viewId": "prodRunDetail",
+					"viewName": "ProdRunDetail",
+					"viewLevel": 0,
 					"controlAggregation": "endColumnPages"
 				},
+				"reportProduction": {
+					"viewId": "reportProduction",
+					"viewName": "ReportProduction",
+					"viewLevel": 1,
+					"controlAggregation": "beginColumnPages"
+				},
 				"reportConsumption": {
+					"viewId": "reportConsumption",
 					"viewName": "ReportConsumption",
-					"controlAggregation": "midColumnPages"
+					"viewLevel": 1,
+					"controlAggregation": "beginColumnPages"
 				},
 				"notFound": {
+					"viewId": "NotFound",
 					"viewName": "NotFound",
+					"viewLevel": 1,
 					"controlAggregation": "beginColumnPages"
 				}
 			}

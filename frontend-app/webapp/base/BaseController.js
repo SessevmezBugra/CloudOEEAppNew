@@ -12,6 +12,9 @@ sap.ui.define([
 
 		UserService : UserService,
 		
+		init: function() {
+			this.keycloak = this.UserService.getKeycloak();
+		},
 		/**
 		 * Convenience method for accessing the router.
 		 * @public

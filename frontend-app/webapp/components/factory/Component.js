@@ -17,17 +17,9 @@ sap.ui.define([
 			});
 			this.setModel(oModel, "factoryGlobalModel");
 			var oParentComponent = Component.getOwnerComponentFor(this);
-			// await this.getRouter().attachBeforeRouteMatched(async function (oEvent){
-			// 	await this.UserService.initCheckSSO().then(function(isValid) {
-			// 		if(!isValid){
-			// 			oParentComponent.getRouter().navTo("home", {}, true /*no history*/);
-			// 		}
-			// 	}.bind(this));
-			// 	this.hideBusyIndicator();
-			// }.bind(this), this);
 
 			this.getRouter().attachBeforeRouteMatched(function (oEvent) {
-				if (!this.UserService.getKeycloak().authenticated || this.UserService.getKeycloak().isTokenExpired()) {
+				if (!this.keycloak.authenticated || this.keycloak.isTokenExpired() || !(this.keycloak.hasRealmRole("COMPANY_OWNER") || this.keycloak.hasRealmRole("CLIENT_MANAGER") || this.keycloak.hasRealmRole("PLANT_MANAGER"))) {
 					oParentComponent.getRouter().navTo("home", {}, true /*no history*/);
 					this.getRouter().getHashChanger().replaceHash("");
 				}
