@@ -11,8 +11,8 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''
-                    ./jenkins/build/mvn.sh mvn -B -DskipTests clean package
-                    ./jenkins/build/build.sh
+                    ./auth-service/jenkins/build/mvn.sh mvn -B -DskipTests clean package
+                    ./auth-service/jenkins/build/build.sh
 
                 '''
             }
@@ -20,7 +20,7 @@ pipeline {
 
         stage('Push') {
             steps {
-                sh './jenkins/push/push.sh'
+                sh './auth-service/jenkins/push/push.sh'
             }
         }
     }
