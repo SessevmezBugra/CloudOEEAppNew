@@ -6,9 +6,14 @@ pipeline {
         }
     }
     stages {
-        stage('Build') {
+        stage('Build-War') {
             steps {
                 sh 'mvn -B -DskipTests clean package'
+            }
+        }
+        stage('Build-Docker') {
+            steps {
+                sh 'docker-compose build'
             }
         }
     }
