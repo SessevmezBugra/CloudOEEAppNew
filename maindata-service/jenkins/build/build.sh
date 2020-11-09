@@ -4,4 +4,4 @@ echo "****************************"
 echo "** Building Docker Image ***"
 echo "****************************"
 
-docker build -t bsessevmez/maindata-service:latest .
+cd maindata-service/ && docker build -t bsessevmez/maindata-service:latest .

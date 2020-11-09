@@ -4,4 +4,4 @@ echo "****************************"
 echo "** Building Docker Image ***"
 echo "****************************"
 
-docker build -t bsessevmez/stock-service:latest .
+cd stock-service/ && docker build -t bsessevmez/stock-service:latest .

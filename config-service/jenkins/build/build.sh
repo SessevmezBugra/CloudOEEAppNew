@@ -5,4 +5,4 @@ echo "****************************"
 echo "** Building Docker Image ***"
 echo "****************************"
 
-docker build -t bsessevmez/config-service:latest .
+cd config-service/ && docker build -t bsessevmez/config-service:latest .

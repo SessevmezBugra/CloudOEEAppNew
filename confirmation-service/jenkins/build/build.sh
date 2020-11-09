@@ -4,4 +4,4 @@ echo "****************************"
 echo "** Building Docker Image ***"
 echo "****************************"
 
-docker build -t bsessevmez/confirmation-service:latest .
+cd confirmation-service/ && docker build -t bsessevmez/confirmation-service:latest .

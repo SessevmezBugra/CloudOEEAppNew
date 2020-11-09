@@ -4,4 +4,4 @@ echo "****************************"
 echo "** Building Docker Image ***"
 echo "****************************"
 
-docker build -t bsessevmez/gateway-service:latest .
+cd gateway-service/ && docker build -t bsessevmez/gateway-service:latest .
