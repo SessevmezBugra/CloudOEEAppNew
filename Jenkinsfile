@@ -52,5 +52,11 @@ pipeline {
             }
         }
 
+        stage('frontend-app') {
+            steps {
+                build job: 'pipeline-frontend-app', propagate: true, wait: true
+            }
+        }
+
     }
 }
