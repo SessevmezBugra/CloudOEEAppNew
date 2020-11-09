@@ -13,7 +13,7 @@
     </parent>
 
 	<artifactId>stock-service</artifactId>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<name>stock-service</name>
 	<description>stock-service</description>
 
