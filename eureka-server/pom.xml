@@ -13,7 +13,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>eureka-server</name>
 	<description>Eureka</description>
 

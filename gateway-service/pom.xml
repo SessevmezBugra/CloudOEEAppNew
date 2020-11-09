@@ -14,7 +14,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>gateway-service</name>
 	<description>Gateway</description>
 

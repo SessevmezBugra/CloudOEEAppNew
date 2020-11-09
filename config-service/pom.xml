@@ -13,7 +13,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>config-service</name>
 	<description>Config Service</description>
 
