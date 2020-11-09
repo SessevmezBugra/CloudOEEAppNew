@@ -7,4 +7,4 @@ echo "********************"
 echo "** Logging in ***"
 docker login -u bsessevmez -p $PASS
 echo "*** Pushing image ***"
-docker push bsessevmez/config-service:latest
+docker push bsessevmez/auth-service:latest
