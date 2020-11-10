@@ -41,9 +41,9 @@ services:
     networks:
       - oee-compose-network
 
-  storage:
+  mysql-zipkin:
     image: openzipkin/zipkin-mysql
-    container_name: mysql
+    container_name: mysql-zipkin
     # Uncomment to expose the storage port for testing
     # ports:
     #   - 3306:3306
@@ -53,7 +53,7 @@ services:
   zipkin-server:
     environment:
       STORAGE_TYPE: $STORAGE_TYPE
-      MYSQL_HOST: mysql
+      MYSQL_HOST: mysql-zipkin
       # RABBIT_URI: $RABBIT_URI
     image: openzipkin/zipkin
     container_name: zipkin-server
@@ -61,7 +61,7 @@ services:
       - "9411:9411"
     restart: always
     depends_on:
-      - storage
+      - mysql-zipkin
     networks:
       - oee-compose-network
 
@@ -71,7 +71,7 @@ services:
     entrypoint: crond -f
     environment:
       - STORAGE_TYPE=mysql
-      - MYSQL_HOST=mysql
+      - MYSQL_HOST=mysql-zipkin
       # Add the baked-in username and password for the zipkin-mysql image
       - MYSQL_USER=zipkin
       - MYSQL_PASS=zipkin
