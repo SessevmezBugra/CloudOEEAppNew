@@ -80,7 +80,7 @@ services:
       # Uncomment to adjust memory used by the dependencies job
       # - JAVA_OPTS=-verbose:gc -Xms1G -Xmx1G
     depends_on:
-      - storage
+      - mysql-zipkin
     networks:
       - oee-compose-network
 
