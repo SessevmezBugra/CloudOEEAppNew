@@ -95,8 +95,8 @@ services:
     build:
       context: gateway-service
       dockerfile: Dockerfile
-    ports:
-      - "4000:4000"
+#    ports:
+#      - "4000:4000"
     restart: always
     depends_on:
       - eureka-server
@@ -158,8 +158,8 @@ services:
     build:
       context: config-service
       dockerfile: Dockerfile
-    ports:
-      - "8888:8888"
+#    ports:
+#      - "8888:8888"
     restart: always
     depends_on:
       # - rabbitmq
@@ -183,8 +183,8 @@ services:
     build:
       context: confirmation-service
       dockerfile: Dockerfile
-    ports:
-      - "8050:8050"
+#    ports:
+#      - "8050:8050"
     restart: always
     depends_on:
       - eureka-server
@@ -268,8 +268,8 @@ services:
       FAIL_FAST: $FAIL_FAST
       EUREKA_URI: $EUREKA_URI
       ZIPKIN_URI: $ZIPKIN_URI
-    ports:
-      - "8060:8060"
+#    ports:
+#      - "8060:8060"
     restart: always
     depends_on:
       - eureka-server
@@ -310,8 +310,8 @@ services:
       FAIL_FAST: $FAIL_FAST
       EUREKA_URI: $EUREKA_URI
       ZIPKIN_URI: $ZIPKIN_URI
-    ports:
-      - "8070:8070"
+#    ports:
+#      - "8070:8070"
     restart: always
     depends_on:
       - eureka-server
