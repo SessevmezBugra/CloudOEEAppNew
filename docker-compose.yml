@@ -1,7 +1,8 @@
 version: '3.7'
 services:
+
   frontend-app:
-    image: bsessevmez/frontend-app:0.0.1-SNAPSHOT
+    image: bsessevmez/frontend-app:latest
     container_name: frontend-app
     build:
       context: frontend-app
@@ -28,7 +29,7 @@ services:
       CONFIG_URI: $CONFIG_URI
       FAIL_FAST: $FAIL_FAST
       EUREKA_URI: $EUREKA_URI
-    image: bsessevmez/eureka-server:0.0.1-SNAPSHOT
+    image: bsessevmez/eureka-server:latest
     build:
       context: eureka-server
       dockerfile: Dockerfile
@@ -90,7 +91,7 @@ services:
       FAIL_FAST: $FAIL_FAST
       EUREKA_URI: $EUREKA_URI
       ZIPKIN_URI: $ZIPKIN_URI
-    image: bsessevmez/gateway-service:0.0.1-SNAPSHOT
+    image: bsessevmez/gateway-service:latest
     build:
       context: gateway-service
       dockerfile: Dockerfile
@@ -108,16 +109,16 @@ services:
   auth-service:
     environment:
       # RABBIT_URI: $RABBIT_URI
-      RDS_HOSTNAME: $RDS_AUTH_HOSTNAME
-      RDS_PORT: $RDS_PORT
-      RDS_DB_NAME: $RDS_DB_NAME
-      RDS_USERNAME: $RDS_USERNAME
-      RDS_PASSWORD: $RDS_PASSWORD
+#      RDS_HOSTNAME: $RDS_AUTH_HOSTNAME
+#      RDS_PORT: $RDS_PORT
+#      RDS_DB_NAME: $RDS_DB_NAME
+#      RDS_USERNAME: $RDS_USERNAME
+#      RDS_PASSWORD: $RDS_PASSWORD
       CONFIG_URI:  $CONFIG_URI
       FAIL_FAST: $FAIL_FAST
       EUREKA_URI: $EUREKA_URI
       ZIPKIN_URI: $ZIPKIN_URI
-    image: bsessevmez/auth-service:0.0.1-SNAPSHOT
+    image: bsessevmez/auth-service:latest
     build:
       context: auth-service
       dockerfile: Dockerfile
@@ -153,7 +154,7 @@ services:
       # RABBIT_URI: $RABBIT_URI
       EUREKA_URI: $EUREKA_URI
       ZIPKIN_URI: $ZIPKIN_URI
-    image: bsessevmez/config-service:0.0.1-SNAPSHOT
+    image: bsessevmez/config-service:latest
     build:
       context: config-service
       dockerfile: Dockerfile
@@ -178,7 +179,7 @@ services:
       FAIL_FAST: $FAIL_FAST
       EUREKA_URI: $EUREKA_URI
       ZIPKIN_URI: $ZIPKIN_URI
-    image: bsessevmez/confirmation-service:0.0.1-SNAPSHOT
+    image: bsessevmez/confirmation-service:latest
     build:
       context: confirmation-service
       dockerfile: Dockerfile
@@ -220,7 +221,7 @@ services:
       FAIL_FAST: $FAIL_FAST
       EUREKA_URI: $EUREKA_URI
       ZIPKIN_URI: $ZIPKIN_URI
-    image: bsessevmez/maindata-service:0.0.1-SNAPSHOT
+    image: bsessevmez/maindata-service:latest
     build:
       context: maindata-service
       dockerfile: Dockerfile
@@ -252,7 +253,7 @@ services:
       - oee-compose-network
       
   order-service:
-    image: bsessevmez/order-service:0.0.1-SNAPSHOT
+    image: bsessevmez/order-service:latest
     build:
       context: order-service
       dockerfile: Dockerfile    
@@ -294,7 +295,7 @@ services:
       - oee-compose-network
 
   stock-service:
-    image: bsessevmez/stock-service:0.0.1-SNAPSHOT
+    image: bsessevmez/stock-service:latest
     build:
       context: stock-service
       dockerfile: Dockerfile    
@@ -332,6 +333,39 @@ services:
       MYSQL_DATABASE: $MYSQL_DATABASE
     volumes:
       - mysql-database-data-volume:/var/lib/stock-database
+    networks:
+      - oee-compose-network
+
+  mysql-keycloak:
+    image: mysql:5.7
+    volumes:
+      - mysql-database-data-volume:/var/lib/mysql-keycloak
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: keycloak
+      MYSQL_USER: keycloak
+      MYSQL_PASSWORD: password
+    ports:
+      - "3312:3306"
+    networks:
+      - oee-compose-network
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    environment:
+      DB_VENDOR: MYSQL
+      DB_ADDR: mysql-keycloak
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_PASSWORD: password
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the MySQL JDBC driver documentation in order to use it.
+      #JDBC_PARAMS: "connectTimeout=30000"
+    ports:
+      - 8081:8080
+    depends_on:
+      - mysql-keycloak
     networks:
       - oee-compose-network
 

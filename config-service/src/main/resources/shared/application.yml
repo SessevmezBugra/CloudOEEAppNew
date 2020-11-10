@@ -17,6 +17,7 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 1000000
+          strategy: THREAD
 
 eureka:
   instance:
