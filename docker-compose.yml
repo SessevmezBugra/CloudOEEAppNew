@@ -34,7 +34,7 @@ services:
       context: eureka-server
       dockerfile: Dockerfile
     ports:
-      - "8761:8761"
+      - "8762:8761"
     restart: always
     depends_on:
       - config-service
