@@ -41,34 +41,55 @@ services:
     networks:
       - oee-compose-network
 
-  mysql-zipkin:
-    image: openzipkin/zipkin-mysql
+  storage:
+    image: openzipkin/zipkin-mysql:${TAG:-latest}
+    container_name: mysql
     # Uncomment to expose the storage port for testing
     # ports:
     #   - 3306:3306
     networks:
       - oee-compose-network
 
-  zipkin-server:
+
+    # The zipkin process services the UI, and also exposes a POST endpoint that
+    # instrumentation can send trace data to. Scribe is disabled by default.
+  zipkin:
+    image: openzipkin/zipkin:${TAG:-latest}
+    container_name: zipkin
+    # Environment settings are defined here https://github.com/openzipkin/zipkin/blob/master/zipkin-server/README.md#environment-variables
     environment:
-      STORAGE_TYPE: $STORAGE_TYPE
-      MYSQL_HOST: mysql-zipkin
-      # RABBIT_URI: $RABBIT_URI
-    image: openzipkin/zipkin
+      - STORAGE_TYPE=mysql
+      # Point the zipkin at the storage backend
+      - MYSQL_HOST=storage
+      - MYSQL_USER=zipkin
+      - MYSQL_PASS=zipkin
+      # Uncomment to enable scribe
+      # - SCRIBE_ENABLED=true
+      # Uncomment to enable self-tracing
+      # - SELF_TRACING_ENABLED=true
+      # Uncomment to enable debug logging
+      # - JAVA_OPTS=-Dlogging.level.zipkin2=DEBUG
     ports:
-      - "9411:9411"
-    restart: always
+      # Port used for the Zipkin UI and HTTP Api
+      - 9411:9411
+      # Uncomment if you set SCRIBE_ENABLED=true
+      # - 9410:9410
     depends_on:
-      - mysql-zipkin
+      - storage
     networks:
       - oee-compose-network
 
+  # Adds a cron to process spans since midnight every hour, and all spans each day
+  # This data is served by http://192.168.99.100:8080/dependency
+  #
+  # For more details, see https://github.com/openzipkin/docker-zipkin-dependencies
   dependencies:
     image: openzipkin/zipkin-dependencies
+    container_name: dependencies
     entrypoint: crond -f
     environment:
       - STORAGE_TYPE=mysql
-      - MYSQL_HOST=mysql-zipkin
+      - MYSQL_HOST=storage
       # Add the baked-in username and password for the zipkin-mysql image
       - MYSQL_USER=zipkin
       - MYSQL_PASS=zipkin
@@ -77,7 +98,7 @@ services:
       # Uncomment to adjust memory used by the dependencies job
       # - JAVA_OPTS=-verbose:gc -Xms1G -Xmx1G
     depends_on:
-      - mysql-zipkin
+      - storage
     networks:
       - oee-compose-network
 
@@ -98,7 +119,7 @@ services:
     depends_on:
       - eureka-server
       # - rabbitmq
-      - zipkin-server
+#      - zipkin-server
       - config-service
     networks:
       - oee-compose-network
@@ -125,7 +146,7 @@ services:
     depends_on:
       - eureka-server
       # - rabbitmq
-      - zipkin-server
+#      - zipkin-server
       - auth-database
       - config-service
     networks:
@@ -158,9 +179,9 @@ services:
 #    ports:
 #      - "8888:8888"
     restart: always
-    depends_on:
+#    depends_on:
       # - rabbitmq
-      - zipkin-server
+#      - zipkin-server
     networks:
       - oee-compose-network
 
@@ -186,7 +207,7 @@ services:
     depends_on:
       - eureka-server
       # - rabbitmq
-      - zipkin-server
+#      - zipkin-server
       - config-service
     networks:
       - oee-compose-network
@@ -228,7 +249,7 @@ services:
     depends_on:
       - eureka-server
       # - rabbitmq
-      - zipkin-server
+#      - zipkin-server
       - maindata-database
       - config-service
     networks:
@@ -271,7 +292,7 @@ services:
     depends_on:
       - eureka-server
       # - rabbitmq
-      - zipkin-server
+#      - zipkin-server
       - config-service
     networks:
       - oee-compose-network
@@ -313,7 +334,7 @@ services:
     depends_on:
       - eureka-server
       # - rabbitmq
-      - zipkin-server
+#      - zipkin-server
       - config-service
     networks:
       - oee-compose-network
@@ -369,6 +390,7 @@ services:
 # Volumes
 volumes:
   mysql-database-data-volume:
+  prometheus-volume:
 
 # Networks to be created to facilitate communication between containers
 networks:
