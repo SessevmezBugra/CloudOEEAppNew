@@ -6,7 +6,7 @@ spring:
       idleTimeout: 120000
       connectionTimeout: 300000
       leakDetectionThreshold: 300000
-    url: jdbc:mysql://${RDS_HOSTNAME:3.tcp.eu.ngrok.io}:${RDS_PORT:21947}/${RDS_DB_NAME:cloudoeedb}?serverTimezone=UTC
+    url: jdbc:mysql://${RDS_HOSTNAME:localhost}:${RDS_PORT:3306}/${RDS_DB_NAME:cloudoeedb}?serverTimezone=UTC
     username: ${RDS_USERNAME:root}
     password: ${RDS_PASSWORD:123456}
   jpa:

@@ -11,6 +11,7 @@ sap.ui.define([
 		},
 
 		init: async function () {
+
 			BaseComponent.prototype.init.apply(this, arguments);
 
 			await this.UserService.initCheckSSO().then(function (isValid) {

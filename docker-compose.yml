@@ -25,6 +25,7 @@ services:
   #     - oee-compose-network
 
   eureka-server:
+    container_name: eureka-server
     environment: 
       CONFIG_URI: $CONFIG_URI
       FAIL_FAST: $FAIL_FAST
@@ -41,9 +42,9 @@ services:
     networks:
       - oee-compose-network
 
-  storage:
+  zipkin-database:
+    container_name: zipkin-database
     image: openzipkin/zipkin-mysql:${TAG:-latest}
-    container_name: mysql
     # Uncomment to expose the storage port for testing
     # ports:
     #   - 3306:3306
@@ -60,7 +61,7 @@ services:
     environment:
       - STORAGE_TYPE=mysql
       # Point the zipkin at the storage backend
-      - MYSQL_HOST=storage
+      - MYSQL_HOST=zipkin-database
       - MYSQL_USER=zipkin
       - MYSQL_PASS=zipkin
       # Uncomment to enable scribe
@@ -71,11 +72,11 @@ services:
       # - JAVA_OPTS=-Dlogging.level.zipkin2=DEBUG
     ports:
       # Port used for the Zipkin UI and HTTP Api
-      - 9412:9411
+      - 9411:9411
       # Uncomment if you set SCRIBE_ENABLED=true
       # - 9410:9410
     depends_on:
-      - storage
+      - zipkin-database
     networks:
       - oee-compose-network
 
@@ -89,7 +90,7 @@ services:
     entrypoint: crond -f
     environment:
       - STORAGE_TYPE=mysql
-      - MYSQL_HOST=storage
+      - MYSQL_HOST=zipkin-database
       # Add the baked-in username and password for the zipkin-mysql image
       - MYSQL_USER=zipkin
       - MYSQL_PASS=zipkin
@@ -98,11 +99,12 @@ services:
       # Uncomment to adjust memory used by the dependencies job
       # - JAVA_OPTS=-verbose:gc -Xms1G -Xmx1G
     depends_on:
-      - storage
+      - zipkin-database
     networks:
       - oee-compose-network
 
   gateway-service:
+    container_name: gateway-service
     environment:
       # RABBIT_URI: $RABBIT_URI
       CONFIG_URI:  $CONFIG_URI
@@ -125,13 +127,14 @@ services:
       - oee-compose-network
 
   auth-service:
+    container_name: auth-service
     environment:
-      # RABBIT_URI: $RABBIT_URI
-#      RDS_HOSTNAME: $RDS_AUTH_HOSTNAME
-#      RDS_PORT: $RDS_PORT
-#      RDS_DB_NAME: $RDS_DB_NAME
-#      RDS_USERNAME: $RDS_USERNAME
-#      RDS_PASSWORD: $RDS_PASSWORD
+      RABBIT_URI: $RABBIT_URI
+      RDS_HOSTNAME: $RDS_AUTH_HOSTNAME
+      RDS_PORT: $RDS_PORT
+      RDS_DB_NAME: keycloak
+      RDS_USERNAME: keycloak
+      RDS_PASSWORD: password
       CONFIG_URI:  $CONFIG_URI
       FAIL_FAST: $FAIL_FAST
       EUREKA_URI: $EUREKA_URI
@@ -152,22 +155,23 @@ services:
     networks:
       - oee-compose-network
 
-  auth-database:
-    environment:
-      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
-      MYSQL_USER: $MYSQL_USER
-      MYSQL_PASSWORD: $MYSQL_PASSWORD
-      MYSQL_DATABASE: $MYSQL_DATABASE
-    image: mysql:8.0
-    ports:
-      - "3307:3306"
-    restart: always
-    volumes:
-      - mysql-database-data-volume:/var/lib/auth-database
-    networks:
-      - oee-compose-network
+#  auth-database:
+#    environment:
+#      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+#      MYSQL_USER: $MYSQL_USER
+#      MYSQL_PASSWORD: $MYSQL_PASSWORD
+#      MYSQL_DATABASE: $MYSQL_DATABASE
+#    image: mysql:8.0
+#    ports:
+#      - "3307:3306"
+#    restart: always
+#    volumes:
+#      - mysql-database-data-volume:/var/lib/auth-database
+#    networks:
+#      - oee-compose-network
       
   config-service:
+    container_name: config-service
     environment:
       # RABBIT_URI: $RABBIT_URI
       EUREKA_URI: $EUREKA_URI
@@ -186,6 +190,7 @@ services:
       - oee-compose-network
 
   confirmation-service:
+    container_name: confirmation-service
     environment:
       # RABBIT_URI: $RABBIT_URI
       RDS_HOSTNAME: $RDS_CONFIRMATION_HOSTNAME
@@ -213,6 +218,7 @@ services:
       - oee-compose-network
 
   confirmation-database:
+    container_name: confirmation-database
     environment:
       MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
       MYSQL_USER: $MYSQL_USER
@@ -228,6 +234,7 @@ services:
       - oee-compose-network
 
   maindata-service:
+    container_name: maindata-service
     environment:
       # RABBIT_URI: $RABBIT_URI
       RDS_HOSTNAME: $RDS_MAINDATA_HOSTNAME
@@ -256,6 +263,7 @@ services:
       - oee-compose-network
 
   maindata-database:
+    container_name: maindata-database
     image: mysql:8.0
     ports:
       - "3309:3306"
@@ -271,6 +279,7 @@ services:
       - oee-compose-network
       
   order-service:
+    container_name: order-service
     image: bsessevmez/order-service:latest
     build:
       context: order-service
@@ -298,6 +307,7 @@ services:
       - oee-compose-network
 
   order-database:
+    container_name: order-database
     image: mysql:8.0
     ports:
       - "3310:3306"
@@ -313,6 +323,7 @@ services:
       - oee-compose-network
 
   stock-service:
+    container_name: stock-service
     image: bsessevmez/stock-service:latest
     build:
       context: stock-service
@@ -340,6 +351,7 @@ services:
       - oee-compose-network
 
   stock-database:
+    container_name: stock-database
     image: mysql:8.0
     ports:
       - "3311:3306"
@@ -354,7 +366,8 @@ services:
     networks:
       - oee-compose-network
 
-  mysql-keycloak:
+  keycloak-database:
+    container_name: keycloak-database
     image: mysql:5.7
     volumes:
       - mysql-database-data-volume:/var/lib/mysql-keycloak
@@ -369,10 +382,11 @@ services:
       - oee-compose-network
 
   keycloak:
+    container_name: keycloak
     image: quay.io/keycloak/keycloak:latest
     environment:
       DB_VENDOR: MYSQL
-      DB_ADDR: mysql-keycloak
+      DB_ADDR: keycloak-database
       DB_DATABASE: keycloak
       DB_USER: keycloak
       DB_PASSWORD: password
@@ -383,14 +397,13 @@ services:
     ports:
       - 8081:8080
     depends_on:
-      - mysql-keycloak
+      - keycloak-database
     networks:
       - oee-compose-network
 
 # Volumes
 volumes:
   mysql-database-data-volume:
-  prometheus-volume:
 
 # Networks to be created to facilitate communication between containers
 networks:

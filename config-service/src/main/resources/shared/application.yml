@@ -57,7 +57,7 @@ spring:
   zipkin:
 #    sender:
 #      type: rabbit
-    baseUrl: ${ZIPKIN_URI:http://zipkin.bulutfabrikasi.eu.ngrok.io/}
+    baseUrl: ${ZIPKIN_URI:http://13.94.132.138:9411/}
 #    message-timeout: 10000
   sleuth:
     sampler:
@@ -74,7 +74,7 @@ spring:
           readTimeout: 50000
  
 keycloak:
-  auth-server-url: ${KEYCLOAK_URI:http://keycloak.bulutfabrikasi.eu.ngrok.io/auth}
+  auth-server-url: ${KEYCLOAK_URI:http://13.94.132.138:8081/auth}
   realm: cloudoeeapp
   bearer-only: true
   public-client: true

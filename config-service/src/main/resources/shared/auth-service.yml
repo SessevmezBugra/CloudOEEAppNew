@@ -6,7 +6,7 @@ spring:
       idleTimeout: 120000
       connectionTimeout: 300000
       leakDetectionThreshold: 300000
-    url: jdbc:mysql://${RDS_HOSTNAME:1.tcp.eu.ngrok.io}:${RDS_PORT:26460}/${RDS_DB_NAME:keycloak}?serverTimezone=UTC
+    url: jdbc:mysql://${RDS_HOSTNAME:13.94.132.138}:${RDS_PORT:3312}/${RDS_DB_NAME:keycloak}?serverTimezone=UTC
     username: ${RDS_USERNAME:keycloak}
     password: ${RDS_PASSWORD:password}
   jpa:
