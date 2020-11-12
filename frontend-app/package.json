@@ -8,8 +8,7 @@
     "build": "rimraf dist && ui5 build --a"
   },
   "author": "",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@ui5/cli": "^2.0.2",
     "rimraf": "^2.6.2"
