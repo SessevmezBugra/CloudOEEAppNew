@@ -26,7 +26,7 @@ sap.ui.define([
         initCheckSSO: function () {
             return this.getKeycloak().init({
                 onLoad: 'check-sso',
-                silentCheckSsoRedirectUri: 'http://arcloudfactories.com:8081' + '/silent-check-sso.html'
+                silentCheckSsoRedirectUri: 'http://arcloudfactories.com' + '/silent-check-sso.html'
             });
         },
 
