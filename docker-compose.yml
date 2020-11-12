@@ -150,7 +150,7 @@ services:
       - eureka-server
       # - rabbitmq
 #      - zipkin-server
-      - auth-database
+      - keycloak-database
       - config-service
     networks:
       - oee-compose-network
