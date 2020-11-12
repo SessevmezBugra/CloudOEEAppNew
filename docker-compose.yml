@@ -129,7 +129,7 @@ services:
   auth-service:
     container_name: auth-service
     environment:
-      RABBIT_URI: $RABBIT_URI
+#      RABBIT_URI: $RABBIT_URI
       RDS_HOSTNAME: $RDS_AUTH_HOSTNAME
       RDS_PORT: $RDS_PORT
       RDS_DB_NAME: keycloak
