@@ -10,7 +10,7 @@ sap.ui.define([
                 return this.keycloak;
             }
             this.keycloak = new Keycloak({
-                url: 'http://arcloudfactories.com:8081/auth',
+                url: 'http://keycloak.bulutfabrikasi.eu.ngrok.io/auth',
                 realm: 'cloudoeeapp',
                 clientId: 'ui-app'
             });
