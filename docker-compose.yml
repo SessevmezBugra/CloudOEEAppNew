@@ -9,6 +9,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "80:80"
+      - "443:80"
     restart: always
     depends_on:
       - gateway-service
