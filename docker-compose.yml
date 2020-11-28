@@ -11,6 +11,9 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - /var/lib/waagent/:/ssl/
+    depends_on:
+      - frontend-app
+      - keycloak
     networks:
       - oee-compose-network
 
