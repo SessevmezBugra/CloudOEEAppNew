@@ -142,34 +142,7 @@ services:
     networks:
       - oee-compose-network
 
-  auth-service:
-    container_name: auth-service
-    environment:
-#      RABBIT_URI: $RABBIT_URI
-      RDS_HOSTNAME: $RDS_AUTH_HOSTNAME
-      RDS_PORT: $RDS_PORT
-      RDS_DB_NAME: keycloak
-      RDS_USERNAME: keycloak
-      RDS_PASSWORD: password
-      CONFIG_URI:  $CONFIG_URI
-      FAIL_FAST: $FAIL_FAST
-      EUREKA_URI: $EUREKA_URI
-      ZIPKIN_URI: $ZIPKIN_URI
-    image: bsessevmez/auth-service:latest
-    build:
-      context: auth-service
-      dockerfile: Dockerfile
-    # ports:
-    #   - "5000:5000"
-    restart: always
-    depends_on:
-      - eureka-server
-      # - rabbitmq
-#      - zipkin-server
-      - keycloak-database
-      - config-service
-    networks:
-      - oee-compose-network
+  
 
 #  auth-database:
 #    environment:
@@ -414,6 +387,34 @@ services:
       - 8081:8080
     depends_on:
       - keycloak-database
+    networks:
+      - oee-compose-network
+
+  auth-service:
+    container_name: auth-service
+    environment:
+#      RABBIT_URI: $RABBIT_URI
+      RDS_HOSTNAME: $RDS_AUTH_HOSTNAME
+      RDS_PORT: $RDS_PORT
+      RDS_DB_NAME: keycloak
+      RDS_USERNAME: keycloak
+      RDS_PASSWORD: password
+      CONFIG_URI:  $CONFIG_URI
+      FAIL_FAST: $FAIL_FAST
+      EUREKA_URI: $EUREKA_URI
+      ZIPKIN_URI: $ZIPKIN_URI
+    image: bsessevmez/auth-service:latest
+    build:
+      context: auth-service
+      dockerfile: Dockerfile
+    # ports:
+    #   - "5000:5000"
+    restart: always
+    depends_on:
+      - eureka-server
+      - keycloak
+      - keycloak-database
+      - config-service
     networks:
       - oee-compose-network
 
