@@ -1,32 +1,6 @@
 version: '3.7'
 services:
 
-  nginx:
-    image: nginx:1.15-alpine
-    restart: unless-stopped
-    volumes:
-      - ./nginx-certbot/nginx:/etc/nginx/conf.d
-      - ./nginx-certbot/certbot/conf:/etc/letsencrypt
-      - ./nginx-certbot/certbot/www:/var/www/certbot
-    ports:
-      - "80:80"
-      - "443:443"
-    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
-    depends_on:
-      - frontend-app
-      - keycloak
-    networks:
-      - oee-compose-network
-
-  certbot:
-    image: certbot/certbot
-    restart: unless-stopped
-    volumes:
-      - ./nginx-certbot/certbot/conf:/etc/letsencrypt
-      - ./nginx-certbot/certbot/www:/var/www/certbot
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
-    networks:
-      - oee-compose-network
 
   frontend-app:
     image: bsessevmez/frontend-app:latest
