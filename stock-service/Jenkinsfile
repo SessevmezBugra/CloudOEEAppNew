@@ -13,7 +13,6 @@ pipeline {
                 sh '''
                     ./stock-service/jenkins/build/mvn.sh mvn -B -DskipTests clean package
                     ./stock-service/jenkins/build/build.sh
-
                 '''
             }
         }

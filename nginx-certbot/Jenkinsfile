@@ -7,7 +7,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''
-                    ./init-letsencrypt.sh
+                    ./nginx-certbot/init-letsencrypt.sh
                 '''
             }
         }
