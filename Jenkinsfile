@@ -4,6 +4,12 @@ pipeline {
 
     stages {
 
+        stage('nginx-certbot') {
+            steps {
+                build job: 'pipeline-nginx-certbot', propagate: true, wait: true
+            }
+        }
+
         stage('auth-service') {
             steps {
                 build job: 'pipeline-auth-service', propagate: true, wait: true
