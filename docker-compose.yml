@@ -12,8 +12,7 @@ services:
     restart: always
     depends_on:
       - gateway-service
-    networks:
-      - oee-compose-network
+    
 
   # rabbitmq:
   #   image: rabbitmq:3.8.3-management
@@ -39,8 +38,7 @@ services:
     restart: always
     depends_on:
       - config-service
-    networks:
-      - oee-compose-network
+    
 
   zipkin-database:
     container_name: zipkin-database
@@ -48,8 +46,7 @@ services:
     # Uncomment to expose the storage port for testing
     # ports:
     #   - 3306:3306
-    networks:
-      - oee-compose-network
+    
 
 
     # The zipkin process services the UI, and also exposes a POST endpoint that
@@ -77,8 +74,7 @@ services:
       # - 9410:9410
     depends_on:
       - zipkin-database
-    networks:
-      - oee-compose-network
+    
 
   # Adds a cron to process spans since midnight every hour, and all spans each day
   # This data is served by http://192.168.99.100:8080/dependency
@@ -100,8 +96,7 @@ services:
       # - JAVA_OPTS=-verbose:gc -Xms1G -Xmx1G
     depends_on:
       - zipkin-database
-    networks:
-      - oee-compose-network
+    
 
   gateway-service:
     container_name: gateway-service
@@ -123,8 +118,7 @@ services:
       # - rabbitmq
 #      - zipkin-server
       - config-service
-    networks:
-      - oee-compose-network
+    
 
   
 
@@ -159,8 +153,7 @@ services:
 #    depends_on:
       # - rabbitmq
 #      - zipkin-server
-    networks:
-      - oee-compose-network
+    
 
   confirmation-service:
     container_name: confirmation-service
@@ -187,8 +180,7 @@ services:
       # - rabbitmq
 #      - zipkin-server
       - config-service
-    networks:
-      - oee-compose-network
+    
 
   confirmation-database:
     container_name: confirmation-database
@@ -203,8 +195,7 @@ services:
     restart: always
     volumes:
       - mysql-database-data-volume:/var/lib/confirmation-database
-    networks:
-      - oee-compose-network
+    
 
   maindata-service:
     container_name: maindata-service
@@ -232,8 +223,7 @@ services:
 #      - zipkin-server
       - maindata-database
       - config-service
-    networks:
-      - oee-compose-network
+    
 
   maindata-database:
     container_name: maindata-database
@@ -248,8 +238,7 @@ services:
       MYSQL_DATABASE: $MYSQL_DATABASE
     volumes:
       - mysql-database-data-volume:/var/lib/maindata-database
-    networks:
-      - oee-compose-network
+    
       
   order-service:
     container_name: order-service
@@ -276,8 +265,7 @@ services:
       # - rabbitmq
 #      - zipkin-server
       - config-service
-    networks:
-      - oee-compose-network
+    
 
   order-database:
     container_name: order-database
@@ -292,8 +280,7 @@ services:
       MYSQL_DATABASE: $MYSQL_DATABASE
     volumes:
       - mysql-database-data-volume:/var/lib/order-database
-    networks:
-      - oee-compose-network
+    
 
   stock-service:
     container_name: stock-service
@@ -320,8 +307,7 @@ services:
       # - rabbitmq
 #      - zipkin-server
       - config-service
-    networks:
-      - oee-compose-network
+    
 
   stock-database:
     container_name: stock-database
@@ -336,8 +322,7 @@ services:
       MYSQL_DATABASE: $MYSQL_DATABASE
     volumes:
       - mysql-database-data-volume:/var/lib/stock-database
-    networks:
-      - oee-compose-network
+    
 
   keycloak-database:
     container_name: keycloak-database
@@ -351,8 +336,7 @@ services:
       MYSQL_PASSWORD: password
     ports:
       - "3312:3306"
-    networks:
-      - oee-compose-network
+    
 
   keycloak:
     container_name: keycloak
@@ -371,8 +355,7 @@ services:
       - 8081:8080
     depends_on:
       - keycloak-database
-    networks:
-      - oee-compose-network
+    
 
   auth-service:
     container_name: auth-service
@@ -399,8 +382,7 @@ services:
       - keycloak
       - keycloak-database
       - config-service
-    networks:
-      - oee-compose-network
+    
 
 # Volumes
 volumes:
