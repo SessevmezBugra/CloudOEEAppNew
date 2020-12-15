@@ -355,7 +355,7 @@ services:
     image: quay.io/keycloak/keycloak:latest
     environment:
       VIRTUAL_HOST: auth.arcloudfactories.com
-      PROXY_ADDRESS_FORWARDING: 'true'
+      PROXY_ADDRESS_FORWARDING: "true"
       DB_VENDOR: MYSQL
       DB_ADDR: keycloak-database
       DB_DATABASE: keycloak
