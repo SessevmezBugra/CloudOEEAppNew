@@ -1,6 +1,16 @@
 version: '3.7'
 services:
 
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    restart: always
+    privileged: true
+
   frontend-app:
     image: bsessevmez/frontend-app:latest
     container_name: frontend-app
@@ -10,6 +20,8 @@ services:
     ports:
       - "8888:80"
     restart: always
+    environment:
+      VIRTUAL_HOST:  arcloudfactories.com
     depends_on:
       - gateway-service
     
@@ -342,6 +354,7 @@ services:
     container_name: keycloak
     image: quay.io/keycloak/keycloak:latest
     environment:
+      VIRTUAL_HOST: auth.arcloudfactories.com
       DB_VENDOR: MYSQL
       DB_ADDR: keycloak-database
       DB_DATABASE: keycloak
