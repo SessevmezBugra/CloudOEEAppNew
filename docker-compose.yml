@@ -8,7 +8,6 @@ services:
       - "443:443"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - ./nginx-proxy/auth.arcloudfactories.com.conf:/etc/nginx/proxy.conf
     restart: always
     privileged: true
 
@@ -402,9 +401,3 @@ services:
 # Volumes
 volumes:
   mysql-database-data-volume:
-
-# Networks to be created to facilitate communication between containers
-networks: 
-  default: 
-    external: 
-      name: oee-compose-network
