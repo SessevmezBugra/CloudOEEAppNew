@@ -21,7 +21,7 @@ services:
       - "8888:80"
     restart: always
     environment:
-      VIRTUAL_HOST:  arcloudfactories.com
+      VIRTUAL_HOST: auth.arcloudfactories.com
     depends_on:
       - gateway-service
     
@@ -354,7 +354,6 @@ services:
     container_name: keycloak
     image: quay.io/keycloak/keycloak:latest
     environment:
-      VIRTUAL_HOST: auth.arcloudfactories.com
       DB_VENDOR: MYSQL
       DB_ADDR: keycloak-database
       DB_DATABASE: keycloak
