@@ -8,6 +8,7 @@ services:
       - "443:443"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./nginx-proxy/auth.arcloudfactories.com.conf:/etc/nginx/vhost.d/auth.arcloudfactories.com:ro
     restart: always
     privileged: true
 
