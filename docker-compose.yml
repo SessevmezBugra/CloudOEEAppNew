@@ -378,11 +378,14 @@ services:
       LETSENCRYPT_HOST: auth.arcloudfactories.com
       LETSENCRYPT_EMAIL: sessevmezbugra@gmail.com
       PROXY_ADDRESS_FORWARDING: "true"
+      JDBC_PARAMS: "ssl=false" 
       DB_VENDOR: MYSQL
       DB_ADDR: keycloak-database
       DB_DATABASE: keycloak
       DB_USER: keycloak
       DB_PASSWORD: password
+      KEYCLOAK_HTTP_PORT: 8080
+      KEYCLOAK_HOSTNAME: auth.arcloudfactories.com
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: admin
       # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the MySQL JDBC driver documentation in order to use it.
