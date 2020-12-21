@@ -375,7 +375,7 @@ services:
     environment:
       VIRTUAL_HOST: auth.arcloudfactories.com
       VIRTUAL_PORT: 8080
-      LETSENCRYPT_HOST: arcloudfactories.com
+      LETSENCRYPT_HOST: auth.arcloudfactories.com
       LETSENCRYPT_EMAIL: sessevmezbugra@gmail.com
       PROXY_ADDRESS_FORWARDING: "true"
       DB_VENDOR: MYSQL
