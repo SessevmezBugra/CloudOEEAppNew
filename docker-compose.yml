@@ -3,13 +3,29 @@ services:
 
   nginx-proxy:
     image: jwilder/nginx-proxy
+    container_name: nginx-proxy
     ports:
       - "80:80"
       - "443:443"
     volumes:
+      - conf:/etc/nginx/conf.d
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - dhparam:/etc/nginx/dhparam
+      - certs:/etc/nginx/certs:ro
       - /var/run/docker.sock:/tmp/docker.sock:ro
     restart: always
     privileged: true
+  
+  letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    container_name: nginx-proxy-le
+    volumes_from:
+      - nginx-proxy
+    volumes:
+      - certs:/etc/nginx/certs:rw
+      - acme:/etc/acme.sh
+      - /var/run/docker.sock:/var/run/docker.sock:ro
 
   frontend-app:
     image: bsessevmez/frontend-app:latest
@@ -22,6 +38,8 @@ services:
     restart: always
     environment:
       VIRTUAL_HOST: arcloudfactories.com
+      LETSENCRYPT_HOST: arcloudfactories.com
+      LETSENCRYPT_EMAIL: sessevmezbugra@gmail.com
     depends_on:
       - gateway-service
       - nginx-proxy
@@ -357,6 +375,8 @@ services:
     environment:
       VIRTUAL_HOST: auth.arcloudfactories.com
       VIRTUAL_PORT: 8080
+      LETSENCRYPT_HOST: arcloudfactories.com
+      LETSENCRYPT_EMAIL: sessevmezbugra@gmail.com
       PROXY_ADDRESS_FORWARDING: "true"
       DB_VENDOR: MYSQL
       DB_ADDR: keycloak-database
@@ -404,6 +424,12 @@ services:
 # Volumes
 volumes:
   mysql-database-data-volume:
+  conf:
+  vhost:
+  html:
+  dhparam:
+  certs:
+  acme:
 
 networks:
   default:
