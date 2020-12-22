@@ -20,7 +20,7 @@ spring:
 keycloak:
   resource: auth-service
   credentials: 
-    secret: 594c9bdd-5a31-4b18-be65-80b46ef90c00
+    secret: 02173c61-a35a-47c5-a57f-07a93255af7b
     
 keycloak-admin-user: admin
 keycloak-admin-password: admin

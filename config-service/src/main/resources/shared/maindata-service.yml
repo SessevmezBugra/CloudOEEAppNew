@@ -20,7 +20,7 @@ spring:
 keycloak:
   resource: maindata-service
   credentials: 
-    secret: 294c4929-b7a8-43df-8cd5-8cadf5e8a345
+    secret: 38017ff7-d5d1-40dd-b547-36c9e58dc1f3
 #  use-resource-role-mappings: true
 
 server:

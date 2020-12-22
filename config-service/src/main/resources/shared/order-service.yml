@@ -20,7 +20,7 @@ spring:
 keycloak:
   resource: order-service
   credentials: 
-    secret: a3089641-c733-405c-991d-1853c0e3aedd
+    secret: 98653a34-f6e3-401f-a08a-325e3e70c10a
 #  use-resource-role-mappings: true
     
 server:

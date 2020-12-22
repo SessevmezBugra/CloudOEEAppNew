@@ -20,7 +20,7 @@ spring:
 keycloak:
   resource: stock-service
   credentials: 
-    secret: f2be0db6-d7a3-4dcd-a918-5a68cd8719f9
+    secret: 3bc24383-fb69-455c-b4b0-b4230fc68b8f
 #  use-resource-role-mappings: true
 
 server:
