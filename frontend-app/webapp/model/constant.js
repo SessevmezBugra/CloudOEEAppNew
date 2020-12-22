@@ -4,7 +4,7 @@ sap.ui.define([
 
 	return {
 		baseUri: function () {
-            return (window.location.origin.includes("localhost") ? "http://localhost:4000" : "http://13.94.132.138:4000")
+            return (window.location.origin.includes("localhost") ? "http://localhost:4000" : "https://service.arcloudfactories.com")
         },
 	};
 
