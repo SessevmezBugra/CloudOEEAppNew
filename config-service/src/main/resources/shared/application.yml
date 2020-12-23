@@ -79,7 +79,7 @@ keycloak:
   bearer-only: true
   public-client: true
   principal-attribute: preferred_username
-  ssl-required: external
+  ssl-required: none
     
 management:
   endpoints:
