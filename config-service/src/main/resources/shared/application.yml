@@ -77,7 +77,7 @@ keycloak:
   auth-server-url: ${KEYCLOAK_URI:http://auth.arcloudfactories.com/auth}
   realm: cloudoeeapp
   bearer-only: true
-  # public-client: true
+  public-client: true
   principal-attribute: preferred_username
   ssl-required: external
     
