@@ -141,6 +141,11 @@ services:
       VIRTUAL_PORT: 4000
       LETSENCRYPT_HOST: service.arcloudfactories.com
       LETSENCRYPT_EMAIL: sessevmezbugra@gmail.com
+      AUTH_SERVICE_URI: $AUTH_SERVICE_URI
+      MAINDATA_SERVICE_URI: $MAINDATA_SERVICE_URI
+      STOCK_SERVICE_URI: $STOCK_SERVICE_URI
+      ORDER_SERVICE_URI: $ORDER_SERVICE_URI
+      CONFIRMATION_SERVICE_URI: $CONFIRMATION_SERVICE_URI
     image: bsessevmez/gateway-service:latest
     build:
       context: gateway-service
