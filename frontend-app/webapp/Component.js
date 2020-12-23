@@ -27,7 +27,7 @@ sap.ui.define([
 						this.getRouter().getHashChanger().replaceHash("oeeapp");
 					} else {
 						this.keycloak.logout();
-						window.location.pathname="/index.html";
+						// window.location.pathname="/index.html";
 					}
 
 				} else {
