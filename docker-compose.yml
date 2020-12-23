@@ -203,6 +203,7 @@ services:
       FAIL_FAST: $FAIL_FAST
       EUREKA_URI: $EUREKA_URI
       ZIPKIN_URI: $ZIPKIN_URI
+      KEYCLOAK_URI: $KEYCLOAK_URI
     image: bsessevmez/confirmation-service:latest
     build:
       context: confirmation-service
@@ -245,6 +246,7 @@ services:
       FAIL_FAST: $FAIL_FAST
       EUREKA_URI: $EUREKA_URI
       ZIPKIN_URI: $ZIPKIN_URI
+      KEYCLOAK_URI: $KEYCLOAK_URI
     image: bsessevmez/maindata-service:latest
     build:
       context: maindata-service
@@ -292,6 +294,7 @@ services:
       FAIL_FAST: $FAIL_FAST
       EUREKA_URI: $EUREKA_URI
       ZIPKIN_URI: $ZIPKIN_URI
+      KEYCLOAK_URI: $KEYCLOAK_URI
 #    ports:
 #      - "8060:8060"
     restart: always
@@ -334,6 +337,7 @@ services:
       FAIL_FAST: $FAIL_FAST
       EUREKA_URI: $EUREKA_URI
       ZIPKIN_URI: $ZIPKIN_URI
+      KEYCLOAK_URI: $KEYCLOAK_URI
 #    ports:
 #      - "8070:8070"
     restart: always
@@ -414,6 +418,7 @@ services:
       FAIL_FAST: $FAIL_FAST
       EUREKA_URI: $EUREKA_URI
       ZIPKIN_URI: $ZIPKIN_URI
+      KEYCLOAK_URI: $KEYCLOAK_URI
     image: bsessevmez/auth-service:latest
     build:
       context: auth-service
