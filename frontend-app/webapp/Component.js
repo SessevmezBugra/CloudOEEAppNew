@@ -27,7 +27,7 @@ sap.ui.define([
 						this.getRouter().getHashChanger().replaceHash("oeeapp");
 					} else {
 						this.UserService.logout();
-						window.location.pathname="/index.html";
+						// window.location.pathname="/index.html";
 					}
 
 				} else {
@@ -66,7 +66,7 @@ sap.ui.define([
 					
 				} else if ((!this.keycloak.authenticated || this.keycloak.isTokenExpired()) && (target == "factory" || target == "oeeapp")) {
 					this.getRouter().getHashChanger().replaceHash("");
-					window.location.pathname="/index.html";
+					// window.location.pathname="/index.html";
 				}
 				// this.hideBusyIndicator();
 			}.bind(this));
