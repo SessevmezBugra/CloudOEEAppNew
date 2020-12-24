@@ -26,7 +26,7 @@ sap.ui.define([
 					} else if(this.keycloak.hasRealmRole("OPERATOR")) {
 						this.getRouter().getHashChanger().replaceHash("oeeapp");
 					} else {
-						this.UserService.logout();
+						// this.UserService.logout();
 						// window.location.pathname="/index.html";
 					}
 
@@ -60,7 +60,7 @@ sap.ui.define([
 					} else if(this.keycloak.hasRealmRole("OPERATOR")) {
 						this.getRouter().getHashChanger().replaceHash("oeeapp");
 					} else {
-						this.UserService.logout();
+						// this.UserService.logout();
 						window.location.pathname="/index.html";
 					}
 					
