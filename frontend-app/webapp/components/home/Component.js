@@ -24,7 +24,7 @@ sap.ui.define([
 					}
 					
 				}else if ((!this.keycloak.authenticated || this.keycloak.isTokenExpired()) && (target == "factory" || target == "oeeapp")) {
-					window.location.pathname="/index.html";
+					// window.location.pathname="/index.html";
 				}
 				this.hideBusyIndicator();
 			}.bind(this));
