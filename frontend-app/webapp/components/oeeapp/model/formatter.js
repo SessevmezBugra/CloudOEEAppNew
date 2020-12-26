@@ -1,7 +1,8 @@
 sap.ui.define([
     "sap/ui/core/format/NumberFormat",
-    "sap/ui/core/format/DateFormat"
-], function (NumberFormat, DateFormat) {
+    "sap/ui/core/format/DateFormat",
+    "workerapp/services/userservice"
+], function (NumberFormat, DateFormat, UserService) {
 	"use strict";
 
 	
@@ -21,7 +22,8 @@ sap.ui.define([
                 default:
                     return sStatus;
             }
-		},
+        },
+        
 		statusStats: function (sStatus) {
             switch (sStatus) {
                 case "NEW":
@@ -44,7 +46,11 @@ sap.ui.define([
             } else {
                 return "";
             }
-        } 
+        },
+
+        isOperatorNot: function() {
+            return !this.UserService.getKeycloak().hasRealmRole("OPERATOR");
+        }
 	};
 
 	return formatter;

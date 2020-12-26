@@ -74,7 +74,7 @@ spring:
           readTimeout: 50000
  
 keycloak:
-  auth-server-url: ${KEYCLOAK_URI:http://auth.arcloudfactories.com/auth}
+  auth-server-url: ${KEYCLOAK_URI:https://auth.arcloudfactories.com/auth}
   realm: cloudoeeapp
   bearer-only: true
   public-client: true

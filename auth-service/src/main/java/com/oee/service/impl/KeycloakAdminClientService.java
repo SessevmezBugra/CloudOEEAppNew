@@ -115,6 +115,7 @@ public class KeycloakAdminClientService {
     }
 
     public Boolean createUser(CurrentUser userDto){
+        System.err.println("TEST");
         if(StringUtils.isEmpty(userDto.getUsername()) || StringUtils.isEmpty(userDto.getPasswordRetry()) || StringUtils.isEmpty(userDto.getPassword()) || StringUtils.isEmpty(userDto.getAreaId())) {
             throw new RuntimeException("Bilgilerin eksiksiz oldugundan emin olun.");
         }
@@ -126,13 +127,20 @@ public class KeycloakAdminClientService {
         if(userDto.getRoles() == null || userDto.getRoles().size() <= 0) {
             throw new RuntimeException("Bir rol secmelisiniz.");
         }
-
+        System.err.println("TEST30");
         KeycloakAdminClientConfig keycloakAdminClientConfig = KeycloakAdminClientUtils.loadConfig(environment);
+        System.err.println("TEST31");
         Keycloak keycloak = KeycloakAdminClientUtils.getKeycloakClient(keycloakAdminClientConfig);
+        System.err.println("TEST32");
         RealmResource realmResource = keycloak.realm(keycloakAdminClientConfig.getRealm());
+        System.err.println("TEST33");
         GroupsResource groupsResource = realmResource.groups();
+        System.err.println("TEST34");
+        System.err.println(userDto.getRoles().get(0));
+        System.err.println(groupsResource.groups().size());
         List<String> groupId = groupsResource.groups().stream().filter(gr -> gr.getName().equals(userDto.getRoles().get(0))).map(GroupRepresentation::getId).collect(Collectors.toList());
 
+        System.err.println("TEST1");
         if(userDto.getRoles() == null || userDto.getRoles().size() <= 0 || groupId == null || groupId.size() <= 0) {
             throw new RuntimeException("Lutfen dogru bir rol secin");
         }
@@ -143,9 +151,11 @@ public class KeycloakAdminClientService {
         userRepresentation.setFirstName(userDto.getFirstName());
         userRepresentation.setLastName(userDto.getLastName());
         userRepresentation.setEnabled(true);
+        userRepresentation.setEmail(userDto.getEmail());
+        System.err.println(userDto.getEmail());
         userRepresentation.setEmailVerified(true);
         Response response = usersRessource.create(userRepresentation);
-
+        System.err.println("TEST2");
         String userId = CreatedResponseUtil.getCreatedId(response);
         CredentialRepresentation passwordCred = new CredentialRepresentation();
         passwordCred.setTemporary(false);
@@ -154,7 +164,7 @@ public class KeycloakAdminClientService {
         UserResource userResource = usersRessource.get(userId);
         // Set password credential
         userResource.resetPassword(passwordCred);
-
+        System.err.println("TEST3");
         List<String> groups = new ArrayList<>();
 
         ResponsibleArea responsibleArea = new ResponsibleArea();
@@ -180,6 +190,7 @@ public class KeycloakAdminClientService {
             responsibleArea.setAreaType(AreaType.COMPANY);
             responsibleArea.setUserRole(UserRole.COMPANY_OWNER);
         }
+        userResource.leaveGroup(groupsResource.groups().stream().filter(gr -> gr.getName().equals(UserRole.COMPANY_OWNER.name())).map(GroupRepresentation::getId).collect(Collectors.toList()).get(0));
         userResource.joinGroup(groupId.get(0));
         responsibleAreaService.create(responsibleArea);
         return Boolean.TRUE;

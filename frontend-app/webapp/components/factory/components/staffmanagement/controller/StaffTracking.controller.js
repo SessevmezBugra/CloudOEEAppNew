@@ -168,6 +168,7 @@ sap.ui.define([
 				password: personData.password,
 				passwordRetry: personData.passwordRetry,
 				username: personData.personUserName,
+				email: personData.email
 			};
 			if (!personadd.areaId || !personadd.firstName || !personadd.lastName || !personadd.password || !personadd.passwordRetry || !personadd.username ||
 				personadd.firstName == "" || personadd.lastName == "" || personadd.password == "" || personadd.passwordRetry == "" || personadd.username == "") {

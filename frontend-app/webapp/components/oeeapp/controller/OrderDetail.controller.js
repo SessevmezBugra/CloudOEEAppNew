@@ -7,7 +7,7 @@ sap.ui.define([
 ], function (JSONModel, BaseController, OrderService, ConfirmationService, formatter) {
 	"use strict";
 
-	return BaseController.extend("", {
+	return BaseController.extend("workerapp.components.oeeapp.controller.OrderDetail", {
 		
 		formatter: formatter,
 

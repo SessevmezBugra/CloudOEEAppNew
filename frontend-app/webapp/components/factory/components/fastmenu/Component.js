@@ -14,12 +14,12 @@ sap.ui.define([
 
 			var oParentComponent = Component.getOwnerComponentFor(Component.getOwnerComponentFor(this));
 
-			this.getRouter().attachBeforeRouteMatched(function (oEvent) {
-				if (!this.keycloak.authenticated || this.keycloak.isTokenExpired()) {
-					oParentComponent.getRouter().navTo("home", {}, true /*no history*/);
-				}
-				this.hideBusyIndicator();
-			}.bind(this));
+			// this.getRouter().attachBeforeRouteMatched(function (oEvent) {
+			// 	if (!this.keycloak.authenticated || this.keycloak.isTokenExpired()) {
+			// 		oParentComponent.getRouter().navTo("home", {}, true /*no history*/);
+			// 	}
+			// 	this.hideBusyIndicator();
+			// }.bind(this));
 
 			this.getRouter().initialize();
 		}

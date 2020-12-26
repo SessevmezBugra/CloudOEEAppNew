@@ -11,7 +11,10 @@
 						<OverflowToolbarLayoutData priority="NeverOverflow"/>
 					</layoutData>
 				</Button>
-				<Button icon="sap-icon://home" type="Transparent" press=".goFactory" tooltip="{i18n>TOOLPAGE_NAV_TOGGLE_BTN_TOOL_TIP}">
+				<Button icon="sap-icon://home" type="Transparent" press=".goFactory" tooltip="{i18n>TOOLPAGE_NAV_TOGGLE_BTN_TOOL_TIP}" visible="{
+															path: 'localUserModel>/idTokenParsed/preferred_username',
+															formatter: '.formatter.isOperatorNot'
+															}" >
 					<layoutData>
 						<OverflowToolbarLayoutData priority="NeverOverflow"/>
 					</layoutData>

@@ -15,7 +15,6 @@ sap.ui.define([
 
 		init: function() {
 			UIComponent.prototype.init.apply(this, arguments);
-			this.showBusyIndicator();
 			var localUserModel = new LocalStorageModel("localUserModel");
 			this.setModel(localUserModel,"localUserModel");
 			this.setModel(models.createDeviceModel(), "device");

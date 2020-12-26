@@ -6,8 +6,9 @@ sap.ui.define([
 	'sap/m/MessageToast',
 	'sap/m/ActionSheet',
 	'sap/m/Button',
-	"sap/ui/core/routing/HashChanger"
-], function (BaseController, Device, syncStyleClass, mobileLibrary, MessageToast, ActionSheet, Button, HashChanger) {
+	"sap/ui/core/routing/HashChanger",
+	'workerapp/components/oeeapp/model/formatter',
+], function (BaseController, Device, syncStyleClass, mobileLibrary, MessageToast, ActionSheet, Button, HashChanger, formatter) {
 	"use strict";
 
 	var ButtonType = mobileLibrary.ButtonType;
@@ -15,6 +16,8 @@ sap.ui.define([
 	return BaseController.extend("workerapp.components.oeeapp.controller.App", {
 
 		_bExpanded: true,
+
+		formatter: formatter,
 
 		onInit: function () {
 			this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());

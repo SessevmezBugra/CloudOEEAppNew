@@ -26,12 +26,15 @@ sap.ui.define([
 					} else if(this.keycloak.hasRealmRole("OPERATOR")) {
 						this.getRouter().getHashChanger().replaceHash("oeeapp");
 					} else {
-						// this.UserService.logout();
+						this.UserService.logout();
+						// this.getRouter().getHashChanger().replaceHash("");
 						// window.location.pathname="/index.html";
+						window.location.hash="";
 					}
 
 				} else {
-					this.getRouter().getHashChanger().replaceHash("");
+					// this.getRouter().getHashChanger().replaceHash("");
+					window.location.hash="";
 				}
 				this.hideBusyIndicator();
 			}.bind(this));
@@ -60,13 +63,23 @@ sap.ui.define([
 					} else if(this.keycloak.hasRealmRole("OPERATOR")) {
 						this.getRouter().getHashChanger().replaceHash("oeeapp");
 					} else {
-						// this.UserService.logout();
+						this.UserService.logout();
+						// this.getRouter().getHashChanger().replaceHash("");
+						// window.location.pathname="/";
+						window.location.hash="";
 						// window.location.pathname="/index.html";
 					}
 					
 				} else if ((!this.keycloak.authenticated || this.keycloak.isTokenExpired()) && (target == "factory" || target == "oeeapp")) {
-					this.getRouter().getHashChanger().replaceHash("");
+					this.UserService.logout();
+					// this.getRouter().getHashChanger().replaceHash("");
 					// window.location.pathname="/index.html";
+					// window.location.pathname="/";
+					window.location.hash="";
+				}else if(this.keycloak.authenticated && !this.keycloak.isTokenExpired() && target == "factory" && this.keycloak.hasRealmRole("OPERATOR")) {
+					// this.getRouter().getHashChanger().replaceHash("");
+					// window.location.pathname="/";
+					window.location.hash="";
 				}
 				// this.hideBusyIndicator();
 			}.bind(this));

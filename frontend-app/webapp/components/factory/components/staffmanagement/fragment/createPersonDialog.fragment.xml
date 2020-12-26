@@ -24,6 +24,8 @@
                         <Input value="{staffModel>/personName}"/>
                         <Label text="{i18n>PERSONEL_SURNAME}" />
                         <Input value="{staffModel>/personSurname}"/>
+                        <Label text="{i18n>PERSONEL_EMAIL}" />
+                        <Input value="{staffModel>/email}"/>
                         <Label text="{i18n>PERSONEL_PASSWORD}" />
                         <Input value="{staffModel>/password}" type="{= ${staffModel>/showPassword} > 0 ? 'Text' : 'Password'}">
                             <layoutData>

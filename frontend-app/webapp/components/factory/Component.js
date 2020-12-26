@@ -18,13 +18,13 @@ sap.ui.define([
 			this.setModel(oModel, "factoryGlobalModel");
 			var oParentComponent = Component.getOwnerComponentFor(this);
 
-			this.getRouter().attachBeforeRouteMatched(function (oEvent) {
-				if (!this.keycloak.authenticated || this.keycloak.isTokenExpired() || !(this.keycloak.hasRealmRole("COMPANY_OWNER") || this.keycloak.hasRealmRole("CLIENT_MANAGER") || this.keycloak.hasRealmRole("PLANT_MANAGER"))) {
-					oParentComponent.getRouter().navTo("home", {}, true /*no history*/);
-					this.getRouter().getHashChanger().replaceHash("");
-				}
-				this.hideBusyIndicator();
-			}.bind(this));
+			// this.getRouter().attachBeforeRouteMatched(function (oEvent) {
+			// 	if (!this.keycloak.authenticated || this.keycloak.isTokenExpired() || !(this.keycloak.hasRealmRole("COMPANY_OWNER") || this.keycloak.hasRealmRole("CLIENT_MANAGER") || this.keycloak.hasRealmRole("PLANT_MANAGER"))) {
+			// 		oParentComponent.getRouter().navTo("home", {}, true /*no history*/);
+			// 		this.getRouter().getHashChanger().replaceHash("");
+			// 	}
+			// 	this.hideBusyIndicator();
+			// }.bind(this));
 
 			this.getRouter().initialize();
 		}
