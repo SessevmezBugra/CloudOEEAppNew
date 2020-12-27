@@ -66,6 +66,9 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8762:8761"
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"
     restart: always
     depends_on:
       - config-service
@@ -152,6 +155,9 @@ services:
       dockerfile: Dockerfile
 #    ports:
 #      - "4000:4000"
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"
     restart: always
     depends_on:
       - eureka-server
@@ -189,6 +195,9 @@ services:
       dockerfile: Dockerfile
 #    ports:
 #      - "8888:8888"
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"
     restart: always
 #    depends_on:
       # - rabbitmq
@@ -215,6 +224,9 @@ services:
       dockerfile: Dockerfile
 #    ports:
 #      - "8050:8050"
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"
     restart: always
     depends_on:
       - eureka-server
@@ -258,6 +270,9 @@ services:
       dockerfile: Dockerfile
     # ports:
     #   - "8090:8090"
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"
     restart: always
     depends_on:
       - eureka-server
@@ -302,6 +317,9 @@ services:
       KEYCLOAK_URI: $KEYCLOAK_URI
 #    ports:
 #      - "8060:8060"
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"
     restart: always
     depends_on:
       - eureka-server
@@ -345,6 +363,9 @@ services:
       KEYCLOAK_URI: $KEYCLOAK_URI
 #    ports:
 #      - "8070:8070"
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"
     restart: always
     depends_on:
       - eureka-server
@@ -430,6 +451,9 @@ services:
       dockerfile: Dockerfile
     # ports:
     #   - "5000:5000"
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"
     restart: always
     depends_on:
       - eureka-server
