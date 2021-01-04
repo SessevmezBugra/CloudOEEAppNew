@@ -13,8 +13,6 @@ import com.oee.enums.AreaType;
 import com.oee.enums.UserRole;
 import com.oee.repository.UserEntityRepository;
 import com.oee.service.ResponsibleAreaService;
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import feign.Client;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.KeycloakPrincipal;
 import org.keycloak.adapters.RefreshableKeycloakSecurityContext;
