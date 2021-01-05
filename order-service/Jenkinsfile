@@ -1,0 +1,29 @@
+pipeline {
+
+    agent any
+
+    environment {
+        PASS = credentials('registry-pass')
+    }
+
+    stages {
+
+        stage('Build') {
+            steps {
+                sh '''
+                    ./order-service/jenkins/build/mvn.sh mvn -B -DskipTests clean package
+                    ./order-service/jenkins/build/build.sh
+
+                '''
+            }
+        }
+
+
+        stage('Push') {
+            steps {
+                sh './order-service/jenkins/push/push.sh'
+            }
+        }
+
+    }
+}

@@ -1,0 +1,61 @@
+<core:FragmentDefinition xmlns="sap.m" 
+    xmlns:l="sap.ui.layout" 
+    xmlns:f="sap.ui.layout.form" 
+    xmlns:core="sap.ui.core">
+    <Dialog title="Bir siparis olusturun" contentWidth="450px" contentHeight="700px" resizable="false">
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <f:SimpleForm editable="true" layout="ResponsiveGridLayout" title="Siparis" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+                    <f:content>
+                        <Label text="Fabrika" />
+                        <Select forceSelection="false" selectedKey="{orderModel>/selectedPlant}" items="{orderModel>/plants}" change="onSelectedPlant">
+                            <core:Item text="{orderModel>plantName}" key="{orderModel>plantId}"/>
+                        </Select>
+                        <CheckBox text="Stoğa Üretim" select ="onClickStockProduction" selected="{orderModel>/isStockProduction}"/>
+                        <Label text="Depo" />
+                        <Select forceSelection="false" visible="{orderModel>/isStockProduction}" selectedKey="{orderModel>/selectedWarehouse}" items="{orderModel>/warehouses}" change="onSelectedWarehouse">
+                            <core:Item text="{orderModel>warehouseName}" key="{orderModel>warehouseId}"/>
+                        </Select>
+                        <Label text="Malzeme" />
+                        <Select forceSelection="false" visible="{orderModel>/isStockProduction}" selectedKey="{orderModel>/selectedMaterial}" items="{orderModel>/materials}" change="onSelectedMaterial">
+                            <core:Item text="{orderModel>materialDesc}" key="{orderModel>materialId}"/>
+                        </Select>
+                        <Label text="Siparis Numarasi" />
+                        <Input value="{orderModel>/orderNumber}" />
+                        <Label text="Uretilecek Malzeme Numarasi" />
+                        <Input value="{orderModel>/materialNumberToProduced}" visible="{= ${orderModel>/isStockProduction} ? false : true}"/>
+                        <Label text="Uretilecek Malzeme Aciklamasi" />
+                        <Input value="{orderModel>/materialDescToProduced}" visible="{= ${orderModel>/isStockProduction} ? false : true}"/>
+                        <Label text="Uretilecek Malzeme Miktari" />
+                        <Input value="{orderModel>/materialQuantityToProduced}"/>
+                        <Label text="Planlanan Baslangic Tarihi" />
+                        <DateTimePicker id="DTP1" value="{path:'orderModel>/plannedStartDate', type:'sap.ui.model.type.DateTime', formatOptions: { style: 'medium', strictParsing: true}}" class="sapUiSmallMarginBottom"/>
+                        <Label text="Planlanan Bitis Tarihi" />
+                        <DateTimePicker id="DTP2" value="{path:'orderModel>/plannedEndDate', type:'sap.ui.model.type.DateTime', formatOptions: { style: 'medium', strictParsing: true}}" class="sapUiSmallMarginBottom"/>
+                        
+                        <Label text="Tuketilecek Stoklar" />
+                        <MultiInput id="stockMultiInput" suggestionItems="{
+                                path: 'orderModel>/stocks',
+                                sorter: { path: 'warehouseName', group: true,
+						ascending:false }
+                            }" valueHelpRequest="handleValueHelp">
+                            <suggestionItems>
+                                <core:Item key="{orderModel>stockId}" text="{orderModel>materialDesc}" />
+                            </suggestionItems>
+                        </MultiInput>
+                        <Label text="Musteri Adi" />
+                        <Input value="{orderModel>/customerName}"/>
+                    </f:content>
+                </f:SimpleForm>
+            </VBox>
+        </content>
+        <beginButton>
+            <Button text="Olustur" press=".createOrder">
+            </Button>
+        </beginButton>
+        <endButton>
+            <Button text="Iptal" press=".closeOrderDialog">
+            </Button>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

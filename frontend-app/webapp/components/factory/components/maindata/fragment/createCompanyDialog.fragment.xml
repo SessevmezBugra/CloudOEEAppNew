@@ -1,0 +1,25 @@
+<core:FragmentDefinition xmlns="sap.m" 
+    xmlns:l="sap.ui.layout" 
+    xmlns:f="sap.ui.layout.form" 
+    xmlns:core="sap.ui.core">
+    <Dialog title="Bir sirket olusturun">
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <f:SimpleForm editable="true" layout="ResponsiveGridLayout" title="Bolge" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+                    <f:content>
+                        <Label text="Sirket Ismi" />
+                        <Input value="{assetModel>/assetName}"/>
+                    </f:content>
+                </f:SimpleForm>
+            </VBox>
+        </content>
+        <beginButton>
+            <Button text="Olustur" press=".createAsset">
+            </Button>
+        </beginButton>
+        <endButton>
+            <Button text="Iptal" press=".closeAssetDialog">
+            </Button>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

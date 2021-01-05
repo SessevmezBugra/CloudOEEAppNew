@@ -3,20 +3,19 @@ package com.oee.entity;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.oee.enums.Status;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name="ORDER_INFO")
+@NoArgsConstructor
+@Getter
+@Setter
 public class OrderInfo {
 	
 	@Id
@@ -25,13 +24,17 @@ public class OrderInfo {
 	private Long orderId;
 	
 	@Column(name="PLANT_ID")
-	private Integer plantId;
+	private Long plantId;
 	
 	@Column(name="ORDER_NO")
 	private String orderNo;
+
+	@Column(name="CUSTOMER")
+	private String customer;
 	
-	@Column(name="STATUS")
-	private String status;
+	@Column(name="ORDER_STATUS")
+	@Enumerated(EnumType.STRING)
+	private Status status;
 	
 	@Column(name="PLANNED_START_DATE")
 	private Date plannedStartDate;
@@ -44,97 +47,15 @@ public class OrderInfo {
 	
 	@Column(name="ACTUAL_END_DATE")
 	private Date actualEndDate;
-	
-	@OneToOne(cascade = CascadeType.ALL, mappedBy="order")
+
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "order")
 	private OrderedMaterial orderedMaterial;
 	
 	@JsonManagedReference
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="order")
-	private List<ConsumptionMaterial> consumptionMaterials;
-	
-	public OrderInfo() {
-		// TODO Auto-generated constructor stub
-	}
+	private List<ConsumptionStock> consumptionStocks;
 
-	public Long getOrderId() {
-		return orderId;
-	}
+	@Column(name="CREATED_USER")
+	private String createdUser;
 
-	public void setOrderId(Long orderId) {
-		this.orderId = orderId;
-	}
-
-	public Integer getPlantId() {
-		return plantId;
-	}
-
-	public void setPlantId(Integer plantId) {
-		this.plantId = plantId;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public Date getPlannedStartDate() {
-		return plannedStartDate;
-	}
-
-	public void setPlannedStartDate(Date plannedStartDate) {
-		this.plannedStartDate = plannedStartDate;
-	}
-
-	public Date getActualStartDate() {
-		return actualStartDate;
-	}
-
-	public void setActualStartDate(Date actualStartDate) {
-		this.actualStartDate = actualStartDate;
-	}
-
-	public Date getPlannedEndDate() {
-		return plannedEndDate;
-	}
-
-	public void setPlannedEndDate(Date plannedEndDate) {
-		this.plannedEndDate = plannedEndDate;
-	}
-
-	public Date getActualEndDate() {
-		return actualEndDate;
-	}
-
-	public void setActualEndDate(Date actualEndDate) {
-		this.actualEndDate = actualEndDate;
-	}
-
-	public String getOrderNo() {
-		return orderNo;
-	}
-
-	public void setOrderNo(String orderNo) {
-		this.orderNo = orderNo;
-	}
-
-	public OrderedMaterial getOrderedMaterial() {
-		return orderedMaterial;
-	}
-
-	public void setOrderedMaterial(OrderedMaterial orderedMaterial) {
-		this.orderedMaterial = orderedMaterial;
-	}
-
-	public List<ConsumptionMaterial> getConsumptionMaterials() {
-		return consumptionMaterials;
-	}
-
-	public void setConsumptionMaterials(List<ConsumptionMaterial> consumptionMaterials) {
-		this.consumptionMaterials = consumptionMaterials;
-	}
-	
-	
 }

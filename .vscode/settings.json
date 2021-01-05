@@ -1,0 +1,4 @@
+{
+    "ui5ts.manifestlocation": "frontend-app\\webapp\\manifest.json",
+    "java.configuration.updateBuildConfiguration": "automatic"
+}

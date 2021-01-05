@@ -14,6 +14,9 @@ public interface MaterialInfoService {
 	
 	MaterialInfo getById(Long materialId);
 	
-	List<MaterialInfo> getByPlantId(Integer plantId);
-	
+	List<MaterialInfo> getByPlantId(Long plantId);
+
+	List<MaterialInfo> getMaterialByLoggedUser();
+
+    List<MaterialInfo> getMaterialsByIds(List<Long> ids);
 }

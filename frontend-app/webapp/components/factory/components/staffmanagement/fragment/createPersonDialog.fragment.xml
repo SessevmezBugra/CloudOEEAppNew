@@ -1,0 +1,55 @@
+<core:FragmentDefinition xmlns="sap.m" 
+    xmlns:l="sap.ui.layout" 
+    xmlns:f="sap.ui.layout.form" 
+    xmlns:core="sap.ui.core">
+    <Dialog title="Personel Oluşturun"  resizable="false">
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <f:SimpleForm editable="true" layout="ResponsiveGridLayout" title="Personel" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+                    <f:content>
+                        <Label text="{i18n>SELECT_ROLE}" />
+                        <Select forceSelection="false" change="onSelectedRole" selectedKey="{staffModel>/selectedRole}">
+                            <core:Item text="Şirket Yöneticisi" key="COMPANY_OWNER"/>
+                            <core:Item text="Bölge Yöneticisi" key="CLIENT_MANAGER"/>
+                            <core:Item text="Fabrika Yöneticisi" key="PLANT_MANAGER"/>
+                            <core:Item text="Operatör" key="OPERATOR"/>
+                        </Select>
+                        <Label text="{i18n>RESPONSIBILITY}" />
+                        <Select forceSelection="false" selectedKey="{staffModel>/selectedAsset}" items="{staffModel>/assets}" >
+                            <core:Item text="{staffModel>assetName}" key="{staffModel>assetId}"/>
+                        </Select>
+                        <Label text="{i18n>PERSONEL_USER_NAME}" />
+                        <Input value="{staffModel>/personUserName}"/>
+                        <Label text="{i18n>PERSONEL_NAME}" />
+                        <Input value="{staffModel>/personName}"/>
+                        <Label text="{i18n>PERSONEL_SURNAME}" />
+                        <Input value="{staffModel>/personSurname}"/>
+                        <Label text="{i18n>PERSONEL_EMAIL}" />
+                        <Input value="{staffModel>/email}"/>
+                        <Label text="{i18n>PERSONEL_PASSWORD}" />
+                        <Input value="{staffModel>/password}" type="{= ${staffModel>/showPassword} > 0 ? 'Text' : 'Password'}">
+                            <layoutData>
+                                <l:GridData span="XL7 L7 M7 S10" />
+                            </layoutData>
+                        </Input>
+                        <Button icon="{= ${staffModel>/showPassword} > 0 ? 'sap-icon://show' : 'sap-icon://hide'}"  press=".onPressShowPassword" ariaLabelledBy="editButtonLabel">
+                            <layoutData>
+                                <l:GridData span="XL1 L1 M1 S2" />
+                            </layoutData>
+                        </Button>
+                        <Label text="{i18n>PERSONEL_PASSWORD_RETRY}" />
+                        <Input value="{staffModel>/passwordRetry}" type="{= ${staffModel>/showPassword} > 0 ? 'Text' : 'Password'}"/>
+                    </f:content>
+                </f:SimpleForm>
+            </VBox>
+        </content>
+        <beginButton>
+            <Button text="{i18n>PERSONEL_CREAT}" press=".createPerson">
+            </Button>
+        </beginButton>
+        <endButton>
+            <Button text="{i18n>CANCEL}" press=".closePersonDialog">
+            </Button>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

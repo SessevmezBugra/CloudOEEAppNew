@@ -1,0 +1,28 @@
+pipeline {
+
+    agent any
+
+    environment {
+        PASS = credentials('registry-pass')
+    }
+
+    stages {
+
+        stage('Build') {
+            steps {
+                sh '''
+                    ./eureka-server/jenkins/build/mvn.sh mvn -B -DskipTests clean package
+                    ./eureka-server/jenkins/build/build.sh
+
+                '''
+            }
+        }
+
+        stage('Push') {
+            steps {
+                sh './eureka-server/jenkins/push/push.sh'
+            }
+        }
+
+    }
+}

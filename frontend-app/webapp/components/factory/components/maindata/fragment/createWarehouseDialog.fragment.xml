@@ -1,0 +1,29 @@
+<core:FragmentDefinition xmlns="sap.m" 
+    xmlns:l="sap.ui.layout" 
+    xmlns:f="sap.ui.layout.form" 
+    xmlns:core="sap.ui.core">
+    <Dialog title="Bir depo olusturun">
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <f:SimpleForm editable="true" layout="ResponsiveGridLayout" title="Depo" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+                    <f:content>
+                        <Label text="Fabrika" />
+                        <Select selectedKey="{warehouseModel>/selectedPlant}" items="{warehouseModel>/plants}">
+                            <core:Item text="{warehouseModel>plantName}" key="{warehouseModel>plantId}"/>
+                        </Select>
+                        <Label text="Depo Ismi" />
+                        <Input value="{warehouseModel>/warehouseNameToCreated}"/>
+                    </f:content>
+                </f:SimpleForm>
+            </VBox>
+        </content>
+        <beginButton>
+            <Button text="Olustur" press=".createWarehouse">
+            </Button>
+        </beginButton>
+        <endButton>
+            <Button text="Iptal" press=".closeWarehouseDialog">
+            </Button>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

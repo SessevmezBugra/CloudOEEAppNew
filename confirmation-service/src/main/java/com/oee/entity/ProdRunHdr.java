@@ -3,19 +3,19 @@ package com.oee.entity;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.oee.enums.Status;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name="PROD_RUN_HDR")
+@Getter
+@Setter
+@NoArgsConstructor
 public class ProdRunHdr {
 	
 	@Id
@@ -28,57 +28,26 @@ public class ProdRunHdr {
 	
 	@Column(name="START_TIME")
 	private Date startTime;
-	
+
 	@Column(name="END_TIME")
 	private Date endTime;
+
+	@Column(name="STATUS")
+	@Enumerated(EnumType.STRING)
+	private Status status;
 	
 	@JsonManagedReference
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="prodRunHdr")
 	private List<ProdRunData> prodRunDatas;
-	
-	public ProdRunHdr() {
-		// TODO Auto-generated constructor stub
-	}
 
-	public Long getRunId() {
-		return runId;
-	}
+	@JsonManagedReference
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="prodRunHdr")
+	private List<ConsumptionInfo> consumptionInfos;
 
-	public void setRunId(Long runId) {
-		this.runId = runId;
-	}
+	@Column(name="STARTED_USER")
+	private String startedUser;
 
-	public Long getOrderId() {
-		return orderId;
-	}
+	@Column(name="ENDING_USER")
+	private String endingUser;
 
-	public void setOrderId(Long orderId) {
-		this.orderId = orderId;
-	}
-
-	public Date getStartTime() {
-		return startTime;
-	}
-
-	public void setStartTime(Date startTime) {
-		this.startTime = startTime;
-	}
-
-	public Date getEndTime() {
-		return endTime;
-	}
-
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
-	}
-
-	public List<ProdRunData> getProdRunDatas() {
-		return prodRunDatas;
-	}
-
-	public void setProdRunDatas(List<ProdRunData> prodRunDatas) {
-		this.prodRunDatas = prodRunDatas;
-	}
-	
-	
 }

@@ -1,0 +1,31 @@
+<core:FragmentDefinition xmlns="sap.m" 
+    xmlns:l="sap.ui.layout" 
+    xmlns:f="sap.ui.layout.form" 
+    xmlns:core="sap.ui.core">
+    <Dialog title="Bir malzeme olusturun">
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <f:SimpleForm editable="true" layout="ResponsiveGridLayout" title="Malzeme" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+                    <f:content>
+                        <Label text="Fabrika" />
+                        <Select selectedKey="{materialModel>/selectedPlant}" items="{materialModel>/plants}">
+                            <core:Item text="{materialModel>plantName}" key="{materialModel>plantId}"/>
+                        </Select>
+                        <Label text="Malzeme Aciklamasi" />
+                        <Input value="{materialModel>/materialDescToCreated}"/>
+                        <Label text="Malzeme Numarasi" />
+                        <Input value="{materialModel>/materialNumberToCreated}"/>
+                    </f:content>
+                </f:SimpleForm>
+            </VBox>
+        </content>
+        <beginButton>
+            <Button text="Olustur" press=".createMaterial">
+            </Button>
+        </beginButton>
+        <endButton>
+            <Button text="Iptal" press=".closeMaterialDialog">
+            </Button>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

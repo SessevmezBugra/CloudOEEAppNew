@@ -9,5 +9,6 @@ import com.oee.entity.StockMovement;
 public interface StockMovementRepository extends JpaRepository<StockMovement, Long>{
 	
 	List<StockMovement> findByStockStockId(Long id);
-	
+
+    List<StockMovement> findByStockWarehouseId(Long id);
 }

@@ -34,7 +34,7 @@ sap.ui.define([
             }
             var localUserModel = new LocalStorageModel("localUserModel");
             if(localUserModel.getData()){
-                params.headers.Authorization = localUserModel.getData().jwt;
+                params.headers.Authorization = "Bearer " + localUserModel.getData().token;
             }
             jQuery.ajax(params);
         });

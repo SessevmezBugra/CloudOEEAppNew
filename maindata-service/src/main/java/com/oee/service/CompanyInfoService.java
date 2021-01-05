@@ -2,16 +2,20 @@ package com.oee.service;
 
 import com.oee.entity.CompanyInfo;
 
+import java.util.List;
+
 public interface CompanyInfoService {
-	
+
+	List<CompanyInfo> findCompanies();
+
 	CompanyInfo create(CompanyInfo companyInfo);
 	
 	CompanyInfo update(CompanyInfo companyInfo);
 	
-	Boolean delete(Integer companyId);
+	Boolean delete(Long companyId);
 	
-	CompanyInfo getById(Integer companyId);
-	
-	CompanyInfo getByUsername(String username);
+	CompanyInfo getById(Long companyId);
+
+	List<CompanyInfo> findCompaniesByIds(List<Long> ids);
 	
 }

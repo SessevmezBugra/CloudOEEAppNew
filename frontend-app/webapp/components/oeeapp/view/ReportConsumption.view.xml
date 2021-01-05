@@ -1,0 +1,98 @@
+<mvc:View displayBlock="true" controllerName="workerapp.components.oeeapp.controller.ReportConsumption" height="100%"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:l="sap.ui.layout">
+    <f:DynamicPage showFooter="true" class="sapUiNoContentPadding" toggleHeaderOnTitleClick="false">
+        <!-- DynamicPage Title -->
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="Tüketim Bildir"/>
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+
+        <!-- DynamicPage Content -->
+        <f:content>
+            <l:BlockLayout background="Dashboard">
+                <l:BlockLayoutRow>
+                    <l:BlockLayoutCell>
+
+                        <FlexBox alignItems="Start" justifyContent="SpaceBetween" wrap="Wrap" busy="{reportConsumptionModel>/selectedOrderLayoutBusy}">
+                            <items>
+                                <FlexBox direction="Column" alignItems="Start">
+                                    <items>
+                                        <l:HorizontalLayout>
+                                            <l:HorizontalLayout class="sapUiContentPadding">
+                                                <Label text="Siparis Numarasi: " labelFor="orderNo" design="Bold" />
+                                                <Title id="orderNo" text="{reportConsumptionModel>/selectedOrder/orderNo}"/>
+                                                <core:Icon id="selectOrderBtn" src="sap-icon://arrow-down" color="#64E4CE" class="arcloudIconFontSize1" press="openOrderListDialog"/>
+                                            </l:HorizontalLayout>
+
+                                        </l:HorizontalLayout>
+                                        <l:HorizontalLayout class="sapUiContentPadding">
+                                            <Label text="Malzeme Numarasi: " labelFor="materialNumber" design="Bold" />
+                                            <Title id="materialNumber" text="{reportConsumptionModel>/selectedOrder/orderedMaterial/materialNumber}"/>
+                                        </l:HorizontalLayout>
+                                        <l:HorizontalLayout class="sapUiContentPadding">
+                                            <Label text="Malzeme Aciklamasi: " labelFor="materialDesc" design="Bold" />
+                                            <Title id="materialDesc" text="{reportConsumptionModel>/selectedOrder/orderedMaterial/materialDesc}"/>
+                                        </l:HorizontalLayout>
+                                    </items>
+                                </FlexBox>
+                                <FlexBox direction="Column" alignItems="Start">
+                                    <items>
+                                        <l:HorizontalLayout class="sapUiContentPadding">
+                                            <Label text="Fiili Baslangic Tarihi: " labelFor="actualStartDate" design="Bold" />
+                                            <Title id="actualStartDate" text="{reportConsumptionModel>/selectedOrder/actualStartDate}"/>
+                                        </l:HorizontalLayout>
+                                        <l:HorizontalLayout class="sapUiContentPadding">
+                                            <Label text="Planlanan Uretim Miktari: " labelFor="plannedProdQuantity" design="Bold" />
+                                            <Title id="plannedProdQuantity" text="{reportConsumptionModel>/selectedOrder/orderedMaterial/plannedProdQuantity}"/>
+                                        </l:HorizontalLayout>
+                                        <l:HorizontalLayout class="sapUiContentPadding">
+                                            <Label text="Uretilen Toplam Miktar: " labelFor="actualProdQuantity" design="Bold" />
+                                            <Title id="actualProdQuantity" text="{reportConsumptionModel>/selectedOrder/orderedMaterial/actualProdQuantity}"/>
+                                        </l:HorizontalLayout>
+                                    </items>
+                                </FlexBox>
+                            </items>
+                        </FlexBox>
+                    </l:BlockLayoutCell>
+                </l:BlockLayoutRow>
+                <l:BlockLayoutRow>
+                    <l:BlockLayoutCell>
+                        <Table width="auto" items="{reportConsumptionModel>/consumptionStocks}" enableBusyIndicator="false" busy="{reportConsumptionModel>/qualityTypesTableBusy}">
+                            <columns>
+                                <Column minScreenWidth="Tablet" demandPopin="true">
+                                    <Text text="{i18n>MATERIAL_DESC}" />
+                                </Column>
+                                <Column minScreenWidth="Tablet" demandPopin="true">
+                                    <Text text="{i18n>QUANTITY}" />
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <ObjectIdentifier text="{reportConsumptionModel>materialDesc}" />
+                                        <Input value="{reportConsumptionModel>consumptionQuantity}" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+
+                    </l:BlockLayoutCell>
+                </l:BlockLayoutRow>
+            </l:BlockLayout>
+        </f:content>
+        <f:footer>
+            <OverflowToolbar>
+                <ToolbarSpacer/>
+                <!-- <Button type="Accept" text="{i18n>ORDER_BTN_CREATE}" press=".openCreateOrderDialog"/> -->
+                <Button type="Accept" text="{i18n>REPORT_CONSUMPTION}" press=".reportConsumption"/>
+            </OverflowToolbar>
+        </f:footer>
+    </f:DynamicPage>
+</mvc:View>

@@ -2,12 +2,11 @@ package com.oee.repository;
 
 import java.util.List;
 
+import com.oee.entity.ConsumptionStock;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.oee.entity.ConsumptionMaterial;
-
-public interface ConsumptionMaterialRepository extends JpaRepository<ConsumptionMaterial, Long>{
+public interface ConsumptionMaterialRepository extends JpaRepository<ConsumptionStock, Long>{
 	
-	List<ConsumptionMaterial> findByOrderOrderId(Long orderId);
+	List<ConsumptionStock> findByOrderOrderId(Long orderId);
 	
 }

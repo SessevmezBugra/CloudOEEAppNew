@@ -1,0 +1,102 @@
+<mvc:View displayBlock="true" controllerName="workerapp.components.oeeapp.controller.OrderList" height="100%" id="orderList"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+	xmlns:l="sap.ui.layout"
+	xmlns:mvc="sap.ui.core.mvc">
+	<f:DynamicPage id="dynamicPageId" showFooter="true" class="sapUiNoContentPadding" toggleHeaderOnTitleClick="false" >
+		<!-- DynamicPage Title -->
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="Siparisler"/>
+				</f:heading>
+			</f:DynamicPageTitle>
+		</f:title>
+
+		<!-- DynamicPage Content -->
+		<f:content>
+			<l:BlockLayout background="Dashboard">
+				<l:BlockLayoutRow>
+					<l:BlockLayoutCell>
+						<Table id="ordersTable" alternateRowColors="true" width="auto" items="{orderModel>/orders}">
+							<headerToolbar>
+								<OverflowToolbar>
+									<ToolbarSpacer/>
+									<SearchField search="onSearch" width="17.5rem"/>
+								</OverflowToolbar>
+							</headerToolbar>
+							<columns>
+								<Column minScreenWidth="Tablet" demandPopin="true">
+									<Text text="{i18n>PLANT_NAME}" />
+								</Column>
+								<Column minScreenWidth="Tablet" demandPopin="true">
+									<Text text="{i18n>ORDER_NUMBER}" />
+								</Column>
+
+								<Column minScreenWidth="Tablet" demandPopin="true">
+									<Text text="{i18n>CUSTOMER}" />
+								</Column>
+								<Column minScreenWidth="Tablet" demandPopin="true">
+									<Text text="{i18n>STATUS}" />
+								</Column>
+								<Column minScreenWidth="Tablet" demandPopin="true">
+									<Text text="{i18n>PLANNED_START_DATE}" />
+								</Column>
+								<Column minScreenWidth="Tablet" demandPopin="true">
+									<Text text="{i18n>PLANNED_END_DATE}" />
+								</Column>
+								<Column minScreenWidth="Tablet" demandPopin="true">
+									<Text text="{i18n>PRODUCED_MALZEME}" />
+								</Column>
+								<Column minScreenWidth="Tablet" demandPopin="true" width="150px">
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem type="Navigation" press="onListItemPress">
+									<cells>
+										<ObjectIdentifier text="{orderModel>plantName}" />
+										<ObjectIdentifier text="{orderModel>orderNo}" />
+										<ObjectIdentifier text="{orderModel>customer}" />
+										<ObjectStatus text="{
+										path: 'orderModel>status',
+										formatter: '.formatter.statusText'
+										}" state="{
+										path: 'orderModel>status',
+										formatter: '.formatter.statusStats'
+										}" />
+										<Text text="{
+										path: 'orderModel>plannedStartDate',
+										formatter: '.formatter.dateFormat'
+										}"/>
+										<Text text="{
+										path: 'orderModel>plannedEndDate',
+										formatter: '.formatter.dateFormat'
+										}"/>
+										<ObjectIdentifier text="{orderModel>materialDesc}" />
+										<HBox>
+											<items>
+												<Button text="Baslat" visible="{= ${orderModel>status} === 'NEW'}" type="Accept" class="sapUiSmallMarginEnd" press="startOrder">
+													
+												</Button>
+												<Button text="Beklet" visible="{= ${orderModel>status} === 'ACT'}" type="Emphasized" class="sapUiSmallMarginEnd" press="holdOrder">
+													
+												</Button>
+												<Button text="Devam Ettir" visible="{= ${orderModel>status} === 'HOLD'}" type="Accept" class="sapUiSmallMarginEnd" press="resumeOrder">
+													
+												</Button>
+												<Button text="Tamamla" visible="{= ${orderModel>status} === 'ACT'}" type="Accept" class="sapUiSmallMarginEnd" press="completeOrder">
+													
+												</Button>
+											</items>
+										</HBox>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</l:BlockLayoutCell>
+				</l:BlockLayoutRow>
+			</l:BlockLayout>
+		</f:content>
+		
+	</f:DynamicPage>
+</mvc:View>

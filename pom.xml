@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.oee</groupId>
+    <artifactId>bulutfabrikasi</artifactId>
+    <packaging>pom</packaging>
+    <version>0.0.1</version>
+
+    <name>Bulut Fabrikasi</name>
+    <description>Cloud OEE App</description>
+
+    <parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.3.3.RELEASE</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+
+    <developers>
+        <developer>
+            <id>SessevmezBugra</id>
+            <name>Bugra SESSEVMEZ</name>
+            <email>sessevmezbugra@gmail.com</email>
+            <roles>
+                <role>
+                    Team Lead
+                </role>
+            </roles>
+        </developer>
+        <developer>
+            <id>semabilgin</id>
+            <name>Sema BILGIN</name>
+            <email>sema.bilgin@armolis.com</email>
+            <roles>
+                <role>
+                    Sr. Software Engineer
+                </role>
+            </roles>
+        </developer>
+        <developer>
+            <id>bybas55</id>
+            <name>Bayram BAS</name>
+            <email>bbas5534@hotmail.com</email>
+            <roles>
+                <role>
+                    Jr. Software Engineer
+                </role>
+            </roles>
+        </developer>
+    </developers>
+
+    <properties>
+        <java.version>11</java.version>
+        <spring.cloud.version>Hoxton.SR8</spring.cloud.version>
+        <keycloak.version>12.0.1</keycloak.version>
+        <logstash-logback-encoder.version>6.1</logstash-logback-encoder.version>
+    </properties>
+
+    <modules>
+        <module>maindata-service</module>
+        <module>order-service</module>
+        <module>stock-service</module>
+        <module>gateway-service</module>
+        <module>confirmation-service</module>
+        <module>config-service</module>
+        <module>eureka-server</module>
+        <module>auth-service</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring.cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+				<groupId>org.keycloak.bom</groupId>
+				<artifactId>keycloak-adapter-bom</artifactId>
+				<version>${keycloak.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+            <dependency>
+                <groupId>net.logstash.logback</groupId>
+                <artifactId>logstash-logback-encoder</artifactId>
+                <version>${logstash-logback-encoder.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

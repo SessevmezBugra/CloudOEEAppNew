@@ -1,5 +1,11 @@
 spring:
   datasource:
+    hikari:
+      minimumIdle: 2
+      maximumPoolSize: 10
+      idleTimeout: 120000
+      connectionTimeout: 300000
+      leakDetectionThreshold: 300000
     url: jdbc:mysql://${RDS_HOSTNAME:localhost}:${RDS_PORT:3306}/${RDS_DB_NAME:cloudoeedb}?serverTimezone=UTC
     username: ${RDS_USERNAME:root}
     password: ${RDS_PASSWORD:123456}
@@ -8,6 +14,14 @@ spring:
     hibernate:
       ddl-auto: update
       dialect: org.hibernate.dialect.MySQL8Dialect
-      
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+keycloak:
+  resource: stock-service
+  credentials: 
+    secret: 5e22f6b1-5dd6-41fb-b1c0-c4a96cb8a556
+#  use-resource-role-mappings: true
+
 server:
   port: 8070

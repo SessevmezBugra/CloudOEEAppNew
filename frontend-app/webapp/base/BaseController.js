@@ -3,11 +3,18 @@ sap.ui.define([
 	"sap/ui/core/UIComponent",
 	"sap/ui/core/routing/History",
 	'sap/ui/core/BusyIndicator',
-	"sap/ui/core/Component"
-], function(Controller, UIComponent, History, BusyIndicator, Component) {
+	"sap/ui/core/Component",
+	"workerapp/services/userservice"
+], function(Controller, UIComponent, History, BusyIndicator, Component, UserService) {
 	"use strict";
 
 	return Controller.extend("workerapp.base.BaseController", {
+
+		UserService : UserService,
+		
+		init: function() {
+			this.keycloak = this.UserService.getKeycloak();
+		},
 		/**
 		 * Convenience method for accessing the router.
 		 * @public
@@ -81,6 +88,17 @@ sap.ui.define([
 
 		getParentComponent: function(component) {
 			return Component.getOwnerComponentFor(component);
+		},
+
+		translateText: function (caption, insidevalue) {
+			// read msg from i18n model
+			var oBundle = this.getView().getModel("i18n").getResourceBundle();
+			var sMsg = "";
+			if (insidevalue) sMsg = oBundle.getText(caption, insidevalue);
+			else sMsg = oBundle.getText(caption);
+  
+			if (sMsg) return sMsg;
+			else return "";
 		}
 	});
 });

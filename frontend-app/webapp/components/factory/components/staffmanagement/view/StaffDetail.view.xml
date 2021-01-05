@@ -1,0 +1,114 @@
+<mvc:View displayBlock="true" controllerName="workerapp.components.factory.components.staffmanagement.controller.StaffDetail" height="100%"
+	xmlns="sap.uxap"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	xmlns:m="sap.m"
+	xmlns:f="sap.f"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout">
+
+	<ObjectPageLayout id="ObjectPageLayout" showFooter="true" showTitleInHeaderContent="true" alwaysShowContentHeader="true" preserveHeaderStateOnScroll="false" headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false">
+		<headerTitle>
+			<ObjectPageDynamicHeaderTitle>
+				<expandedHeading>
+					<m:Title text="{staffModel>/userDetail/firstName} {staffModel>/userDetail/lastName}" wrapping="true" class="sapUiSmallMarginEnd"/>
+				</expandedHeading>
+
+				<snappedHeading>
+					<m:FlexBox fitContainer="true" alignItems="Center" class="sapUiTinyMarginEnd">
+						<m:Title text="{staffModel>/userDetail/firstName} {staffModel>/userDetail/lastName}" wrapping="true" class="sapUiTinyMarginEnd"/>
+					</m:FlexBox>
+				</snappedHeading>
+
+				<navigationActions>
+					<m:OverflowToolbarButton  icon="sap-icon://decline" press="handleClose" tooltip="Close column" />
+				</navigationActions>
+
+			</ObjectPageDynamicHeaderTitle>
+		</headerTitle>
+		<sections>
+			<ObjectPageSection title="{i18n>PERSONELDETAIL}">
+				<subSections>
+					<ObjectPageSubSection>
+						<blocks>
+							<l:BlockLayout background="Dashboard">
+								<l:BlockLayoutRow>
+									<l:BlockLayoutCell>
+										<m:ObjectHeader  icon="sap-icon://account" iconDensityAware="false" imageShape="Circle">
+											<m:attributes>
+												<m:ObjectAttribute title="{i18n>NAME} {i18n>SURNAME}" text="{staffModel>/userDetail/firstName} {staffModel>/userDetail/lastName}"/>
+												<m:ObjectAttribute title="Kullanıcı Adı " text="{staffModel>/userDetail/username}"/>
+											</m:attributes>
+											<m:statuses>
+
+											</m:statuses>
+										</m:ObjectHeader>
+									</l:BlockLayoutCell>
+								</l:BlockLayoutRow>
+							</l:BlockLayout>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+			<ObjectPageSection title="{i18n>PERSONEL_ROLES}">
+				<subSections>
+					<ObjectPageSubSection>
+						<blocks>
+							<l:BlockLayout background="Dashboard">
+								<l:BlockLayoutRow>
+									<l:BlockLayoutCell>
+										<m:Table items="{staffModel>/userRoles}" autoPopinMode="true" contextualWidth="Auto" enableBusyIndicator="false" busy="{staffModel>/personRolesTableBusy}">
+											<m:headerToolbar>
+												<m:OverflowToolbar>
+													<m:content>
+														<m:ToolbarSpacer />
+														<m:Button press="openAddRoleDialog" type="Accept" text="{i18n>ADD_ROLE}" />
+													</m:content>
+												</m:OverflowToolbar>
+											</m:headerToolbar>
+											<m:columns>
+												<m:Column importance="High">
+													<m:Text text="{i18n>RESPONSIBLE_AREA_TYPE}" />
+												</m:Column>
+												<m:Column importance="High">
+													<m:Text text="{i18n>RESPONSIBLE_AREA_NAME}" />
+												</m:Column>
+												<m:Column importance="High">
+													<m:Text text="{i18n>PERSONEL_ROLE}" />
+												</m:Column>
+												<m:Column importance="High">
+												</m:Column>
+											</m:columns>
+											<m:items>
+												<m:ColumnListItem>
+													<m:cells>
+														<m:ObjectIdentifier text="{
+															path: 'staffModel>areaType',
+															formatter: '.formatter.responsibleAreaDesc'}"/>
+														<m:ObjectIdentifier text="{staffModel>areaName}" />
+														<m:ObjectIdentifier text="{
+															path: 'staffModel>userRole',
+															formatter: '.formatter.roleDesc'}"/>
+														<m:Button text="{i18n>REMOVE}" type="Critical" press="openRemoveRoleDialog">
+														</m:Button>
+													</m:cells>
+												</m:ColumnListItem>
+											</m:items>
+										</m:Table>
+									</l:BlockLayoutCell>
+								</l:BlockLayoutRow>
+							</l:BlockLayout>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+		</sections>
+		<footer>
+			<m:OverflowToolbar>
+				<m:ToolbarSpacer />
+				<m:Button press="openUpdatePersonDialog" type="Accept" text="{i18n>UPDATE_BTN_PERSON}"/>
+				<m:Button press="openDeleteUserDialog" type="Reject" text="{i18n>DELETE_BTN_PERSON}"/>
+			</m:OverflowToolbar>
+		</footer>
+	</ObjectPageLayout>
+</mvc:View>

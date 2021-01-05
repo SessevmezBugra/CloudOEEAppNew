@@ -10,10 +10,15 @@ public interface PlantInfoService {
 	
 	PlantInfo update(PlantInfo plantInfo);
 	
-	Boolean delete(Integer plantId);
+	Boolean delete(Long plantId);
 	
-	PlantInfo getById(Integer plantId);
+	PlantInfo getById(Long plantId);
 	
-	List<PlantInfo> getByClientId(Integer clientId);
-	
+	List<PlantInfo> getByClientId(Long clientId);
+
+	List<PlantInfo> getPlantByLoggedUser();
+
+    PlantInfo getByWarehouseId(Long warehouseId);
+
+	List<PlantInfo> getPlantByIds(List<Long> ids);
 }

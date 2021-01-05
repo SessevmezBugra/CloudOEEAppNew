@@ -2,6 +2,8 @@ package com.oee.web;
 
 import java.util.List;
 
+import com.oee.dto.OrderDto;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,6 +39,16 @@ public class OrderInfoRestController {
 	public ResponseEntity<Boolean> deleteOrderInfo(@PathVariable(value="id", required=true) Long orderId){
 		return ResponseEntity.ok(orderInfoService.delete(orderId));
 	}
+
+	@RequestMapping(value="/plant/plant-ids", method=RequestMethod.DELETE)
+	public ResponseEntity<Boolean> deleteOrderByPlantIds(@RequestBody List<Long> plantIds){
+		return ResponseEntity.ok(orderInfoService.deleteOrderByPlantIds(plantIds));
+	}
+
+	@RequestMapping(method=RequestMethod.GET)
+	public ResponseEntity<List<OrderDto>> getByLoggedUser(){
+		return ResponseEntity.ok(orderInfoService.getByLoggedUser());
+	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<OrderInfo> getById(@PathVariable(value="id", required=true) Long orderId){
@@ -44,7 +56,32 @@ public class OrderInfoRestController {
 	}
 	
 	@RequestMapping(value="/plant/{id}", method=RequestMethod.GET)
-	public ResponseEntity<List<OrderInfo>> getByPlantId(@PathVariable(value="id", required=true) Integer plantId){
+	public ResponseEntity<List<OrderInfo>> getByPlantId(@PathVariable(value="id", required=true) Long plantId){
 		return ResponseEntity.ok(orderInfoService.getByPlantId(plantId));
+	}
+
+	@RequestMapping(value="/start-order", method=RequestMethod.PUT)
+	public ResponseEntity<OrderInfo> startOrderById(@RequestBody OrderInfo orderInfo){
+		return ResponseEntity.ok(orderInfoService.startOrderById(orderInfo));
+	}
+
+	@RequestMapping(value="/hold-order", method=RequestMethod.PUT)
+	public ResponseEntity<OrderInfo> holdOrderById(@RequestBody OrderInfo orderInfo){
+		return ResponseEntity.ok(orderInfoService.holdOrder(orderInfo));
+	}
+
+	@RequestMapping(value="/complete-order", method=RequestMethod.PUT)
+	public ResponseEntity<OrderInfo> completeOrderById(@RequestBody OrderInfo orderInfo){
+		return ResponseEntity.ok(orderInfoService.completeOrder(orderInfo));
+	}
+
+	@RequestMapping(value="/resume-order", method=RequestMethod.PUT)
+	public ResponseEntity<OrderInfo> resumeOrderById(@RequestBody OrderInfo orderInfo){
+		return ResponseEntity.ok(orderInfoService.resumeOrder(orderInfo));
+	}
+
+	@RequestMapping(value="/active-order", method=RequestMethod.GET)
+	public ResponseEntity<List<OrderDto>> getActiveOrdersByLoggedUser(){
+		return ResponseEntity.ok(orderInfoService.getActiveOrdersByLoggedUser());
 	}
 }

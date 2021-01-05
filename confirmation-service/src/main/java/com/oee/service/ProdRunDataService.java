@@ -2,6 +2,7 @@ package com.oee.service;
 
 import java.util.List;
 
+import com.oee.dto.ProdRunDataDto;
 import com.oee.entity.ProdRunData;
 
 public interface ProdRunDataService {
@@ -14,5 +15,7 @@ public interface ProdRunDataService {
 	
 	ProdRunData getById(Long entryId);
 	
-	List<ProdRunData> getByRunId(Long runId);
+	List<ProdRunDataDto> getByRunId(Long runId);
+
+	List<ProdRunData> createAll(Long orderId, List<ProdRunData> prodRunDatas);
 }

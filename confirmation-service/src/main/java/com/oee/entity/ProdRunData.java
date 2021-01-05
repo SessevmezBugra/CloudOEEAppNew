@@ -1,20 +1,21 @@
 package com.oee.entity;
 
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="PROD_RUN_DATA")
+@Getter
+@Setter
+@NoArgsConstructor
 public class ProdRunData {
 	
 	@Id
@@ -29,58 +30,17 @@ public class ProdRunData {
 	
 	@Column(name="QUANTITY")
 	private Double quantity;
-	
-	@Column(name="START_TIME")
-	private Date startTime;
-	
-	@Column(name="END_TIME")
-	private Date endTime;
-	
-	
-	
-	public ProdRunData() {
-		// TODO Auto-generated constructor stub
-	}
 
-	public Long getEntryId() {
-		return entryId;
-	}
+	@Column(name="USER")
+	private String user;
 
-	public void setEntryId(Long entryId) {
-		this.entryId = entryId;
-	}
+	@Column(name="QUALITY_ID")
+	private Long qualityId;
 
-	public Double getQuantity() {
-		return quantity;
-	}
+	@Column(name="CONFIRMATION_TIME")
+	private Date confirmationTime;
 
-	public void setQuantity(Double quantity) {
-		this.quantity = quantity;
-	}
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "prodRunData")
+	private Scrap scrap;
 
-	public Date getStartTime() {
-		return startTime;
-	}
-
-	public void setStartTime(Date startTime) {
-		this.startTime = startTime;
-	}
-
-	public Date getEndTime() {
-		return endTime;
-	}
-
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
-	}
-
-	public ProdRunHdr getProdRunHdr() {
-		return prodRunHdr;
-	}
-
-	public void setProdRunHdr(ProdRunHdr prodRunHdr) {
-		this.prodRunHdr = prodRunHdr;
-	}
-	
-	
 }

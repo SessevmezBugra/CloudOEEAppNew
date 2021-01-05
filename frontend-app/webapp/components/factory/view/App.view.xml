@@ -1,8 +1,8 @@
-<mvc:View controllerName="workerapp.components.factory.controller.App" 
+<mvc:View id="factoryAppView" controllerName="workerapp.components.factory.controller.App" 
 	xmlns:mvc="sap.ui.core.mvc" 
 	xmlns="sap.m" displayBlock="true" 
 	xmlns:tnt="sap.tnt">
-	<tnt:ToolPage id="toolPage">
+	<tnt:ToolPage id="toolPage" sideExpanded="{factoryGlobalModel>/sideNavigationExpanded}">
 		<tnt:header>
 			<tnt:ToolHeader>
 				<Button id="sideNavigationToggleButton" icon="sap-icon://menu2" type="Transparent" press=".onSideNavButtonPress" tooltip="{i18n>TOOLPAGE_NAV_TOGGLE_BTN_TOOL_TIP}">
@@ -13,19 +13,9 @@
 				<ToolbarSpacer/>
 				<Title text="{i18n>APP_TITLE}" level="H2"/>
 				<ToolbarSpacer/>
-				<Button id="errorButton" icon="sap-icon://message-popup" type="Transparent" tooltip="test5">
-					<layoutData>
-						<OverflowToolbarLayoutData closeOverflowOnInteraction="false"/>
-					</layoutData>
-				</Button>
-				<Button id="notificationButton" icon="sap-icon://ui-notifications" type="Transparent" tooltip="test7">
-					<layoutData>
-						<OverflowToolbarLayoutData closeOverflowOnInteraction="false"/>
-					</layoutData>
-				</Button>
 				<Button
 					id="userButton"
-					text="{localUserModel>/userInfo/username}"
+					text="{localUserModel>/idTokenParsed/preferred_username}"
 					type="Transparent"
 					press=".onUserNamePress">
 					<layoutData>
@@ -35,20 +25,30 @@
 			</tnt:ToolHeader>
 		</tnt:header>
 		<tnt:sideContent>
-			<tnt:SideNavigation expanded="true"
+			<tnt:SideNavigation
 				itemSelect=".onItemSelect">
 				<tnt:NavigationList>
 					<tnt:NavigationListItem text="Hizli Menu" key="fastMenu" icon="sap-icon://home"/>
 					<tnt:NavigationListItem text="Ana Veriler" key="mainData" icon="sap-icon://database">
-						<tnt:NavigationListItem  text="Malzemeler" key="materialList">
+						<tnt:NavigationListItem  text="Varliklar" key="asset">
 						</tnt:NavigationListItem>
+						<!-- <tnt:NavigationListItem  text="Şirketler" key="company">
+						</tnt:NavigationListItem>
+						<tnt:NavigationListItem  text="Bolgeler" key="client">
+						</tnt:NavigationListItem>
+						<tnt:NavigationListItem  text="Fabrikalar" key="plant">
+						</tnt:NavigationListItem>
+						<tnt:NavigationListItem  text="Depolar" key="warehouse">
+						</tnt:NavigationListItem>
+						<tnt:NavigationListItem  text="Malzemeler" key="material">
+						</tnt:NavigationListItem> -->
 					</tnt:NavigationListItem>
 					<tnt:NavigationListItem text="Stok Yonetimi" key="stockManagement" icon="sap-icon://inventory">
 						<tnt:NavigationListItem text="Stok Takibi" key="stockTracking">
 						</tnt:NavigationListItem>
 					</tnt:NavigationListItem>
 					<tnt:NavigationListItem text="Siparis Yonetimi" key="orderManagement" icon="sap-icon://my-sales-order">
-						<tnt:NavigationListItem text="Siparis Takibi" key="orderTracking">
+						<tnt:NavigationListItem text="Siparis Takibi" key="orderList">
 						</tnt:NavigationListItem>
 					</tnt:NavigationListItem>
 					<tnt:NavigationListItem text="Personel Yonetimi" key="staffManagement" icon="sap-icon://company-view">

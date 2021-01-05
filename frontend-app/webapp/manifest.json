@@ -38,6 +38,12 @@
 				"settings": {},
 				"componentData": {},
 				"lazy": true
+			},
+			"oeeappComponent": {
+				"name": "workerapp.components.oeeapp",
+				"settings": {},
+				"componentData": {},
+				"lazy": true
 			}
 		},
 		"dependencies": {
@@ -89,7 +95,15 @@
 					"pattern": "factory",
 					"target": {
 						"name": "factory",
-						"prefix": "h"
+						"prefix": "f"
+					}
+				},
+				{
+					"name": "oeeapp",
+					"pattern": "oeeapp",
+					"target": {
+						"name": "oeeapp",
+						"prefix": "o"
 					}
 				}
 			],
@@ -103,6 +117,11 @@
 					"type": "Component",
 					"usage": "factoryComponent",
 					"title": "factory"
+				},
+				"oeeapp": {
+					"type": "Component",
+					"usage": "oeeappComponent",
+					"title": "oeeapp"
 				},
 				"notFound": {
 					"type": "View",

@@ -1,10 +1,13 @@
 package com.oee.service.impl;
 
+import com.oee.dto.ProdRunDataDto;
 import org.springframework.stereotype.Service;
 
 import com.oee.entity.OrderedMaterial;
 import com.oee.repository.OrderedMaterialRepository;
 import com.oee.service.OrderedMaterialService;
+
+import java.util.List;
 
 @Service
 public class OrderedMaterialServiceImpl implements OrderedMaterialService{
@@ -39,6 +42,14 @@ public class OrderedMaterialServiceImpl implements OrderedMaterialService{
 	@Override
 	public OrderedMaterial getByOrderId(Long id) {
 		return orderedMaterialRepository.findByOrderOrderId(id);
+	}
+
+	@Override
+	public OrderedMaterial addProductionToActualProd(Long orderId, Double quantity) {
+		OrderedMaterial orderedMaterial = orderedMaterialRepository.findByOrderOrderId(orderId);
+		orderedMaterial.setActualProdQuantity(orderedMaterial.getActualProdQuantity() + quantity);
+		orderedMaterialRepository.save(orderedMaterial);
+		return orderedMaterial;
 	}
 
 }

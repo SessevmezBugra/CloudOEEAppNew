@@ -1,0 +1,34 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<TableSelectDialog
+		noDataText="Bir neden kodu bulunmamaktadir."
+		title="Neden Kodu Sec"
+        multiSelect="true"
+		search=".handleSearch"
+		confirm="._handleValueHelpClose"
+		cancel="._handleValueHelpClose"
+		showClearButton="true"
+		items="{
+			path : 'reportProductionModel>/reasonCodes'
+		}">
+		<ColumnListItem selected="{reportProductionModel>selected}">
+			<cells>
+				<Text text="{reportProductionModel>reasonCode}" />
+                <Text text="{reportProductionModel>reasonDesc}" />
+			</cells>
+		</ColumnListItem>
+		<columns>
+			<Column width="12em">
+				<header>
+					<Text text="Neden Kodu" />
+				</header>
+			</Column>
+            <Column minScreenWidth="Tablet" demandPopin="true">
+				<header>
+					<Text text="Neden Aciklamasi" />
+				</header>
+			</Column>
+		</columns>
+	</TableSelectDialog>
+</core:FragmentDefinition>

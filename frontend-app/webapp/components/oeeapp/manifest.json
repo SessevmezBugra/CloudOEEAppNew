@@ -1,0 +1,146 @@
+{
+	"_version": "1.17.0",
+	"sap.app": {
+		"id": "workerapp.components.oeeapp",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"dataSources": {}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		}
+	},
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "workerapp.components.oeeapp.view.App",
+			"type": "XML",
+			"async": true,
+			"id": "app"
+		},
+		"componentUsages": {
+			"rootComponent": {
+				"name": "workerapp",
+				"settings": {},
+				"componentData": {},
+				"lazy": true
+			}
+		},
+		"dependencies": {
+			"minUI5Version": "1.72",
+			"libs": {
+				"sap.m": {}
+			}
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "workerapp.components.oeeapp.i18n.i18n"
+				}
+			}
+		},
+		"resources": {
+			"css": [
+				{
+					"uri": "css/style.css"
+				}
+			]
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.f.routing.Router",
+				"viewType": "XML",
+				"viewPath": "workerapp.components.oeeapp.view",
+				"controlId": "app",
+				"controlAggregation": "midColumnPages",
+				"bypassed": {
+					"target": "notFound"
+				},
+				"async": true
+			},
+			"routes": [
+				{
+					"pattern": "",
+					"name": "orderList",
+					"target": [
+						"orderList"
+					]
+				},
+				{
+					"pattern": "orderDetail/{orderId}/{layout}",
+					"name": "orderDetail",
+					"target": [
+						"orderList",
+						"orderDetail"
+					]
+				},
+				{
+					"pattern": "prodRunDetail/{orderId}/{runId}/{layout}",
+					"name": "prodRunDetail",
+					"target": [
+						"orderList",
+						"orderDetail",
+						"prodRunDetail"
+					]
+				},
+				{
+					"pattern": "reportProduction",
+					"name": "reportProduction",
+					"target": "reportProduction"
+				},
+				{
+					"pattern": "reportConsumption",
+					"name": "reportConsumption",
+					"target": "reportConsumption"
+				}
+			],
+			"targets": {
+				"orderList": {
+					"viewId": "orderList",
+					"viewName": "OrderList",
+					"viewLevel": 0,
+					"controlAggregation": "beginColumnPages"
+				},
+				"orderDetail": {
+					"viewId": "orderDetail",
+					"viewName": "OrderDetail",
+					"viewLevel": 0,
+					"controlAggregation": "midColumnPages"
+				},
+				"prodRunDetail": {
+					"viewId": "prodRunDetail",
+					"viewName": "ProdRunDetail",
+					"viewLevel": 0,
+					"controlAggregation": "endColumnPages"
+				},
+				"reportProduction": {
+					"viewId": "reportProduction",
+					"viewName": "ReportProduction",
+					"viewLevel": 1,
+					"controlAggregation": "beginColumnPages"
+				},
+				"reportConsumption": {
+					"viewId": "reportConsumption",
+					"viewName": "ReportConsumption",
+					"viewLevel": 1,
+					"controlAggregation": "beginColumnPages"
+				},
+				"notFound": {
+					"viewId": "NotFound",
+					"viewName": "NotFound",
+					"viewLevel": 1,
+					"controlAggregation": "beginColumnPages"
+				}
+			}
+		}
+	}
+}

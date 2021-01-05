@@ -1,7 +1,7 @@
 package com.oee.util;
 public final class ApiPaths {
 	
-	private static final String BASE_PATH = "/rest/confirmation";
+	private static final String BASE_PATH = "/confirmation";
 	
 	public static final class ProdRunHdrCtrl{
 		public static final String CTRL = BASE_PATH + "/prodrunhdr";

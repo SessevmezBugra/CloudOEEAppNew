@@ -37,6 +37,11 @@ public class ProdRunHdrRestController {
 	public ResponseEntity<Boolean> deleteProdRunHdr(@PathVariable(value="id", required=true) Long runId){
 		return ResponseEntity.ok(prodRunHdrService.delete(runId));
 	}
+
+	@RequestMapping(value="/order/order-ids", method=RequestMethod.DELETE)
+	public ResponseEntity<Boolean> deleteByOrderIds(@RequestBody List<Long> orderIds){
+		return ResponseEntity.ok(prodRunHdrService.deleteByOrderIds(orderIds));
+	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<ProdRunHdr> getProdRunHdrById(@PathVariable(value="id", required=true) Long runId){
@@ -46,5 +51,20 @@ public class ProdRunHdrRestController {
 	@RequestMapping(value="/order/{id}", method=RequestMethod.GET)
 	public ResponseEntity<List<ProdRunHdr>> getProdRunHdrByOrderId(@PathVariable(value="id", required=true) Long orderId){
 		return ResponseEntity.ok(prodRunHdrService.getByOrderId(orderId));
+	}
+
+	@RequestMapping(value="/start", method=RequestMethod.POST)
+	public ResponseEntity<ProdRunHdr> start(@RequestBody ProdRunHdr prodRunHdr){
+		return ResponseEntity.ok(prodRunHdrService.start(prodRunHdr));
+	}
+
+	@RequestMapping(value="/hold", method=RequestMethod.PUT)
+	public ResponseEntity<ProdRunHdr> hold(@RequestBody ProdRunHdr prodRunHdr){
+		return ResponseEntity.ok(prodRunHdrService.hold(prodRunHdr));
+	}
+
+	@RequestMapping(value="/complete", method=RequestMethod.PUT)
+	public ResponseEntity<ProdRunHdr> complete(@RequestBody ProdRunHdr prodRunHdr){
+		return ResponseEntity.ok(prodRunHdrService.complete(prodRunHdr));
 	}
 }

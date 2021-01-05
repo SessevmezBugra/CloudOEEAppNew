@@ -1,0 +1,19 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog
+		noDataText="En az bir siparisi aktif duruma getirmelisiniz"
+		title="Aktif Siparisler"
+		search="handleSearch"
+		confirm="closeOrderDialog"
+		cancel="closeOrderDialog"
+		items="{reportProductionModel>/orders}" >
+		<StandardListItem
+			title="{reportProductionModel>orderNo}"
+			description="{reportProductionModel>materialDesc} {reportProductionModel>materialNumber}"
+            icon="sap-icon://sales-order"
+			iconDensityAware="false"
+			iconInset="false"
+			type="Active" />
+	</SelectDialog>
+</core:FragmentDefinition>

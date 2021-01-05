@@ -56,12 +56,13 @@ sap.ui.define([
 				this.getView().byId("userMessageActionSheet").destroy();
 				return;
 			}
+			var logoutText = oBundle.getText("TOOLPAGE_LOGOUT_BTN_TITLE");
 			var oActionSheet = new ActionSheet(this.getView().createId("userMessageActionSheet"), {
 				title: oBundle.getText("TOOLPAGE_USERNAME_BTN_TITLE"),
 				showCancelButton: false,
 				buttons: [
 					new Button({
-						text: 'Logout',
+						text: logoutText,
 						type: ButtonType.Transparent,
 						press: this.logout.bind(this)
 					}),
@@ -75,16 +76,19 @@ sap.ui.define([
 			oActionSheet.openBy(oEvent.getSource());
 		},
 
-		logout: function() {
-			this.getParentComponent(this.getOwnerComponent()).getModel("localUserModel").setData(null)
-			var rootComponent = this.getParentComponent(this.getOwnerComponent());
-			rootComponent.getRouter().navTo("home");
+		logout: function () {
+			this.UserService.logout();
 		},
 
 		onItemSelect: function (oEvent) {
 			var level = oEvent.getParameter('item').getLevel();
 			if (level == 0) {
-				this.getRouter().navTo(oEvent.getParameter('item').getKey());
+				if("oeeApp" == oEvent.getParameter('item').getKey()) {
+					var rootComponent = this.getParentComponent(this.getOwnerComponent());
+					rootComponent.getRouter().navTo("oeeapp");
+				}else {
+					this.getRouter().navTo(oEvent.getParameter('item').getKey());
+				}
 			} else {
 				var oComponentTargetInfo = {};
 				oComponentTargetInfo[oEvent.getParameter('item').getParent().getKey()] = {

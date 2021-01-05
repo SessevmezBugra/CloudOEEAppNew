@@ -1,0 +1,29 @@
+pipeline {
+
+    agent any
+
+    environment {
+        PASS = credentials('registry-pass')
+    }
+
+    stages {
+
+        stage('Build') {
+            steps {
+                sh '''
+
+                    ./frontend-app/jenkins/build/build.sh
+
+                '''
+            }
+        }
+
+
+        stage('Push') {
+            steps {
+                sh './frontend-app/jenkins/push/push.sh'
+            }
+        }
+
+    }
+}

@@ -2,6 +2,7 @@ package com.oee.web;
 
 import java.util.List;
 
+import com.oee.dto.ProdRunDataDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +28,11 @@ public class ProdRunDataRestController {
 	public ResponseEntity<ProdRunData> createProdRunData(@RequestBody ProdRunData prodRunData){
 		return ResponseEntity.ok(prodRunDataService.create(prodRunData));
 	}
+
+	@RequestMapping(value="/order/{id}", method=RequestMethod.POST)
+	public ResponseEntity<List<ProdRunData>> createAllProdRunData(@PathVariable(value="id", required=true) Long orderId, @RequestBody List<ProdRunData> prodRunDatas){
+		return ResponseEntity.ok(prodRunDataService.createAll(orderId, prodRunDatas));
+	}
 	
 	@RequestMapping(method=RequestMethod.PUT)
 	public ResponseEntity<ProdRunData> updateProdRunData(@RequestBody ProdRunData prodRunData){
@@ -43,8 +49,8 @@ public class ProdRunDataRestController {
 		return ResponseEntity.ok(prodRunDataService.getById(entryId));
 	}
 	
-	@RequestMapping(value="/prodrunhdr/{id}", method=RequestMethod.GET)
-	public ResponseEntity<List<ProdRunData>> getProdRunDataByRunId(@PathVariable(value="id", required=true) Long runId){
+	@RequestMapping(value="/run-id/{id}", method=RequestMethod.GET)
+	public ResponseEntity<List<ProdRunDataDto>> getProdRunDataByRunId(@PathVariable(value="id", required=true) Long runId){
 		return ResponseEntity.ok(prodRunDataService.getByRunId(runId));
 	}
 	

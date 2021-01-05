@@ -14,18 +14,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="CLIENT_INFO")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class ClientInfo {
 	
 	@Id
 	@Column(name="CLIENT_ID")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer clientId;
+	private Long clientId;
 	
 	@Column(name="CLIENT_NAME")
 	private String clientName;
@@ -69,13 +68,13 @@ public class ClientInfo {
 		this.plants = plants;
 	}
 
-	public Integer getClientId() {
+	public Long getClientId() {
 		return clientId;
 	}
 
-	public void setClientId(Integer clientId) {
+	public void setClientId(Long clientId) {
 		this.clientId = clientId;
 	}
-	
+
 	
 }

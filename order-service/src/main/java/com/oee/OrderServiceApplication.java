@@ -1,13 +1,17 @@
 package com.oee;
 
+import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 
 import brave.sampler.Sampler;
 
-@EnableEurekaClient
+@EnableFeignClients
+@EnableGlobalMethodSecurity(jsr250Enabled = true)
 @SpringBootApplication
 public class OrderServiceApplication {
 
@@ -20,4 +24,10 @@ public class OrderServiceApplication {
 		return Sampler.ALWAYS_SAMPLE;
 	}
 
+	@Bean
+	public ModelMapper getModelMapper() {
+		ModelMapper mapper =new ModelMapper();
+		mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STANDARD);
+		return mapper;
+	}
 }

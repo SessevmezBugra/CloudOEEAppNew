@@ -72,32 +72,41 @@
 				{
 					"pattern": "",
 					"name": "home",
-					"target": "home"
+					"target": "home",
+					"layout": "EndColumnFullScreen"
 				},
 				{
 					"pattern": "staffTracking",
 					"name": "staffTracking",
-					"target": "staffTracking"
+					"target": [
+						"staffTracking"
+					]
+				},
+				{
+					"pattern": "staffDetail/{userId}/{layout}",
+					"name": "staffDetail",
+					"target": [
+						"staffTracking",
+						"staffDetail"
+					]
 				}
 			],
 			"targets": {
-				"home": {
-					"type": "View",
-					"id": "home",
-					"name": "Home",
-					"title": "Home"
-				},
 				"staffTracking": {
-					"type": "View",
-					"id": "staffTracking",
-					"name": "StaffTracking",
-					"title": "StaffTracking"
+					"viewName": "StaffTracking",
+					"controlAggregation": "beginColumnPages"
+				},
+				"staffDetail": {
+					"viewName": "StaffDetail",
+					"controlAggregation": "midColumnPages"
+				},
+				"home": {
+					"viewName": "Home",
+					"controlAggregation": "endColumnPages"
 				},
 				"notFound": {
-					"type": "View",
-					"id": "notFound",
-					"name": "NotFound",
-					"transition": "show"
+					"viewName": "NotFound",
+					"controlAggregation": "beginColumnPages"
 				}
 			}
 		}

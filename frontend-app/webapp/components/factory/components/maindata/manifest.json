@@ -72,43 +72,40 @@
 				{
 					"pattern": "",
 					"name": "home",
-					"target": "home"
+					"target": "home",
+					"layout": "EndColumnFullScreen"
 				},
 				{
-					"pattern": "materiallist",
-					"name": "materialList",
-					"target": "materialList"
+					"pattern": "asset",
+					"name": "asset",
+					"target": "asset"
 				},
 				{
-					"pattern": "materialdetail/{action}/{id}",
-					"name": "materialDetail",
-					"target": "materialDetail"
+					"pattern": "assetDetail/{assetId}/{assetType}/{layout}",
+					"name": "assetDetail",
+					"target": [
+						"asset",
+						"assetDetail"
+					]
 				}
+
 			],
 			"targets": {
-				"materialList": {
-					"type": "View",
-					"id": "materialList",
-					"name": "MaterialList",
-					"title": "MaterialList"
+				"asset": {
+					"viewName": "Asset",
+					"controlAggregation": "beginColumnPages"
 				},
-				"materialDetail": {
-					"type": "View",
-					"id": "materialDetail",
-					"name": "MaterialDetail",
-					"title": "MaterialDetail"
+				"assetDetail": {
+					"viewName": "AssetDetail",
+					"controlAggregation": "midColumnPages"
 				},
 				"home": {
-					"type": "View",
-					"id": "home",
-					"name": "Home",
-					"title": "Home"
+					"viewName": "Home",
+					"controlAggregation": "endColumnPages"
 				},
 				"notFound": {
-					"type": "View",
-					"id": "notFound",
-					"name": "NotFound",
-					"transition": "show"
+					"viewName": "NotFound",
+					"controlAggregation": "beginColumnPages"
 				}
 			}
 		}

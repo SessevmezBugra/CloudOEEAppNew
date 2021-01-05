@@ -62,18 +62,8 @@
 			},
 			"routes": [
 				{
-					"name": "register",
-					"pattern": "register",
-					"target": "register"
-				},
-				{
-					"name": "login",
-					"pattern": "",
-					"target": "login"
-				},
-				{
 					"name": "home",
-					"pattern": "home",
+					"pattern": "",
 					"target": "home"
 				}
 			],

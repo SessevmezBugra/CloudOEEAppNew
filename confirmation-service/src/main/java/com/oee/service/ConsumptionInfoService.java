@@ -2,6 +2,7 @@ package com.oee.service;
 
 import java.util.List;
 
+import com.oee.dto.ConsumptionDataDto;
 import com.oee.entity.ConsumptionInfo;
 
 public interface ConsumptionInfoService {
@@ -14,6 +15,7 @@ public interface ConsumptionInfoService {
 	
 	ConsumptionInfo getById(Long consumptionId);
 	
-	List<ConsumptionInfo> getByOrderId(Long orderId);
-	
+	List<ConsumptionDataDto> getByRunId(Long runId);
+
+	List<ConsumptionInfo> createAll(Long orderId, List<ConsumptionInfo> consumptionInfos);
 }

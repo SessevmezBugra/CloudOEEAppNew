@@ -72,32 +72,54 @@
 				{
 					"pattern": "",
 					"name": "home",
-					"target": "home"
+					"target": "home",
+					"layout": "EndColumnFullScreen"
 				},
 				{
-					"pattern": "orderTracking",
-					"name": "orderTracking",
-					"target": "orderTracking"
+					"pattern": "orderList",
+					"name": "orderList",
+					"target": [
+						"orderList"
+					]
+				},
+				{
+					"pattern": "orderDetail/{orderId}/{layout}",
+					"name": "orderDetail",
+					"target": [
+						"orderList",
+						"orderDetail"
+					]
+				},
+				{
+					"pattern": "prodRunDetail/{orderId}/{runId}/{layout}",
+					"name": "prodRunDetail",
+					"target": [
+						"orderList",
+						"orderDetail",
+						"prodRunDetail"
+					]
 				}
 			],
 			"targets": {
-				"home": {
-					"type": "View",
-					"id": "home",
-					"name": "Home",
-					"title": "Home"
+				"orderList": {
+					"viewName": "OrderList",
+					"controlAggregation": "beginColumnPages"
 				},
-				"orderTracking": {
-					"type": "View",
-					"id": "orderTracking",
-					"name": "OrderTracking",
-					"title": "OrderTracking"
+				"orderDetail": {
+					"viewName": "OrderDetail",
+					"controlAggregation": "midColumnPages"
+				},
+				"prodRunDetail": {
+					"viewName": "ProdRunDetail",
+					"controlAggregation": "endColumnPages"
+				},
+				"home": {
+					"viewName": "Home",
+					"controlAggregation": "endColumnPages"
 				},
 				"notFound": {
-					"type": "View",
-					"id": "notFound",
-					"name": "NotFound",
-					"transition": "show"
+					"viewName": "NotFound",
+					"controlAggregation": "beginColumnPages"
 				}
 			}
 		}

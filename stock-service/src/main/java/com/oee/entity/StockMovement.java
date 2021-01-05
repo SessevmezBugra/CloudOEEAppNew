@@ -10,43 +10,35 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 
 @Entity
-@Table(name="STOCK_MOVEMENT")
+@Table(name = "STOCK_MOVEMENT")
+@Setter
+@Getter
+@NoArgsConstructor
 public class StockMovement {
-	
-	@Id
-	@Column(name="STOCK_MOV_ID")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long stockMovId;
-	
-	@Column(name="QUANTITY")
-	private Double quantity;
-	
-	@JsonBackReference
-	@ManyToOne(optional=true)
-	@JoinColumn(name="STOCK_ID")
-	private StockInfo stock;
-	
-	public StockMovement() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	public Long getStockMovId() {
-		return stockMovId;
-	}
-	
-	public void setStockMovId(Long stockMovId) {
-		this.stockMovId = stockMovId;
-	}
 
-	public Double getQuantity() {
-		return quantity;
-	}
+    @Id
+    @Column(name = "STOCK_MOV_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long stockMovId;
 
-	public void setQuantity(Double quantity) {
-		this.quantity = quantity;
-	}
-	
-	
+    @Column(name = "QUANTITY")
+    private Double quantity;
+
+    @Column(name = "USERNAME")
+    private String username;
+
+	@Column(name = "IS_POSITIVE")
+    private Boolean isPositive;
+
+    @JsonBackReference
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "STOCK_ID")
+    private StockInfo stock;
+
 }

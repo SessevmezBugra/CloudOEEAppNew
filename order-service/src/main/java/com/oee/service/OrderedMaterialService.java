@@ -1,6 +1,9 @@
 package com.oee.service;
 
+import com.oee.dto.ProdRunDataDto;
 import com.oee.entity.OrderedMaterial;
+
+import java.util.List;
 
 public interface OrderedMaterialService {
 	
@@ -13,4 +16,6 @@ public interface OrderedMaterialService {
 	OrderedMaterial getById(Long id);
 	
 	OrderedMaterial getByOrderId(Long id);
+
+    OrderedMaterial addProductionToActualProd(Long orderId, Double quantity);
 }

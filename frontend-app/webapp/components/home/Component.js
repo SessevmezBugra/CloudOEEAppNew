@@ -13,14 +13,22 @@ sap.ui.define([
 			BaseComponent.prototype.init.apply(this, arguments);
 
 			var oParentComponent = Component.getOwnerComponentFor(this);
-			await this.getRouter().attachBeforeRouteMatched(async function (oEvent){
-				await this.validateToken().then(function(isValid) {
-					if(!isValid){
-						// oParentComponent.getRouter().navTo("home");
-					}
-				}.bind(this));
-				this.hideBusyIndicator();
-			}.bind(this), this);
+
+			// this.getRouter().attachBeforeRouteMatched(function (oEvent) {
+			// 	var target = this.getRouter().getHashChanger().hash;
+			// 	if (this.keycloak.authenticated && !this.keycloak.isTokenExpired() && target != "factory" && target != "oeeapp") {
+			// 		if(this.keycloak.hasRealmRole("COMPANY_OWNER") || this.keycloak.hasRealmRole("CLIENT_MANAGER") || this.keycloak.hasRealmRole("PLANT_MANAGER")) {
+			// 			this.getRouter().getHashChanger().replaceHash("");
+			// 		}else if (this.keycloak.hasRealmRole("OPERATOR")) {
+			// 			this.getRouter().getHashChanger().replaceHash("");
+			// 		}
+					
+			// 	}else if ((!this.keycloak.authenticated || this.keycloak.isTokenExpired()) && (target == "factory" || target == "oeeapp")) {
+			// 		window.location.pathname="/";
+			// 	}
+			// 	this.hideBusyIndicator();
+			// }.bind(this));
+
 			this.getRouter().initialize();
 		}
 	});

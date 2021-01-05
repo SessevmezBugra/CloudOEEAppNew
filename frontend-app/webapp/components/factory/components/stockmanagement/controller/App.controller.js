@@ -3,7 +3,7 @@ sap.ui.define([
 ], function(BaseController) {
 	"use strict";
 
-	return BaseController.extend("workerapp.components.factory.components.staffmanagement.controller.App", {
+	return BaseController.extend("workerapp.components.factory.components.stockmanagement.controller.App", {
 
 		onInit: function() {
 

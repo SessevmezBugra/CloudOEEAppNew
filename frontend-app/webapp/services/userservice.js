@@ -1,21 +1,41 @@
 sap.ui.define([
-    "workerapp/model/service"
-], function (Service) {
+    "workerapp/model/service",
+    "workerapp/model/constant"
+], function (Service, Constant) {
     "use strict";
-
     return {
 
-        createOwnerUser: function(user) {
-            return Service.doAjax("http://localhost:4000/auth-service/rest/auth/user/registerowner", user, "POST", true);
+        getKeycloak: function () {
+            if (this.keycloak) {
+                return this.keycloak;
+            }
+            this.keycloak = new Keycloak({
+                url: 'https://auth.arcloudfactories.com/auth',
+                realm: 'cloudoeeapp',
+                clientId: 'ui-app'
+            });
+            return this.keycloak;
         },
-        createWorkerUser: function(user) {
-            return Service.doAjax("http://localhost:4000/auth-service/rest/auth/user/registerworker", user, "POST", true);
+
+        initLoginRequired: function () {
+            return this.getKeycloak().init({
+                onLoad: 'login-required'
+            });
         },
-        login: function(user) {
-            return Service.doAjax("http://localhost:4000/auth-service/auth", user, "POST", true);
+
+        initCheckSSO: function () {
+            return this.getKeycloak().init({
+                onLoad: 'check-sso',
+                silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html'
+            });
         },
-        validateToken: function(){
-            return Service.doAjax("http://localhost:4000/token/rest/validatetoken", null, "POST", true);
+
+        login: function () {
+            return this.getKeycloak().login();
+        },
+
+        logout: function () {
+            return this.getKeycloak().logout();
         }
 
     }

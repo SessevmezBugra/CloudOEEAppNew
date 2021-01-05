@@ -1,79 +1,48 @@
 package com.oee.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name="ORDERED_MATERIAL")
+@Getter
+@Setter
+@NoArgsConstructor
 public class OrderedMaterial {
 
 	@Id
-	@Column(name="ID")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="ID")
 	private Long id;
-	
-	@OneToOne(optional=true)
-	@JoinColumn(name="ORDER_ID")
+
+	@JsonBackReference
+	@OneToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "ORDER_ID", nullable = false)
 	private OrderInfo order;
 	
 	@Column(name="MATERIAL_DESC")
 	private String materialDesc;
-	
+
+	@Column(name="MATERIAL_NUMBER")
+	private String materialNumber;
+
 	@Column(name="PLANNED_PROD_QUANTITY")
-	private Double plannedProdQuantity;
+	private Double plannedProdQuantity = 0.0;
 	
 	@Column(name="ACTUAL_PROD_QUANTITY")
-	private Double actualProdQuantity;
-	
-	public OrderedMaterial() {
-		// TODO Auto-generated constructor stub
-	}
+	private Double actualProdQuantity = 0.0;
 
-	public Long getId() {
-		return id;
-	}
+	@Column(name="IS_STOCK_PROD")
+	private Boolean isStockProd;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+	@Column(name="MATERIAL_ID")
+	private Long materialId;
 
-	public String getMaterialDesc() {
-		return materialDesc;
-	}
+	@Column(name="WAREHOUSE_ID")
+	private Long warehouseId;
 
-	public void setMaterialDesc(String materialDesc) {
-		this.materialDesc = materialDesc;
-	}
-
-	public Double getPlannedProdQuantity() {
-		return plannedProdQuantity;
-	}
-
-	public void setPlannedProdQuantity(Double plannedProdQuantity) {
-		this.plannedProdQuantity = plannedProdQuantity;
-	}
-
-	public Double getActualProdQuantity() {
-		return actualProdQuantity;
-	}
-
-	public void setActualProdQuantity(Double actualProdQuantity) {
-		this.actualProdQuantity = actualProdQuantity;
-	}
-
-	public OrderInfo getOrder() {
-		return order;
-	}
-
-	public void setOrder(OrderInfo order) {
-		this.order = order;
-	}
-	
-	
 }
