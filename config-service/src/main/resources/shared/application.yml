@@ -57,7 +57,7 @@ spring:
   zipkin:
 #    sender:
 #      type: rabbit
-    baseUrl: ${ZIPKIN_URI:http://13.94.132.138:9411/}
+    baseUrl: ${ZIPKIN_URI:http://localhost:9411/}
 #    message-timeout: 10000
   sleuth:
     sampler:
@@ -74,7 +74,7 @@ spring:
           readTimeout: 50000
  
 keycloak:
-  auth-server-url: ${KEYCLOAK_URI:https://auth.arcloudfactories.com/auth}
+  auth-server-url: ${KEYCLOAK_URI:https://localhost:8080/auth}
   realm: cloudoeeapp
   bearer-only: true
   public-client: true

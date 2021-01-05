@@ -1,3 +1,0 @@
-[submodule "keycloak-app/embedded-spring-boot-keycloak-server"]
-	path = keycloak-app/embedded-spring-boot-keycloak-server
-	url = https://github.com/thomasdarimont/embedded-spring-boot-keycloak-server
