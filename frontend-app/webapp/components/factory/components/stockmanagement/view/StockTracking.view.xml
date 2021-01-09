@@ -45,7 +45,7 @@
 													<cells>
 														<Text text="{stockModel>materialNumber}" id="text3"/>
 														<Text text="{stockModel>materialDesc}" id="text4"/>
-														<ObjectStatus text="{= ${stockModel>quantity} > 0 ? 'Stok Var' : 'Stok Yok'}" icon="sap-icon://status-inactive" state="{= ${stockModel>quantity} > 0 ? 'Success' : 'Error'}" visible="true"/>
+														<ObjectStatus text="{= ${stockModel>quantity} > 0 ? 'Stok Var' : 'Stok Yok'}" icon="sap-icon://orderStatus-inactive" state="{= ${stockModel>quantity} > 0 ? 'Success' : 'Error'}" visible="true"/>
 														<Text text="{stockModel>quantity}" id="text5"/>
 													</cells>
 												</ColumnListItem>
@@ -127,7 +127,7 @@
 													<cells>
 														<Text text="{stockModel>stock/materialNumber}"/>
 														<Text text="{stockModel>stock/materialDesc}" />
-														<ObjectStatus text="{= ${stockModel>isPositive}  === true ? 'Stok Eklendi.' : 'Stok Çıkartıldı.' }" icon="sap-icon://status-inactive" state="{= ${stockModel>isPositive}  === true ? 'Success' : 'Error' }" visible="true" id="positive"/>
+														<ObjectStatus text="{= ${stockModel>isPositive}  === true ? 'Stok Eklendi.' : 'Stok Çıkartıldı.' }" icon="sap-icon://orderStatus-inactive" state="{= ${stockModel>isPositive}  === true ? 'Success' : 'Error' }" visible="true" id="positive"/>
 														<Text text="{stockModel>quantity}" />
 														<Text text="{stockModel>username}" />
 

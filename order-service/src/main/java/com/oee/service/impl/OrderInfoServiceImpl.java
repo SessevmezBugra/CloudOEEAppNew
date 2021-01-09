@@ -12,7 +12,7 @@ import com.oee.dto.OrderDto;
 import com.oee.dto.PlantDto;
 import com.oee.dto.ProdRunHdrDto;
 import com.oee.entity.OrderedMaterial;
-import com.oee.enums.Status;
+import com.oee.enums.OrderStatus;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -43,7 +43,7 @@ public class OrderInfoServiceImpl implements OrderInfoService{
 			orderedMaterial.setMaterialNumber(materialDto.getMaterialNumber());
 		}
 		orderedMaterial.setOrder(orderInfo);
-		orderInfo.setStatus(Status.NEW);
+		orderInfo.setOrderStatus(OrderStatus.NEW);
 		orderInfo.setCreatedUser(currentUserProvider.getCurrentUser().getUsername());
 		return orderInfoRepository.save(orderInfo);
 	}
@@ -99,10 +99,10 @@ public class OrderInfoServiceImpl implements OrderInfoService{
 	@Override
 	public OrderInfo startOrderById(OrderInfo orderInfoDto) {
 		OrderInfo orderInfo = orderInfoRepository.findById(orderInfoDto.getOrderId()).orElseThrow(() -> new RuntimeException("Boyle bir siparis bulunmamaktadir."));
-		if (orderInfo.getStatus() != Status.NEW && orderInfo.getStatus() != Status.HOLD) {
+		if (orderInfo.getOrderStatus() != OrderStatus.NEW && orderInfo.getOrderStatus() != OrderStatus.HOLD) {
 			throw new RuntimeException("Siparis durumu baslatmak icin uygun degildir.");
 		}
-		orderInfo.setStatus(Status.ACT);
+		orderInfo.setOrderStatus(OrderStatus.ACT);
 		if (orderInfo.getActualStartDate() == null) {
 			orderInfo.setActualStartDate(orderInfoDto.getActualStartDate());
 		}
@@ -119,10 +119,10 @@ public class OrderInfoServiceImpl implements OrderInfoService{
 	@Override
 	public OrderInfo holdOrder(OrderInfo orderInfoDto) {
 		OrderInfo orderInfo = orderInfoRepository.findById(orderInfoDto.getOrderId()).orElseThrow(() -> new RuntimeException("Boyle bir siparis bulunmamaktadir."));
-		if (orderInfo.getStatus() != Status.ACT) {
+		if (orderInfo.getOrderStatus() != OrderStatus.ACT) {
 			throw new RuntimeException("Siparis durumu bekletmek icin uygun degildir.");
 		}
-		orderInfo.setStatus(Status.HOLD);
+		orderInfo.setOrderStatus(OrderStatus.HOLD);
 		orderInfoRepository.save(orderInfo);
 		ProdRunHdrDto prodRunHdrDto = new ProdRunHdrDto();
 		prodRunHdrDto.setOrderId(orderInfo.getOrderId());
@@ -134,10 +134,10 @@ public class OrderInfoServiceImpl implements OrderInfoService{
 	@Override
 	public OrderInfo resumeOrder(OrderInfo orderInfoDto) {
 		OrderInfo orderInfo = orderInfoRepository.findById(orderInfoDto.getOrderId()).orElseThrow(() -> new RuntimeException("Boyle bir siparis bulunmamaktadir."));
-		if (orderInfo.getStatus() != Status.HOLD) {
+		if (orderInfo.getOrderStatus() != OrderStatus.HOLD) {
 			throw new RuntimeException("Siparis durumu devam etmek icin uygun degildir.");
 		}
-		orderInfo.setStatus(Status.ACT);
+		orderInfo.setOrderStatus(OrderStatus.ACT);
 		orderInfoRepository.save(orderInfo);
 		ProdRunHdrDto prodRunHdrDto = new ProdRunHdrDto();
 		prodRunHdrDto.setOrderId(orderInfo.getOrderId());
@@ -149,10 +149,10 @@ public class OrderInfoServiceImpl implements OrderInfoService{
 	@Override
 	public OrderInfo completeOrder(OrderInfo orderInfoDto) {
 		OrderInfo orderInfo = orderInfoRepository.findById(orderInfoDto.getOrderId()).orElseThrow(() -> new RuntimeException("Boyle bir siparis bulunmamaktadir."));
-		if (orderInfo.getStatus() != Status.ACT) {
+		if (orderInfo.getOrderStatus() != OrderStatus.ACT) {
 			throw new RuntimeException("Siparisi tamamlamak icin baslatmaniz gereklidir.");
 		}
-		orderInfo.setStatus(Status.CMPL);
+		orderInfo.setOrderStatus(OrderStatus.CMPL);
 		orderInfoRepository.save(orderInfo);
 		ProdRunHdrDto prodRunHdrDto = new ProdRunHdrDto();
 		prodRunHdrDto.setOrderId(orderInfo.getOrderId());
@@ -165,7 +165,7 @@ public class OrderInfoServiceImpl implements OrderInfoService{
 	public List<OrderDto> getActiveOrdersByLoggedUser() {
 		List<PlantDto> plantDtos = mainDataServiceClient.getPlantByLoggedUser().getBody();
 		List<Long> ids = plantDtos.stream().map(PlantDto::getPlantId).collect(Collectors.toList());
-		List<OrderInfo> orders = orderInfoRepository.findByPlantIdInAndStatus(ids, Status.ACT);
+		List<OrderInfo> orders = orderInfoRepository.findByPlantIdInAndStatus(ids, OrderStatus.ACT);
 		List<OrderDto> orderDtos = Arrays.asList(modelMapper.map(orders, OrderDto[].class));
 		return orderDtos;
 	}

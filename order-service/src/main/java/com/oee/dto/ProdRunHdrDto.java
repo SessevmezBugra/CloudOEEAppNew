@@ -1,6 +1,6 @@
 package com.oee.dto;
 
-import com.oee.enums.Status;
+import com.oee.enums.OrderStatus;
 
 import java.util.Date;
 
@@ -14,7 +14,7 @@ public class ProdRunHdrDto {
 
     private Date endTime;
 
-    private Status status;
+    private OrderStatus orderStatus;
 
     private String startedUser;
 
@@ -55,12 +55,12 @@ public class ProdRunHdrDto {
         this.endTime = endTime;
     }
 
-    public Status getStatus() {
-        return status;
+    public OrderStatus getStatus() {
+        return orderStatus;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
     public String getStartedUser() {

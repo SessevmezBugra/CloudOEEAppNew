@@ -1,283 +1,518 @@
 version: '3.7'
 services:
-  cloud-oee-frontend:
-    build: cloud-oee-frontend
+
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
     ports:
       - "80:80"
+      - "443:443"
+    volumes:
+      - conf:/etc/nginx/conf.d
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - dhparam:/etc/nginx/dhparam
+      - certs:/etc/nginx/certs:ro
+      - /var/run/docker.sock:/tmp/docker.sock:ro
     restart: always
+    privileged: true
+
+  letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    container_name: nginx-proxy-le
+    volumes_from:
+      - nginx-proxy
+    volumes:
+      - certs:/etc/nginx/certs:rw
+      - acme:/etc/acme.sh
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+  frontend-app:
+    image: bsessevmez/frontend-app:latest
+    container_name: frontend-app
+    build:
+      context: frontend-app
+      dockerfile: Dockerfile
+    ports:
+      - "8888:80"
+    restart: always
+    environment:
+      VIRTUAL_HOST: arcloudfactories.com
+      LETSENCRYPT_HOST: arcloudfactories.com
+      LETSENCRYPT_EMAIL: sessevmezbugra@gmail.com
     depends_on:
       - gateway-service
-    networks:
-      - oee-compose-network
+      - nginx-proxy
 
-  rabbitmq:
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-    restart: always
-    networks:
-      - oee-compose-network
+
+  # rabbitmq:
+  #   image: rabbitmq:3.8.3-management
+  #   ports:
+  #     - "5672:5672"
+  #     - "15672:15672"
+  #   restart: always
+  #   networks:
+  #     - oee-compose-network
 
   eureka-server:
-    build: eureka-server
-    environment: 
-      CONFIG_HOST:  config-service
-      FAIL_FAST: 'true'
-      EUREKA_HOSTNAME: eureka-server
+    container_name: eureka-server
+    environment:
+      CONFIG_URI: $CONFIG_URI
+      FAIL_FAST: $FAIL_FAST
+      EUREKA_URI: $EUREKA_URI
+    image: bsessevmez/eureka-server:latest
+    build:
+      context: eureka-server
+      dockerfile: Dockerfile
     ports:
-      - "8761:8761"
+      - "8762:8761"
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"
     restart: always
     depends_on:
       - config-service
-    networks:
-      - oee-compose-network
 
-  zipkin-server:
+
+  zipkin-database:
+    container_name: zipkin-database
+    image: openzipkin/zipkin-mysql:${TAG:-latest}
+    # Uncomment to expose the storage port for testing
+    # ports:
+    #   - 3306:3306
+
+
+
+    # The zipkin process services the UI, and also exposes a POST endpoint that
+    # instrumentation can send trace data to. Scribe is disabled by default.
+  zipkin:
+    image: openzipkin/zipkin:${TAG:-latest}
+    container_name: zipkin
+    # Environment settings are defined here https://github.com/openzipkin/zipkin/blob/master/zipkin-server/README.md#environment-variables
     environment:
-      STORAGE_TYPE: mem
-      RABBIT_URI: amqp://guest:guest@rabbitmq:5672
+      - STORAGE_TYPE=mysql
+      # Point the zipkin at the storage backend
+      - MYSQL_HOST=zipkin-database
+      - MYSQL_USER=zipkin
+      - MYSQL_PASS=zipkin
+      # Uncomment to enable scribe
+      # - SCRIBE_ENABLED=true
+      # Uncomment to enable self-tracing
+      # - SELF_TRACING_ENABLED=true
+      # Uncomment to enable debug logging
+      # - JAVA_OPTS=-Dlogging.level.zipkin2=DEBUG
     ports:
-      - "9411:9411"
-    restart: always
+      # Port used for the Zipkin UI and HTTP Api
+      - 9411:9411
+      # Uncomment if you set SCRIBE_ENABLED=true
+      # - 9410:9410
     depends_on:
-      - rabbitmq
-    networks:
-      - oee-compose-network
+      - zipkin-database
+
+
+  # Adds a cron to process spans since midnight every hour, and all spans each day
+  # This data is served by http://192.168.99.100:8080/dependency
+  #
+  # For more details, see https://github.com/openzipkin/docker-zipkin-dependencies
+  dependencies:
+    image: openzipkin/zipkin-dependencies
+    container_name: dependencies
+    entrypoint: crond -f
+    environment:
+      - STORAGE_TYPE=mysql
+      - MYSQL_HOST=zipkin-database
+      # Add the baked-in username and password for the zipkin-mysql image
+      - MYSQL_USER=zipkin
+      - MYSQL_PASS=zipkin
+      # Uncomment to see dependency processing logs
+      # - ZIPKIN_LOG_LEVEL=DEBUG
+      # Uncomment to adjust memory used by the dependencies job
+      # - JAVA_OPTS=-verbose:gc -Xms1G -Xmx1G
+    depends_on:
+      - zipkin-database
+
 
   gateway-service:
-    build: gateway-service
+    container_name: gateway-service
     environment:
-      RABBIT_URI: amqp://guest:guest@rabbitmq:5672
-      CONFIG_HOST:  config-service
-      FAIL_FAST: 'true'
-      EUREKA_HOSTNAME: eureka-server
-      ZIPKIN_HOST: zipkin-server
-    ports:
-      - "4000:4000"
+      # RABBIT_URI: $RABBIT_URI
+      CONFIG_URI:  $CONFIG_URI
+      FAIL_FAST: $FAIL_FAST
+      EUREKA_URI: $EUREKA_URI
+      ZIPKIN_URI: $ZIPKIN_URI
+      VIRTUAL_HOST: service.arcloudfactories.com
+      VIRTUAL_PORT: 4000
+      LETSENCRYPT_HOST: service.arcloudfactories.com
+      LETSENCRYPT_EMAIL: sessevmezbugra@gmail.com
+      AUTH_SERVICE_URI: $AUTH_SERVICE_URI
+      MAINDATA_SERVICE_URI: $MAINDATA_SERVICE_URI
+      STOCK_SERVICE_URI: $STOCK_SERVICE_URI
+      ORDER_SERVICE_URI: $ORDER_SERVICE_URI
+      CONFIRMATION_SERVICE_URI: $CONFIRMATION_SERVICE_URI
+    image: bsessevmez/gateway-service:latest
+    build:
+      context: gateway-service
+      dockerfile: Dockerfile
+    #    ports:
+    #      - "4000:4000"
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"
     restart: always
     depends_on:
       - eureka-server
-      - rabbitmq
-      - zipkin-server
+      # - rabbitmq
+      #      - zipkin-server
       - config-service
-    networks:
-      - oee-compose-network
 
-  auth-service:
-    build: auth-service
-    environment:
-      RABBIT_URI: amqp://guest:guest@rabbitmq:5672
-      RDS_HOSTNAME: auth-database
-      RDS_PORT: 3306
-      RDS_DB_NAME: cloudoeedb
-      RDS_USERNAME: dummy-user
-      RDS_PASSWORD: dummy
-      CONFIG_HOST:  config-service
-      FAIL_FAST: 'true'
-      EUREKA_HOSTNAME: eureka-server
-      ZIPKIN_HOST: zipkin-server
-    ports:
-      - "5000:5000"
-    restart: always
-    depends_on:
-      - eureka-server
-      - rabbitmq
-      - zipkin-server
-      - auth-database
-      - config-service
-    networks:
-      - oee-compose-network
 
-  auth-database:
-    build: 
-    ports:
-      - "3307:3306"
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: dummy-user
-      MYSQL_PASSWORD: dummy
-      MYSQL_DATABASE: cloudoeedb
-    volumes:
-      - mysql-database-data-volume:/var/lib/auth-database
-    networks:
-      - oee-compose-network
-      
+
+
+      #  auth-database:
+      #    environment:
+      #      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      #      MYSQL_USER: $MYSQL_USER
+      #      MYSQL_PASSWORD: $MYSQL_PASSWORD
+      #      MYSQL_DATABASE: $MYSQL_DATABASE
+      #    image: mysql:8.0
+      #    ports:
+      #      - "3307:3306"
+      #    restart: always
+      #    volumes:
+      #      - mysql-database-data-volume:/var/lib/auth-database
+      #    networks:
+      #      - oee-compose-network
+
   config-service:
-    build: config-service 
+    container_name: config-service
     environment:
-      RABBIT_URI: amqp://guest:guest@rabbitmq:5672
-      EUREKA_HOSTNAME: eureka-server
-      ZIPKIN_HOST: zipkin-server
-    ports:
-      - "8888:8888"
+      # RABBIT_URI: $RABBIT_URI
+      EUREKA_URI: $EUREKA_URI
+      ZIPKIN_URI: $ZIPKIN_URI
+    image: bsessevmez/config-service:latest
+    build:
+      context: config-service
+      dockerfile: Dockerfile
+    #    ports:
+    #      - "8888:8888"
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"
     restart: always
-    depends_on:
-      - rabbitmq
-      - zipkin-server
-    networks:
-      - oee-compose-network
+      #    depends_on:
+    # - rabbitmq
+    #      - zipkin-server
+
 
   confirmation-service:
-    build: confirmation-service
+    container_name: confirmation-service
     environment:
-      RABBIT_URI: amqp://guest:guest@rabbitmq:5672
-      RDS_HOSTNAME: confirmation-database
-      RDS_PORT: 3306
-      RDS_DB_NAME: cloudoeedb
-      RDS_USERNAME: dummy-user
-      RDS_PASSWORD: dummy
-      CONFIG_HOST:  config-service
-      FAIL_FAST: 'true'
-      EUREKA_HOSTNAME: eureka-server
-      ZIPKIN_HOST: zipkin-server
-    ports:
-      - "8050:8050"
+      # RABBIT_URI: $RABBIT_URI
+      RDS_HOSTNAME: $RDS_CONFIRMATION_HOSTNAME
+      RDS_PORT: $RDS_PORT
+      RDS_DB_NAME: $RDS_DB_NAME
+      RDS_USERNAME: $RDS_USERNAME
+      RDS_PASSWORD: $RDS_PASSWORD
+      CONFIG_URI:  $CONFIG_URI
+      FAIL_FAST: $FAIL_FAST
+      EUREKA_URI: $EUREKA_URI
+      ZIPKIN_URI: $ZIPKIN_URI
+      KEYCLOAK_URI: $KEYCLOAK_URI
+    image: bsessevmez/confirmation-service:latest
+    build:
+      context: confirmation-service
+      dockerfile: Dockerfile
+    #    ports:
+    #      - "8050:8050"
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"
     restart: always
     depends_on:
       - eureka-server
-      - rabbitmq
-      - zipkin-server
+      # - rabbitmq
+      #      - zipkin-server
       - config-service
-    networks:
-      - oee-compose-network
+
 
   confirmation-database:
+    container_name: confirmation-database
+    environment:
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+      MYSQL_DATABASE: $MYSQL_DATABASE
+    image: mysql:8.0
     ports:
       - "3308:3306"
     restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: dummy-user
-      MYSQL_PASSWORD: dummy
-      MYSQL_DATABASE: cloudoeedb
     volumes:
       - mysql-database-data-volume:/var/lib/confirmation-database
-    networks:
-      - oee-compose-network
+
 
   maindata-service:
-    build: maindata-service 
+    container_name: maindata-service
     environment:
-      RABBIT_URI: amqp://guest:guest@rabbitmq:5672
-      RDS_HOSTNAME: maindata-database
-      RDS_PORT: 3306
-      RDS_DB_NAME: cloudoeedb
-      RDS_USERNAME: dummy-user
-      RDS_PASSWORD: dummy
-      CONFIG_HOST:  config-service
-      FAIL_FAST: 'true'
-      EUREKA_HOSTNAME: eureka-server
-      ZIPKIN_HOST: zipkin-server
-    ports:
-      - "8090:8090"
+      # RABBIT_URI: $RABBIT_URI
+      RDS_HOSTNAME: $RDS_MAINDATA_HOSTNAME
+      RDS_PORT: $RDS_PORT
+      RDS_DB_NAME: $RDS_DB_NAME
+      RDS_USERNAME: $RDS_USERNAME
+      RDS_PASSWORD: $RDS_PASSWORD
+      CONFIG_URI: $CONFIG_URI
+      FAIL_FAST: $FAIL_FAST
+      EUREKA_URI: $EUREKA_URI
+      ZIPKIN_URI: $ZIPKIN_URI
+      KEYCLOAK_URI: $KEYCLOAK_URI
+    image: bsessevmez/maindata-service:latest
+    build:
+      context: maindata-service
+      dockerfile: Dockerfile
+    # ports:
+    #   - "8090:8090"
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"
     restart: always
     depends_on:
       - eureka-server
-      - rabbitmq
-      - zipkin-server
+      # - rabbitmq
+      #      - zipkin-server
       - maindata-database
       - config-service
-    networks:
-      - oee-compose-network
+
 
   maindata-database:
-    image: mysql:5.7
+    container_name: maindata-database
+    image: mysql:8.0
     ports:
       - "3309:3306"
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: dummy-user
-      MYSQL_PASSWORD: dummy
-      MYSQL_DATABASE: cloudoeedb
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+      MYSQL_DATABASE: $MYSQL_DATABASE
     volumes:
       - mysql-database-data-volume:/var/lib/maindata-database
-    networks:
-      - oee-compose-network
-      
+
+
   order-service:
-    build: order-service
+    container_name: order-service
+    image: bsessevmez/order-service:latest
+    build:
+      context: order-service
+      dockerfile: Dockerfile
     environment:
-      RABBIT_URI: amqp://guest:guest@rabbitmq:5672
-      RDS_HOSTNAME: order-database
-      RDS_PORT: 3306
-      RDS_DB_NAME: cloudoeedb
-      RDS_USERNAME: dummy-user
-      RDS_PASSWORD: dummy
-      CONFIG_HOST:  config-service
-      FAIL_FAST: 'true'
-      EUREKA_HOSTNAME: eureka-server
-      ZIPKIN_HOST: zipkin-server
-    ports:
-      - "8060:8060"
+      # RABBIT_URI: $RABBIT_URI
+      RDS_HOSTNAME: $RDS_ORDER_HOSTNAME
+      RDS_PORT: $RDS_PORT
+      RDS_DB_NAME: $RDS_DB_NAME
+      RDS_USERNAME: $RDS_USERNAME
+      RDS_PASSWORD: $RDS_PASSWORD
+      CONFIG_URI: $CONFIG_URI
+      FAIL_FAST: $FAIL_FAST
+      EUREKA_URI: $EUREKA_URI
+      ZIPKIN_URI: $ZIPKIN_URI
+      KEYCLOAK_URI: $KEYCLOAK_URI
+    #    ports:
+    #      - "8060:8060"
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"
     restart: always
     depends_on:
       - eureka-server
-      - rabbitmq
-      - zipkin-server
+      # - rabbitmq
+      #      - zipkin-server
       - config-service
-    networks:
-      - oee-compose-network
+
 
   order-database:
-    build: 
+    container_name: order-database
+    image: mysql:8.0
     ports:
       - "3310:3306"
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: dummy-user
-      MYSQL_PASSWORD: dummy
-      MYSQL_DATABASE: cloudoeedb
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+      MYSQL_DATABASE: $MYSQL_DATABASE
     volumes:
       - mysql-database-data-volume:/var/lib/order-database
-    networks:
-      - oee-compose-network
+
 
   stock-service:
-    build: stock-service
+    container_name: stock-service
+    image: bsessevmez/stock-service:latest
+    build:
+      context: stock-service
+      dockerfile: Dockerfile
     environment:
-      RABBIT_URI: amqp://guest:guest@rabbitmq:5672
-      RDS_HOSTNAME: stock-database
-      RDS_PORT: 3306
-      RDS_DB_NAME: cloudoeedb
-      RDS_USERNAME: dummy-user
-      RDS_PASSWORD: dummy
-      CONFIG_HOST:  config-service
-      FAIL_FAST: 'true'
-      EUREKA_HOSTNAME: eureka-server
-      ZIPKIN_HOST: zipkin-server
-    ports:
-      - "8070:8070"
+      # RABBIT_URI: $RABBIT_URI
+      RDS_HOSTNAME: $RDS_STOCK_HOSTNAME
+      RDS_PORT: $RDS_PORT
+      RDS_DB_NAME: $RDS_DB_NAME
+      RDS_USERNAME: $RDS_USERNAME
+      RDS_PASSWORD: $RDS_PASSWORD
+      CONFIG_URI:  $CONFIG_URI
+      FAIL_FAST: $FAIL_FAST
+      EUREKA_URI: $EUREKA_URI
+      ZIPKIN_URI: $ZIPKIN_URI
+      KEYCLOAK_URI: $KEYCLOAK_URI
+    #    ports:
+    #      - "8070:8070"
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"
     restart: always
     depends_on:
       - eureka-server
-      - rabbitmq
-      - zipkin-server
+      # - rabbitmq
+      #      - zipkin-server
       - config-service
-    networks:
-      - oee-compose-network
+
 
   stock-database:
-    build:
+    container_name: stock-database
+    image: mysql:8.0
     ports:
       - "3311:3306"
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: dummy-user
-      MYSQL_PASSWORD: dummy
-      MYSQL_DATABASE: cloudoeedb
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+      MYSQL_DATABASE: $MYSQL_DATABASE
     volumes:
       - mysql-database-data-volume:/var/lib/stock-database
-    networks:
-      - oee-compose-network
+
+
+  keycloak-database:
+    container_name: keycloak-database
+    image: mysql:5.7
+    volumes:
+      - mysql-database-data-volume:/var/lib/mysql-keycloak
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: keycloak
+      MYSQL_USER: keycloak
+      MYSQL_PASSWORD: password
+    ports:
+      - "3312:3306"
+
+
+  keycloak:
+    container_name: keycloak
+    image: quay.io/keycloak/keycloak:latest
+    environment:
+      VIRTUAL_HOST: auth.arcloudfactories.com
+      VIRTUAL_PORT: 8080
+      LETSENCRYPT_HOST: auth.arcloudfactories.com
+      LETSENCRYPT_EMAIL: sessevmezbugra@gmail.com
+      PROXY_ADDRESS_FORWARDING: "true"
+      JDBC_PARAMS: "ssl=false"
+      DB_VENDOR: MYSQL
+      DB_ADDR: keycloak-database
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_PASSWORD: password
+      KEYCLOAK_HTTP_PORT: 8080
+      KEYCLOAK_HOSTNAME: auth.arcloudfactories.com
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the MySQL JDBC driver documentation in order to use it.
+      #JDBC_PARAMS: "connectTimeout=30000"
+    ports:
+      - 8081:8080
+    depends_on:
+      - keycloak-database
+      - nginx-proxy
+
+
+  auth-service:
+    container_name: auth-service
+    environment:
+      #      RABBIT_URI: $RABBIT_URI
+      RDS_HOSTNAME: $RDS_AUTH_HOSTNAME
+      RDS_PORT: $RDS_PORT
+      RDS_DB_NAME: keycloak
+      RDS_USERNAME: keycloak
+      RDS_PASSWORD: password
+      CONFIG_URI:  $CONFIG_URI
+      FAIL_FAST: $FAIL_FAST
+      EUREKA_URI: $EUREKA_URI
+      ZIPKIN_URI: $ZIPKIN_URI
+      KEYCLOAK_URI: $KEYCLOAK_URI
+    image: bsessevmez/auth-service:latest
+    build:
+      context: auth-service
+      dockerfile: Dockerfile
+    # ports:
+    #   - "5000:5000"
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"
+    restart: always
+    depends_on:
+      - eureka-server
+      - keycloak
+      - keycloak-database
+      - config-service
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.2.0
+    ports:
+      - "9200:9200"
+    environment:
+      - "discovery.type=single-node"
+    volumes:
+      - ./elasticsearch/data:/usr/share/elasticsearch/data:rw              # Persistence data
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.2.0
+    ports:
+      - "25826:25826"
+      - "5044:5044"
+    volumes:
+      - ./logstash/pipeline:/usr/share/logstash/pipeline:ro                # Pipeline configuration
+    restart: on-failure
+    depends_on:
+      - elasticsearch
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.2.0
+    ports:
+      - "5601:5601"
+    restart: on-failure
+    depends_on:
+      - elasticsearch
+
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:7.2.0
+    volumes:
+      - ./filebeat/filebeat.docker.yml:/usr/share/filebeat/filebeat.yml:ro # Configuration file
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro           # Docker logs
+      - /var/run/docker.sock:/var/run/docker.sock:ro                       # Additional information about containers
+      - ./filebeat/data:/usr/share/filebeat/data:rw                        # Persistence data
+    user: root                                                             # Allow access to log files and docker.sock
+    restart: on-failure
+    depends_on:
+      - logstash
+
 
 # Volumes
 volumes:
   mysql-database-data-volume:
+  conf:
+  vhost:
+  html:
+  dhparam:
+  certs:
+  acme:
 
-# Networks to be created to facilitate communication between containers
 networks:
-  oee-compose-network:
+  default:
+    external:
+      name: webproxy

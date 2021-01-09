@@ -20,7 +20,7 @@ spring:
 keycloak:
   resource: confirmation-service
   credentials: 
-    secret: b1021c74-0c4a-46d9-8d9f-e314017a44b8
+    secret: 5fac81f3-a513-4583-8b24-9e0aa443588a
 #  use-resource-role-mappings: true
      
 server:

@@ -6,7 +6,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.oee.enums.Status;
+import com.oee.enums.OrderStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,9 +32,9 @@ public class ProdRunHdr {
 	@Column(name="END_TIME")
 	private Date endTime;
 
-	@Column(name="STATUS")
+	@Column(name="ORDER_STATUS")
 	@Enumerated(EnumType.STRING)
-	private Status status;
+	private OrderStatus orderStatus;
 	
 	@JsonManagedReference
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="prodRunHdr")

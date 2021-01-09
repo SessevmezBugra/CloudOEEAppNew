@@ -97,23 +97,30 @@ public class PlantInfoServiceImpl implements PlantInfoService{
 		Boolean isCompanyOwner = currentUser.hasRole(UserRole.COMPANY_OWNER.getRole());
 		Boolean isClientManager = currentUser.hasRole(UserRole.CLIENT_MANAGER.getRole());
 		Boolean isPlantManager = currentUser.hasRole(UserRole.PLANT_MANAGER.getRole());
+		Boolean isOperator = currentUser.hasRole(UserRole.OPERATOR.getRole());
 		List<PlantInfo> plantInfos = new ArrayList<>();
 		if(isCompanyOwner) {
 			List<ResponsibleAreaDto> areaDtos = authServiceClient.getResponsibleArea().getBody();
 			//Daha sonra bu streame area type filtresi eklenmeli.
-			List<Long> ids = areaDtos.stream().filter(rad -> rad.getAreaType().equals(AreaType.COMPANY.name())).map(ResponsibleAreaDto::getAreaId).collect(Collectors.toList());
+			List<Long> ids = areaDtos.stream().filter(rad -> rad.getAreaType().equals(AreaType.COMPANY)).map(ResponsibleAreaDto::getAreaId).collect(Collectors.toList());
 			plantInfos = plantInfoRepository.findByClientCompanyCompanyIdIn(ids);
 			return  plantInfos;
 		}else if(isClientManager) {
 			List<ResponsibleAreaDto> areaDtos = authServiceClient.getResponsibleArea().getBody();
 			//Daha sonra bu streame area type filtresi eklenmeli.
-			List<Long> ids = areaDtos.stream().filter(rad -> rad.getAreaType().equals(AreaType.CLIENT.name())).map(ResponsibleAreaDto::getAreaId).collect(Collectors.toList());
+			List<Long> ids = areaDtos.stream().filter(rad -> rad.getAreaType().equals(AreaType.CLIENT)).map(ResponsibleAreaDto::getAreaId).collect(Collectors.toList());
 			plantInfos = plantInfoRepository.findByClientClientIdIn(ids);
 			return  plantInfos;
 		}else if(isPlantManager) {
 			List<ResponsibleAreaDto> areaDtos = authServiceClient.getResponsibleArea().getBody();
 			//Daha sonra bu streame area type filtresi eklenmeli.
-			List<Long> ids = areaDtos.stream().filter(rad -> rad.getAreaType().equals(AreaType.PLANT.name())).map(ResponsibleAreaDto::getAreaId).collect(Collectors.toList());
+			List<Long> ids = areaDtos.stream().filter(rad -> rad.getAreaType().equals(AreaType.PLANT)).map(ResponsibleAreaDto::getAreaId).collect(Collectors.toList());
+			plantInfos = plantInfoRepository.findAllById(ids);
+			return  plantInfos;
+		}else if(isOperator) {
+			List<ResponsibleAreaDto> areaDtos = authServiceClient.getResponsibleArea().getBody();
+			//Daha sonra bu streame area type filtresi eklenmeli.
+			List<Long> ids = areaDtos.stream().filter(rad -> rad.getAreaType().equals(AreaType.PLANT)).map(ResponsibleAreaDto::getAreaId).collect(Collectors.toList());
 			plantInfos = plantInfoRepository.findAllById(ids);
 			return  plantInfos;
 		}

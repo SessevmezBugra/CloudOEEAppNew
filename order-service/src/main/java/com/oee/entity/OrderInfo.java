@@ -6,7 +6,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.oee.enums.Status;
+import com.oee.enums.OrderStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -34,7 +34,7 @@ public class OrderInfo {
 	
 	@Column(name="ORDER_STATUS")
 	@Enumerated(EnumType.STRING)
-	private Status status;
+	private OrderStatus orderStatus;
 	
 	@Column(name="PLANNED_START_DATE")
 	private Date plannedStartDate;

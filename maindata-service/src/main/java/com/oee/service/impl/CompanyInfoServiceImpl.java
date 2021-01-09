@@ -8,6 +8,8 @@ import com.oee.dto.UserEntityDto;
 import com.oee.entity.ClientInfo;
 import com.oee.entity.PlantInfo;
 import com.oee.entity.WarehouseInfo;
+import com.oee.enums.AreaType;
+import com.oee.enums.UserRole;
 import com.oee.error.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +42,7 @@ public class CompanyInfoServiceImpl implements CompanyInfoService{
 	public List<CompanyInfo> findCompanies() {
 		List<ResponsibleAreaDto> areaDtos = authServiceClient.getResponsibleArea().getBody();
 		//Daha sonra bu streame area type filtresi eklenmeli.
-		List<Long> ids = areaDtos.stream().filter(rad -> rad.getAreaType().equals("COMPANY")).map(ResponsibleAreaDto::getAreaId).collect(Collectors.toList());
+		List<Long> ids = areaDtos.stream().filter(rad -> rad.getAreaType().equals(AreaType.COMPANY)).map(ResponsibleAreaDto::getAreaId).collect(Collectors.toList());
 		return companyInfoRepository.findAllById(ids);
 	}
 
@@ -53,7 +55,8 @@ public class CompanyInfoServiceImpl implements CompanyInfoService{
 		companyInfoRepository.save(companyInfo);
 		ResponsibleAreaDto responsibleAreaDto = new ResponsibleAreaDto();
 		responsibleAreaDto.setAreaId(companyInfo.getCompanyId());
-		responsibleAreaDto.setAreaType("COMPANY");
+		responsibleAreaDto.setAreaType(AreaType.COMPANY);
+		responsibleAreaDto.setUserRole(UserRole.COMPANY_OWNER);
 		UserEntityDto userEntityDto = new UserEntityDto();
 		userEntityDto.setId(currentUserProvider.getCurrentUser().getUserId());
 		responsibleAreaDto.setUserEntity(userEntityDto);

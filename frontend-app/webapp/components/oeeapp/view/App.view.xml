@@ -42,7 +42,7 @@
 		<tnt:sideContent>
 			<tnt:SideNavigation expanded="true" itemSelect=".onItemSelect">
 				<tnt:NavigationList>
-					<tnt:NavigationListItem text="Siparisleri Yonet" key="orderList" icon="sap-icon://order-status"/>
+					<tnt:NavigationListItem text="Siparisleri Yonet" key="orderList" icon="sap-icon://order-orderStatus"/>
 					<tnt:NavigationListItem text="Uretim Bildir" key="reportProduction" icon="sap-icon://add-product">
 					</tnt:NavigationListItem>
 					<tnt:NavigationListItem text="Tuketim Bildir" key="reportConsumption" icon="sap-icon://back-to-top">

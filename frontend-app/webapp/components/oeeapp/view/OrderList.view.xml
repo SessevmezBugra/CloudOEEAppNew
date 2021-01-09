@@ -58,10 +58,10 @@
 										<ObjectIdentifier text="{orderModel>orderNo}" />
 										<ObjectIdentifier text="{orderModel>customer}" />
 										<ObjectStatus text="{
-										path: 'orderModel>status',
+										path: 'orderModel>orderStatus',
 										formatter: '.formatter.statusText'
 										}" state="{
-										path: 'orderModel>status',
+										path: 'orderModel>orderStatus',
 										formatter: '.formatter.statusStats'
 										}" />
 										<Text text="{
@@ -75,16 +75,16 @@
 										<ObjectIdentifier text="{orderModel>materialDesc}" />
 										<HBox>
 											<items>
-												<Button text="Baslat" visible="{= ${orderModel>status} === 'NEW'}" type="Accept" class="sapUiSmallMarginEnd" press="startOrder">
+												<Button text="Baslat" visible="{= ${orderModel>orderStatus} === 'NEW'}" type="Accept" class="sapUiSmallMarginEnd" press="startOrder">
 													
 												</Button>
-												<Button text="Beklet" visible="{= ${orderModel>status} === 'ACT'}" type="Emphasized" class="sapUiSmallMarginEnd" press="holdOrder">
+												<Button text="Beklet" visible="{= ${orderModel>orderStatus} === 'ACT'}" type="Emphasized" class="sapUiSmallMarginEnd" press="holdOrder">
 													
 												</Button>
-												<Button text="Devam Ettir" visible="{= ${orderModel>status} === 'HOLD'}" type="Accept" class="sapUiSmallMarginEnd" press="resumeOrder">
+												<Button text="Devam Ettir" visible="{= ${orderModel>orderStatus} === 'HOLD'}" type="Accept" class="sapUiSmallMarginEnd" press="resumeOrder">
 													
 												</Button>
-												<Button text="Tamamla" visible="{= ${orderModel>status} === 'ACT'}" type="Accept" class="sapUiSmallMarginEnd" press="completeOrder">
+												<Button text="Tamamla" visible="{= ${orderModel>orderStatus} === 'ACT'}" type="Accept" class="sapUiSmallMarginEnd" press="completeOrder">
 													
 												</Button>
 											</items>

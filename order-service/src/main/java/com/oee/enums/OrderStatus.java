@@ -1,6 +1,6 @@
 package com.oee.enums;
 
-public enum Status {
+public enum OrderStatus {
     ACT,
     CMPL,
     HOLD,

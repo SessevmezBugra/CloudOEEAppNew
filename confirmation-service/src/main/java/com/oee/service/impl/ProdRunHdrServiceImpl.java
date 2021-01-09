@@ -3,7 +3,7 @@ package com.oee.service.impl;
 import java.util.List;
 
 import com.oee.config.CurrentUserProvider;
-import com.oee.enums.Status;
+import com.oee.enums.OrderStatus;
 import org.springframework.stereotype.Service;
 
 import com.oee.entity.ProdRunHdr;
@@ -56,11 +56,11 @@ public class ProdRunHdrServiceImpl implements ProdRunHdrService{
 	@Override
 	public ProdRunHdr start(ProdRunHdr prodRunHdrDto) {
 		ProdRunHdr lastProdRunHdr = prodRunHdrRepository.findTopByOrderIdOrderByRunIdDesc(prodRunHdrDto.getOrderId());
-		if (lastProdRunHdr != null && lastProdRunHdr.getStatus() != Status.HOLD) {
+		if (lastProdRunHdr != null && lastProdRunHdr.getOrderStatus() != OrderStatus.HOLD) {
 			throw new RuntimeException("Bu siparisin durumu baslatmak icin uygun degildir.");
 		}
 		ProdRunHdr newProdRunHdr = new ProdRunHdr();
-		newProdRunHdr.setStatus(Status.ACT);
+		newProdRunHdr.setOrderStatus(OrderStatus.ACT);
 		newProdRunHdr.setStartedUser(currentUserProvider.getCurrentUser().getUsername());
 		newProdRunHdr.setStartTime(prodRunHdrDto.getStartTime());
 		newProdRunHdr.setOrderId(prodRunHdrDto.getOrderId());
@@ -70,10 +70,10 @@ public class ProdRunHdrServiceImpl implements ProdRunHdrService{
 	@Override
 	public ProdRunHdr hold(ProdRunHdr prodRunHdrDto) {
 		ProdRunHdr lastProdRunHdr = prodRunHdrRepository.findTopByOrderIdOrderByRunIdDesc(prodRunHdrDto.getOrderId());
-		if (lastProdRunHdr == null || lastProdRunHdr.getStatus() != Status.ACT) {
+		if (lastProdRunHdr == null || lastProdRunHdr.getOrderStatus() != OrderStatus.ACT) {
 			throw new RuntimeException("Bu siparisin durumu baslatmak icin uygun degildir.");
 		}
-		lastProdRunHdr.setStatus(Status.HOLD);
+		lastProdRunHdr.setOrderStatus(OrderStatus.HOLD);
 		lastProdRunHdr.setEndingUser(currentUserProvider.getCurrentUser().getUsername());
 		lastProdRunHdr.setEndTime(prodRunHdrDto.getEndTime());
 		return prodRunHdrRepository.save(lastProdRunHdr);
@@ -82,10 +82,10 @@ public class ProdRunHdrServiceImpl implements ProdRunHdrService{
 	@Override
 	public ProdRunHdr complete(ProdRunHdr prodRunHdrDto) {
 		ProdRunHdr lastProdRunHdr = prodRunHdrRepository.findTopByOrderIdOrderByRunIdDesc(prodRunHdrDto.getOrderId());
-		if (lastProdRunHdr == null || lastProdRunHdr.getStatus() != Status.ACT) {
+		if (lastProdRunHdr == null || lastProdRunHdr.getOrderStatus() != OrderStatus.ACT) {
 			throw new RuntimeException("Bu siparisi tamamlamak icin baslatmaniz gerekmektedir.");
 		}
-		lastProdRunHdr.setStatus(Status.CMPL);
+		lastProdRunHdr.setOrderStatus(OrderStatus.CMPL);
 		lastProdRunHdr.setEndingUser(currentUserProvider.getCurrentUser().getUsername());
 		lastProdRunHdr.setEndTime(prodRunHdrDto.getEndTime());
 		return prodRunHdrRepository.save(lastProdRunHdr);

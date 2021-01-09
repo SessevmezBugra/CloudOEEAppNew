@@ -74,9 +74,9 @@ public class ResponsibleAreaServiceImpl implements ResponsibleAreaService{
 	public List<ResponsibleAreaDto> findByUserId(String userId) {
 		List<ResponsibleArea> responsibleAreas = responsibleAreaRepository.findByUserEntityId(userId);
 		List<ResponsibleAreaDto> responsibleAreaDtos = Arrays.asList(modelMapper.map(responsibleAreas, ResponsibleAreaDto[].class));
-		List<Long> companyIds = responsibleAreaDtos.stream().filter(responsibleAreaDto -> responsibleAreaDto.getAreaType().name().equals(AreaType.COMPANY.name())).map(ResponsibleAreaDto::getAreaId).collect(Collectors.toList());
-		List<Long> clientIds = responsibleAreaDtos.stream().filter(responsibleAreaDto -> responsibleAreaDto.getAreaType().name().equals(AreaType.CLIENT.name())).map(ResponsibleAreaDto::getAreaId).collect(Collectors.toList());
-		List<Long> plantIds = responsibleAreaDtos.stream().filter(responsibleAreaDto -> responsibleAreaDto.getAreaType().name().equals(AreaType.PLANT.name())).map(ResponsibleAreaDto::getAreaId).collect(Collectors.toList());
+		List<Long> companyIds = responsibleAreaDtos.stream().filter(responsibleAreaDto -> responsibleAreaDto.getAreaType().equals(AreaType.COMPANY)).map(ResponsibleAreaDto::getAreaId).collect(Collectors.toList());
+		List<Long> clientIds = responsibleAreaDtos.stream().filter(responsibleAreaDto -> responsibleAreaDto.getAreaType().equals(AreaType.CLIENT)).map(ResponsibleAreaDto::getAreaId).collect(Collectors.toList());
+		List<Long> plantIds = responsibleAreaDtos.stream().filter(responsibleAreaDto -> responsibleAreaDto.getAreaType().equals(AreaType.PLANT)).map(ResponsibleAreaDto::getAreaId).collect(Collectors.toList());
 		List<CompanyDto> companyDtos = new ArrayList<>();
 		List<ClientDto> clientDtos = new ArrayList<>();
 		List<PlantDto> plantDtos = new ArrayList<>();

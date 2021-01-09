@@ -1,46 +1,22 @@
 package com.oee.dto;
 
 
+import com.oee.enums.AreaType;
+import com.oee.enums.UserRole;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+
+@Getter
+@Setter
+@NoArgsConstructor
 public class ResponsibleAreaDto {
 
     private Long id;
     private Long areaId;
-    private String areaType;
+    private AreaType areaType;
+    private UserRole userRole;
     private UserEntityDto userEntity;
 
-    public ResponsibleAreaDto() {
-    }
-
-    public Long getAreaId() {
-        return areaId;
-    }
-
-    public void setAreaId(Long areaId) {
-        this.areaId = areaId;
-    }
-
-    public String getAreaType() {
-        return areaType;
-    }
-
-    public void setAreaType(String areaType) {
-        this.areaType = areaType;
-    }
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public UserEntityDto getUserEntity() {
-        return userEntity;
-    }
-
-    public void setUserEntity(UserEntityDto userEntity) {
-        this.userEntity = userEntity;
-    }
 }

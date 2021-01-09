@@ -137,10 +137,10 @@
 													path: 'orderModel>endTime',
 													formatter: '.formatter.dateFormat'}"/>
 														<m:ObjectStatus text="{
-															path: 'orderModel>status',
+															path: 'orderModel>orderStatus',
 															formatter: '.formatter.statusText'
 															}" state="{
-															path: 'orderModel>status',
+															path: 'orderModel>orderStatus',
 															formatter: '.formatter.statusStats'}" />
 														<m:ObjectIdentifier text="{orderModel>startedUser}" />
 														<m:ObjectIdentifier text="{orderModel>endingUser}" />

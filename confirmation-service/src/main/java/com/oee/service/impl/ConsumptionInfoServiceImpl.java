@@ -11,7 +11,7 @@ import com.oee.client.StockServiceClient;
 import com.oee.config.CurrentUserProvider;
 import com.oee.dto.*;
 import com.oee.entity.ProdRunHdr;
-import com.oee.enums.Status;
+import com.oee.enums.OrderStatus;
 import com.oee.error.EntityNotFoundException;
 import com.oee.service.ProdRunHdrService;
 import lombok.RequiredArgsConstructor;
@@ -93,7 +93,7 @@ public class ConsumptionInfoServiceImpl implements ConsumptionInfoService{
 	@Override
 	public List<ConsumptionInfo> createAll(Long orderId, List<ConsumptionInfo> consumptionInfos) {
 		ProdRunHdr prodRunHdr = prodRunHdrService.findLastProdRunHdrByOrderId(orderId);
-		if(prodRunHdr == null || prodRunHdr.getStatus() != Status.ACT) {
+		if(prodRunHdr == null || prodRunHdr.getOrderStatus() != OrderStatus.ACT) {
 			throw new EntityNotFoundException("Boyle bir siparis olusturulmamis veya baslatilmamistir!");
 		}
 

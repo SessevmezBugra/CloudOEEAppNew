@@ -2,7 +2,7 @@ package com.oee.repository;
 
 import java.util.List;
 
-import com.oee.enums.Status;
+import com.oee.enums.OrderStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.oee.entity.OrderInfo;
@@ -18,5 +18,5 @@ public interface OrderInfoRepository extends JpaRepository<OrderInfo, Long>{
     @Transactional
     void deleteByPlantIdIn(List<Long> plantIds);
 
-    List<OrderInfo> findByPlantIdInAndStatus(List<Long> ids, Status status);
+    List<OrderInfo> findByPlantIdInAndStatus(List<Long> ids, OrderStatus orderStatus);
 }
