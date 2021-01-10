@@ -25,6 +25,7 @@ public class ReasonCodeServiceImpl implements ReasonCodeService {
         ReasonCode code = reasonCodeRepository.findById(reasonCode.getReasonId()).get();
         code.setReasonCode(reasonCode.getReasonCode());
         code.setReasonDesc(reasonCode.getReasonDesc());
+        code.setReasonCodeType(reasonCode.getReasonCodeType());
         return reasonCodeRepository.save(code);
     }
 

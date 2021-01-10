@@ -88,13 +88,13 @@ public class ClientInfoServiceImpl implements ClientInfoService{
 		if(isCompanyOwner) {
 			List<ResponsibleAreaDto> areaDtos = authServiceClient.getResponsibleArea().getBody();
 			//Daha sonra bu streame area type filtresi eklenmeli.
-			List<Long> ids = areaDtos.stream().filter(rad -> rad.getAreaType().equals(AreaType.COMPANY.name())).map(ResponsibleAreaDto::getAreaId).collect(Collectors.toList());
+			List<Long> ids = areaDtos.stream().filter(rad -> rad.getAreaType().equals(AreaType.COMPANY)).map(ResponsibleAreaDto::getAreaId).collect(Collectors.toList());
 			clientInfos = clientInfoRepository.findByCompanyCompanyIdIn(ids);
 			return clientInfos;
 		} else if(isClientManager) {
 			List<ResponsibleAreaDto> areaDtos = authServiceClient.getResponsibleArea().getBody();
 			//Daha sonra bu streame area type filtresi eklenmeli.
-			List<Long> ids = areaDtos.stream().filter(rad -> rad.getAreaType().equals(AreaType.CLIENT.name())).map(ResponsibleAreaDto::getAreaId).collect(Collectors.toList());
+			List<Long> ids = areaDtos.stream().filter(rad -> rad.getAreaType().equals(AreaType.CLIENT)).map(ResponsibleAreaDto::getAreaId).collect(Collectors.toList());
 			clientInfos =  clientInfoRepository.findAllById(ids);
 			return clientInfos;
 		}

@@ -49,6 +49,10 @@ public class PlantInfo {
 	@JsonManagedReference
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="plant")
 	private List<QualityType> qualityTypes;
+
+	@JsonManagedReference
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="plant")
+	private List<Machine> machines;
 	
 	@JsonBackReference
 	@ManyToOne(optional=true)

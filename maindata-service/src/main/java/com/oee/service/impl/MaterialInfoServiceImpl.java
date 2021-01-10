@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import com.oee.client.AuthServiceClient;
 import com.oee.dto.CurrentUser;
 import com.oee.dto.ResponsibleAreaDto;
+import com.oee.enums.AreaType;
+import com.oee.enums.UserRole;
 import org.springframework.stereotype.Service;
 
 import com.oee.entity.MaterialInfo;
@@ -57,15 +59,15 @@ public class MaterialInfoServiceImpl implements MaterialInfoService{
 	@Override
 	public List<MaterialInfo> getMaterialByLoggedUser() {
 		CurrentUser currentUser = currentUserProvider.getCurrentUser();
-		Boolean isCompanyOwner = currentUser.hasRole("ROLE_COMPANY_OWNER");
-		Boolean isClientManager = currentUser.hasRole("ROLE_CLIENT_MANAGER");
-		Boolean isPlantManager = currentUser.hasRole("ROLE_PLANT_MANAGER");
-		Boolean isOperator = currentUser.hasRole("ROLE_OPERATOR");
+		Boolean isCompanyOwner = currentUser.hasRole(UserRole.COMPANY_OWNER.getRole());
+		Boolean isClientManager = currentUser.hasRole(UserRole.CLIENT_MANAGER.getRole());
+		Boolean isPlantManager = currentUser.hasRole(UserRole.PLANT_MANAGER.getRole());
+		Boolean isOperator = currentUser.hasRole(UserRole.OPERATOR.getRole());
 
 		if(isCompanyOwner) {
 			List<ResponsibleAreaDto> areaDtos = authServiceClient.getResponsibleArea().getBody();
 			//Daha sonra bu streame area type filtresi eklenmeli.
-			List<Long> ids = areaDtos.stream().filter(rad -> rad.getAreaType().equals("COMPANY")).map(ResponsibleAreaDto::getAreaId).collect(Collectors.toList());
+			List<Long> ids = areaDtos.stream().filter(rad -> rad.getAreaType().equals(AreaType.COMPANY)).map(ResponsibleAreaDto::getAreaId).collect(Collectors.toList());
 			return materialInfoRepository.findByPlantClientCompanyCompanyIdIn(ids);
 		}
 

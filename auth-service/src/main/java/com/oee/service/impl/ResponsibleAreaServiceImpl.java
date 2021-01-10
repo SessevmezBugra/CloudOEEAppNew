@@ -93,21 +93,21 @@ public class ResponsibleAreaServiceImpl implements ResponsibleAreaService{
 		}
 		for (ResponsibleAreaDto responsibleAreaDto : responsibleAreaDtos) {
 			System.err.println(responsibleAreaDto.getAreaType().name());
-			if (responsibleAreaDto.getAreaType().name().equals(AreaType.COMPANY.name())) {
+			if (responsibleAreaDto.getAreaType().equals(AreaType.COMPANY)) {
 				for (CompanyDto companyDto : companyDtos) {
 					if (responsibleAreaDto.getAreaId() == companyDto.getCompanyId()) {
 						responsibleAreaDto.setAreaName(companyDto.getCompanyName());
 						break;
 					}
 				}
-			}else if (responsibleAreaDto.getAreaType().name().equals(AreaType.CLIENT.name())) {
+			}else if (responsibleAreaDto.getAreaType().equals(AreaType.CLIENT)) {
 				for (ClientDto clientDto : clientDtos) {
 					if (responsibleAreaDto.getAreaId() == clientDto.getClientId()) {
 						responsibleAreaDto.setAreaName(clientDto.getClientName());
 						break;
 					}
 				}
-			}else if(responsibleAreaDto.getAreaType().name().equals(AreaType.PLANT.name())) {
+			}else if(responsibleAreaDto.getAreaType().equals(AreaType.PLANT)) {
 				System.err.println("Planta girdi");
 				for (PlantDto plantDto : plantDtos) {
 					System.err.println("Plant Id: " + plantDto.getPlantId());

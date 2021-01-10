@@ -48,7 +48,7 @@ public class CompanyInfoServiceImpl implements CompanyInfoService{
 
 	@Override
 	public CompanyInfo create(CompanyInfo companyInfo) {
-		Boolean isCompanyOwner = currentUserProvider.getCurrentUser().getRoles().contains("ROLE_COMPANY_OWNER");
+		Boolean isCompanyOwner = currentUserProvider.getCurrentUser().getRoles().contains(UserRole.COMPANY_OWNER.getRole());
 		if (!isCompanyOwner){
 			authServiceClient.addCompanyOwnerRole();
 		}

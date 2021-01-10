@@ -38,5 +38,9 @@ public final class ApiPaths {
 	public static final class QualityTypeCtrl {
 		public static final String CTRL = BASE_PATH + "/quality-type";
 	}
+
+	public static final class MachineCtrl {
+		public static final String CTRL = BASE_PATH + "/machine";
+	}
 	
 }
