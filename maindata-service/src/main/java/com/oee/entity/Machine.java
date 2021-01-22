@@ -1,11 +1,12 @@
 package com.oee.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -15,18 +16,21 @@ import javax.persistence.*;
 public class Machine {
 
     @Id
-    @Column(name = "MACHINE_ID")
+    @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long machineId;
+    private Long id;
 
-    @JsonBackReference
-    @ManyToOne(optional=true)
-    @JoinColumn(name="PLANT_ID")
-    private PlantInfo plant;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "NODE_ID", referencedColumnName = "ID")
+    private Node node;
 
-    @Column(name = "MACHINE_CODE")
-    private String machineCode;
+    @Column(name = "MACHINE_NAME")
+    private String name;
 
     @Column(name = "MACHINE_DESC")
-    private String machineDesc;
+    private String desc;
+
+    @JsonManagedReference
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="machine")
+    private List<Equipment> equipments;
 }

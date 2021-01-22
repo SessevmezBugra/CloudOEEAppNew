@@ -68,6 +68,7 @@
         <module>config-service</module>
         <module>eureka-server</module>
         <module>auth-service</module>
+        <module>downtime-service</module>
     </modules>
 
     <dependencyManagement>

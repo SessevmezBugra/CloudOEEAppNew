@@ -1,5 +1,9 @@
 package com.oee.entity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,46 +13,20 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="UNIT_OF_MEASURES")
+@Getter
+@Setter
+@NoArgsConstructor
 public class UnitOfMeasures {
 	
 	@Id
-	@Column(name="UOM_ID")
+	@Column(name="ID")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer uomId;
+	private Integer id;
 	
 	@Column(name="UOM_CODE")
-	private String	uomCode;
+	private String	code;
 	
 	@Column(name="UOM_DESC")
-	private String	uomDesc;
-	
-	public UnitOfMeasures() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public String getUomCode() {
-		return uomCode;
-	}
-
-	public void setUomCode(String uomCode) {
-		this.uomCode = uomCode;
-	}
-
-	public String getUomDesc() {
-		return uomDesc;
-	}
-
-	public void setUomDesc(String uomDesc) {
-		this.uomDesc = uomDesc;
-	}
-
-	public Integer getUomId() {
-		return uomId;
-	}
-
-	public void setUomId(Integer uomId) {
-		this.uomId = uomId;
-	}
-	
+	private String	desc;
 	
 }

@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface QualityTypeRepository extends JpaRepository<QualityType, Long> {
-    List<QualityType> findByPlantPlantId(Long id);
+    List<QualityType> findByPlantId(Long id);
 }

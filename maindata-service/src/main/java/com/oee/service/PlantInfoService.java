@@ -2,23 +2,16 @@ package com.oee.service;
 
 import java.util.List;
 
-import com.oee.entity.PlantInfo;
+import com.oee.entity.Plant;
 
 public interface PlantInfoService {
 	
-	PlantInfo create(PlantInfo plantInfo);
+	Plant create(Plant plant);
 	
-	PlantInfo update(PlantInfo plantInfo);
+	Plant update(Plant plant);
 	
 	Boolean delete(Long plantId);
 	
-	PlantInfo getById(Long plantId);
-	
-	List<PlantInfo> getByClientId(Long clientId);
+	Plant getById(Long plantId);
 
-	List<PlantInfo> getPlantByLoggedUser();
-
-    PlantInfo getByWarehouseId(Long warehouseId);
-
-	List<PlantInfo> getPlantByIds(List<Long> ids);
 }

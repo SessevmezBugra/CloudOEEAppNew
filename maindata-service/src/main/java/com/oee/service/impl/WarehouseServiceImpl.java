@@ -8,12 +8,10 @@ import com.oee.client.AuthServiceClient;
 import com.oee.dto.CurrentUser;
 import com.oee.dto.ResponsibleAreaDto;
 import com.oee.dto.WarehouseDto;
-import com.oee.enums.AreaType;
-import com.oee.enums.UserRole;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import com.oee.entity.WarehouseInfo;
+import com.oee.entity.Warehouse;
 import com.oee.repository.WarehouseRepository;
 import com.oee.service.WarehouseService;
 
@@ -33,14 +31,14 @@ public class WarehouseServiceImpl implements WarehouseService {
 	}
 
 	@Override
-	public WarehouseInfo create(WarehouseInfo warehouseInfo) {
-		return repository.save(warehouseInfo);
+	public Warehouse create(Warehouse warehouse) {
+		return repository.save(warehouse);
 	}
 
 	@Override
-	public WarehouseInfo update(WarehouseInfo warehouseInfo) {
-		WarehouseInfo warehouse = repository.findById(warehouseInfo.getWarehouseId()).get();
-		warehouse.setWarehouseName(warehouseInfo.getWarehouseName());
+	public Warehouse update(Warehouse warehouseInfo) {
+		Warehouse warehouse = repository.findById(warehouseInfo.getId()).get();
+		warehouse.setName(warehouseInfo.getName());
 		return repository.save(warehouse);
 	}
 
@@ -51,36 +49,12 @@ public class WarehouseServiceImpl implements WarehouseService {
 	}
 
 	@Override
-	public WarehouseInfo getById(Long warehouseId) {
+	public Warehouse getById(Long warehouseId) {
 		return repository.findById(warehouseId).get();
 	}
 
 	@Override
-	public List<WarehouseDto> getWarehouseByLoggedUser() {
-		CurrentUser currentUser = currentUserProvider.getCurrentUser();
-		Boolean isCompanyOwner = currentUser.hasRole(UserRole.COMPANY_OWNER.getRole());
-		Boolean isClientManager = currentUser.hasRole(UserRole.CLIENT_MANAGER.getRole());
-		Boolean isPlantManager = currentUser.hasRole(UserRole.PLANT_MANAGER.getRole());
-		Boolean isOperator = currentUser.hasRole(UserRole.OPERATOR.getRole());
-
-		if(isCompanyOwner) {
-			List<ResponsibleAreaDto> areaDtos = authServiceClient.getResponsibleArea().getBody();
-			//Daha sonra bu streame area type filtresi eklenmeli.
-			List<Long> ids = areaDtos.stream().filter(rad -> rad.getAreaType().equals(AreaType.COMPANY)).map(ResponsibleAreaDto::getAreaId).collect(Collectors.toList());
-			return Arrays.asList(modelMapper.map(repository.findByPlantClientCompanyCompanyIdIn(ids), WarehouseDto[].class));
-		}
-
-		throw new RuntimeException("Herhangi bir bolge bulunamadi.");
-
-	}
-
-	@Override
-	public List<WarehouseInfo> findByPlantId(Long plantId) {
-		return repository.findByPlantPlantId(plantId);
-	}
-
-	@Override
-	public List<WarehouseInfo> getByIds(List<Long> warehouseIds) {
+	public List<Warehouse> getByIds(List<Long> warehouseIds) {
 		return repository.findAllById(warehouseIds);
 	}
 

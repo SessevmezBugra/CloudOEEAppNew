@@ -1,7 +1,6 @@
 package com.oee.web;
 
 
-import com.oee.entity.PlantInfo;
 import com.oee.entity.QualityType;
 import com.oee.service.QualityTypeService;
 import com.oee.util.ApiPaths;

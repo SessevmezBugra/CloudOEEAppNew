@@ -3,21 +3,17 @@ package com.oee.service;
 import java.util.List;
 
 import com.oee.dto.WarehouseDto;
-import com.oee.entity.WarehouseInfo;
+import com.oee.entity.Warehouse;
 
 public interface WarehouseService {
 
-	WarehouseInfo create(WarehouseInfo warehouseInfo);
+	Warehouse create(Warehouse warehouse);
 	
-	WarehouseInfo update(WarehouseInfo warehouseInfo);
+	Warehouse update(Warehouse warehouse);
 	
 	Boolean deleteById(Long warehouseId);
 	
-	WarehouseInfo getById(Long warehouseId);
+	Warehouse getById(Long warehouseId);
 
-	List<WarehouseDto> getWarehouseByLoggedUser();
-
-	List<WarehouseInfo> findByPlantId(Long plantId);
-
-    List<WarehouseInfo> getByIds(List<Long> warehouseIds);
+    List<Warehouse> getByIds(List<Long> warehouseIds);
 }

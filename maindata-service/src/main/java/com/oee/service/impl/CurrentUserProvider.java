@@ -31,6 +31,7 @@ public class CurrentUserProvider {
         String userId = principal.getKeycloakSecurityContext().getToken().getSubject();
         String username = principal.toString();
         String email = principal.getKeycloakSecurityContext().getToken().getEmail();
+
         Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
 
         result.setUserId(userId);

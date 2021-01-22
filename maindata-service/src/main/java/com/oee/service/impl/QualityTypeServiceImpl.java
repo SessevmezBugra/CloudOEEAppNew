@@ -1,7 +1,6 @@
 package com.oee.service.impl;
 
 import com.oee.entity.QualityType;
-import com.oee.enums.QualityTypeEnum;
 import com.oee.error.EntityNotFoundException;
 import com.oee.repository.QualityTypeRepository;
 import com.oee.service.QualityTypeService;
@@ -23,11 +22,8 @@ public class QualityTypeServiceImpl implements QualityTypeService {
 
     @Override
     public QualityType update(QualityType qualityType) {
-        QualityType type = repository.findById(qualityType.getQualityId()).get();
-        if (!type.getQualityType().equals(QualityTypeEnum.FIRST_QUALITY.getQualityType()) && !type.getQualityType().equals(QualityTypeEnum.SECOND_QUALITY.getQualityType()) && !type.getQualityType().equals(QualityTypeEnum.SCRAP.getQualityType())){
-            type.setQualityDesc(qualityType.getQualityDesc());
-            type.setQualityType(qualityType.getQualityType());
-        }
+        QualityType type = repository.findById(qualityType.getId()).get();
+
         return repository.save(type);
     }
 
@@ -49,7 +45,7 @@ public class QualityTypeServiceImpl implements QualityTypeService {
 
     @Override
     public List<QualityType> findByPlantId(Long id) {
-        return repository.findByPlantPlantId(id);
+        return repository.findByPlantId(id);
     }
 
 }

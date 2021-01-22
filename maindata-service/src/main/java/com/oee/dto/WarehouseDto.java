@@ -1,7 +1,5 @@
 package com.oee.dto;
 
-import com.oee.entity.PlantInfo;
-
 public class WarehouseDto {
 
     private Long warehouseId;

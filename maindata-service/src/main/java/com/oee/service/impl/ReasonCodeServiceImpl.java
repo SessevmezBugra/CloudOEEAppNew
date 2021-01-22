@@ -22,10 +22,10 @@ public class ReasonCodeServiceImpl implements ReasonCodeService {
 
     @Override
     public ReasonCode update(ReasonCode reasonCode) {
-        ReasonCode code = reasonCodeRepository.findById(reasonCode.getReasonId()).get();
-        code.setReasonCode(reasonCode.getReasonCode());
-        code.setReasonDesc(reasonCode.getReasonDesc());
-        code.setReasonCodeType(reasonCode.getReasonCodeType());
+        ReasonCode code = reasonCodeRepository.findById(reasonCode.getId()).get();
+        code.setCode(reasonCode.getCode());
+        code.setDesc(reasonCode.getDesc());
+        code.setType(reasonCode.getType());
         return reasonCodeRepository.save(code);
     }
 
@@ -47,7 +47,7 @@ public class ReasonCodeServiceImpl implements ReasonCodeService {
 
     @Override
     public List<ReasonCode> findByPlantId(Long id) {
-        return reasonCodeRepository.findByPlantPlantId(id);
+        return reasonCodeRepository.findByPlantId(id);
     }
 
 }

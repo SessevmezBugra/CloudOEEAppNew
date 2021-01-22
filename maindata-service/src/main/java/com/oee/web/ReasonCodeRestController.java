@@ -1,6 +1,5 @@
 package com.oee.web;
 
-import com.oee.entity.PlantInfo;
 import com.oee.entity.ReasonCode;
 import com.oee.service.ReasonCodeService;
 import com.oee.util.ApiPaths;

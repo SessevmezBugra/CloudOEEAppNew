@@ -2,7 +2,7 @@ package com.oee.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.oee.enums.ReasonCodeType;
+import com.oee.enums.DataElementType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,23 +17,24 @@ import javax.persistence.*;
 public class ReasonCode {
 
     @Id
-    @Column(name="REASON_ID")
+    @Column(name="ID")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long reasonId;
+    private Long id;
 
     @JsonBackReference
     @ManyToOne(optional=true)
     @JoinColumn(name="PLANT_ID")
-    private PlantInfo plant;
+    private Plant plant;
 
-    @Column(name="REASON_TYPE")
-    private ReasonCodeType reasonCodeType;
+    @Enumerated(EnumType.STRING)
+    @Column(name="DATA_ELEMENT_TYPE")
+    private DataElementType type;
 
     @Column(name="REASON_CODE")
-    private String reasonCode;
+    private String code;
 
     @Column(name="REASON_DESC")
-    private String reasonDesc;
+    private String desc;
 
 
 

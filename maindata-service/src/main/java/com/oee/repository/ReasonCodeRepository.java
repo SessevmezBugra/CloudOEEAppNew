@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface ReasonCodeRepository extends JpaRepository<ReasonCode, Long> {
-    List<ReasonCode> findByPlantPlantId(Long id);
+    List<ReasonCode> findByPlantId(Long id);
 }

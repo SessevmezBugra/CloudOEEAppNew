@@ -2,6 +2,7 @@ package com.oee.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.oee.enums.DataElementType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,20 +17,21 @@ import javax.persistence.*;
 public class QualityType {
 
     @Id
-    @Column(name="QUALITY_ID")
+    @Column(name="ID")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long qualityId;
+    private Long id;
 
     @JsonBackReference
     @ManyToOne(optional=true)
     @JoinColumn(name="PLANT_ID")
-    private PlantInfo plant;
+    private Plant plant;
 
-    @Column(name="QUALITY_TYPE")
-    private String qualityType;
+    @Column(name="QUALITY_NAME")
+    private String name;
 
-    @Column(name="QUALITY_DESC")
-    private String qualityDesc;
+    @Column(name="DATA_ELEMENT_TYPE")
+    @Enumerated(EnumType.STRING)
+    private DataElementType type;
 
 
 }

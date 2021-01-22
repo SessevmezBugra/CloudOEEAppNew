@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.oee.entity.MaterialInfo;
+import com.oee.entity.Material;
 import com.oee.service.MaterialInfoService;
 import com.oee.util.ApiPaths;
 
@@ -24,13 +24,13 @@ public class MaterialInfoRestController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<MaterialInfo> createMaterialInfo(@RequestBody MaterialInfo materialInfo){
-		return ResponseEntity.ok(materialInfoService.create(materialInfo));
+	public ResponseEntity<Material> createMaterialInfo(@RequestBody Material material){
+		return ResponseEntity.ok(materialInfoService.create(material));
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT)
-	public ResponseEntity<MaterialInfo> updateMaterialInfo(@RequestBody MaterialInfo materialInfo){
-		return ResponseEntity.ok(materialInfoService.update(materialInfo));
+	public ResponseEntity<Material> updateMaterialInfo(@RequestBody Material material){
+		return ResponseEntity.ok(materialInfoService.update(material));
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
@@ -38,24 +38,14 @@ public class MaterialInfoRestController {
 		return ResponseEntity.ok(materialInfoService.delete(materialId));
 	}
 
-
-	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<MaterialInfo>> getMaterialByLoggedUser(){
-		return ResponseEntity.ok(materialInfoService.getMaterialByLoggedUser());
-	}
-
 	@RequestMapping(value="/ids", method=RequestMethod.POST)
-	public ResponseEntity<List<MaterialInfo>> getMaterialByIds(@RequestBody List<Long> ids){
+	public ResponseEntity<List<Material>> getMaterialByIds(@RequestBody List<Long> ids){
 		return ResponseEntity.ok(materialInfoService.getMaterialsByIds(ids));
 	}
 
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<MaterialInfo> getMaterialInfoById(@PathVariable(value="id", required=true) Long materialId){
+	public ResponseEntity<Material> getMaterialInfoById(@PathVariable(value="id", required=true) Long materialId){
 		return ResponseEntity.ok(materialInfoService.getById(materialId));
 	}
-	
-	@RequestMapping(value="/plant/{id}", method=RequestMethod.GET)
-	public ResponseEntity<List<MaterialInfo>> getMaterialInfoByPlantId(@PathVariable(value="id", required=true) Long plantId){
-		return ResponseEntity.ok(materialInfoService.getByPlantId(plantId));
-	}
+
 }

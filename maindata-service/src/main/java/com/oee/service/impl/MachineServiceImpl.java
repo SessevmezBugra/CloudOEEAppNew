@@ -21,9 +21,9 @@ public class MachineServiceImpl implements MachineService {
 
     @Override
     public Machine update(Machine machine) {
-        Machine foundedMachine = machineRepository.findById(machine.getMachineId()).get();
-        foundedMachine.setMachineDesc(machine.getMachineDesc());
-        foundedMachine.setMachineCode(machine.getMachineCode());
+        Machine foundedMachine = machineRepository.findById(machine.getId()).get();
+        foundedMachine.setDesc(machine.getDesc());
+        foundedMachine.setName(machine.getName());
         machineRepository.save(foundedMachine);
         return foundedMachine;
     }
@@ -39,8 +39,4 @@ public class MachineServiceImpl implements MachineService {
         return machineRepository.findById(machineId).get();
     }
 
-    @Override
-    public List<Machine> getByPlantId(Long plantId) {
-        return machineRepository.findByPlantPlantId(plantId);
-    }
 }

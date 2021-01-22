@@ -349,6 +349,7 @@ public class KeycloakAdminClientService {
         KeycloakAdminClientConfig keycloakAdminClientConfig = KeycloakAdminClientUtils.loadConfig(environment);
         Keycloak keycloak = KeycloakAdminClientUtils.getKeycloakClient(keycloakAdminClientConfig);
         RealmResource realmResource = keycloak.realm(keycloakAdminClientConfig.getRealm());
+        realmResource.groups().group(8).
         UsersResource usersResource = realmResource.users();
         UserResource userResource = usersResource.get(userId);
         GroupsResource groupsResource = realmResource.groups();
@@ -356,5 +357,4 @@ public class KeycloakAdminClientService {
         userResource.leaveGroup(groupId.get(0));
         return Boolean.TRUE;
     }
-
 }

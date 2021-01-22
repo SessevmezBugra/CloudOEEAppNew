@@ -18,5 +18,5 @@ public interface OrderInfoRepository extends JpaRepository<OrderInfo, Long>{
     @Transactional
     void deleteByPlantIdIn(List<Long> plantIds);
 
-    List<OrderInfo> findByPlantIdInAndStatus(List<Long> ids, OrderStatus orderStatus);
+    List<OrderInfo> findByPlantIdInAndOrderStatus(List<Long> ids, OrderStatus orderStatus);
 }

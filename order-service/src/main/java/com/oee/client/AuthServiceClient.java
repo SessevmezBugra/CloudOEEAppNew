@@ -1,7 +1,6 @@
 package com.oee.client;
 
 import com.oee.config.ClientConfiguration;
-import com.oee.dto.ResponsibleAreaDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;

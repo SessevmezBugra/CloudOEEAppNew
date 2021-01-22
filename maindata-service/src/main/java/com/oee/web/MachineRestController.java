@@ -36,9 +36,4 @@ public class MachineRestController {
     public ResponseEntity<Machine> getById(@PathVariable(value="id", required=true) Long id){
         return ResponseEntity.ok(machineService.getById(id));
     }
-
-    @RequestMapping(value="/plant/{id}", method=RequestMethod.GET)
-    public ResponseEntity<List<Machine>> getByPlantId(@PathVariable(value="id", required=true) Long id){
-        return ResponseEntity.ok(machineService.getByPlantId(id));
-    }
 }

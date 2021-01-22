@@ -14,5 +14,4 @@ public interface MachineService {
 
     Machine getById(Long machineId);
 
-    List<Machine> getByPlantId(Long plantId);
 }

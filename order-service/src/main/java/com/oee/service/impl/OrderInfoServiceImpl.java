@@ -165,7 +165,7 @@ public class OrderInfoServiceImpl implements OrderInfoService{
 	public List<OrderDto> getActiveOrdersByLoggedUser() {
 		List<PlantDto> plantDtos = mainDataServiceClient.getPlantByLoggedUser().getBody();
 		List<Long> ids = plantDtos.stream().map(PlantDto::getPlantId).collect(Collectors.toList());
-		List<OrderInfo> orders = orderInfoRepository.findByPlantIdInAndStatus(ids, OrderStatus.ACT);
+		List<OrderInfo> orders = orderInfoRepository.findByPlantIdInAndOrderStatus(ids, OrderStatus.ACT);
 		List<OrderDto> orderDtos = Arrays.asList(modelMapper.map(orders, OrderDto[].class));
 		return orderDtos;
 	}
