@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.oee.entity.UnitOfMeasures;
+import com.oee.entity.UnitOfMeasureEntity;
 import com.oee.repository.UOMRepository;
 import com.oee.service.UOMService;
 
@@ -18,13 +18,13 @@ public class UOMServiceImpl implements UOMService{
 	}
 
 	@Override
-	public UnitOfMeasures create(UnitOfMeasures unitOfMeasures) {
-		return uomRepository.save(unitOfMeasures);
+	public UnitOfMeasureEntity create(UnitOfMeasureEntity unitOfMeasureEntity) {
+		return uomRepository.save(unitOfMeasureEntity);
 	}
 
 	@Override
-	public UnitOfMeasures update(UnitOfMeasures unitOfMeasures) {
-		return uomRepository.save(unitOfMeasures);
+	public UnitOfMeasureEntity update(UnitOfMeasureEntity unitOfMeasureEntity) {
+		return uomRepository.save(unitOfMeasureEntity);
 	}
 
 	@Override
@@ -34,12 +34,12 @@ public class UOMServiceImpl implements UOMService{
 	}
 
 	@Override
-	public UnitOfMeasures getById(Integer id) {
+	public UnitOfMeasureEntity getById(Integer id) {
 		return uomRepository.getOne(id);
 	}
 
 	@Override
-	public List<UnitOfMeasures> getAll() {
+	public List<UnitOfMeasureEntity> getAll() {
 		return uomRepository.findAll();
 	}
 

@@ -1,6 +1,6 @@
 package com.oee.web;
 
-import com.oee.entity.ReasonCode;
+import com.oee.entity.ReasonCodeEntity;
 import com.oee.service.ReasonCodeService;
 import com.oee.util.ApiPaths;
 import lombok.RequiredArgsConstructor;
@@ -17,13 +17,13 @@ public class ReasonCodeRestController {
     private final ReasonCodeService reasonCodeService;
 
     @RequestMapping(method= RequestMethod.POST)
-    public ResponseEntity<ReasonCode> createReasonCode(@RequestBody ReasonCode reasonCode){
-        return ResponseEntity.ok(reasonCodeService.create(reasonCode));
+    public ResponseEntity<ReasonCodeEntity> createReasonCode(@RequestBody ReasonCodeEntity reasonCodeEntity){
+        return ResponseEntity.ok(reasonCodeService.create(reasonCodeEntity));
     }
 
     @RequestMapping(method= RequestMethod.PUT)
-    public ResponseEntity<ReasonCode> updateReasonCode(@RequestBody ReasonCode reasonCode){
-        return ResponseEntity.ok(reasonCodeService.update(reasonCode));
+    public ResponseEntity<ReasonCodeEntity> updateReasonCode(@RequestBody ReasonCodeEntity reasonCodeEntity){
+        return ResponseEntity.ok(reasonCodeService.update(reasonCodeEntity));
     }
 
     @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
@@ -32,17 +32,17 @@ public class ReasonCodeRestController {
     }
 
     @RequestMapping(method=RequestMethod.GET)
-    public ResponseEntity<List<ReasonCode>> getAllReasonCode(){
+    public ResponseEntity<List<ReasonCodeEntity>> getAllReasonCode(){
         return ResponseEntity.ok(reasonCodeService.findAll());
     }
 
     @RequestMapping(value="/{id}", method=RequestMethod.GET)
-    public ResponseEntity<ReasonCode> getById(@PathVariable(value="id", required=true) Long id){
+    public ResponseEntity<ReasonCodeEntity> getById(@PathVariable(value="id", required=true) Long id){
         return ResponseEntity.ok(reasonCodeService.findById(id));
     }
 
     @RequestMapping(value="/plant/{id}", method=RequestMethod.GET)
-    public ResponseEntity<List<ReasonCode>> getByPlantId(@PathVariable(value="id", required=true) Long id){
+    public ResponseEntity<List<ReasonCodeEntity>> getByPlantId(@PathVariable(value="id", required=true) Long id){
         return ResponseEntity.ok(reasonCodeService.findByPlantId(id));
     }
 }

@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UnitOfMeasures {
+public class UnitOfMeasureEntity {
 	
 	@Id
 	@Column(name="ID")

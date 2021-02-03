@@ -2,17 +2,17 @@ package com.oee.service;
 
 import java.util.List;
 
-import com.oee.entity.UnitOfMeasures;
+import com.oee.entity.UnitOfMeasureEntity;
 
 public interface UOMService {
 	
-	UnitOfMeasures create(UnitOfMeasures unitOfMeasures);
+	UnitOfMeasureEntity create(UnitOfMeasureEntity unitOfMeasureEntity);
 	
-	UnitOfMeasures update(UnitOfMeasures unitOfMeasures);
+	UnitOfMeasureEntity update(UnitOfMeasureEntity unitOfMeasureEntity);
 	
 	Boolean delete(Integer id);
 	
-	UnitOfMeasures getById(Integer id);
+	UnitOfMeasureEntity getById(Integer id);
 	
-	List<UnitOfMeasures> getAll();
+	List<UnitOfMeasureEntity> getAll();
 }

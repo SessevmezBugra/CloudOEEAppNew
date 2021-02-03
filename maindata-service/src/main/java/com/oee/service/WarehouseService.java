@@ -2,18 +2,17 @@ package com.oee.service;
 
 import java.util.List;
 
-import com.oee.dto.WarehouseDto;
-import com.oee.entity.Warehouse;
+import com.oee.entity.WarehouseEntity;
 
 public interface WarehouseService {
 
-	Warehouse create(Warehouse warehouse);
+	WarehouseEntity create(WarehouseEntity warehouseEntity);
 	
-	Warehouse update(Warehouse warehouse);
+	WarehouseEntity update(WarehouseEntity warehouseEntity);
 	
 	Boolean deleteById(Long warehouseId);
 	
-	Warehouse getById(Long warehouseId);
+	WarehouseEntity getById(Long warehouseId);
 
-    List<Warehouse> getByIds(List<Long> warehouseIds);
+    List<WarehouseEntity> getByIds(List<Long> warehouseIds);
 }

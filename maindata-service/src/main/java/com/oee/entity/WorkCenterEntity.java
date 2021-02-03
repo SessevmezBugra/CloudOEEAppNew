@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "WORK_CENTER")
-public class WorkCenter {
+public class WorkCenterEntity {
 
     @Id
     @Column(name = "ID")
@@ -21,7 +21,7 @@ public class WorkCenter {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "NODE_ID", referencedColumnName = "ID")
-    private Node node;
+    private NodeEntity node;
 
     @Column(name = "WORK_CENTER_NAME")
     private String name;

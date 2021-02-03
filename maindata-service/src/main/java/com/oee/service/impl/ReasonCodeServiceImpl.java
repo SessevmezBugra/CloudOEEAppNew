@@ -1,6 +1,6 @@
 package com.oee.service.impl;
 
-import com.oee.entity.ReasonCode;
+import com.oee.entity.ReasonCodeEntity;
 import com.oee.error.EntityNotFoundException;
 import com.oee.repository.ReasonCodeRepository;
 import com.oee.service.ReasonCodeService;
@@ -16,16 +16,16 @@ public class ReasonCodeServiceImpl implements ReasonCodeService {
     private final ReasonCodeRepository reasonCodeRepository;
 
     @Override
-    public ReasonCode create(ReasonCode reasonCode) {
-        return reasonCodeRepository.save(reasonCode);
+    public ReasonCodeEntity create(ReasonCodeEntity reasonCodeEntity) {
+        return reasonCodeRepository.save(reasonCodeEntity);
     }
 
     @Override
-    public ReasonCode update(ReasonCode reasonCode) {
-        ReasonCode code = reasonCodeRepository.findById(reasonCode.getId()).get();
-        code.setCode(reasonCode.getCode());
-        code.setDesc(reasonCode.getDesc());
-        code.setType(reasonCode.getType());
+    public ReasonCodeEntity update(ReasonCodeEntity reasonCodeEntity) {
+        ReasonCodeEntity code = reasonCodeRepository.findById(reasonCodeEntity.getId()).get();
+        code.setCode(reasonCodeEntity.getCode());
+        code.setDesc(reasonCodeEntity.getDesc());
+        code.setType(reasonCodeEntity.getType());
         return reasonCodeRepository.save(code);
     }
 
@@ -36,17 +36,17 @@ public class ReasonCodeServiceImpl implements ReasonCodeService {
     }
 
     @Override
-    public ReasonCode findById(Long id) {
+    public ReasonCodeEntity findById(Long id) {
         return reasonCodeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Boyle bir neden kodu bulunmamaktadir."));
     }
 
     @Override
-    public List<ReasonCode> findAll() {
+    public List<ReasonCodeEntity> findAll() {
         return reasonCodeRepository.findAll();
     }
 
     @Override
-    public List<ReasonCode> findByPlantId(Long id) {
+    public List<ReasonCodeEntity> findByPlantId(Long id) {
         return reasonCodeRepository.findByPlantId(id);
     }
 

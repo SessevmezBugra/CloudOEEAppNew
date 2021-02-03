@@ -1,20 +1,20 @@
 package com.oee.service;
 
-import com.oee.entity.ReasonCode;
+import com.oee.entity.ReasonCodeEntity;
 
 import java.util.List;
 
 public interface ReasonCodeService {
 
-    ReasonCode create(ReasonCode reasonCode);
+    ReasonCodeEntity create(ReasonCodeEntity reasonCodeEntity);
 
-    ReasonCode update(ReasonCode reasonCode);
+    ReasonCodeEntity update(ReasonCodeEntity reasonCodeEntity);
 
     Boolean deleteById(Long id);
 
-    ReasonCode findById(Long id);
+    ReasonCodeEntity findById(Long id);
 
-    List<ReasonCode> findAll();
+    List<ReasonCodeEntity> findAll();
 
-    List<ReasonCode> findByPlantId(Long id);
+    List<ReasonCodeEntity> findByPlantId(Long id);
 }

@@ -1,20 +1,20 @@
 package com.oee.service;
 
-import com.oee.entity.QualityType;
+import com.oee.entity.QualityTypeEntity;
 
 import java.util.List;
 
 public interface QualityTypeService {
 
-    QualityType create(QualityType qualityType);
+    QualityTypeEntity create(QualityTypeEntity qualityTypeEntity);
 
-    QualityType update(QualityType qualityType);
+    QualityTypeEntity update(QualityTypeEntity qualityTypeEntity);
 
     Boolean deleteById(Long id);
 
-    QualityType findById(Long id);
+    QualityTypeEntity findById(Long id);
 
-    List<QualityType> findAll();
+    List<QualityTypeEntity> findAll();
 
-    List<QualityType> findByPlantId(Long id);
+    List<QualityTypeEntity> findByPlantId(Long id);
 }

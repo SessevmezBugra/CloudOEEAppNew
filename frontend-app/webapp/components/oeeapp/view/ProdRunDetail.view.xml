@@ -53,7 +53,7 @@
 												<m:ColumnListItem >
 													<m:cells>
 														<m:ObjectIdentifier text="{orderModel>quantity}" />
-														<m:ObjectIdentifier text="{orderModel>qualityType}" />
+														<m:ObjectIdentifier text="{orderModel>qualityTypeEntity}" />
 														<m:Text text="{
 														path: 'orderModel>confirmationTime',
 														formatter: '.formatter.dateFormat'}"/>

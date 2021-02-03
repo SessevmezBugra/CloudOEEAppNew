@@ -15,26 +15,23 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name="MATERIAL")
+@Table(name="WAREHOUSE")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Material {
-	
+public class WarehouseEntity {
+
 	@Id
 	@Column(name="ID")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	
-	@Column(name="MATERIAL_NUMBER")
-	private String number;
-	
-	@Column(name="MATERIAL_DESC")
-	private String desc;
-	
+
 	@JsonBackReference
 	@ManyToOne(optional=true)
-	@JoinColumn(name="PLANT_ID", referencedColumnName = "ID")
-	private Plant plant;
+	@JoinColumn(name="PLANT_ID")
+	private PlantEntity plant;
+	
+	@Column(name="WAREHOUSE_NAME")
+	private String name;
 	
 }

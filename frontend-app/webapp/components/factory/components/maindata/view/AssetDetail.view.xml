@@ -25,7 +25,7 @@
         </headerTitle>
 
         <sections>
-            <ObjectPageSection title="{i18n>ASSETDETAIL_WAREHOUSES}" visible="{= ${maindataModel>/assetType} === 'plant' ? true : false}">
+            <ObjectPageSection title="{i18n>ASSETDETAIL_WAREHOUSES}" visible="{= ${maindataModel>/assetType} === 'plantEntity' ? true : false}">
                 <subSections>
                     <ObjectPageSubSection >
                         <blocks>
@@ -37,7 +37,7 @@
                                                 <m:OverflowToolbar>
                                                     <m:content>
                                                         <m:ToolbarSpacer />
-                                                        <m:Button press="openCreateWarehouseDialog" type="Accept" text="{i18n>ASSETDETAIL_BTN_CREATE_WAREHOUSE}" visible="{= ${maindataModel>/assetType} === 'plant' ? true : false}"/>
+                                                        <m:Button press="openCreateWarehouseDialog" type="Accept" text="{i18n>ASSETDETAIL_BTN_CREATE_WAREHOUSE}" visible="{= ${maindataModel>/assetType} === 'plantEntity' ? true : false}"/>
                                                     </m:content>
                                                 </m:OverflowToolbar>
                                             </m:headerToolbar>
@@ -70,7 +70,7 @@
                     </ObjectPageSubSection>
                 </subSections>
             </ObjectPageSection>
-            <ObjectPageSection title="{i18n>ASSETDETAIL_MATERIALS}" visible="{= ${maindataModel>/assetType} === 'plant' ? true : false}">
+            <ObjectPageSection title="{i18n>ASSETDETAIL_MATERIALS}" visible="{= ${maindataModel>/assetType} === 'plantEntity' ? true : false}">
                 <subSections>
                     <ObjectPageSubSection >
                         <blocks>
@@ -82,7 +82,7 @@
                                                 <m:OverflowToolbar>
                                                     <m:content>
                                                         <m:ToolbarSpacer />
-                                                        <m:Button press="openCreateMaterialDialog" type="Accept" text="{i18n>ASSETDETAIL_BTN_CREATE_MATERIAL}" visible="{= ${maindataModel>/assetType} === 'plant' ? true : false}"/>
+                                                        <m:Button press="openCreateMaterialDialog" type="Accept" text="{i18n>ASSETDETAIL_BTN_CREATE_MATERIAL}" visible="{= ${maindataModel>/assetType} === 'plantEntity' ? true : false}"/>
                                                     </m:content>
                                                 </m:OverflowToolbar>
                                             </m:headerToolbar>
@@ -121,19 +121,19 @@
                     </ObjectPageSubSection>
                 </subSections>
             </ObjectPageSection>
-            <ObjectPageSection title="{i18n>ASSETDETAIL_QUALITY_TITLE}" visible="{= ${maindataModel>/assetType} === 'plant' ? true : false}">
+            <ObjectPageSection title="{i18n>ASSETDETAIL_QUALITY_TITLE}" visible="{= ${maindataModel>/assetType} === 'plantEntity' ? true : false}">
                 <subSections>
                     <ObjectPageSubSection >
                         <blocks>
                             <l:BlockLayout background="Dashboard">
                                 <l:BlockLayoutRow>
                                     <l:BlockLayoutCell>
-                                        <m:Table id="qualityTable" backgroundDesign="Solid" width="auto" items="{maindataModel>/qualityType}" enableBusyIndicator="false" busy="{maindataModel>/materialTableBusy}">
+                                        <m:Table id="qualityTable" backgroundDesign="Solid" width="auto" items="{maindataModel>/qualityTypeEntity}" enableBusyIndicator="false" busy="{maindataModel>/materialTableBusy}">
                                             <m:headerToolbar>
                                                 <m:OverflowToolbar>
                                                     <m:content>
                                                         <m:ToolbarSpacer />
-                                                        <m:Button press="openCreateQualityTypeDialog" type="Accept" text="{i18n>ASSETDETAIL_BTN_CREATE_QUALITYTYPE}" visible="{= ${maindataModel>/assetType} === 'plant' ? true : false}"/>
+                                                        <m:Button press="openCreateQualityTypeDialog" type="Accept" text="{i18n>ASSETDETAIL_BTN_CREATE_QUALITYTYPE}" visible="{= ${maindataModel>/assetType} === 'plantEntity' ? true : false}"/>
                                                     </m:content>
                                                 </m:OverflowToolbar>
                                             </m:headerToolbar>
@@ -151,7 +151,7 @@
                                             <m:items>
                                                 <m:ColumnListItem >
                                                     <m:cells>
-                                                        <m:ObjectIdentifier text="{maindataModel>qualityType}" />
+                                                        <m:ObjectIdentifier text="{maindataModel>qualityTypeEntity}" />
                                                     </m:cells>
                                                     <m:cells>
                                                         <m:ObjectIdentifier text="{maindataModel>qualityDesc}" />
@@ -160,7 +160,7 @@
                                                         <m:HBox>
                                                             <m:Button type="Accept" press = "openUpdateQualityTypeDialog" class = "sapUiSmallMarginEnd" text="{i18n>ASSET_DIALOG_UPDATE_BTN}" 
                                                                 visible="{
-                                                                    path: 'maindataModel>qualityType',
+                                                                    path: 'maindataModel>qualityTypeEntity',
                                                                     formatter: '.formatter.updateQualityTypeVisiblity'
                                                                 }"/>
                                                             <m:Button type="Critical"  press = "openDeleteQualityTypeDialog" text="{i18n>ASSET_DIALOG_DELETE_BTN}"/>
@@ -176,19 +176,19 @@
                     </ObjectPageSubSection>
                 </subSections>
             </ObjectPageSection>
-            <ObjectPageSection title="{i18n>ASSETDETAIL_REASONCODE_TITLE}" visible="{= ${maindataModel>/assetType} === 'plant' ? true : false}">
+            <ObjectPageSection title="{i18n>ASSETDETAIL_REASONCODE_TITLE}" visible="{= ${maindataModel>/assetType} === 'plantEntity' ? true : false}">
                 <subSections>
                     <ObjectPageSubSection >
                         <blocks>
                             <l:BlockLayout background="Dashboard">
                                 <l:BlockLayoutRow>
                                     <l:BlockLayoutCell>
-                                        <m:Table id="reasonCodeTable" backgroundDesign="Solid" width="auto" items="{maindataModel>/reasonCode}" enableBusyIndicator="false" busy="{maindataModel>/materialTableBusy}">
+                                        <m:Table id="reasonCodeTable" backgroundDesign="Solid" width="auto" items="{maindataModel>/reasonCodeEntity}" enableBusyIndicator="false" busy="{maindataModel>/materialTableBusy}">
                                             <m:headerToolbar>
                                                 <m:OverflowToolbar>
                                                     <m:content>
                                                         <m:ToolbarSpacer />
-                                                        <m:Button press="openCreateReasonDialog" type="Accept" text="{i18n>ASSETDETAIL_BTN_CREATE_REASONCODE}" visible="{= ${maindataModel>/assetType} === 'plant' ? true : false}"/>
+                                                        <m:Button press="openCreateReasonDialog" type="Accept" text="{i18n>ASSETDETAIL_BTN_CREATE_REASONCODE}" visible="{= ${maindataModel>/assetType} === 'plantEntity' ? true : false}"/>
                                                     </m:content>
                                                 </m:OverflowToolbar>
                                             </m:headerToolbar>
@@ -206,7 +206,7 @@
                                             <m:items>
                                                 <m:ColumnListItem >
                                                     <m:cells>
-                                                        <m:ObjectIdentifier text="{maindataModel>reasonCode}" />
+                                                        <m:ObjectIdentifier text="{maindataModel>reasonCodeEntity}" />
                                                     </m:cells>
                                                     <m:cells>
                                                         <m:ObjectIdentifier text="{maindataModel>reasonDesc}" />

@@ -2,7 +2,7 @@ package com.oee.web;
 
 import java.util.List;
 
-import com.oee.dto.WarehouseDto;
+import com.oee.entity.WarehouseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.oee.entity.Warehouse;
 import com.oee.service.WarehouseService;
 import com.oee.util.ApiPaths;
 
@@ -23,13 +22,13 @@ public class WarehouseRestController {
 	private WarehouseService warehouseService;
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Warehouse> createWarehouseInfo(@RequestBody Warehouse warehouse){
-		return ResponseEntity.ok(warehouseService.create(warehouse));
+	public ResponseEntity<WarehouseEntity> createWarehouseInfo(@RequestBody WarehouseEntity warehouseEntity){
+		return ResponseEntity.ok(warehouseService.create(warehouseEntity));
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT)
-	public ResponseEntity<Warehouse> updateWarehouseInfo(@RequestBody Warehouse warehouse){
-		return ResponseEntity.ok(warehouseService.update(warehouse));
+	public ResponseEntity<WarehouseEntity> updateWarehouseInfo(@RequestBody WarehouseEntity warehouseEntity){
+		return ResponseEntity.ok(warehouseService.update(warehouseEntity));
 	}
 	
 	@RequestMapping(value="/{warehouseId}", method=RequestMethod.DELETE)
@@ -38,12 +37,12 @@ public class WarehouseRestController {
 	}
 	
 	@RequestMapping(value="/{warehouseId}", method=RequestMethod.GET)
-	public ResponseEntity<Warehouse> getWarehouseInfoById(@PathVariable(value="warehouseId", required=true) Long warehouseId){
+	public ResponseEntity<WarehouseEntity> getWarehouseInfoById(@PathVariable(value="warehouseId", required=true) Long warehouseId){
 		return ResponseEntity.ok(warehouseService.getById(warehouseId));
 	}
 
 	@RequestMapping(value="/ids", method=RequestMethod.POST)
-	public ResponseEntity<List<Warehouse>> getWarehousesInfoByIds(@RequestBody List<Long> warehouseIds){
+	public ResponseEntity<List<WarehouseEntity>> getWarehousesInfoByIds(@RequestBody List<Long> warehouseIds){
 		return ResponseEntity.ok(warehouseService.getByIds(warehouseIds));
 	}
 

@@ -10,11 +10,11 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name="REASON_CODE")
+@Table(name="QUALITY_TYPE")
 @Getter
 @Setter
 @NoArgsConstructor
-public class ReasonCode {
+public class QualityTypeEntity {
 
     @Id
     @Column(name="ID")
@@ -24,19 +24,14 @@ public class ReasonCode {
     @JsonBackReference
     @ManyToOne(optional=true)
     @JoinColumn(name="PLANT_ID")
-    private Plant plant;
+    private PlantEntity plant;
 
-    @Enumerated(EnumType.STRING)
+    @Column(name="QUALITY_NAME")
+    private String name;
+
     @Column(name="DATA_ELEMENT_TYPE")
+    @Enumerated(EnumType.STRING)
     private DataElementType type;
-
-    @Column(name="REASON_CODE")
-    private String code;
-
-    @Column(name="REASON_DESC")
-    private String desc;
-
-
 
 
 }

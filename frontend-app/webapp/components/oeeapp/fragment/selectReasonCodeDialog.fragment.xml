@@ -14,7 +14,7 @@
 		}">
 		<ColumnListItem selected="{reportProductionModel>selected}">
 			<cells>
-				<Text text="{reportProductionModel>reasonCode}" />
+				<Text text="{reportProductionModel>reasonCodeEntity}" />
                 <Text text="{reportProductionModel>reasonDesc}" />
 			</cells>
 		</ColumnListItem>

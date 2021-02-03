@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.oee.entity.UnitOfMeasures;
+import com.oee.entity.UnitOfMeasureEntity;
 import com.oee.service.UOMService;
 import com.oee.util.ApiPaths;
 
@@ -24,13 +24,13 @@ public class UOMRestController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<UnitOfMeasures> createUOM(@RequestBody UnitOfMeasures unitOfMeasures){
-		return ResponseEntity.ok(uomService.create(unitOfMeasures));
+	public ResponseEntity<UnitOfMeasureEntity> createUOM(@RequestBody UnitOfMeasureEntity unitOfMeasureEntity){
+		return ResponseEntity.ok(uomService.create(unitOfMeasureEntity));
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT)
-	public ResponseEntity<UnitOfMeasures> updateUOM(@RequestBody UnitOfMeasures unitOfMeasures){
-		return ResponseEntity.ok(uomService.update(unitOfMeasures));
+	public ResponseEntity<UnitOfMeasureEntity> updateUOM(@RequestBody UnitOfMeasureEntity unitOfMeasureEntity){
+		return ResponseEntity.ok(uomService.update(unitOfMeasureEntity));
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
@@ -39,12 +39,12 @@ public class UOMRestController {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<UnitOfMeasures> getUOMById(@PathVariable(value="id", required=true) Integer uomId){
+	public ResponseEntity<UnitOfMeasureEntity> getUOMById(@PathVariable(value="id", required=true) Integer uomId){
 		return ResponseEntity.ok(uomService.getById(uomId));
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<UnitOfMeasures>> getUOMById(){
+	public ResponseEntity<List<UnitOfMeasureEntity>> getUOMById(){
 		return ResponseEntity.ok(uomService.getAll());
 	}
 }

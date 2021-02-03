@@ -36,11 +36,11 @@
 						</tnt:NavigationListItem>
 						<tnt:NavigationListItem  text="Bolgeler" key="client">
 						</tnt:NavigationListItem>
-						<tnt:NavigationListItem  text="Fabrikalar" key="plant">
+						<tnt:NavigationListItem  text="Fabrikalar" key="plantEntity">
 						</tnt:NavigationListItem>
-						<tnt:NavigationListItem  text="Depolar" key="warehouse">
+						<tnt:NavigationListItem  text="Depolar" key="warehouseEntity">
 						</tnt:NavigationListItem>
-						<tnt:NavigationListItem  text="Malzemeler" key="material">
+						<tnt:NavigationListItem  text="Malzemeler" key="materialEntity">
 						</tnt:NavigationListItem> -->
 					</tnt:NavigationListItem>
 					<tnt:NavigationListItem text="Stok Yonetimi" key="stockManagement" icon="sap-icon://inventory">

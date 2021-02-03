@@ -1,17 +1,15 @@
 package com.oee.service;
 
-import com.oee.entity.Machine;
-
-import java.util.List;
+import com.oee.entity.MachineEntity;
 
 public interface MachineService {
 
-    Machine create(Machine machine);
+    MachineEntity create(MachineEntity machineEntity);
 
-    Machine update(Machine machine);
+    MachineEntity update(MachineEntity machineEntity);
 
     Boolean delete(Long machineId);
 
-    Machine getById(Long machineId);
+    MachineEntity getById(Long machineId);
 
 }

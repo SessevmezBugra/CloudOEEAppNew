@@ -1,6 +1,5 @@
 package com.oee.entity;
 
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,8 +12,8 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "GROUPING")
-public class Grouping {
+@Table(name = "MACHINE")
+public class MachineEntity {
 
     @Id
     @Column(name = "ID")
@@ -23,11 +22,15 @@ public class Grouping {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "NODE_ID", referencedColumnName = "ID")
-    private Node node;
+    private NodeEntity node;
 
-    @Column(name = "GROUPING_NAME")
+    @Column(name = "MACHINE_NAME")
     private String name;
 
-    @Column(name = "GROUPING_DESC")
+    @Column(name = "MACHINE_DESC")
     private String desc;
+
+    @JsonManagedReference
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="machine")
+    private List<EquipmentEntity> equipments;
 }

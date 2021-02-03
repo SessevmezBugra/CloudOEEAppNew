@@ -1,17 +1,12 @@
 package com.oee.service.impl;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.oee.client.AuthServiceClient;
-import com.oee.dto.CurrentUser;
-import com.oee.dto.ResponsibleAreaDto;
-import com.oee.dto.WarehouseDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import com.oee.entity.Warehouse;
+import com.oee.entity.WarehouseEntity;
 import com.oee.repository.WarehouseRepository;
 import com.oee.service.WarehouseService;
 
@@ -31,15 +26,15 @@ public class WarehouseServiceImpl implements WarehouseService {
 	}
 
 	@Override
-	public Warehouse create(Warehouse warehouse) {
-		return repository.save(warehouse);
+	public WarehouseEntity create(WarehouseEntity warehouseEntity) {
+		return repository.save(warehouseEntity);
 	}
 
 	@Override
-	public Warehouse update(Warehouse warehouseInfo) {
-		Warehouse warehouse = repository.findById(warehouseInfo.getId()).get();
-		warehouse.setName(warehouseInfo.getName());
-		return repository.save(warehouse);
+	public WarehouseEntity update(WarehouseEntity warehouseEntityInfo) {
+		WarehouseEntity warehouseEntity = repository.findById(warehouseEntityInfo.getId()).get();
+		warehouseEntity.setName(warehouseEntityInfo.getName());
+		return repository.save(warehouseEntity);
 	}
 
 	@Override
@@ -49,12 +44,12 @@ public class WarehouseServiceImpl implements WarehouseService {
 	}
 
 	@Override
-	public Warehouse getById(Long warehouseId) {
+	public WarehouseEntity getById(Long warehouseId) {
 		return repository.findById(warehouseId).get();
 	}
 
 	@Override
-	public List<Warehouse> getByIds(List<Long> warehouseIds) {
+	public List<WarehouseEntity> getByIds(List<Long> warehouseIds) {
 		return repository.findAllById(warehouseIds);
 	}
 

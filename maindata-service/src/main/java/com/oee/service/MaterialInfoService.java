@@ -2,17 +2,17 @@ package com.oee.service;
 
 import java.util.List;
 
-import com.oee.entity.Material;
+import com.oee.entity.MaterialEntity;
 
 public interface MaterialInfoService {
 	
-	Material create(Material material);
+	MaterialEntity create(MaterialEntity materialEntity);
 	
-	Material update(Material material);
+	MaterialEntity update(MaterialEntity materialEntity);
 	
 	Boolean delete(Long materialId);
 	
-	Material getById(Long materialId);
+	MaterialEntity getById(Long materialId);
 
-    List<Material> getMaterialsByIds(List<Long> ids);
+    List<MaterialEntity> getMaterialsByIds(List<Long> ids);
 }

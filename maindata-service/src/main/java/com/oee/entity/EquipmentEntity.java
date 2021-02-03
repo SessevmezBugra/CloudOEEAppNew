@@ -11,21 +11,23 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "STRUCTURE")
-public class Structure {
+@Table(name = "EQUIPMENT")
+public class EquipmentEntity {
 
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "NODE_ID", referencedColumnName = "ID")
-    private Node node;
-
     @JsonBackReference
     @ManyToOne(optional=true)
-    @JoinColumn(name = "TEMPLATE_ID", referencedColumnName = "ID")
-    private HierarchyTemplate template;
+    @JoinColumn(name = "MACHINE_ID", referencedColumnName = "ID")
+    private MachineEntity machine;
+
+    @Column(name = "EQUIPMENT_NAME")
+    private String name;
+
+    @Column(name = "EQUIPMENT_DESC")
+    private String desc;
 
 }

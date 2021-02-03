@@ -8,7 +8,6 @@ public class UserEntityDto {
     private String firstName;
     private String lastName;
     private String username;
-    private List<ResponsibleAreaDto> responsibleAreas;
 
     public UserEntityDto() {
     }
@@ -43,13 +42,5 @@ public class UserEntityDto {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public List<ResponsibleAreaDto> getResponsibleAreas() {
-        return responsibleAreas;
-    }
-
-    public void setResponsibleAreas(List<ResponsibleAreaDto> responsibleAreas) {
-        this.responsibleAreas = responsibleAreas;
     }
 }

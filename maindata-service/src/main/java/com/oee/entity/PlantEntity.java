@@ -14,7 +14,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Plant {
+public class PlantEntity {
 	
 	@Id
 	@Column(name="ID")
@@ -23,25 +23,25 @@ public class Plant {
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "NODE_ID", referencedColumnName = "ID")
-	private Node node;
+	private NodeEntity node;
 	
 	@Column(name="PLANT_NAME")
 	private String name;
 	
 	@JsonManagedReference
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="plant", fetch = FetchType.LAZY)
-	private List<Material> materials;
+	private List<MaterialEntity> materials;
 	
 	@JsonManagedReference
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="plant", fetch = FetchType.LAZY)
-	private List<Warehouse> warehouses;
+	private List<WarehouseEntity> warehouses;
 
 	@JsonManagedReference
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="plant", fetch = FetchType.LAZY)
-	private List<ReasonCode> reasonCodes;
+	private List<ReasonCodeEntity> reasonCodes;
 
 	@JsonManagedReference
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="plant", fetch = FetchType.LAZY)
-	private List<QualityType> qualityTypes;
+	private List<QualityTypeEntity> qualityTypes;
 	
 }

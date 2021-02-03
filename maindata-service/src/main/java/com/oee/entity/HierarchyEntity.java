@@ -1,6 +1,6 @@
 package com.oee.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.oee.enums.NodeType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,8 +12,8 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "TEMPLATE")
-public class HierarchyTemplate {
+@Table(name = "HIERARCHY")
+public class HierarchyEntity {
 
     @Id
     @Column(name = "ID")
@@ -21,16 +21,19 @@ public class HierarchyTemplate {
     private Long id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "NODE_ID", referencedColumnName = "ID")
-    private Node node;
+    @JoinColumn(name = "CHILD_ID", referencedColumnName = "ID")
+    private HierarchyEntity child;
 
-    @Column(name="TEMPLATE_NAME")
+    @Column(name="NAME")
     private String name;
+
+    @Column(name="NODE_TYPE")
+    private NodeType type;
 
     @Column(name="IS_GLOBAL")
     private Boolean isGlobal;
 
-    @JsonManagedReference
-    @OneToMany(cascade=CascadeType.ALL, mappedBy="template")
-    private List<Structure> structures;
+    @OneToMany(mappedBy="hierarchy")
+    private List<NodeEntity> nodes;
+
 }

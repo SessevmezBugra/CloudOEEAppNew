@@ -1,6 +1,6 @@
 package com.oee.service.impl;
 
-import com.oee.entity.QualityType;
+import com.oee.entity.QualityTypeEntity;
 import com.oee.error.EntityNotFoundException;
 import com.oee.repository.QualityTypeRepository;
 import com.oee.service.QualityTypeService;
@@ -16,13 +16,13 @@ public class QualityTypeServiceImpl implements QualityTypeService {
     private final QualityTypeRepository repository;
 
     @Override
-    public QualityType create(QualityType qualityType) {
-        return repository.save(qualityType);
+    public QualityTypeEntity create(QualityTypeEntity qualityTypeEntity) {
+        return repository.save(qualityTypeEntity);
     }
 
     @Override
-    public QualityType update(QualityType qualityType) {
-        QualityType type = repository.findById(qualityType.getId()).get();
+    public QualityTypeEntity update(QualityTypeEntity qualityTypeEntity) {
+        QualityTypeEntity type = repository.findById(qualityTypeEntity.getId()).get();
 
         return repository.save(type);
     }
@@ -34,17 +34,17 @@ public class QualityTypeServiceImpl implements QualityTypeService {
     }
 
     @Override
-    public QualityType findById(Long id) {
+    public QualityTypeEntity findById(Long id) {
         return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Boyle bir kalite tipi bulunmamaktadir."));
     }
 
     @Override
-    public List<QualityType> findAll() {
+    public List<QualityTypeEntity> findAll() {
         return repository.findAll();
     }
 
     @Override
-    public List<QualityType> findByPlantId(Long id) {
+    public List<QualityTypeEntity> findByPlantId(Long id) {
         return repository.findByPlantId(id);
     }
 

@@ -1,14 +1,11 @@
 package com.oee.service.impl;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.oee.client.AuthServiceClient;
-import com.oee.dto.CurrentUser;
-import com.oee.dto.ResponsibleAreaDto;
+import com.oee.entity.MaterialEntity;
 import org.springframework.stereotype.Service;
 
-import com.oee.entity.Material;
 import com.oee.repository.MaterialRepository;
 import com.oee.service.MaterialInfoService;
 
@@ -26,16 +23,16 @@ public class MaterialInfoServiceImpl implements MaterialInfoService{
 	}
 
 	@Override
-	public Material create(Material material) {
-		return materialRepository.save(material);
+	public MaterialEntity create(MaterialEntity materialEntity) {
+		return materialRepository.save(materialEntity);
 	}
 
 	@Override
-	public Material update(Material materialInfo) {
-		Material material = materialRepository.findById(materialInfo.getId()).get();
-		material.setDesc(materialInfo.getDesc());
-		material.setNumber(materialInfo.getNumber());
-		return materialRepository.save(material);
+	public MaterialEntity update(MaterialEntity materialEntityInfo) {
+		MaterialEntity materialEntity = materialRepository.findById(materialEntityInfo.getId()).get();
+		materialEntity.setDesc(materialEntityInfo.getDesc());
+		materialEntity.setNumber(materialEntityInfo.getNumber());
+		return materialRepository.save(materialEntity);
 	}
 
 	@Override
@@ -45,12 +42,12 @@ public class MaterialInfoServiceImpl implements MaterialInfoService{
 	}
 
 	@Override
-	public Material getById(Long materialId) {
+	public MaterialEntity getById(Long materialId) {
 		return materialRepository.findById(materialId).get();
 	}
 
 	@Override
-	public List<Material> getMaterialsByIds(List<Long> ids) {
+	public List<MaterialEntity> getMaterialsByIds(List<Long> ids) {
 		return materialRepository.findAllById(ids);
 	}
 

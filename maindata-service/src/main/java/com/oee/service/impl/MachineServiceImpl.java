@@ -1,12 +1,10 @@
 package com.oee.service.impl;
 
-import com.oee.entity.Machine;
+import com.oee.entity.MachineEntity;
 import com.oee.repository.MachineRepository;
 import com.oee.service.MachineService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -15,17 +13,17 @@ public class MachineServiceImpl implements MachineService {
     private final MachineRepository machineRepository;
 
     @Override
-    public Machine create(Machine machine) {
-        return machineRepository.save(machine);
+    public MachineEntity create(MachineEntity machineEntity) {
+        return machineRepository.save(machineEntity);
     }
 
     @Override
-    public Machine update(Machine machine) {
-        Machine foundedMachine = machineRepository.findById(machine.getId()).get();
-        foundedMachine.setDesc(machine.getDesc());
-        foundedMachine.setName(machine.getName());
-        machineRepository.save(foundedMachine);
-        return foundedMachine;
+    public MachineEntity update(MachineEntity machineEntity) {
+        MachineEntity foundedMachineEntity = machineRepository.findById(machineEntity.getId()).get();
+        foundedMachineEntity.setDesc(machineEntity.getDesc());
+        foundedMachineEntity.setName(machineEntity.getName());
+        machineRepository.save(foundedMachineEntity);
+        return foundedMachineEntity;
     }
 
     @Override
@@ -35,7 +33,7 @@ public class MachineServiceImpl implements MachineService {
     }
 
     @Override
-    public Machine getById(Long machineId) {
+    public MachineEntity getById(Long machineId) {
         return machineRepository.findById(machineId).get();
     }
 

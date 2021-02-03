@@ -1,13 +1,11 @@
 package com.oee.repository;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.oee.entity.Warehouse;
+import com.oee.entity.WarehouseEntity;
 
 @Repository
-public interface WarehouseRepository extends JpaRepository<Warehouse, Long>{
+public interface WarehouseRepository extends JpaRepository<WarehouseEntity, Long>{
 
 }

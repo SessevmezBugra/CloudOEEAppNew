@@ -1,7 +1,6 @@
 package com.oee.web;
 
-import java.util.List;
-
+import com.oee.entity.PlantEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.oee.entity.Plant;
 import com.oee.service.PlantInfoService;
 import com.oee.util.ApiPaths;
 
@@ -24,13 +22,13 @@ public class PlantInfoRestController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Plant> createPlantInfo(@RequestBody Plant plant){
-		return ResponseEntity.ok(plantInfoService.create(plant));
+	public ResponseEntity<PlantEntity> createPlantInfo(@RequestBody PlantEntity plantEntity){
+		return ResponseEntity.ok(plantInfoService.create(plantEntity));
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT)
-	public ResponseEntity<Plant> updatePlantInfo(@RequestBody Plant plant){
-		return ResponseEntity.ok(plantInfoService.update(plant));
+	public ResponseEntity<PlantEntity> updatePlantInfo(@RequestBody PlantEntity plantEntity){
+		return ResponseEntity.ok(plantInfoService.update(plantEntity));
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
@@ -39,7 +37,7 @@ public class PlantInfoRestController {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<Plant> getPlantInfoById(@PathVariable(value="id", required=true) Long plantId){
+	public ResponseEntity<PlantEntity> getPlantInfoById(@PathVariable(value="id", required=true) Long plantId){
 		return ResponseEntity.ok(plantInfoService.getById(plantId));
 	}
 

@@ -1,7 +1,7 @@
 package com.oee.web;
 
 
-import com.oee.entity.QualityType;
+import com.oee.entity.QualityTypeEntity;
 import com.oee.service.QualityTypeService;
 import com.oee.util.ApiPaths;
 import lombok.RequiredArgsConstructor;
@@ -18,13 +18,13 @@ public class QualityTypeRestController {
     private final QualityTypeService qualityTypeService;
 
     @RequestMapping(method= RequestMethod.POST)
-    public ResponseEntity<QualityType> createQualityType(@RequestBody QualityType qualityType){
-        return ResponseEntity.ok(qualityTypeService.create(qualityType));
+    public ResponseEntity<QualityTypeEntity> createQualityType(@RequestBody QualityTypeEntity qualityTypeEntity){
+        return ResponseEntity.ok(qualityTypeService.create(qualityTypeEntity));
     }
 
     @RequestMapping(method=RequestMethod.PUT)
-    public ResponseEntity<QualityType> updateQualityType(@RequestBody QualityType qualityType){
-        return ResponseEntity.ok(qualityTypeService.update(qualityType));
+    public ResponseEntity<QualityTypeEntity> updateQualityType(@RequestBody QualityTypeEntity qualityTypeEntity){
+        return ResponseEntity.ok(qualityTypeService.update(qualityTypeEntity));
     }
 
     @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
@@ -33,17 +33,17 @@ public class QualityTypeRestController {
     }
 
     @RequestMapping(method=RequestMethod.GET)
-    public ResponseEntity<List<QualityType>> getAllQualityType(){
+    public ResponseEntity<List<QualityTypeEntity>> getAllQualityType(){
         return ResponseEntity.ok(qualityTypeService.findAll());
     }
 
     @RequestMapping(value="/{id}", method=RequestMethod.GET)
-    public ResponseEntity<QualityType> getQualityTypeById(@PathVariable(value="id", required=true) Long id){
+    public ResponseEntity<QualityTypeEntity> getQualityTypeById(@PathVariable(value="id", required=true) Long id){
         return ResponseEntity.ok(qualityTypeService.findById(id));
     }
 
     @RequestMapping(value="/plant/{id}", method=RequestMethod.GET)
-    public ResponseEntity<List<QualityType>> getQualityTypeByPlantId(@PathVariable(value="id", required=true) Long id){
+    public ResponseEntity<List<QualityTypeEntity>> getQualityTypeByPlantId(@PathVariable(value="id", required=true) Long id){
         return ResponseEntity.ok(qualityTypeService.findByPlantId(id));
     }
 }
