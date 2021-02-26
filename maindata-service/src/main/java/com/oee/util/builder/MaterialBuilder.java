@@ -2,7 +2,7 @@ package com.oee.builder;
 
 import com.oee.entity.MaterialEntity;
 
-public class MaterialBuilder {
+public class MaterialBuilder implements Builder<MaterialEntity>{
 
     private MaterialEntity material = new MaterialEntity();
 
@@ -21,6 +21,7 @@ public class MaterialBuilder {
         return this;
     }
 
+    @Override
     public MaterialEntity build() {
         return material;
     }

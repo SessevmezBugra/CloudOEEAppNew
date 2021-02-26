@@ -23,6 +23,7 @@ public class GroupingBuilder extends NodeBuilder<GroupingBuilder, GroupingEntity
         return this;
     }
 
+
     @Override
     public GroupingEntity build() {
         return grouping;

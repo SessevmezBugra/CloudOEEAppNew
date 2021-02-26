@@ -9,11 +9,11 @@
 	<!-- keep index.html mocked as well for consistency -->
 	<script>
 		let myCoolCode = document.createElement("script");
-		if(window.location.origin.includes("localhost")){
-			myCoolCode.setAttribute("src", "http://localhost:8080/auth/js/keycloak.js");
-		}else {
+		// if(window.location.origin.includes("localhost")){
+		// 	myCoolCode.setAttribute("src", "http://localhost:8080/auth/js/keycloak.js");
+		// }else {
 			myCoolCode.setAttribute("src", "https://auth.arcloudfactories.com/auth/js/keycloak.js");
-		}
+		// }
 		myCoolCode.setAttribute("async", "false");
 		let head = document.head;
 		head.insertBefore(myCoolCode, head.firstElementChild);

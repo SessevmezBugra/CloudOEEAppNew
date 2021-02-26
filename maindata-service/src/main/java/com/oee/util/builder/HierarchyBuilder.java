@@ -3,7 +3,7 @@ package com.oee.builder;
 import com.oee.entity.HierarchyEntity;
 import com.oee.enums.NodeType;
 
-public class HierarchyBuilder {
+public class HierarchyBuilder implements Builder<HierarchyEntity> {
 
     private HierarchyEntity hierarchy = new HierarchyEntity();
     private boolean isGlobal = false;
@@ -35,6 +35,7 @@ public class HierarchyBuilder {
 
     }
 
+    @Override
     public HierarchyEntity build(){
         return hierarchy;
     }

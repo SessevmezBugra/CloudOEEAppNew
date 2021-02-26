@@ -1,11 +1,12 @@
 package com.oee.builder;
 
+import com.oee.entity.HierarchyEntity;
 import com.oee.entity.NodeEntity;
 import com.oee.enums.NodeType;
 
 import java.util.ArrayList;
 
-public abstract class NodeBuilder<THIS extends NodeBuilder<THIS, T>, T> {
+public abstract class NodeBuilder<SELF extends NodeBuilder<SELF, T>, T> implements Builder<T>{
 
     protected NodeEntity node = new NodeEntity();
 
@@ -14,7 +15,7 @@ public abstract class NodeBuilder<THIS extends NodeBuilder<THIS, T>, T> {
         return this;
     }
 
-    protected NodeBuilder withParent(NodeEntity node) {
+    protected NodeBuilder withParentNode(NodeEntity node) {
         if(node.getId() == null){
             throw new RuntimeException(node.getName() + " NodeID bos olamaz.");
         }
@@ -35,5 +36,9 @@ public abstract class NodeBuilder<THIS extends NodeBuilder<THIS, T>, T> {
         return this;
     }
 
-    public abstract T build();
+    public SELF hierarchy(HierarchyEntity hierarchy) {
+        this.node.setHierarchy(hierarchy);
+        return (SELF) this;
+    }
+
 }

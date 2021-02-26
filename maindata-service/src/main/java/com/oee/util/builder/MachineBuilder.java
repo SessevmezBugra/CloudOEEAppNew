@@ -25,7 +25,7 @@ public class MachineBuilder extends NodeBuilder<MachineBuilder, MachineEntity> {
     }
 
     public MachineBuilder parent(WorkCenterEntity workCenterEntity) {
-        withParent(workCenterEntity.getNode());
+        withParentNode(workCenterEntity.getNode());
         return this;
     }
 

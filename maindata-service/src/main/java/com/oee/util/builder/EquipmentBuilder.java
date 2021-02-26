@@ -3,7 +3,7 @@ package com.oee.builder;
 import com.oee.entity.EquipmentEntity;
 import com.oee.entity.MachineEntity;
 
-public class EquipmentBuilder {
+public class EquipmentBuilder implements Builder<EquipmentEntity>{
 
     private EquipmentEntity equipment = new EquipmentEntity();
 
@@ -22,6 +22,7 @@ public class EquipmentBuilder {
         return this;
     }
 
+    @Override
     public EquipmentEntity build() {
         return equipment;
     }
