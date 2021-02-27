@@ -4,5 +4,5 @@ public enum NodeType {
     GROUPING,
     PLANT,
     WORK_CTR,
-    MACHINE
+    MACHINE;
 }

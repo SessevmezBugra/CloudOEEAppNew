@@ -33,7 +33,7 @@ public class HierarchyEntity {
     @Column(name="IS_GLOBAL")
     private Boolean isGlobal;
 
-    @OneToMany(mappedBy="hierarchy")
+    @OneToMany(mappedBy="hierarchy", fetch = FetchType.LAZY)
     private List<NodeEntity> nodes;
 
 }

@@ -8,37 +8,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.oee.service.PlantInfoService;
-import com.oee.util.ApiPaths;
+import com.oee.service.PlantService;
+import com.oee.util.constant.ApiPaths;
 
 @RestController
-@RequestMapping(ApiPaths.PlantInfoCtrl.CTRL)
-public class PlantInfoRestController {
+@RequestMapping(ApiPaths.PlantCtrl.CTRL)
+public class PlantController {
 	
-	private final PlantInfoService plantInfoService;
+	private final PlantService plantService;
 	
-	public PlantInfoRestController(PlantInfoService plantInfoService) {
-		this.plantInfoService = plantInfoService;
+	public PlantController(PlantService plantService) {
+		this.plantService = plantService;
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<PlantEntity> createPlantInfo(@RequestBody PlantEntity plantEntity){
-		return ResponseEntity.ok(plantInfoService.create(plantEntity));
+		return ResponseEntity.ok(plantService.create(plantEntity));
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT)
 	public ResponseEntity<PlantEntity> updatePlantInfo(@RequestBody PlantEntity plantEntity){
-		return ResponseEntity.ok(plantInfoService.update(plantEntity));
+		return ResponseEntity.ok(plantService.update(plantEntity));
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<Boolean> deletePlantInfo(@PathVariable(value="id", required=true) Long plantId){
-		return ResponseEntity.ok(plantInfoService.delete(plantId));
+		plantService.deleteById(plantId);
+		return ResponseEntity.ok().build();
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<PlantEntity> getPlantInfoById(@PathVariable(value="id", required=true) Long plantId){
-		return ResponseEntity.ok(plantInfoService.getById(plantId));
+		return ResponseEntity.ok(plantService.findById(plantId));
 	}
 
 }

@@ -1,18 +1,11 @@
 package com.oee.service;
 
 import com.oee.entity.ReasonCodeEntity;
+import com.oee.service.common.generic.GenericService;
 
 import java.util.List;
 
-public interface ReasonCodeService {
-
-    ReasonCodeEntity create(ReasonCodeEntity reasonCodeEntity);
-
-    ReasonCodeEntity update(ReasonCodeEntity reasonCodeEntity);
-
-    Boolean deleteById(Long id);
-
-    ReasonCodeEntity findById(Long id);
+public interface ReasonCodeService extends GenericService<ReasonCodeEntity, Long> {
 
     List<ReasonCodeEntity> findAll();
 

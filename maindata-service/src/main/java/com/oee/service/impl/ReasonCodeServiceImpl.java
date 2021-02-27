@@ -30,9 +30,8 @@ public class ReasonCodeServiceImpl implements ReasonCodeService {
     }
 
     @Override
-    public Boolean deleteById(Long id) {
+    public void deleteById(Long id) {
         reasonCodeRepository.deleteById(id);
-        return Boolean.TRUE;
     }
 
     @Override

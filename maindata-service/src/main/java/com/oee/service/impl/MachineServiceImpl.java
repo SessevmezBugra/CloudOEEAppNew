@@ -1,6 +1,7 @@
 package com.oee.service.impl;
 
 import com.oee.entity.MachineEntity;
+import com.oee.error.EntityNotFoundException;
 import com.oee.repository.MachineRepository;
 import com.oee.service.MachineService;
 import lombok.RequiredArgsConstructor;
@@ -27,14 +28,13 @@ public class MachineServiceImpl implements MachineService {
     }
 
     @Override
-    public Boolean delete(Long machineId) {
+    public void deleteById(Long machineId) {
         machineRepository.deleteById(machineId);
-        return Boolean.TRUE;
     }
 
     @Override
-    public MachineEntity getById(Long machineId) {
-        return machineRepository.findById(machineId).get();
+    public MachineEntity findById(Long machineId) {
+        return machineRepository.findById(machineId).orElseThrow(() -> new EntityNotFoundException("Bu makina bulunamadi."));
     }
 
 }

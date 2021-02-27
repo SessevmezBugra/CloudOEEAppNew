@@ -21,7 +21,7 @@ public class UnitOfMeasureEntity {
 	@Id
 	@Column(name="ID")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
 	@Column(name="UOM_CODE")
 	private String	code;

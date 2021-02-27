@@ -20,11 +20,11 @@ public class NodeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(optional=true)
+    @ManyToOne(optional=true, fetch = FetchType.LAZY)
     @JoinColumn(name="PARENT_ID")
     private NodeEntity parent;
 
-    @OneToMany(mappedBy="parent")
+    @OneToMany(mappedBy="parent", fetch = FetchType.LAZY)
     private List<NodeEntity> children;
 
     @Column(name="NODE_NAME")
@@ -36,17 +36,5 @@ public class NodeEntity {
     @ManyToOne(optional=false, fetch = FetchType.LAZY)
     @JoinColumn(name="HIERARCHY_ID")
     private HierarchyEntity hierarchy;
-
-//    @OneToOne(mappedBy = "node")
-//    private PlantEntity plant;
-//
-//    @OneToOne(mappedBy = "node")
-//    private GroupingEntity grouping;
-//
-//    @OneToOne(mappedBy = "node")
-//    private WorkCenterEntity workCenter;
-//
-//    @OneToOne(mappedBy = "node")
-//    private MachineEntity machine;
 
 }

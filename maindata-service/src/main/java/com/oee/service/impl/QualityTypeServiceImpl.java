@@ -28,9 +28,8 @@ public class QualityTypeServiceImpl implements QualityTypeService {
     }
 
     @Override
-    public Boolean deleteById(Long id) {
+    public void deleteById(Long id) {
         repository.deleteById(id);
-        return Boolean.TRUE;
     }
 
     @Override

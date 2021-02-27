@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.oee.entity.UnitOfMeasureEntity;
 
 @Repository
-public interface UOMRepository extends JpaRepository<UnitOfMeasureEntity, Integer>{
+public interface UOMRepository extends JpaRepository<UnitOfMeasureEntity, Long>{
 
 }

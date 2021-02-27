@@ -1,4 +1,4 @@
-package com.oee.builder;
+package com.oee.util.builder;
 
 import com.oee.entity.HierarchyEntity;
 import com.oee.enums.NodeType;

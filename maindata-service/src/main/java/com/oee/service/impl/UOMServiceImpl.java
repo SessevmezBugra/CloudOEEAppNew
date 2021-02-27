@@ -2,6 +2,7 @@ package com.oee.service.impl;
 
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import com.oee.entity.UnitOfMeasureEntity;
@@ -9,13 +10,10 @@ import com.oee.repository.UOMRepository;
 import com.oee.service.UOMService;
 
 @Service
+@RequiredArgsConstructor
 public class UOMServiceImpl implements UOMService{
 	
 	private final UOMRepository uomRepository;
-	
-	public UOMServiceImpl(UOMRepository uomRepository) {
-		this.uomRepository = uomRepository;
-	}
 
 	@Override
 	public UnitOfMeasureEntity create(UnitOfMeasureEntity unitOfMeasureEntity) {
@@ -28,18 +26,17 @@ public class UOMServiceImpl implements UOMService{
 	}
 
 	@Override
-	public Boolean delete(Integer id) {
+	public void deleteById(Long id) {
 		uomRepository.deleteById(id);
-		return Boolean.TRUE;
 	}
 
 	@Override
-	public UnitOfMeasureEntity getById(Integer id) {
-		return uomRepository.getOne(id);
+	public UnitOfMeasureEntity findById(Long id) {
+		return uomRepository.findById(id).get();
 	}
 
 	@Override
-	public List<UnitOfMeasureEntity> getAll() {
+	public List<UnitOfMeasureEntity> findAll() {
 		return uomRepository.findAll();
 	}
 

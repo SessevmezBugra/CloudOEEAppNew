@@ -3,7 +3,7 @@ package com.oee.web;
 
 import com.oee.entity.QualityTypeEntity;
 import com.oee.service.QualityTypeService;
-import com.oee.util.ApiPaths;
+import com.oee.util.constant.ApiPaths;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping(ApiPaths.QualityTypeCtrl.CTRL)
 @RequiredArgsConstructor
-public class QualityTypeRestController {
+public class QualityTypeController {
 
     private final QualityTypeService qualityTypeService;
 
@@ -29,7 +29,8 @@ public class QualityTypeRestController {
 
     @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
     public ResponseEntity<Boolean> deleteQualityTypeById(@PathVariable(value="id", required=true) Long id){
-        return ResponseEntity.ok(qualityTypeService.deleteById(id));
+        qualityTypeService.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 
     @RequestMapping(method=RequestMethod.GET)

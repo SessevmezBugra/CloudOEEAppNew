@@ -5,11 +5,11 @@ import org.springframework.stereotype.Service;
 
 import com.oee.entity.PlantEntity;
 import com.oee.repository.PlantRepository;
-import com.oee.service.PlantInfoService;
+import com.oee.service.PlantService;
 
 @Service
 @RequiredArgsConstructor
-public class PlantInfoServiceImpl implements PlantInfoService{
+public class PlantServiceImpl implements PlantService {
 
 	private final PlantRepository plantRepository;
 	
@@ -27,13 +27,12 @@ public class PlantInfoServiceImpl implements PlantInfoService{
 	}
 
 	@Override
-	public Boolean delete(Long plantId) {
-		PlantEntity plantEntity = plantRepository.findById(plantId).get();
-		return Boolean.TRUE;
+	public void deleteById(Long plantId) {
+		plantRepository.deleteById(plantId);
 	}
 
 	@Override
-	public PlantEntity getById(Long plantId) {
+	public PlantEntity findById(Long plantId) {
 		return plantRepository.findById(plantId).get();
 	}
 

@@ -24,6 +24,11 @@ public class NodeUserMappingEntity {
     @Column(name = "USERNAME")
     protected String username;
 
+    @Id
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PLANT_ID")
+    protected NodeEntity plant;
+
     @Getter
     @EqualsAndHashCode
     @NoArgsConstructor
@@ -32,6 +37,8 @@ public class NodeUserMappingEntity {
         protected NodeEntity node;
 
         protected String username;
+
+        protected NodeEntity plant;
 
     }
 }

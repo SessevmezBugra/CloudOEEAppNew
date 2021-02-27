@@ -3,16 +3,9 @@ package com.oee.service;
 import java.util.List;
 
 import com.oee.entity.UnitOfMeasureEntity;
+import com.oee.service.common.generic.GenericService;
 
-public interface UOMService {
+public interface UOMService extends GenericService<UnitOfMeasureEntity, Long> {
 	
-	UnitOfMeasureEntity create(UnitOfMeasureEntity unitOfMeasureEntity);
-	
-	UnitOfMeasureEntity update(UnitOfMeasureEntity unitOfMeasureEntity);
-	
-	Boolean delete(Integer id);
-	
-	UnitOfMeasureEntity getById(Integer id);
-	
-	List<UnitOfMeasureEntity> getAll();
+	List<UnitOfMeasureEntity> findAll();
 }

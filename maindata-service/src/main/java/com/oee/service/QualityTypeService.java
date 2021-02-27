@@ -1,18 +1,11 @@
 package com.oee.service;
 
 import com.oee.entity.QualityTypeEntity;
+import com.oee.service.common.generic.GenericService;
 
 import java.util.List;
 
-public interface QualityTypeService {
-
-    QualityTypeEntity create(QualityTypeEntity qualityTypeEntity);
-
-    QualityTypeEntity update(QualityTypeEntity qualityTypeEntity);
-
-    Boolean deleteById(Long id);
-
-    QualityTypeEntity findById(Long id);
+public interface QualityTypeService extends GenericService<QualityTypeEntity, Long> {
 
     List<QualityTypeEntity> findAll();
 

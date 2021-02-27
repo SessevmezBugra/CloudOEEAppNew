@@ -1,15 +1,8 @@
 package com.oee.service;
 
 import com.oee.entity.MachineEntity;
+import com.oee.service.common.generic.GenericService;
 
-public interface MachineService {
-
-    MachineEntity create(MachineEntity machineEntity);
-
-    MachineEntity update(MachineEntity machineEntity);
-
-    Boolean delete(Long machineId);
-
-    MachineEntity getById(Long machineId);
+public interface MachineService extends GenericService<MachineEntity, Long> {
 
 }

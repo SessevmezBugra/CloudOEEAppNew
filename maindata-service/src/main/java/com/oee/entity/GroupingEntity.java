@@ -28,4 +28,5 @@ public class GroupingEntity {
 
     @Column(name = "GROUPING_DESC")
     private String desc;
+
 }

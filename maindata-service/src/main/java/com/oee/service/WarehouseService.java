@@ -3,16 +3,9 @@ package com.oee.service;
 import java.util.List;
 
 import com.oee.entity.WarehouseEntity;
+import com.oee.service.common.generic.GenericService;
 
-public interface WarehouseService {
+public interface WarehouseService extends GenericService<WarehouseEntity, Long> {
 
-	WarehouseEntity create(WarehouseEntity warehouseEntity);
-	
-	WarehouseEntity update(WarehouseEntity warehouseEntity);
-	
-	Boolean deleteById(Long warehouseId);
-	
-	WarehouseEntity getById(Long warehouseId);
-
-    List<WarehouseEntity> getByIds(List<Long> warehouseIds);
+    List<WarehouseEntity> findByIds(List<Long> warehouseIds);
 }

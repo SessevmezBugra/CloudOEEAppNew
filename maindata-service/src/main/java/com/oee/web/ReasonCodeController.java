@@ -2,7 +2,7 @@ package com.oee.web;
 
 import com.oee.entity.ReasonCodeEntity;
 import com.oee.service.ReasonCodeService;
-import com.oee.util.ApiPaths;
+import com.oee.util.constant.ApiPaths;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping(ApiPaths.ReasonCodeCtrl.CTRL)
 @RequiredArgsConstructor
-public class ReasonCodeRestController {
+public class ReasonCodeController {
 
     private final ReasonCodeService reasonCodeService;
 
@@ -28,7 +28,8 @@ public class ReasonCodeRestController {
 
     @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
     public ResponseEntity<Boolean> deleteReasonCode(@PathVariable(value="id", required=true) Long id){
-        return ResponseEntity.ok(reasonCodeService.deleteById(id));
+        reasonCodeService.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 
     @RequestMapping(method=RequestMethod.GET)

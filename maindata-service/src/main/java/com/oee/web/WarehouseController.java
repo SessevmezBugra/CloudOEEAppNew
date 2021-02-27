@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.oee.service.WarehouseService;
-import com.oee.util.ApiPaths;
+import com.oee.util.constant.ApiPaths;
 
 @RestController
-@RequestMapping(ApiPaths.WarehouseInfoCtrl.CTRL)
-public class WarehouseRestController {
+@RequestMapping(ApiPaths.WarehouseCtrl.CTRL)
+public class WarehouseController {
 
 	@Autowired
 	private WarehouseService warehouseService;
@@ -33,17 +33,18 @@ public class WarehouseRestController {
 	
 	@RequestMapping(value="/{warehouseId}", method=RequestMethod.DELETE)
 	public ResponseEntity<Boolean> deleteWarehouseInfoById(@PathVariable(value="warehouseId", required=true) Long warehouseId){
-		return ResponseEntity.ok(warehouseService.deleteById(warehouseId));
+		warehouseService.deleteById(warehouseId);
+		return ResponseEntity.ok().build();
 	}
 	
 	@RequestMapping(value="/{warehouseId}", method=RequestMethod.GET)
 	public ResponseEntity<WarehouseEntity> getWarehouseInfoById(@PathVariable(value="warehouseId", required=true) Long warehouseId){
-		return ResponseEntity.ok(warehouseService.getById(warehouseId));
+		return ResponseEntity.ok(warehouseService.findById(warehouseId));
 	}
 
 	@RequestMapping(value="/ids", method=RequestMethod.POST)
 	public ResponseEntity<List<WarehouseEntity>> getWarehousesInfoByIds(@RequestBody List<Long> warehouseIds){
-		return ResponseEntity.ok(warehouseService.getByIds(warehouseIds));
+		return ResponseEntity.ok(warehouseService.findByIds(warehouseIds));
 	}
 
 }
