@@ -32,7 +32,7 @@
 						</Toolbar>
 						<IconTabBar select="onSelectedTab">
 							<items>
-								<IconTabFilter text="{i18n>PRODUCT}" icon="sap-icon://product" iconColor="Neutral" id="filter3" key="stockInfo">
+								<IconTabFilter text="{i18n>PRODUCT}" icon="sap-icon://product" iconColor="Neutral" id="filter3" key="stock">
 									<content>
 										<Toolbar>
 											<Title text="{i18n>SEARCH}" />

@@ -12,22 +12,33 @@ sap.ui.define([
 		init: async function() {
 			BaseComponent.prototype.init.apply(this, arguments);
 
-			var oParentComponent = Component.getOwnerComponentFor(this);
-
-			// this.getRouter().attachBeforeRouteMatched(function (oEvent) {
-			// 	var target = this.getRouter().getHashChanger().hash;
-			// 	if (this.keycloak.authenticated && !this.keycloak.isTokenExpired() && target != "factory" && target != "oeeapp") {
-			// 		if(this.keycloak.hasRealmRole("COMPANY_OWNER") || this.keycloak.hasRealmRole("CLIENT_MANAGER") || this.keycloak.hasRealmRole("PLANT_MANAGER")) {
-			// 			this.getRouter().getHashChanger().replaceHash("");
-			// 		}else if (this.keycloak.hasRealmRole("OPERATOR")) {
-			// 			this.getRouter().getHashChanger().replaceHash("");
-			// 		}
+			var target = this.getRouter().getHashChanger().hash;
+				if (this.keycloak.authenticated && !this.keycloak.isTokenExpired() && target != "factory" && target != "oeeapp") {
+					if(this.keycloak.hasRealmRole("COMPANY_OWNER") || this.keycloak.hasRealmRole("STAFF")){
+						this.getParentComponent(this).getRouter().navTo("factory", {}, true /*no history*/);
+					}else if(target != "chooseRole"){
+						this.getRouter().getHashChanger().replaceHash("chooseRole");
+					}
 					
-			// 	}else if ((!this.keycloak.authenticated || this.keycloak.isTokenExpired()) && (target == "factory" || target == "oeeapp")) {
-			// 		window.location.pathname="/";
-			// 	}
-			// 	this.hideBusyIndicator();
-			// }.bind(this));
+				} else if ((!this.keycloak.authenticated || this.keycloak.isTokenExpired()) && (target == "factory" || target == "oeeapp")) {
+					this.UserService.logout();
+					window.location.hash="";
+				}
+
+			await this.getRouter().attachBeforeRouteMatched(function (oEvent) {
+				var target = this.getRouter().getHashChanger().hash;
+				if (this.keycloak.authenticated && !this.keycloak.isTokenExpired() && target != "factory" && target != "oeeapp") {
+					if(this.keycloak.hasRealmRole("COMPANY_OWNER") || this.keycloak.hasRealmRole("STAFF")){
+
+					}else if(target != "chooseRole"){
+						this.getRouter().getHashChanger().replaceHash("chooseRole");
+					}
+					
+				} else if ((!this.keycloak.authenticated || this.keycloak.isTokenExpired()) && (target == "factory" || target == "oeeapp")) {
+					this.UserService.logout();
+					window.location.hash="";
+				}
+			}.bind(this));
 
 			this.getRouter().initialize();
 		}

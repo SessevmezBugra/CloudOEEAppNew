@@ -25,6 +25,9 @@ public class OrderInfo {
 	
 	@Column(name="PLANT_ID")
 	private Long plantId;
+
+	@Column(name="WORK_CENTER_ID")
+	private Long workCenterId;
 	
 	@Column(name="ORDER_NO")
 	private String orderNo;

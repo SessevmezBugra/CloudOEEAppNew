@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -29,6 +30,7 @@ public class ReasonCodeController {
     @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
     public ResponseEntity<Boolean> deleteReasonCode(@PathVariable(value="id", required=true) Long id){
         reasonCodeService.deleteById(id);
+        List<ReasonCodeEntity> tests = new ArrayList<>();
         return ResponseEntity.ok().build();
     }
 

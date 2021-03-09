@@ -2,7 +2,7 @@ package com.oee.dto;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.oee.enums.AreaType;
-import com.oee.enums.UserRole;
+import com.oee.enums.UserGroup;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,7 +19,7 @@ public class ResponsibleAreaDto {
 
     private AreaType areaType;
 
-    private UserRole userRole;
+    private UserGroup userGroup;
 
     @JsonBackReference
     private UserEntityDto userEntity;

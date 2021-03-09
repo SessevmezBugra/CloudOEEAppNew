@@ -65,6 +65,11 @@
 					"name": "home",
 					"pattern": "",
 					"target": "home"
+				},
+				{
+					"name": "chooseRole",
+					"pattern": "chooseRole",
+					"target": "chooseRole"
 				}
 			],
 			"targets": {
@@ -85,6 +90,12 @@
 					"name": "Home",
 					"id": "home",
 					"title": "Home"
+				},
+				"chooseRole": {
+					"type": "View",
+					"name": "ChooseRole",
+					"id": "chooseRole",
+					"title": "ChooseRole"
 				}
 			}
 		}

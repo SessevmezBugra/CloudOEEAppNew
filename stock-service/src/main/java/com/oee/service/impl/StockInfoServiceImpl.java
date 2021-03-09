@@ -10,6 +10,7 @@ import com.oee.dto.MaterialDto;
 import com.oee.dto.PlantDto;
 import com.oee.dto.StockDto;
 import com.oee.dto.WarehouseDto;
+import com.oee.entity.Stock;
 import com.oee.entity.StockMovement;
 import com.oee.error.EntityNotFoundException;
 import com.oee.service.StockMovementService;
@@ -17,7 +18,6 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import com.oee.entity.StockInfo;
 import com.oee.repository.StockRepository;
 import com.oee.service.StockInfoService;
 
@@ -31,13 +31,13 @@ public class StockInfoServiceImpl implements StockInfoService {
     private final ModelMapper modelMapper;
 
     @Override
-    public StockInfo create(StockInfo stockInfo) {
-        return stockRepository.save(stockInfo);
+    public Stock create(Stock stock) {
+        return stockRepository.save(stock);
     }
 
     @Override
-    public StockInfo update(StockInfo stockInfo) {
-        return stockRepository.save(stockInfo);
+    public Stock update(Stock stock) {
+        return stockRepository.save(stock);
     }
 
     @Override
@@ -47,12 +47,12 @@ public class StockInfoServiceImpl implements StockInfoService {
     }
 
     @Override
-    public StockInfo getById(Long id) {
+    public Stock getById(Long id) {
         return stockRepository.findById(id).get();
     }
 
     @Override
-    public List<StockInfo> getByIds(List<Long> ids) {
+    public List<Stock> getByIds(List<Long> ids) {
         return stockRepository.findAllById(ids);
     }
 
@@ -60,8 +60,8 @@ public class StockInfoServiceImpl implements StockInfoService {
     public List<StockDto> getByWarehouseId(Long warehouseId) {
         PlantDto plantDto = mainDataServiceClient.getPlantByWarehouseId(warehouseId).getBody();
         List<MaterialDto> materialDtos = plantDto.getMaterials();
-        List<StockInfo> stockInfos = stockRepository.findByWarehouseId(warehouseId);
-        List<StockDto> stockDtos = Arrays.asList(modelMapper.map(stockInfos, StockDto[].class));
+        List<Stock> stocks = stockRepository.findByWarehouseId(warehouseId);
+        List<StockDto> stockDtos = Arrays.asList(modelMapper.map(stocks, StockDto[].class));
         for (StockDto stockDto : stockDtos) {
             for (MaterialDto materialDto : materialDtos) {
                 if(stockDto.getMaterialId() == materialDto.getMaterialId()) {
@@ -81,64 +81,64 @@ public class StockInfoServiceImpl implements StockInfoService {
     }
 
     @Override
-    public StockInfo addStock(StockInfo stockInfo) {
-        if (stockInfo.getMaterialId() == null || stockInfo.getWarehouseId() == null) {
+    public Stock addStock(Stock stock) {
+        if (stock.getMaterialId() == null || stock.getWarehouseId() == null) {
             throw new RuntimeException("MaterialId veya WarehouseId bos olamaz!");
         }
-        System.err.println(stockInfo.getMaterialId() + " " + stockInfo.getWarehouseId());
+        System.err.println(stock.getMaterialId() + " " + stock.getWarehouseId());
         //O malzeme o depoda var mi yok mu kontrolu yapilir. Varsa uzerine belirtilen miktar eklenir. Yoksa stok olusturulur.
-        StockInfo foundStockInfo = stockRepository.findByMaterialIdAndWarehouseId(stockInfo.getMaterialId(), stockInfo.getWarehouseId());
-        if (foundStockInfo != null) {
+        Stock foundStock = stockRepository.findByMaterialIdAndWarehouseId(stock.getMaterialId(), stock.getWarehouseId());
+        if (foundStock != null) {
             System.err.println("test1");
-            foundStockInfo.setQuantity(foundStockInfo.getQuantity() + stockInfo.getQuantity());
-            System.err.println(foundStockInfo.getQuantity());
-            stockRepository.save(foundStockInfo);
+            foundStock.setQuantity(foundStock.getQuantity() + stock.getQuantity());
+            System.err.println(foundStock.getQuantity());
+            stockRepository.save(foundStock);
             StockMovement stockMovement = new StockMovement();
             stockMovement.setIsPositive(true);
-            stockMovement.setQuantity(stockInfo.getQuantity());
-            stockMovement.setStock(foundStockInfo);
+            stockMovement.setQuantity(stock.getQuantity());
+            stockMovement.setStock(foundStock);
             stockMovementService.create(stockMovement);
-            return foundStockInfo;
+            return foundStock;
         } else {
             System.err.println("test32");
-            stockRepository.save(stockInfo);
+            stockRepository.save(stock);
             StockMovement stockMovement = new StockMovement();
             stockMovement.setIsPositive(true);
-            stockMovement.setQuantity(stockInfo.getQuantity());
-            stockMovement.setStock(stockInfo);
+            stockMovement.setQuantity(stock.getQuantity());
+            stockMovement.setStock(stock);
             stockMovementService.create(stockMovement);
-            return stockInfo;
+            return stock;
         }
     }
 
     @Override
-    public StockInfo extractStock(StockInfo stockInfo) {
+    public Stock extractStock(Stock stock) {
         // TODO Auto-generated method stub
-        if (stockInfo.getMaterialId() == null || stockInfo.getWarehouseId() == null) {
+        if (stock.getMaterialId() == null || stock.getWarehouseId() == null) {
             throw new RuntimeException("MaterialId veya WarehouseId bos olamaz!");
         }
         //O malzeme o depoda var mi yok mu kontrolu yapilir. Varsa uzerine belirtilen miktar eklenir. Yoksa stok olusturulur.
-        StockInfo foundStockInfo = stockRepository.findByMaterialIdAndWarehouseId(stockInfo.getMaterialId(), stockInfo.getWarehouseId());
-        if (foundStockInfo == null) {
+        Stock foundStock = stockRepository.findByMaterialIdAndWarehouseId(stock.getMaterialId(), stock.getWarehouseId());
+        if (foundStock == null) {
             throw new RuntimeException("Depoda bu malzeme bulunmamaktadir.");
         }
-        if (foundStockInfo.getQuantity() < stockInfo.getQuantity()) {
+        if (foundStock.getQuantity() < stock.getQuantity()) {
             throw new RuntimeException("Depoda bu miktarda malzeme bulunmamaktadir.");
         }
 
-        foundStockInfo.setQuantity(foundStockInfo.getQuantity() - stockInfo.getQuantity());
-        stockRepository.save(foundStockInfo);
+        foundStock.setQuantity(foundStock.getQuantity() - stock.getQuantity());
+        stockRepository.save(foundStock);
         StockMovement stockMovement = new StockMovement();
         stockMovement.setIsPositive(false);
-        stockMovement.setQuantity(stockInfo.getQuantity());
-        stockMovement.setStock(foundStockInfo);
+        stockMovement.setQuantity(stock.getQuantity());
+        stockMovement.setStock(foundStock);
         stockMovementService.create(stockMovement);
-        return foundStockInfo;
+        return foundStock;
 
     }
 
     @Override
-    public StockInfo getByWarehouseIdAndMaterialId(Long warehouseId, Long materialId) {
+    public Stock getByWarehouseIdAndMaterialId(Long warehouseId, Long materialId) {
         return stockRepository.findByMaterialIdAndWarehouseId(materialId, warehouseId);
     }
 
@@ -166,12 +166,12 @@ public class StockInfoServiceImpl implements StockInfoService {
     }
 
     @Override
-    public List<StockInfo> extractAllStock(List<StockInfo> stockInfos) {
-        List<Long> ids = stockInfos.stream().map(StockInfo::getStockId).collect(Collectors.toList());
-        List<StockInfo> foundStocks = stockRepository.findAllById(ids);
+    public List<Stock> extractAllStock(List<Stock> stocks) {
+        List<Long> ids = stocks.stream().map(Stock::getStockId).collect(Collectors.toList());
+        List<Stock> foundStocks = stockRepository.findAllById(ids);
         List<StockMovement> stockMovements = new ArrayList<>();
-        for (StockInfo foundStock : foundStocks) {
-            StockInfo stockMov = stockInfos.stream().filter(stockInfo -> stockInfo.getStockId() == foundStock.getStockId()).findFirst().orElseThrow(() -> new EntityNotFoundException("Boyle bir stok bulunmamaktadir!"));
+        for (Stock foundStock : foundStocks) {
+            Stock stockMov = stocks.stream().filter(stockInfo -> stockInfo.getStockId() == foundStock.getStockId()).findFirst().orElseThrow(() -> new EntityNotFoundException("Boyle bir stok bulunmamaktadir!"));
             if (foundStock.getQuantity() < stockMov.getQuantity()) {
                 throw new RuntimeException("Depoda bu teyit icin yeterli stok bulunmamaktadir!");
             }
@@ -184,7 +184,7 @@ public class StockInfoServiceImpl implements StockInfoService {
         }
         stockRepository.saveAll(foundStocks);
         stockMovementService.createAll(stockMovements);
-        return stockInfos;
+        return stocks;
     }
 
 }

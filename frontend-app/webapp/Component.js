@@ -21,19 +21,19 @@ sap.ui.define([
 					localUserModel.setData(this.keycloak);
 					this.setModel(localUserModel, "localUserModel");
 
-					if(this.keycloak.hasRealmRole("COMPANY_OWNER") || this.keycloak.hasRealmRole("CLIENT_MANAGER") || this.keycloak.hasRealmRole("PLANT_MANAGER")){
+					if(this.keycloak.hasRealmRole("COMPANY_OWNER") || this.keycloak.hasRealmRole("STAFF")){
 						this.getRouter().getHashChanger().replaceHash("factory");
-					} else if(this.keycloak.hasRealmRole("OPERATOR")) {
-						this.getRouter().getHashChanger().replaceHash("oeeapp");
 					} else {
-						this.UserService.logout();
-						// this.getRouter().getHashChanger().replaceHash("");
-						// window.location.pathname="/index.html";
-						window.location.hash="";
+						// var oComponentTargetInfo = {};
+						// oComponentTargetInfo["home"] = {
+						// 	route: "chooseRole",
+						// 	parameters: {}
+						// }
+						// this.getRouter().navTo("home", {}, oComponentTargetInfo);
+						// this.getRouter().navTo("chooseRole", {}, true);
 					}
 
 				} else {
-					// this.getRouter().getHashChanger().replaceHash("");
 					window.location.hash="";
 				}
 				this.hideBusyIndicator();
@@ -58,15 +58,19 @@ sap.ui.define([
 			await this.getRouter().attachBeforeRouteMatched(function (oEvent) {
 				var target = this.getRouter().getHashChanger().hash;
 				if (this.keycloak.authenticated && !this.keycloak.isTokenExpired() && target != "factory" && target != "oeeapp") {
-					if(this.keycloak.hasRealmRole("COMPANY_OWNER") || this.keycloak.hasRealmRole("CLIENT_MANAGER") || this.keycloak.hasRealmRole("PLANT_MANAGER")){
+					if(this.keycloak.hasRealmRole("COMPANY_OWNER") || this.keycloak.hasRealmRole("STAFF")){
 						this.getRouter().getHashChanger().replaceHash("factory");
-					} else if(this.keycloak.hasRealmRole("OPERATOR")) {
-						this.getRouter().getHashChanger().replaceHash("oeeapp");
-					} else {
-						this.UserService.logout();
+					}else if(target != "chooseRole"){
+						// var oComponentTargetInfo = {};
+						// oComponentTargetInfo["home"] = {
+						// 	route: "chooseRole",
+						// 	parameters: {}
+						// }
+						// this.getRouter().navTo("home", {}, oComponentTargetInfo);
+						// this.UserService.logout();
 						// this.getRouter().getHashChanger().replaceHash("");
 						// window.location.pathname="/";
-						window.location.hash="";
+						// window.location.hash="";
 						// window.location.pathname="/index.html";
 					}
 					
@@ -74,10 +78,6 @@ sap.ui.define([
 					this.UserService.logout();
 					// this.getRouter().getHashChanger().replaceHash("");
 					// window.location.pathname="/index.html";
-					// window.location.pathname="/";
-					window.location.hash="";
-				}else if(this.keycloak.authenticated && !this.keycloak.isTokenExpired() && target == "factory" && this.keycloak.hasRealmRole("OPERATOR")) {
-					// this.getRouter().getHashChanger().replaceHash("");
 					// window.location.pathname="/";
 					window.location.hash="";
 				}

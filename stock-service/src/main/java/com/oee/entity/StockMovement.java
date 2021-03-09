@@ -27,6 +27,11 @@ public class StockMovement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long stockMovId;
 
+    @JsonBackReference
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "STOCK_ID")
+    private Stock stock;
+
     @Column(name = "QUANTITY")
     private Double quantity;
 
@@ -35,10 +40,5 @@ public class StockMovement {
 
 	@Column(name = "IS_POSITIVE")
     private Boolean isPositive;
-
-    @JsonBackReference
-    @ManyToOne(optional = true)
-    @JoinColumn(name = "STOCK_ID")
-    private StockInfo stock;
 
 }

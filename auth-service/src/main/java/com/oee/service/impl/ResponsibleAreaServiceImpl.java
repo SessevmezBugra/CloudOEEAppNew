@@ -12,11 +12,9 @@ import com.oee.dto.CompanyDto;
 import com.oee.dto.PlantDto;
 import com.oee.dto.ResponsibleAreaDto;
 import com.oee.enums.AreaType;
-import com.oee.enums.UserRole;
+import com.oee.enums.UserGroup;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.oee.entity.ResponsibleArea;
@@ -124,7 +122,7 @@ public class ResponsibleAreaServiceImpl implements ResponsibleAreaService{
 	}
 
 	@Override
-	public ResponsibleArea findByUserIdAndUserRoleAndAreaId(String userId, UserRole role, Long areaId) {
+	public ResponsibleArea findByUserIdAndUserRoleAndAreaId(String userId, UserGroup role, Long areaId) {
 		return responsibleAreaRepository.findByUserEntityIdAndUserRoleAndAreaId(userId, role, areaId);
 	}
 

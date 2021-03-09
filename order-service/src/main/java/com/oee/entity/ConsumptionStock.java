@@ -1,6 +1,9 @@
 package com.oee.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +16,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="CONSUMPTION_MATERIAL")
+@Getter
+@Setter
+@NoArgsConstructor
 public class ConsumptionStock {
 	
 	@Id
@@ -27,31 +33,5 @@ public class ConsumptionStock {
 	
 	@Column(name="STOCK_ID")
 	private Long stockId;
-	
-	public ConsumptionStock() {
-		// TODO Auto-generated constructor stub
-	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public OrderInfo getOrder() {
-		return order;
-	}
-
-	public void setOrder(OrderInfo order) {
-		this.order = order;
-	}
-
-	public Long getStockId() {
-		return stockId;
-	}
-
-	public void setStockId(Long stockId) {
-		this.stockId = stockId;
-	}
 }

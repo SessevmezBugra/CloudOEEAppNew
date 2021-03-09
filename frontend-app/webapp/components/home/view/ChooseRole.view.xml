@@ -1,0 +1,39 @@
+<mvc:View controllerName="workerapp.components.home.controller.ChooseRole"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+	xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	xmlns:card="sap.f.cards" displayBlock="true">
+	<Page id="page" showHeader="false">
+		<content>
+			<FlexBox height="100%" alignItems="Center" justifyContent="Center" wrap="Wrap">
+				<items>
+					<FlexBox alignItems="Center" justifyContent="Center" wrap="Wrap">
+						<items>
+							<f:Card class="sapUiMediumMargin" width="80%">
+								<f:header>
+									<card:Header title="{i18n>CHOOSEROLE_PERSONEL_TITLE}" iconSrc="sap-icon://employee"/>
+								</f:header>
+								<f:content>
+									<VBox class="sapUiSmallMargin" justifyContent="SpaceBetween">
+										<Button type="Accept" press = "chooseRole" text="{i18n>CHOOSEROLE_PERSONEL_CONTINUE}" customData:extraValue="STAFF"/>
+									</VBox>
+								</f:content>
+							</f:Card>
+							<f:Card class="sapUiMediumMargin" width="80%">
+								<f:header>
+									<card:Header title="{i18n>CHOOSEROLE_FACTORY_TITLE}" iconSrc="sap-icon://building"/>
+								</f:header>
+								<f:content>
+									<VBox class="sapUiSmallMargin" justifyContent="SpaceBetween">
+										<Button type="Accept" press = "chooseRole" text="{i18n>CHOOSEROLE_FACTORY_CONTINUE}" customData:extraValue="COMPANY_OWNER"/>
+									</VBox>
+								</f:content>
+							</f:Card>
+						</items>
+					</FlexBox>
+				</items>
+			</FlexBox>
+		</content>
+	</Page>
+</mvc:View>

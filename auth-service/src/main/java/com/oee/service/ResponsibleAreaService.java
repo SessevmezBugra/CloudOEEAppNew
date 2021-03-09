@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.oee.dto.ResponsibleAreaDto;
 import com.oee.entity.ResponsibleArea;
-import com.oee.enums.UserRole;
+import com.oee.enums.UserGroup;
 
 public interface ResponsibleAreaService {
 	
@@ -24,5 +24,5 @@ public interface ResponsibleAreaService {
 
     List<ResponsibleAreaDto> findByUserId(String userId);
 
-    ResponsibleArea findByUserIdAndUserRoleAndAreaId(String userId, UserRole role, Long areaId);
+    ResponsibleArea findByUserIdAndUserRoleAndAreaId(String userId, UserGroup role, Long areaId);
 }

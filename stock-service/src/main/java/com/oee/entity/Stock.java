@@ -12,10 +12,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name="STOCK_INFO")
-public class StockInfo {
+@Getter
+@Setter
+@NoArgsConstructor
+public class Stock {
 	
 	@Id
 	@Column(name="STOCK_ID")
@@ -34,50 +40,5 @@ public class StockInfo {
 	@JsonManagedReference
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="stock")
 	private List<StockMovement> stockMovements;
-
-	public StockInfo() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public Long getStockId() {
-		return stockId;
-	}
-
-	public void setStockId(Long stockId) {
-		this.stockId = stockId;
-	}
-
-	public Long getMaterialId() {
-		return materialId;
-	}
-
-	public void setMaterialId(Long materialId) {
-		this.materialId = materialId;
-	}
-
-	public Double getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(Double quantity) {
-		this.quantity = quantity;
-	}
-
-	public List<StockMovement> getStockMovements() {
-		return stockMovements;
-	}
-
-	public void setStockMovements(List<StockMovement> stockMovements) {
-		this.stockMovements = stockMovements;
-	}
-
-	public Long getWarehouseId() {
-		return warehouseId;
-	}
-
-	public void setWarehouseId(Long warehouseId) {
-		this.warehouseId = warehouseId;
-	}
-
 
 }

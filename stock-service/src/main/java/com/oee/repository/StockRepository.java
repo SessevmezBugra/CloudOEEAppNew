@@ -2,19 +2,18 @@ package com.oee.repository;
 
 import java.util.List;
 
+import com.oee.entity.Stock;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.oee.entity.StockInfo;
 
 import javax.transaction.Transactional;
 
-public interface StockRepository extends JpaRepository<StockInfo, Long>{
+public interface StockRepository extends JpaRepository<Stock, Long>{
 	
-	List<StockInfo> findByWarehouseId(Long warehouseId);
+	List<Stock> findByWarehouseId(Long warehouseId);
 	
-	StockInfo findByMaterialIdAndWarehouseId(Long materialId, Long warehouseId);
+	Stock findByMaterialIdAndWarehouseId(Long materialId, Long warehouseId);
 
-	List<StockInfo> findByWarehouseIdIn(Iterable<Long> warehouseIds);
+	List<Stock> findByWarehouseIdIn(Iterable<Long> warehouseIds);
 
 	@Transactional
     void deleteByWarehouseIdIn(List<Long> warehouseIds);

@@ -3,31 +3,31 @@ package com.oee.service;
 import java.util.List;
 
 import com.oee.dto.StockDto;
-import com.oee.entity.StockInfo;
+import com.oee.entity.Stock;
 
 public interface StockInfoService {
 	
-	StockInfo create(StockInfo stockInfo);
+	Stock create(Stock stock);
 	
-	StockInfo update(StockInfo stockInfo);
+	Stock update(Stock stock);
 	
 	Boolean delete(Long id);
 	
-	StockInfo getById(Long id);
+	Stock getById(Long id);
 
-	List<StockInfo> getByIds(List<Long> ids);
+	List<Stock> getByIds(List<Long> ids);
 
 	List<StockDto> getByWarehouseId(Long warehouseId);
 
 	Boolean deleteByWarehouseIds(List<Long> warehouseIds);
 	
-	StockInfo addStock(StockInfo stockInfo);
+	Stock addStock(Stock stock);
 	
-	StockInfo extractStock(StockInfo stockInfo);
+	Stock extractStock(Stock stock);
 
-    StockInfo getByWarehouseIdAndMaterialId(Long warehouseId, Long materialId);
+    Stock getByWarehouseIdAndMaterialId(Long warehouseId, Long materialId);
 
     List<StockDto> getByPlantId(Long plantId);
 
-    List<StockInfo> extractAllStock(List<StockInfo> stockInfos);
+    List<Stock> extractAllStock(List<Stock> stocks);
 }

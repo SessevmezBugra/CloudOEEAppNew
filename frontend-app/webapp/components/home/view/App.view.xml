@@ -4,7 +4,7 @@
 	xmlns:tnt="sap.tnt"
 	xmlns:mvc="sap.ui.core.mvc" displayBlock="true">
 	<tnt:ToolHeader>
-		<Button icon="sap-icon://building" type="Transparent" press=".onHomePress">
+		<Button icon="sap-icon://building" press=".onHomePress">
 			<layoutData>
 				<OverflowToolbarLayoutData priority="NeverOverflow" />
 			</layoutData>
@@ -20,7 +20,7 @@
 				<OverflowToolbarLayoutData priority="NeverOverflow" shrinkable="true" />
 			</layoutData>
 			<items>
-				<IconTabFilter text="Bulut Fabrikasi" />
+				<IconTabFilter text="Fabrikam Elimde" />
 			</items>
 		</IconTabHeader>
 		<ToolbarSpacer>
@@ -28,7 +28,7 @@
 				<OverflowToolbarLayoutData priority="NeverOverflow" minWidth="16px" />
 			</layoutData>
 		</ToolbarSpacer>
-		<Button text="Oturum Ac" type="Transparent" press=".goToLoginPage" design="Transparent">
+		<Button text="Oturum Ac" press=".goToLoginPage">
 			<layoutData>
 				<OverflowToolbarLayoutData priority="NeverOverflow" />
 			</layoutData>

@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.oee.enums.AreaType;
-import com.oee.enums.UserRole;
+import com.oee.enums.UserGroup;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -33,7 +33,7 @@ public class ResponsibleArea {
 
 	@Enumerated(EnumType.STRING)
 	@Column(name="AREA_ROLE")
-	private UserRole userRole;
+	private UserGroup userGroup;
 
 	@JsonBackReference
 	@ManyToOne(optional=true)

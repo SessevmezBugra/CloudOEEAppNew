@@ -3,6 +3,7 @@ package com.oee.web;
 import java.util.List;
 
 import com.oee.dto.StockDto;
+import com.oee.entity.Stock;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.oee.entity.StockInfo;
 import com.oee.service.StockInfoService;
 import com.oee.util.ApiPaths;
 
@@ -26,7 +26,7 @@ public class StockInfoRestController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<StockInfo> createStockInfo(@RequestBody StockInfo stockInfo){
+	public ResponseEntity<Stock> createStockInfo(@RequestBody Stock stock){
 		
 //        KeycloakSecurityContext session = principal.getKeycloakSecurityContext();
 //        AccessToken accessToken = session.getToken();
@@ -38,27 +38,27 @@ public class StockInfoRestController {
 //        Access realmAccess = accessToken.getRealmAccess();
 //        roles = realmAccess.getRoles();
 //		System.err.println(accessToken.toString());
-		return ResponseEntity.ok(stockInfoService.create(stockInfo));
+		return ResponseEntity.ok(stockInfoService.create(stock));
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT)
-	public ResponseEntity<StockInfo> updateStockInfo(@RequestBody StockInfo stockInfo){
-		return ResponseEntity.ok(stockInfoService.update(stockInfo));
+	public ResponseEntity<Stock> updateStockInfo(@RequestBody Stock stock){
+		return ResponseEntity.ok(stockInfoService.update(stock));
 	}
 	
 	@RequestMapping(value="/add",method=RequestMethod.PUT)
-	public ResponseEntity<StockInfo> addStockInfo(@RequestBody StockInfo stockInfo){
-		return ResponseEntity.ok(stockInfoService.addStock(stockInfo));
+	public ResponseEntity<Stock> addStockInfo(@RequestBody Stock stock){
+		return ResponseEntity.ok(stockInfoService.addStock(stock));
 	}
 	
 	@RequestMapping(value="/extract",method=RequestMethod.PUT)
-	public ResponseEntity<StockInfo> extractStockInfo(@RequestBody StockInfo stockInfo){
-		return ResponseEntity.ok(stockInfoService.extractStock(stockInfo));
+	public ResponseEntity<Stock> extractStockInfo(@RequestBody Stock stock){
+		return ResponseEntity.ok(stockInfoService.extractStock(stock));
 	}
 
 	@RequestMapping(value="/extract/all",method=RequestMethod.PUT)
-	public ResponseEntity<List<StockInfo>> extractAllStockInfo(@RequestBody List<StockInfo> stockInfos){
-		return ResponseEntity.ok(stockInfoService.extractAllStock(stockInfos));
+	public ResponseEntity<List<Stock>> extractAllStockInfo(@RequestBody List<Stock> stocks){
+		return ResponseEntity.ok(stockInfoService.extractAllStock(stocks));
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
@@ -67,13 +67,13 @@ public class StockInfoRestController {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<StockInfo> getStockInfoById(@PathVariable(value="id", required=true) Long stockId){
+	public ResponseEntity<Stock> getStockInfoById(@PathVariable(value="id", required=true) Long stockId){
 		return ResponseEntity.ok(stockInfoService.getById(stockId));
 	}
 
 
 	@RequestMapping(value="/ids", method=RequestMethod.POST)
-	public ResponseEntity<List<StockInfo>> getStockInfoByIds(@RequestBody List<Long> stockIds){
+	public ResponseEntity<List<Stock>> getStockInfoByIds(@RequestBody List<Long> stockIds){
 		return ResponseEntity.ok(stockInfoService.getByIds(stockIds));
 	}
 
@@ -90,7 +90,7 @@ public class StockInfoRestController {
 	}
 
 	@RequestMapping(value="/warehouse/{warehouseId}/material/{materialId}", method=RequestMethod.GET)
-	public ResponseEntity<StockInfo> getStockInfoByWarehouseIdAndMaterialId(@PathVariable(value="warehouseId", required=true) Long warehouseId, @PathVariable(value="materialId", required=true) Long materialId){
+	public ResponseEntity<Stock> getStockInfoByWarehouseIdAndMaterialId(@PathVariable(value="warehouseId", required=true) Long warehouseId, @PathVariable(value="materialId", required=true) Long materialId){
 		return ResponseEntity.ok(stockInfoService.getByWarehouseIdAndMaterialId(warehouseId, materialId));
 	}
 

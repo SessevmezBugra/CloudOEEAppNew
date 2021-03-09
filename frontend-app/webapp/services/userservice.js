@@ -9,8 +9,8 @@ sap.ui.define([
             if (this.keycloak) {
                 return this.keycloak;
             }
-            var KEYCLOAK_URI = "https://auth.arcloudfactories.com/auth";
-            // var KEYCLOAK_URI = window.location.origin.includes("localhost") ? "http://localhost:8080/auth" : "https://auth.arcloudfactories.com/auth";
+            // var KEYCLOAK_URI = "https://auth.arcloudfactories.com/auth";
+            var KEYCLOAK_URI = window.location.origin.includes("localhost") ? "http://localhost:8080/auth" : "https://auth.arcloudfactories.com/auth";
             this.keycloak = new Keycloak({
                 url: KEYCLOAK_URI,
                 realm: 'cloudoeeapp',

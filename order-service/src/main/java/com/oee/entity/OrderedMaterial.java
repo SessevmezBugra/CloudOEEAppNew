@@ -23,12 +23,18 @@ public class OrderedMaterial {
 	@OneToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "ORDER_ID", nullable = false)
 	private OrderInfo order;
+
+	@Column(name="MATERIAL_ID")
+	private Long materialId;
 	
 	@Column(name="MATERIAL_DESC")
 	private String materialDesc;
 
 	@Column(name="MATERIAL_NUMBER")
 	private String materialNumber;
+
+	@Column(name="WAREHOUSE_ID")
+	private Long warehouseId;
 
 	@Column(name="PLANNED_PROD_QUANTITY")
 	private Double plannedProdQuantity = 0.0;
@@ -38,11 +44,5 @@ public class OrderedMaterial {
 
 	@Column(name="IS_STOCK_PROD")
 	private Boolean isStockProd;
-
-	@Column(name="MATERIAL_ID")
-	private Long materialId;
-
-	@Column(name="WAREHOUSE_ID")
-	private Long warehouseId;
 
 }
