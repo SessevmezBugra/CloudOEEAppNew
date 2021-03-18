@@ -1,8 +1,5 @@
 package com.oee.config;
 
-import java.util.Collection;
-import java.util.stream.Collectors;
-
 import com.oee.dto.CurrentUser;
 import org.keycloak.KeycloakPrincipal;
 import org.keycloak.adapters.RefreshableKeycloakSecurityContext;
@@ -12,6 +9,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Configuration
 public class CurrentUserProvider {

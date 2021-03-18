@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import com.oee.service.impl.KeycloakAdminClientService;
 
-@RestController
-@RequestMapping(path = "/auth/keycloak")
+//@RestController
+//@RequestMapping(path = "/auth/keycloak")
 public class KeycloakController {
 
     private final KeycloakAdminClientService keycloakAdminClientService;

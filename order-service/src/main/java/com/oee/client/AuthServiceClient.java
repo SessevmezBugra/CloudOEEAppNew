@@ -12,12 +12,12 @@ import java.util.List;
 @FeignClient(name = "auth-service", configuration = {ClientConfiguration.class})
 public interface AuthServiceClient {
 
-        @RequestMapping(value = "/auth/responsible-area", method= RequestMethod.GET)
-        public ResponseEntity<List<ResponsibleAreaDto>> getResponsibleArea();
-
-        @RequestMapping(value = "/auth/responsible-area", method= RequestMethod.POST)
-        public ResponseEntity<ResponsibleAreaDto> addCompanyToResponsibleArea(@RequestBody ResponsibleAreaDto responsibleAreaDto);
-
-        @RequestMapping(value = "/auth/keycloak/company-owner", method= RequestMethod.POST)
-        public ResponseEntity<Boolean> addCompanyOwnerRole();
+//        @RequestMapping(value = "/auth/responsible-area", method= RequestMethod.GET)
+//        public ResponseEntity<List<ResponsibleAreaDto>> getResponsibleArea();
+//
+//        @RequestMapping(value = "/auth/responsible-area", method= RequestMethod.POST)
+//        public ResponseEntity<ResponsibleAreaDto> addCompanyToResponsibleArea(@RequestBody ResponsibleAreaDto responsibleAreaDto);
+//
+//        @RequestMapping(value = "/auth/keycloak/company-owner", method= RequestMethod.POST)
+//        public ResponseEntity<Boolean> addCompanyOwnerRole();
 }

@@ -9,7 +9,6 @@ public class PlantDto {
     private String plantName;
     private List<MaterialDto> materials;
     private List<WarehouseDto> warehouses;
-    private ClientDto client;
 
     public PlantDto() {
     }
@@ -46,11 +45,4 @@ public class PlantDto {
         this.warehouses = warehouses;
     }
 
-    public ClientDto getClient() {
-        return client;
-    }
-
-    public void setClient(ClientDto client) {
-        this.client = client;
-    }
 }

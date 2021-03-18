@@ -5,7 +5,9 @@ import com.oee.service.KeycloakUserService;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -16,6 +18,9 @@ public class KeycloakUserServiceImpl implements KeycloakUserService {
 
     @Override
     public List<UserRepresentation> findByUsername(String username) {
+        if(ObjectUtils.isEmpty(username)){
+            return Collections.emptyList();
+        }
         return keycloakUserDao.findByUsername(username);
     }
 
@@ -23,4 +28,5 @@ public class KeycloakUserServiceImpl implements KeycloakUserService {
     public UserRepresentation findByUserId(String userId) {
         return keycloakUserDao.findByUserId(userId);
     }
+
 }

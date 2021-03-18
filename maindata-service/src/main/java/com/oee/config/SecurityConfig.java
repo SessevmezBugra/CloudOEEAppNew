@@ -45,6 +45,7 @@ import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
+//@EnableGlobalMethodSecurity(jsr250Enabled = true)
 @ComponentScan(basePackageClasses = KeycloakSecurityComponents.class)
 class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
  

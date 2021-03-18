@@ -1,12 +1,48 @@
 package com.oee;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.cors.reactive.CorsWebFilter;
+import org.springframework.web.reactive.config.CorsRegistry;
 
-@Configuration
-//@EnableWebMvc
+import java.util.Arrays;
+
+//@Configuration
 public class WebConfig
-//        implements Filter, WebMvcConfigurer
+//        implements Filter,
+//        WebMvcConfigurer
     {
+
+//        @Override
+//        public void addCorsMappings(CorsRegistry registry) {
+//            registry.addMapping("/**").allowedMethods("*");
+//        }
+
+//        @Bean
+//        CorsWebFilter corsWebFilter() {
+//            CorsConfiguration configuration = new CorsConfiguration();
+//            configuration.setAllowedOrigins(Arrays.asList("*"));
+//            configuration.setAllowedMethods(Arrays.asList("GET", "POST", "OPTIONS", "DELETE", "PUT"));
+//            configuration.setAllowedHeaders(Arrays.asList("Content-Type", "Access-Control-Allow-Origin",
+//                    "Access-Control-Allow-Headers", "X-Auth-Token", "Authorization", "Origin"));
+//            configuration.setExposedHeaders(Arrays.asList("Content-Type", "Access-Control-Allow-Origin",
+//                    "Access-Control-Allow-Headers", "Origin", "X-Auth-Token", "Authorization"));
+//            configuration.setAllowCredentials(false);
+//            configuration.setMaxAge(123L);
+//
+//            //the below three lines will add the relevant CORS response headers
+////            configuration.addAllowedOrigin("*");
+////            configuration.addAllowedHeader("*");
+////        configuration.addExposedHeader("*");
+////            configuration.addAllowedMethod("*");
+//
+//            UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//            source.registerCorsConfiguration("/**", configuration);
+//            return new CorsWebFilter(source);
+//        }
 
 //        @Bean
 //        public DiscoveryClientRouteDefinitionLocator

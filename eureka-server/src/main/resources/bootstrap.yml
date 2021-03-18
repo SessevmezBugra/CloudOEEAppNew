@@ -1,7 +1,11 @@
 spring:
   application:
     name: eureka
+  profiles:
+    active: ${ACTIVE_PROFILE:local}
   cloud:
+    bootstrap:
+      enabled: true
     config:
       uri: ${CONFIG_URI:http://localhost:8888}
       fail-fast: ${FAIL_FAST:false}

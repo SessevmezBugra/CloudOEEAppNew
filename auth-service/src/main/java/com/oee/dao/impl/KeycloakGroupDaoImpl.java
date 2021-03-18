@@ -1,18 +1,21 @@
 package com.oee.dao.impl;
 
-import com.oee.config.KeycloakAdminClientConfig;
+import com.oee.model.KeycloakAdminClientConfig;
 import com.oee.dao.KeycloakGroupDao;
 import com.oee.dao.common.KeycloakResource;
 import org.keycloak.admin.client.Keycloak;
-import org.keycloak.admin.client.resource.GroupsResource;
 import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.admin.client.resource.UsersResource;
 import org.keycloak.representations.idm.GroupRepresentation;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
+//@ConditionalOnProperty(
+//        name = "custom.security.config.enabled",
+//        havingValue = "true",
+//        matchIfMissing = true)
 @Repository
 public class KeycloakGroupDaoImpl extends KeycloakResource implements KeycloakGroupDao {
 
@@ -21,16 +24,19 @@ public class KeycloakGroupDaoImpl extends KeycloakResource implements KeycloakGr
     }
 
     @Override
-    public void addUser(String group, String username) {
+    public void addUser(String groupId, String userId) {
         UsersResource usersResource = getUsersResource();
-        UserResource userResource = usersResource.get(usersResource.search(username).get(0).getId());
-        GroupsResource groupsResource = getGroupResource();
-        List<String> groupId = groupsResource.groups().stream().filter(gr -> gr.getName().equals(group)).map(GroupRepresentation::getId).collect(Collectors.toList());
-        userResource.joinGroup(groupId.get(0));
+        UserResource userResource = usersResource.get(userId);
+        userResource.joinGroup(groupId);
     }
 
     @Override
-    public void removeUser(String group, String username) {
+    public void removeUser(String groupId, String userId) {
 
+    }
+
+    @Override
+    public List<GroupRepresentation> findAll() {
+        return getGroupResource().groups();
     }
 }

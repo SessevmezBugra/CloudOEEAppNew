@@ -31,6 +31,10 @@ public final class ApiPaths {
 		public static final String CTRL = BASE_PATH + "/machine";
 	}
 
+	public static final class WorkCenterCtrl {
+		public static final String CTRL = BASE_PATH + "/work-center";
+	}
+
     public static final class EquipmentCtrl {
 		public static final String CTRL = BASE_PATH + "/equipment";
 	}

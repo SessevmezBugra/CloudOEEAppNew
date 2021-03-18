@@ -19,7 +19,7 @@ public class WorkCenterEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "NODE_ID", referencedColumnName = "ID")
     private NodeEntity node;
 

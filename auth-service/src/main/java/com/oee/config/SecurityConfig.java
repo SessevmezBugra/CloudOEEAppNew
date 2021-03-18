@@ -28,6 +28,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -44,8 +45,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.Arrays;
 
 @SuppressWarnings({ "rawtypes", "unchecked" })
+
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(jsr250Enabled = true)
 @ComponentScan(basePackageClasses = KeycloakSecurityComponents.class)
 class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
  
@@ -102,7 +105,7 @@ class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
                 "Access-Control-Allow-Headers", "X-Auth-Token", "Authorization", "Origin"));
         configuration.setExposedHeaders(Arrays.asList("Content-Type", "Access-Control-Allow-Origin",
                 "Access-Control-Allow-Headers", "Origin", "X-Auth-Token", "Authorization"));
-        configuration.setAllowCredentials(true);
+        configuration.setAllowCredentials(false);
         configuration.setMaxAge(123L);
 
         //the below three lines will add the relevant CORS response headers

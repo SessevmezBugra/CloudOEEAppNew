@@ -33,7 +33,7 @@ public class NodeEntity {
     @Column(name="NODE_TYPE")
     private NodeType type;
 
-    @ManyToOne(optional=false, fetch = FetchType.LAZY)
+    @ManyToOne(optional=true, fetch = FetchType.LAZY)
     @JoinColumn(name="HIERARCHY_ID")
     private HierarchyEntity hierarchy;
 

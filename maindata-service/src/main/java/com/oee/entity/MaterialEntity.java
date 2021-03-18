@@ -1,18 +1,11 @@
 package com.oee.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name="MATERIAL")
@@ -36,7 +29,7 @@ public class MaterialEntity {
 	private String desc;
 	
 	@JsonBackReference
-	@ManyToOne(optional=true)
+	@ManyToOne(optional=true, fetch = FetchType.LAZY)
 	@JoinColumn(name="PLANT_ID", referencedColumnName = "ID")
 	private PlantEntity plant;
 	

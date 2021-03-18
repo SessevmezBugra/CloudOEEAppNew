@@ -1,0 +1,42 @@
+security:
+  user:
+    name: myActuatorUser
+    password: myActuatorPwd
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    org.springframework.security.oauth2: INFO
+
+spring:
+  cloud:
+    discovery:
+      enabled: false
+  zipkin:
+    enabled: false
+
+management:
+  endpoints:
+    enabled-by-default: false
+
+#eureka:
+#  instance:
+#    prefer-ip-address: true
+#  client:
+#    serviceUrl:
+#      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka/}
+#  server:
+#        peer-node-read-timeout-ms: 300000
+#        enable-self-preservation: false
+        
+
+ 
+keycloak:
+  auth-server-url: ${KEYCLOAK_URI:http://localhost:8080/auth}
+  realm: cloudoeeapp
+  bearer-only: true
+  public-client: true
+  principal-attribute: preferred_username
+  ssl-required: none

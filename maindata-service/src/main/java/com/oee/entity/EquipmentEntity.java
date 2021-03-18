@@ -20,7 +20,7 @@ public class EquipmentEntity {
     private Long id;
 
     @JsonBackReference
-    @ManyToOne(optional=true)
+    @ManyToOne(optional=true, fetch = FetchType.LAZY)
     @JoinColumn(name = "MACHINE_ID", referencedColumnName = "ID")
     private MachineEntity machine;
 

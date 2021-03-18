@@ -21,7 +21,7 @@
     <properties>
         <java.version>11</java.version>
         <spring.cloud.version>2020.0.1</spring.cloud.version>
-        <keycloak.version>12.0.1</keycloak.version>
+        <keycloak.version>12.0.4</keycloak.version>
         <logstash-logback-encoder.version>6.1</logstash-logback-encoder.version>
     </properties>
 
@@ -34,7 +34,6 @@
         <module>config-service</module>
         <module>eureka-server</module>
         <module>auth-service</module>
-        <module>downtime-service</module>
     </modules>
 
     <dependencyManagement>

@@ -6,8 +6,11 @@ sap.ui.define([
 
     return {
         //STAFF
-        updateUserGroup: function(person) {
-            return Service.doAjax(Constant.SERVICE_URI + "/auth/group/"+ person.groupName + "/user/" + person.username, null, "PUT", true);
+        getAllGroups: function() {
+            return Service.doAjax(Constant.SERVICE_URI + "/auth/group", null, "GET", true);
+        },
+        addUserToGroup: function(groupId, userId) {
+            return Service.doAjax(Constant.SERVICE_URI + "/auth/group/"+ groupId + "/user/" + userId, null, "PUT", true);
         },
         addClientManager: function(person) {
             return Service.doAjax(Constant.baseUri() + "/auth/keycloak/add-clientmanager",person, "POST", true);

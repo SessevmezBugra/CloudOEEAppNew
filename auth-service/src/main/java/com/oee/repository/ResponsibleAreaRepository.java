@@ -13,13 +13,13 @@ import javax.transaction.Transactional;
 @Repository
 public interface ResponsibleAreaRepository extends JpaRepository<ResponsibleArea, Long>{
 	
-	List<ResponsibleArea> findByUserEntityId(String userId);
+//	List<ResponsibleArea> findByUserEntityId(String userId);
 
-	@Transactional
-    void deleteByAreaIdIn(List<Long> areaIds);
+//	@Transactional
+//    void deleteByAreaIdIn(List<Long> areaIds);
+//
+//    @Transactional
+//    void deleteByUserEntityId(String userId);
 
-    @Transactional
-    void deleteByUserEntityId(String userId);
-
-    ResponsibleArea findByUserEntityIdAndUserRoleAndAreaId(String userId, UserGroup role, Long areaId);
+//    ResponsibleArea findByUserEntityIdAndUserRoleAndAreaId(String userId, UserGroup role, Long areaId);
 }

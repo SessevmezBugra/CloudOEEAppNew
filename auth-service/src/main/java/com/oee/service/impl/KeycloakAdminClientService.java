@@ -1,42 +1,26 @@
 package com.oee.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.oee.client.MainDataServiceClient;
 import com.oee.config.CurrentUserProvider;
 import com.oee.dto.*;
-import com.oee.entity.ResponsibleArea;
-import com.oee.entity.UserEntity;
-import com.oee.enums.UserGroup;
 import com.oee.repository.UserEntityRepository;
-import com.oee.service.ResponsibleAreaService;
 import lombok.RequiredArgsConstructor;
-import org.keycloak.KeycloakPrincipal;
-import org.keycloak.adapters.RefreshableKeycloakSecurityContext;
-import org.keycloak.admin.client.CreatedResponseUtil;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.resource.*;
-import org.keycloak.representations.idm.CredentialRepresentation;
-import org.keycloak.representations.idm.GroupRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import com.oee.config.KeycloakAdminClientConfig;
-import org.springframework.util.StringUtils;
+import com.oee.model.KeycloakAdminClientConfig;
 
-import javax.persistence.EntityExistsException;
-import javax.ws.rs.core.Response;
-
-@Service
+//@Service
 @RequiredArgsConstructor
 public class KeycloakAdminClientService {
 
     private final CurrentUserProvider currentUserProvider;
 
-    private final ResponsibleAreaService responsibleAreaService;
+//    private final ResponsibleAreaService responsibleAreaService;
     private final MainDataServiceClient mainDataServiceClient;
     private final UserEntityRepository userEntityRepository;
     private final Keycloak keycloak;

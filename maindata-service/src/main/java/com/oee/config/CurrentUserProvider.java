@@ -1,8 +1,6 @@
-package com.oee.service.impl;
+package com.oee.config;
 
-import java.util.Collection;
-import java.util.stream.Collectors;
-
+import com.oee.dto.CurrentUser;
 import org.keycloak.KeycloakPrincipal;
 import org.keycloak.adapters.RefreshableKeycloakSecurityContext;
 import org.springframework.context.annotation.Bean;
@@ -12,7 +10,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.oee.dto.CurrentUser;
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Configuration
 public class CurrentUserProvider {
@@ -31,7 +30,6 @@ public class CurrentUserProvider {
         String userId = principal.getKeycloakSecurityContext().getToken().getSubject();
         String username = principal.toString();
         String email = principal.getKeycloakSecurityContext().getToken().getEmail();
-
         Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
 
         result.setUserId(userId);

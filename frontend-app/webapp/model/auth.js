@@ -6,6 +6,10 @@ sap.ui.define([
 	return {
 		getUsername: function() {
             return UserService.getKeycloak().idTokenParsed.preferred_username;
+        },
+
+		getUserId: function() {
+            return UserService.getKeycloak().idTokenParsed.sub;
         }
 	};
 

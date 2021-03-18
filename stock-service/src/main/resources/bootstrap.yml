@@ -1,8 +1,8 @@
 spring:
   application:
     name: stock-service
-  # profiles:
-  #   active: ${ACTIVE_PROFILE:dev}
+  profiles:
+    active: ${ACTIVE_PROFILE:local}
   cloud:
     config:
       uri: ${CONFIG_URI:http://localhost:8888}

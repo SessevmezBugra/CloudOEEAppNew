@@ -3,7 +3,6 @@ package com.oee.entity;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.oee.enums.AreaType;
 import com.oee.enums.UserGroup;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,9 +26,9 @@ public class ResponsibleArea {
 //	@Column(name="USER_ID")
 //	private String userId;
 
-	@Enumerated(EnumType.STRING)
-	@Column(name="AREA_TYPE")
-	private AreaType areaType;
+//	@Enumerated(EnumType.STRING)
+//	@Column(name="AREA_TYPE")
+//	private AreaType areaType;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name="AREA_ROLE")

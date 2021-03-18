@@ -1,0 +1,30 @@
+spring:
+  datasource:
+    hikari:
+      minimumIdle: 2
+      maximumPoolSize: 10
+      idleTimeout: 120000
+      connectionTimeout: 300000
+      leakDetectionThreshold: 300000
+    url: jdbc:mysql://${RDS_HOSTNAME:localhost}:${RDS_PORT:3312}/${RDS_DB_NAME:keycloak}?serverTimezone=UTC
+    username: ${RDS_USERNAME:keycloak}
+    password: ${RDS_PASSWORD:password}
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.MySQL8Dialect
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+keycloak:
+  resource: auth-service
+  credentials: 
+    secret: bb319aa1-c0d7-4e4d-a9b8-df5280506278
+    
+keycloak-admin-user: admin
+keycloak-admin-password: admin
+#  use-resource-role-mappings: true
+
+server:
+  port: 5000

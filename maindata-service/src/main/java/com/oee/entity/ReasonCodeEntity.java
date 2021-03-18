@@ -22,7 +22,7 @@ public class ReasonCodeEntity {
     private Long id;
 
     @JsonBackReference
-    @ManyToOne(optional=true)
+    @ManyToOne(optional=true, fetch = FetchType.LAZY)
     @JoinColumn(name="PLANT_ID")
     private PlantEntity plant;
 

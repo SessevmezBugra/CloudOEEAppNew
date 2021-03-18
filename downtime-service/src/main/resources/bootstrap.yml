@@ -1,6 +1,8 @@
 spring:
   application:
     name: downtime-service
+  profiles:
+    active: ${ACTIVE_PROFILE:local}
   cloud:
     config:
       uri: ${CONFIG_URI:http://localhost:8888}

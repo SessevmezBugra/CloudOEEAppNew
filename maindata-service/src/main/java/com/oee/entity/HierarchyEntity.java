@@ -20,7 +20,7 @@ public class HierarchyEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "CHILD_ID", referencedColumnName = "ID")
     private HierarchyEntity child;
 

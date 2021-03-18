@@ -1,0 +1,39 @@
+spring:
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+      routes:
+        - id: auth-service
+          uri: ${AUTH_SERVICE_URI:http://localhost:5000}
+          predicates:
+            - Path=/auth/**
+        - id: maindata-service
+          uri: ${MAINDATA_SERVICE_URI:http://localhost:8090}
+          predicates:
+            - Path=/main-data/**
+        - id: stock-service
+          uri: ${STOCK_SERVICE_URI:http://localhost:8070}
+          predicates:
+            - Path=/stock/**
+        - id: order-service
+          uri: ${ORDER_SERVICE_URI:http://localhost:8060}
+          predicates:
+            - Path=/order/**
+        - id: confirmation-service
+          uri: ${CONFIRMATION_SERVICE_URI:http://localhost:8050}
+          predicates:
+            - Path=/confirmation/**
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+
+server:
+  port: 4000

@@ -1,0 +1,88 @@
+security:
+  user:
+    name: myActuatorUser
+    password: myActuatorPwd
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    org.springframework.security.oauth2: INFO
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 1000000
+          strategy: THREAD
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka/}
+  server:
+        peer-node-read-timeout-ms: 300000
+#        enable-self-preservation: false
+        
+        
+spring:
+#  jackson:
+#    date-format: dd-MM-yyyy HH:mm
+  #  datasource:
+#    hikari:
+#      minimumIdle: 2
+#      maximumPoolSize: 10
+#      idleTimeout: 120000
+#      connectionTimeout: 300000
+#      leakDetectionThreshold: 300000
+#    url: jdbc:mysql://${RDS_HOSTNAME:3.tcp.eu.ngrok.io}:${RDS_PORT:21947}/${RDS_DB_NAME:cloudoeedb}?serverTimezone=UTC
+#    username: ${RDS_USERNAME:root}
+#    password: ${RDS_PASSWORD:123456}
+#  jpa:
+#    show-sql: true
+#    hibernate:
+#      ddl-auto: update
+#      dialect: org.hibernate.dialect.MySQL8Dialect
+#  rabbitmq:
+#    addresses: amqp://1.tcp.eu.ngrok.io:26460
+#    host: 1.tcp.eu.ngrok.io
+#    port: 26460
+#    username: guest
+#    password: guest
+  zipkin:
+#    sender:
+#      type: rabbit
+    baseUrl: ${ZIPKIN_URI:http://localhost:9411/}
+#    message-timeout: 10000
+  sleuth:
+    sampler:
+      probability: 1.0
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+  feign:
+    client:
+      config:
+        default:
+          connectTimeout: 50000
+          readTimeout: 50000
+ 
+keycloak:
+  auth-server-url: ${KEYCLOAK_URI:http://localhost:8080/auth}
+  realm: cloudoeeapp
+  bearer-only: true
+  public-client: true
+  principal-attribute: preferred_username
+  ssl-required: none
+    
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

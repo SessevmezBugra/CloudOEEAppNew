@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(ApiPaths.MachineCtrl.CTRL)
+@RequestMapping(ApiPaths.WorkCenterCtrl.CTRL)
 @RequiredArgsConstructor
 public class WorkCenterController {
 

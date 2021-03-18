@@ -11,7 +11,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import brave.sampler.Sampler;
 
 @EnableFeignClients
-@EnableGlobalMethodSecurity(jsr250Enabled = true)
 @SpringBootApplication
 public class AuthServiceApplication {
 
