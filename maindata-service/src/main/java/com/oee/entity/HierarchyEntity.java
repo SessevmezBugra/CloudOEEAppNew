@@ -30,9 +30,6 @@ public class HierarchyEntity {
     @Column(name="NODE_TYPE")
     private NodeType type;
 
-    @Column(name="IS_GLOBAL")
-    private Boolean isGlobal;
-
     @OneToMany(mappedBy="hierarchy", fetch = FetchType.LAZY)
     private List<NodeEntity> nodes;
 

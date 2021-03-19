@@ -23,6 +23,10 @@ public class PlantEntity {
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "NODE_ID", referencedColumnName = "ID")
 	private NodeEntity node;
+
+	@ManyToOne(optional=true, fetch = FetchType.LAZY)
+	@JoinColumn(name="SOURCE_PLANT_ID")
+	private PlantEntity sourcePlant;
 	
 	@Column(name="PLANT_NAME")
 	private String name;
@@ -30,7 +34,7 @@ public class PlantEntity {
 	@JsonManagedReference
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="plant", fetch = FetchType.LAZY)
 	private List<MaterialEntity> materials;
-	
+
 	@JsonManagedReference
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="plant", fetch = FetchType.LAZY)
 	private List<WarehouseEntity> warehouses;

@@ -27,7 +27,7 @@ public class NodeUserMappingEntity {
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PLANT_ID")
-    protected NodeEntity plant;
+    protected PlantEntity sourcePlant;
 
     @Getter
     @EqualsAndHashCode
