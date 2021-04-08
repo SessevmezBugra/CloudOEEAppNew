@@ -1,7 +1,9 @@
 package com.oee.entity;
 
-
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,23 +13,18 @@ import java.io.Serializable;
 @EqualsAndHashCode
 @NoArgsConstructor
 @Entity
-@Table(name = "NODE_USER_MAPPING")
-@IdClass(NodeUserMappingEntity.Key.class)
-public class NodeUserMappingEntity {
+@Table(name = "USER_NODE_MAPPING")
+@IdClass(UserNodeMappingEntity.Key.class)
+public class UserNodeMappingEntity {
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "NODE_ID")
-    protected NodeEntity node;
+    private NodeEntity node;
 
     @Id
-    @Column(name = "USERNAME")
-    protected String username;
-
-    @Id
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PLANT_ID")
-    protected PlantEntity sourcePlant;
+    @JoinColumn(name = "USERNAME")
+    private String username;
 
     @Getter
     @EqualsAndHashCode
@@ -37,8 +34,6 @@ public class NodeUserMappingEntity {
         protected NodeEntity node;
 
         protected String username;
-
-        protected NodeEntity plant;
 
     }
 }

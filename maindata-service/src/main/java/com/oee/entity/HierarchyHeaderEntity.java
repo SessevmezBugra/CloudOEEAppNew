@@ -1,6 +1,6 @@
 package com.oee.entity;
 
-import com.oee.enums.NodeType;
+import com.oee.enums.HierarchyType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,8 +12,8 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "HIERARCHY")
-public class HierarchyEntity {
+@Table(name = "HIERARCHY_HEADER")
+public class HierarchyHeaderEntity {
 
     @Id
     @Column(name = "ID")
@@ -27,10 +27,9 @@ public class HierarchyEntity {
     @Column(name="NAME")
     private String name;
 
-    @Column(name="NODE_TYPE")
-    private NodeType type;
+    @Column(name="HIERARCHY_TYPE")
+    private HierarchyType type;
 
     @OneToMany(mappedBy="hierarchy", fetch = FetchType.LAZY)
-    private List<NodeEntity> nodes;
-
+    private List<UserHierarchyHeaderMappingEntity> users;
 }

@@ -6,6 +6,7 @@ import com.oee.repository.NodeRepository;
 import com.oee.service.NodeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 @Service
 @RequiredArgsConstructor
@@ -24,12 +25,23 @@ public class NodeServiceImpl implements NodeService {
     }
 
     @Override
+    public NodeEntity updateParent(Long childNodeId, Long parentNodeId) {
+        if(ObjectUtils.isEmpty(childNodeId) || ObjectUtils.isEmpty(parentNodeId)) {
+            throw new IllegalArgumentException("Node has to be not empty.");
+        }
+        NodeEntity childNode = findById(childNodeId);
+        NodeEntity parentNode = findById(parentNodeId);
+        childNode.setParent(parentNode);
+        return nodeRepository.save(childNode);
+    }
+
+    @Override
     public void deleteById(Long id) {
         nodeRepository.deleteById(id);
     }
 
     @Override
     public NodeEntity findById(Long id) {
-        return nodeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Bu malzeme bulunamadi."));
+        return nodeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Node not found."));
     }
 }

@@ -6,7 +6,6 @@ import com.oee.enums.NodeType;
 public class HierarchyBuilder implements Builder<HierarchyEntity> {
 
     private HierarchyEntity hierarchy = new HierarchyEntity();
-    private boolean isGlobal = false;
 
     public HierarchyBuilder name(String name) {
         hierarchy.setName(name);
@@ -18,21 +17,13 @@ public class HierarchyBuilder implements Builder<HierarchyEntity> {
         return this;
     }
 
-    public HierarchyBuilder isGlobal(Boolean isGlobal) {
-        hierarchy.setIsGlobal(isGlobal);
-        this.isGlobal = isGlobal;
-        return this;
-    }
-
     public HierarchyBuilder addChild(String name, NodeType type) {
-
         HierarchyEntity child = new HierarchyEntity();
         child.setName(name);
         child.setType(type);
         HierarchyEntity lastHierarchy = findNullHierarchy(this.hierarchy);
         lastHierarchy.setChild(child);
         return this;
-
     }
 
     @Override
@@ -47,7 +38,7 @@ public class HierarchyBuilder implements Builder<HierarchyEntity> {
         return hierarchy;
     }
 
-//    public static void main(String[] args) {
+    public static void main(String[] args) {
 //        HierarchyEntity entity = new HierarchyEntity();
 //        HierarchyEntity entity1 = new HierarchyEntity();
 //        HierarchyEntity entity2 = new HierarchyEntity();
@@ -67,10 +58,18 @@ public class HierarchyBuilder implements Builder<HierarchyEntity> {
 //        entity2.setChild(entity3);
 //        entity3.setChild(entity4);
 //        entity4.setChild(entity5);
-//
+
 //        HierarchyBuilder hierarchyBuilder = new HierarchyBuilder();
 //        hierarchyBuilder.findNullHierarchy(entity);
-//
-//    }
+
+
+//        HierarchyBuilder builder = new HierarchyBuilder();
+//        builder.addUser("teset");
+//        builder.addUser("teset");
+//        builder.addUser("teset");
+//        HierarchyEntity entity = builder.addUser("teset").build();
+//        System.out.println(entity.getUsers().size());
+
+    }
 
 }

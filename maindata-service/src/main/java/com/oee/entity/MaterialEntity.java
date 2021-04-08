@@ -1,6 +1,5 @@
 package com.oee.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,8 +26,7 @@ public class MaterialEntity {
 
 	@Column(name="MATERIAL_DESC")
 	private String desc;
-	
-	@JsonBackReference
+
 	@ManyToOne(optional=true, fetch = FetchType.LAZY)
 	@JoinColumn(name="PLANT_ID", referencedColumnName = "ID")
 	private PlantEntity plant;

@@ -1,6 +1,7 @@
 package com.oee.util.builder;
 
 import com.oee.entity.MachineEntity;
+import com.oee.entity.PlantEntity;
 import com.oee.entity.WorkCenterEntity;
 import com.oee.enums.NodeType;
 
@@ -16,6 +17,11 @@ public class MachineBuilder extends NodeBuilder<MachineBuilder, MachineEntity> {
     public MachineBuilder name(String name) {
         nodeName(name);
         this.machine.setName(name);
+        return this;
+    }
+
+    public MachineBuilder plant(PlantEntity plant) {
+        this.machine.setPlant(plant);
         return this;
     }
 

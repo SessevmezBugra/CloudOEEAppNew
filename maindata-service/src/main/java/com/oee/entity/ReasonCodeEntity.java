@@ -1,7 +1,6 @@
 package com.oee.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.oee.enums.DataElementType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +20,6 @@ public class ReasonCodeEntity {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-    @JsonBackReference
     @ManyToOne(optional=true, fetch = FetchType.LAZY)
     @JoinColumn(name="PLANT_ID")
     private PlantEntity plant;

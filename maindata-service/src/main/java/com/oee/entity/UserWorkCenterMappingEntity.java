@@ -1,6 +1,5 @@
 package com.oee.entity;
 
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,28 +13,27 @@ import java.io.Serializable;
 @EqualsAndHashCode
 @NoArgsConstructor
 @Entity
-@Table(name = "ACCOUNT_HIERARCHY_MAPPING")
-@IdClass(AccountHierarchyMapping.Key.class)
-public class AccountHierarchyMapping {
+@Table(name = "WORK_CENTER_USER_MAPPING")
+@IdClass(UserWorkCenterMappingEntity.Key.class)
+public class UserWorkCenterMappingEntity {
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ACCOUNT_ID")
-    private AccountEntity accountEntity;
+    @JoinColumn(name = "WORK_CENTER_ID")
+    private WorkCenterEntity workCenter;
 
     @Id
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "HIERARCHY_ID")
-    private HierarchyEntity hierarchyEntity;
+    @JoinColumn(name = "USERNAME")
+    private String username;
 
     @Getter
     @EqualsAndHashCode
     @NoArgsConstructor
     public static class Key implements Serializable {
 
-        protected AccountEntity accountEntity;
+        protected WorkCenterEntity workCenter;
 
-        protected HierarchyEntity hierarchyEntity;
+        protected String username;
 
     }
 }

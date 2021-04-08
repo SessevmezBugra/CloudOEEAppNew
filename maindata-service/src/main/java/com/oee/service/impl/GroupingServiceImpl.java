@@ -4,6 +4,7 @@ import com.oee.entity.GroupingEntity;
 import com.oee.error.EntityNotFoundException;
 import com.oee.repository.GroupingRepository;
 import com.oee.service.GroupingService;
+import com.oee.util.builder.GroupingBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,8 @@ public class GroupingServiceImpl implements GroupingService {
 
     @Override
     public GroupingEntity create(GroupingEntity entity) {
-        return groupingRepository.save(entity);
+        GroupingEntity groupingEntity = new GroupingBuilder().name(entity.getName()).build();
+        return groupingRepository.save(groupingEntity);
     }
 
     @Override

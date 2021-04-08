@@ -1,6 +1,5 @@
 package com.oee.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,7 +18,6 @@ public class EquipmentEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonBackReference
     @ManyToOne(optional=true, fetch = FetchType.LAZY)
     @JoinColumn(name = "MACHINE_ID", referencedColumnName = "ID")
     private MachineEntity machine;

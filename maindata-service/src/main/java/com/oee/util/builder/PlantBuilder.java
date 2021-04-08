@@ -20,6 +20,22 @@ public class PlantBuilder extends NodeBuilder<PlantBuilder, PlantEntity>{
         return this;
     }
 
+    public PlantBuilder sourcePlant(PlantEntity sourcePlant) {
+        this.plant.setSourcePlant(sourcePlant);
+        return this;
+    }
+
+    public PlantBuilder addUser(String username) {
+        UserPlantMappingEntity userPlantMappingEntity = new UserPlantMappingEntity();
+        userPlantMappingEntity.setUsername(username);
+        userPlantMappingEntity.setPlant(this.plant);
+        if(plant.getUsers() == null) {
+            plant.setUsers(new ArrayList<>());
+        }
+        plant.getUsers().add(userPlantMappingEntity);
+        return this;
+    }
+
     public PlantBuilder addMaterial(MaterialEntity material) {
         if(plant.getMaterials() == null) {
             plant.setMaterials(new ArrayList<>());
