@@ -2,7 +2,7 @@ spring:
   cloud:
     gateway:
       default-filters:
-        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_FIRST
       globalcors:
         corsConfigurations:
           '[/**]':
@@ -14,7 +14,7 @@ spring:
           uri: ${AUTH_SERVICE_URI:http://localhost:5000}
           predicates:
             - Path=/auth/**
-        - id: maindata-service
+        - id: main-data-service
           uri: ${MAINDATA_SERVICE_URI:http://localhost:8090}
           predicates:
             - Path=/main-data/**
@@ -30,6 +30,10 @@ spring:
           uri: ${CONFIRMATION_SERVICE_URI:http://localhost:8050}
           predicates:
             - Path=/confirmation/**
+        - id: manufacturing-service
+          uri: ${MANUFACTURING_SERVICE_URI:http://localhost:8000}
+          predicates:
+            - Path=/manufacturing/**
 eureka:
   client:
     registerWithEureka: true

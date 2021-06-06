@@ -26,7 +26,7 @@
 								</f:header>
 								<f:content>
 									<VBox class="sapUiSmallMargin" justifyContent="SpaceBetween">
-										<Button type="Accept" press = "chooseRole" text="{i18n>CHOOSEROLE_FACTORY_CONTINUE}" customData:extraValue="COMPANY_OWNER"/>
+										<Button type="Accept" press = "chooseRole" text="{i18n>CHOOSEROLE_FACTORY_CONTINUE}" customData:extraValue="ORGANIZER"/>
 									</VBox>
 								</f:content>
 							</f:Card>

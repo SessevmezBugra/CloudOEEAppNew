@@ -9,8 +9,8 @@ sap.ui.define([
         roleDesc: function(role) {
             var resourceBundle = this.getView().getModel("i18n").getResourceBundle();
             switch (role) {
-                case "COMPANY_OWNER":
-                    return resourceBundle.getText("COMPANY_OWNER");
+                case "ORGANIZER":
+                    return resourceBundle.getText("ORGANIZER");
                 case "CLIENT_MANAGER":
                     return resourceBundle.getText("CLIENT_MANAGER");
                 case "PLANT_MANAGER":

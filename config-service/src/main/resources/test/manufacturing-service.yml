@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:CLOUDOEEAPP;AUTOCOMMIT=OFF;;mv_store=false;INIT=CREATE SCHEMA IF NOT EXISTS CLOUDOEEAPP
+    username: test
+    password: password
+    driver-class-name: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+keycloak:
+  resource: manufacturing-service
+  credentials:
+    secret: 8466c339-21ec-4061-aa28-95726b4ed0e0
+#  use-resource-role-mappings: true
+
+server:
+  port: 8000
+
+keycloak-admin-user: admin
+keycloak-admin-password: admin

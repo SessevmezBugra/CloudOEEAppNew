@@ -21,7 +21,7 @@ sap.ui.define([
 					localUserModel.setData(this.keycloak);
 					this.setModel(localUserModel, "localUserModel");
 
-					if(this.keycloak.hasRealmRole("COMPANY_OWNER") || this.keycloak.hasRealmRole("STAFF")){
+					if(this.keycloak.hasRealmRole("ORGANIZER") || this.keycloak.hasRealmRole("STAFF")){
 						this.getRouter().getHashChanger().replaceHash("factory");
 					} else {
 						// var oComponentTargetInfo = {};
@@ -58,7 +58,7 @@ sap.ui.define([
 			await this.getRouter().attachBeforeRouteMatched(function (oEvent) {
 				var target = this.getRouter().getHashChanger().hash;
 				if (this.keycloak.authenticated && !this.keycloak.isTokenExpired() && target != "factory" && target != "oeeapp") {
-					if(this.keycloak.hasRealmRole("COMPANY_OWNER") || this.keycloak.hasRealmRole("STAFF")){
+					if(this.keycloak.hasRealmRole("ORGANIZER") || this.keycloak.hasRealmRole("STAFF")){
 						this.getRouter().getHashChanger().replaceHash("factory");
 					}else if(target != "chooseRole"){
 						// var oComponentTargetInfo = {};

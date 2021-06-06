@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: main-data-service
+  profiles:
+    active: ${ACTIVE_PROFILE:test}
+  cloud:
+    config:
+      uri: ${CONFIG_URI:http://localhost:8888}
+      fail-fast: ${FAIL_FAST:false}
+      password: 123456
+      username: user
+

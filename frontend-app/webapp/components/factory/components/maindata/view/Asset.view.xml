@@ -46,7 +46,7 @@
         <OverflowToolbar>
             <ToolbarSpacer/>
             <!-- <Button type="Accept" text="{i18n>ORDER_BTN_CREATE}" press=".openCreateOrderDialog"/> -->
-            <Button type="Accept" text="{i18n>COMPANY_BTN_CREATE}" press=".openCreateAssetDialog"/>
+            <Button type="Accept" text="{i18n>ASSET_BTN_CREATE}" press=".openCreateAssetDialog"/>
         </OverflowToolbar>
     </f:footer>
 </f:DynamicPage>

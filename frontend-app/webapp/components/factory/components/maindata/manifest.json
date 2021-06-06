@@ -76,6 +76,12 @@
 					"layout": "EndColumnFullScreen"
 				},
 				{
+					"pattern": "hierarchy",
+					"name": "hierarchy",
+					"target": "hierarchy",
+					"layout": "EndColumnFullScreen"
+				},
+				{
 					"pattern": "asset",
 					"name": "asset",
 					"target": "asset"
@@ -101,6 +107,10 @@
 				},
 				"home": {
 					"viewName": "Home",
+					"controlAggregation": "endColumnPages"
+				},
+				"hierarchy": {
+					"viewName": "Hierarchy",
 					"controlAggregation": "endColumnPages"
 				},
 				"notFound": {

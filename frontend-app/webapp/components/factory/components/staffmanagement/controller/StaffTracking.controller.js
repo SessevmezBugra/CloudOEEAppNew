@@ -109,7 +109,7 @@ sap.ui.define([
 			var assets = [];
 			this.showBusyIndicator();
 			var selectedRole = oEvent.getSource().getSelectedKey();
-			if (selectedRole == "COMPANY_OWNER") {
+			if (selectedRole == "ORGANIZER") {
 				this.getCompanies(function (isOk) {
 					var companies = this.getModel("staffModel").getData().companies;
 					for (var company of companies) {
@@ -188,7 +188,7 @@ sap.ui.define([
 				}
 				else {
 					this._oDialog.close();
-					if (personData.selectedRole == "COMPANY_OWNER") {
+					if (personData.selectedRole == "ORGANIZER") {
 						AuthService.addCompanyOwner(personadd).then(function (response) {
 							this.closePersonDialog();
 							// callback(true);

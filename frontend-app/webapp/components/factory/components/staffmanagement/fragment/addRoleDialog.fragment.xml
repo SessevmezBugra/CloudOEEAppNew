@@ -9,7 +9,7 @@
                     <f:content>
                         <Label text="{i18n>SELECT_ROLE}" />
                         <Select forceSelection="false" selectedKey="{staffModel>/selectedRole}" change="onSelectedRole">
-                            <core:Item text="Şirket Yöneticisi" key="COMPANY_OWNER"/>
+                            <core:Item text="Şirket Yöneticisi" key="ORGANIZER"/>
                             <core:Item text="Bölge Yöneticisi" key="CLIENT_MANAGER"/>
                             <core:Item text="Fabrika Yöneticisi" key="PLANT_MANAGER"/>
                             <core:Item text="Operatör" key="OPERATOR"/>

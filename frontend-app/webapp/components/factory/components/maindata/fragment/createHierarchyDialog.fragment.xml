@@ -1,0 +1,48 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core">
+    <Dialog title="Bir hiyerarsi olusturun">
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+                    <f:content>
+
+                        <Label text="Hiyerarsi Basligi" />
+                        <Input value="{hierarchyModel>/newHierarchy/name}"/>
+                        <Label labelFor="rbg1" text="Hiyerarsi Tipi" />
+                        <RadioButtonGroup id="rbg1" selectedIndex="{hierarchyModel>/hierarchyType}" columns="2" select="onChangeHierarchyType">
+                            <RadioButton id="global" text="Global" />
+                            <RadioButton id="plant" text="Plant" />
+                        </RadioButtonGroup>
+                    </f:content>
+                </f:SimpleForm>
+
+                <Tree id="newHierarchyTree" items="{path:'hierarchyModel>/newHierarchy/child', parameters : { arrayNames : ['child'] }, templateShareable:false}" width="auto">
+                    <CustomTreeItem>
+                        <FlexBox >
+                            <items>
+                                <Select id="nodeTypeSelect" editable="{= !${hierarchyModel>hasChild} &amp;&amp; ${hierarchyModel>type} !== 'PLANT' &amp;&amp; ${hierarchyModel>type} !== 'MACHINE' }" forceSelection="true" selectedKey="{hierarchyModel>type}" items="{path: 'hierarchyModel>availableNodeTypes', templateShareable:false}">
+                                    <core:Item key="{hierarchyModel>key}" text="{hierarchyModel>desc}" />
+                                </Select>
+                                <Input value="{hierarchyModel>name}">
+                                </Input>
+                                <Button visible="{= !${hierarchyModel>hasChild} &amp;&amp; ((${hierarchyModel>/hierarchyType} === 0 &amp;&amp; ${hierarchyModel>type} !== 'PLANT') || (${hierarchyModel>/hierarchyType} === 1 &amp;&amp; ${hierarchyModel>type} !== 'MACHINE')) }" type="Accept" icon="sap-icon://add" press=".addHierarchy" class="sapUiSmallMarginBegin" />
+                                <Button visible="{= ${hierarchyModel>hasParent}}" type="Reject" icon="sap-icon://decline" press=".removeHierarchy" class="sapUiSmallMarginBegin"/>
+                            </items>
+                        </FlexBox>
+                    </CustomTreeItem>
+                </Tree>
+            </VBox>
+        </content>
+        <beginButton>
+            <Button text="Olustur" press=".createHierarchy">
+            </Button>
+        </beginButton>
+        <endButton>
+            <Button text="Iptal" press=".closeHierarchyDialog">
+            </Button>
+        </endButton>
+
+    </Dialog>
+</core:FragmentDefinition>

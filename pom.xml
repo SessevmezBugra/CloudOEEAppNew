@@ -26,7 +26,7 @@
     </properties>
 
     <modules>
-        <module>maindata-service</module>
+        <module>main-data-service</module>
         <module>order-service</module>
         <module>stock-service</module>
         <module>gateway-service</module>
@@ -34,6 +34,7 @@
         <module>config-service</module>
         <module>eureka-server</module>
         <module>auth-service</module>
+        <module>manufacturing-service</module>
     </modules>
 
     <dependencyManagement>

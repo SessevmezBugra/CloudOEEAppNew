@@ -7,7 +7,7 @@ sap.ui.define([
 		
 		KEYCLOAK_URI: (window.location.origin.includes("localhost") ? "http://localhost:8081" : "https://service.arcloudfactories.com"),
 		
-		COMPANY_OWNER: "COMPANY_OWNER",
+		ORGANIZER: "ORGANIZER",
 
 		STAFF: "STAFF"
 	};

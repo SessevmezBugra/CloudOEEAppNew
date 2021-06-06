@@ -92,7 +92,7 @@ sap.ui.define([
 
 			var roleService;
 
-			if(staffData.selectedRole == "COMPANY_OWNER") {
+			if(staffData.selectedRole == "ORGANIZER") {
 				roleService = AuthService.addCompanyOwnerRole;
 			} else if(staffData.selectedRole == "CLIENT_MANAGER") {
 				roleService = AuthService.addClientManagerRole;
@@ -120,7 +120,7 @@ sap.ui.define([
 			this.showBusyIndicator();
 			var selectedRole = oEvent.getSource().getSelectedKey();
 			this.getModel("staffModel").setProperty("/selectedRole", selectedRole);
-			if (selectedRole == "COMPANY_OWNER") {
+			if (selectedRole == "ORGANIZER") {
 				this.getCompanies(function (isOk) {
 					var companies = this.getModel("staffModel").getData().companies;
 					for (var company of companies) {

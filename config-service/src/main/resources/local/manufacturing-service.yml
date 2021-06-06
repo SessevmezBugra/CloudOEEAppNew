@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    hikari:
+      minimumIdle: 2
+      maximumPoolSize: 10
+      idleTimeout: 120000
+      connectionTimeout: 300000
+      leakDetectionThreshold: 300000
+    url: jdbc:mysql://${RDS_HOSTNAME:localhost}:${RDS_PORT:3306}/${RDS_DB_NAME:cloudoeedb}?serverTimezone=UTC&createDatabaseIfNotExist=true
+    username: ${RDS_USERNAME:root}
+    password: ${RDS_PASSWORD:123456}
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.MySQL8Dialect
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  cache:
+    type: redis
+    redis:
+      host: ${REDIS_HOSTNAME:localhost}
+      port: ${REDIS_PORT:6379}
+      key-prefix: manufacturing-
+
+keycloak:
+  resource: manufacturing-service
+  credentials: 
+    secret: 8466c339-21ec-4061-aa28-95726b4ed0e0
+#  use-resource-role-mappings: true
+
+server:
+  port: 8000

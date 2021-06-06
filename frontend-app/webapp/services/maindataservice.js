@@ -5,36 +5,17 @@ sap.ui.define([
     "use strict";
     
     return {
-
-        //COMPANY
-        createCompany: function(company) {
-            return Service.doAjax(Constant.baseUri() + "/main-data/company",company, "POST", true);
+        //HIERARCHY
+        getHierarchyHeaders: function(id){
+            return Service.doAjax(Constant.SERVICE_URI + "/main-data/hierarchy-header",null,"GET",true);
         },
-        getCompanies: function() {
-            return Service.doAjax(Constant.baseUri() + "/main-data/company","", "GET", true);
-        },
-        getCompanyInfo: function(id) {
-            return Service.doAjax(Constant.baseUri() + "/main-data/company/" + id, null, "GET", true);
-        },
-        deleteCompanyById: function(id) {
-            return Service.doAjax(Constant.baseUri() + "/main-data/company/" + id, null, "DELETE", true);
+        createHierarchy: function(hierarchy) {
+            return Service.doAjax(Constant.SERVICE_URI + "/main-data/hierarchy-header", hierarchy, "POST", true);
         },
 
-        //CLIENT
-        getClients: function() {
-            return Service.doAjax(Constant.baseUri() + "/main-data/client", null, "GET", true);
-        },
-        createClient: function(client) {
-            return Service.doAjax(Constant.baseUri() + "/main-data/client", client, "POST", true);
-        },
-        getClientInfo: function(id){
-            return Service.doAjax(Constant.baseUri() + "/main-data/client/"+id,null,"GET",true);
-        },
-        getClientInfoByCompanyId: function(id) {
-            return Service.doAjax(Constant.baseUri() + "/main-data/client/company/" + id, null, "GET", true);
-        },
-        deleteClientById: function(id) {
-            return Service.doAjax(Constant.baseUri() + "/main-data/client/" + id, null, "DELETE", true);
+        //NODES
+        getGlobalNodes: function() {
+            return Service.doAjax(Constant.SERVICE_URI + "/main-data/node", null, "GET", true);
         },
 
         //PLANT

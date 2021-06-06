@@ -18,7 +18,7 @@ spring:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
 keycloak:
-  resource: maindata-service
+  resource: main-data-service
   credentials: 
     secret: 194ba7af-a174-4210-a025-1f039b0ac17e
 #  use-resource-role-mappings: true

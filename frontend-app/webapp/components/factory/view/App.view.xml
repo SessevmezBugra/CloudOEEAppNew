@@ -32,16 +32,8 @@
 					<tnt:NavigationListItem text="Ana Veriler" key="mainData" icon="sap-icon://database">
 						<tnt:NavigationListItem  text="Varliklar" key="asset">
 						</tnt:NavigationListItem>
-						<!-- <tnt:NavigationListItem  text="Şirketler" key="company">
+						<tnt:NavigationListItem  text="Hiyerarsiler" key="hierarchy">
 						</tnt:NavigationListItem>
-						<tnt:NavigationListItem  text="Bolgeler" key="client">
-						</tnt:NavigationListItem>
-						<tnt:NavigationListItem  text="Fabrikalar" key="plantEntity">
-						</tnt:NavigationListItem>
-						<tnt:NavigationListItem  text="Depolar" key="warehouseEntity">
-						</tnt:NavigationListItem>
-						<tnt:NavigationListItem  text="Malzemeler" key="materialEntity">
-						</tnt:NavigationListItem> -->
 					</tnt:NavigationListItem>
 					<tnt:NavigationListItem text="Stok Yonetimi" key="stockManagement" icon="sap-icon://inventory">
 						<tnt:NavigationListItem text="Stok Takibi" key="stockTracking">
