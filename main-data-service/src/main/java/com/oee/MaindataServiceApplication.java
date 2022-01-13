@@ -25,7 +25,7 @@ public class MaindataServiceApplication {
 
 	@Bean
 	public ModelMapper getModelMapper() {
-		ModelMapper mapper =new ModelMapper();
+		ModelMapper mapper = new ModelMapper();
 		mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 		return mapper;
 	}
